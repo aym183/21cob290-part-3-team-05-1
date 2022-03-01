@@ -1,0 +1,1 @@
+This is the folder for files that are used for styling the website.
