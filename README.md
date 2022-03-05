@@ -21,7 +21,26 @@ Check [communication](https://github.com/aym183/21cob290-part-3-team-05-1/blob/d
 
 ## Sci-project
 
-Check group-credentials.txt to log in 
+### Accessing sci-project server
+
+Run the following command in your terminal:
+
+```
+ssh team005b@sci-project.lboro.ac.uk
+```
+
+When asked for password, enter the password from ISPConfig in `group-credentials.txt` file.
+
+### Accessing database on sci-project sever
+
+Once you are connected to sci-project server via `ssh`, you can access the
+database with the following command:
+
+```
+mysql --user=teamb005 --password=F8FsNVl3rE teamb005
+```
+
+You should see the prompt `MariaDB [teamb005]>` and you are ready to enter SQL commands.
 
 ## Authors
 
