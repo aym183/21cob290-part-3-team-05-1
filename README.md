@@ -26,7 +26,7 @@ Check [communication](https://github.com/aym183/21cob290-part-3-team-05-1/blob/d
 Run the following command in your terminal:
 
 ```
-ssh team005b@sci-project.lboro.ac.uk
+ssh teamb005@sci-project.lboro.ac.uk
 ```
 
 When asked for password, enter the password from ISPConfig in `group-credentials.txt` file.
