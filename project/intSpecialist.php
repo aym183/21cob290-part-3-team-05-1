@@ -100,7 +100,13 @@
                             <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
                         </li>
-                    </a>                   
+                    </a>     
+                    <a href="specialist_messages.php" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-plus"></i></p>
+                            <p class="navbar__links">Notifications</p>
+                        </li>
+                    </a>               
                     <a href="specialist_account.php" class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
