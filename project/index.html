@@ -36,7 +36,6 @@
                                 <option value="active">Active</option>
                                 <option value="submitted">Submitted</option>
                                 <option value="dropped">Dropped</option>
-                                <option value="pending">Pending</option>
                             </select>
                             <p class= "filter-tag">Ticket ID</p>
                             <input type="text" class="filter-search" id ="filter-id">
@@ -76,8 +75,9 @@
                 </div>
 
                 <div class="profile__container">
-                    <a href="operator-account.php" class="profile__item" id="profile-username">
-                        
+                    <a href="employee_account.html" class="profile__item" id="profile-username">
+
+                        <p id="username">Account</p>
                         <!--This is James part
                         -->
                         <!-- <?php
@@ -148,7 +148,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="ticket-body op-ticket-body">
+                <tbody class="ticket-body employee-ticket-body">
                 <!-- <?php
                     $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
                     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -191,7 +191,7 @@
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="index.php" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
                         </div>   
                     </div>
                     <div class="information__title">
