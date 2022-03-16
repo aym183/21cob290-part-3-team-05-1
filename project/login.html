@@ -3,10 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=!, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log In</title>
 </head>
+
 <body>
-    <h1>LOGIN</h1>
-    
+    <div class="card vertical-center">
+        <div class="card" >
+            <div class="card-body">
+                <h1 class="card-title text-center">Deskspace</h1>
+                <p class="card-subtitle text-center">Login</p>
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" action="login" class="card mt-3">
+                <div class="card-body">
+                    <div class="mb-3 mt-2">
+                        <label for="uname">Username: </label>
+                        <input type="text" class="form-control" name="uname" id="username" placeholder="Enter Username Here">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pword">Password: </label>
+                        <input type="password" class="form-control" name="pword" id="password" placeholder="Enter Password Here">
+                    </div>
+                    <div class="alert d-none" id="loginAlertBox">
+                        This is just a placeholder, show and hide this as needed
+                    </div>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+            </form>
+            
+        </div>
+
+    </div>
+    </div>
+    <script>
+    </script>
+</body> 
+
 </body>
 </html>
