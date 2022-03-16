@@ -4,9 +4,10 @@ const express = require('express');
 const { connect } = require('./dbconfig');
 const app = express()
 var path = require('path')
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.set('views', __dirname);
+// app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
+// app.set('views', __dirname);
+app.use(express.static(path.join(__dirname, 'public')));
 
 const sayHi = require('./dbconfig');
 const mysql = require('mysql2')
@@ -24,9 +25,10 @@ app.get('/', (req, res) =>{
 app.get('/index', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
-    app.use(express.static(path.join(__dirname, 'public')));
-    res.render('index.html');
-    res.end()
+    
+    // res.render('index.html');
+    res.sendFile(path.join(__dirname +  '/index.html'));
+    // res.end()
     // console.log('user here')
     // console.log(sayHi)
     
