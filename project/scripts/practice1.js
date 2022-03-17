@@ -23,7 +23,7 @@ app.get('/', (req, res) =>{
 
 });
 
-app.get('/faq', (req, res) =>{
+app.get('/faq.html', (req, res) =>{
     console.log("faq")
     res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
