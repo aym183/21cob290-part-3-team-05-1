@@ -8,6 +8,8 @@ var path = require('path')
 // app.set('view engine', 'html');
 // app.set('views', __dirname);
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
 
 const sayHi = require('./dbconfig');
 const mysql = require('mysql2')
@@ -33,9 +35,11 @@ app.get('/faq.html', (req, res) =>{
 app.get('/index', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
-    
+    res.render('index', {
+        title: 'Deskspace'
+    })
     // res.render('index.html');
-    res.sendFile(path.join(__dirname +  '/index.html'));
+    // res.sendFile(path.join(__dirname +  '/index.html'));
     // res.end()
     // console.log('user here')
     // console.log(sayHi)
@@ -55,16 +59,16 @@ app.get('/index', (req, res) => {
     //     })
     // })
 
-    // const con = require('./dbconfig');
+    const con = require('./dbconfig');
 
-    // con.query("SELECT * from ticket", function (err, result, fields) {
-    //     if (err) throw err;
-    //     console.log(result);
+    con.query("SELECT * from problem_type;", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
 
-    //     const table = document.querySelector('ticket-body employee-ticket-body');
-    // });
+        // const table = document.querySelector('ticket-body employee-ticket-body');
+    });
 
-    // con.end();
+    con.end();
 
     // sayHi.query("{SELECT * from ProblemType", function (err, result, fields) {
     //     // if (err) throw err;

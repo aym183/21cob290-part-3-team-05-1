@@ -9,6 +9,9 @@ var path = require('path')
 // app.set('views', __dirname);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+
 const sayHi = require('./dbconfig');
 const mysql = require('mysql2')
 var port = process.env.PORT;
@@ -39,7 +42,9 @@ app.get('/index', (req, res) => {
     // res.end()
     // console.log('user here')
     // console.log(sayHi)
-    
+    res.render('Demo', {
+        title: 'View Engine Demo'
+    })
 
     // res.send("i here")
     // res.end()
