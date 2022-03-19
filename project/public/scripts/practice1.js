@@ -16,6 +16,8 @@ const mysql = require('mysql2')
 var port = process.env.PORT;
 console.log(port)
 
+var query_output;
+
 //5005
 
 app.get('/', (req, res) =>{
@@ -34,10 +36,26 @@ app.get('/faq.html', (req, res) =>{
 
 app.get('/index', (req, res) => {  
     console.log("index")
+    const con = require('./dbconfig');
+
+    con.query("SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 2013;", function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+        query_output = result;
+        console.log(result[0].status);
+        // for(i = 0; i< 5; i++){
+        //     console.log(result[i]);
+
+        // }
+        res.render('index', {
+            dropdownVals: result
+        })
+        // const table = document.querySelector('ticket-body employee-ticket-body');
+    });
+
+    con.end();
     // res.writeHead(200, {'content-type':'text/html'})
-    res.render('index', {
-        title: 'Deskspace'
-    })
+    
     // res.render('index.html');
     // res.sendFile(path.join(__dirname +  '/index.html'));
     // res.end()
@@ -59,16 +77,7 @@ app.get('/index', (req, res) => {
     //     })
     // })
 
-    const con = require('./dbconfig');
-
-    con.query("SELECT * from problem_type;", function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-
-        // const table = document.querySelector('ticket-body employee-ticket-body');
-    });
-
-    con.end();
+   
 
     // sayHi.query("{SELECT * from ProblemType", function (err, result, fields) {
     //     // if (err) throw err;

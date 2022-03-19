@@ -17,7 +17,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <a href="index.html" id="navbar__logo"><%= title %></a>
+                        <a href="index.html" id="navbar__logo">Deskspace</a>
                     </div>    
                     <div class="topNavbar__search" id="search-div">
                         <div class="search__container">
@@ -143,13 +143,23 @@
                         <th>Status</th> 
                         <th>ID</th> 
                         <th>Problem Type</th>     
-                        <th>Name</th> 
                         <th>Last Updated</th> 
                         <th>Handler</th> 
                     </tr>
                 </thead>
 
                 <tbody class="ticket-body employee-ticket-body">
+                    <% for(var i=0; i < dropdownVals.length; i++) { %>
+                        <tr>
+                            <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
+                            <td><%=dropdownVals[i].ticket_id%></td>
+                            <td><%=dropdownVals[i].name%></td>
+                            <td><%=dropdownVals[i].last_updated%></td>
+                            <td><%=dropdownVals[i].handler_id%></td>
+                                        
+                        <!-- <option><%= dropdownVals[i] %></option> -->
+                     <% } %>
+                        </tr>
                 <!-- <?php
                     $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
                     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -415,7 +425,7 @@
             <p class="center">&#169; 2022 AHS</p>
         </footer>
     </div>
-    <script src="scripts/app.js">
+    <script src="/scripts/app.js">
         $(document).ready(function () {
             $(document.body).on("click", "#navbar__logo", function(e) {
                 e.preventDefault();
