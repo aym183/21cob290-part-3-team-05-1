@@ -51,9 +51,10 @@ app.get('/index', (req, res) => {
             dropdownVals: result
         })
         // const table = document.querySelector('ticket-body employee-ticket-body');
+        con.end();
     });
 
-    con.end();
+    
     // res.writeHead(200, {'content-type':'text/html'})
     
     // res.render('index.html');

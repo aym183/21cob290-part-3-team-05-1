@@ -1,18 +1,17 @@
 /* File formost of node/express operations */
 
 const express = require('express');
-const { connect } = require('./dbconfig');
+const { connect } = require('./public/scripts/dbconfig');
 const app = express()
 var path = require('path')
 // app.engine('html', require('ejs').renderFile);
 // app.set('view engine', 'html');
 // app.set('views', __dirname);
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-const sayHi = require('./dbconfig');
+const sayHi = require('./public/scripts/dbconfig');
 const mysql = require('mysql2')
 var port = process.env.PORT;
 console.log(port)
@@ -37,14 +36,24 @@ app.get('/index', (req, res) => {
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
     
-    // res.render('index.html');
-    res.sendFile(path.join(__dirname +  '/index.html'));
-    // res.end()
-    // console.log('user here')
-    // console.log(sayHi)
-    res.render('Demo', {
-        title: 'View Engine Demo'
-    })
+    const con = require('./public/scripts/dbconfig');
+
+    con.query("SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 2013;", function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+        query_output = result;
+        console.log(result[0].status);
+        // for(i = 0; i< 5; i++){
+        //     console.log(result[i]);
+
+        // }
+        res.render('index', {
+            dropdownVals: result
+        })
+        // const table = document.querySelector('ticket-body employee-ticket-body');
+        con.end();
+    });
+
 
     // res.send("i here")
     // res.end()
