@@ -45,7 +45,7 @@ You should see the prompt `MariaDB [teamb005]>` and you are ready to enter SQL c
 
 ## Authors
 
-[Website Name] is created by:
+[Deskspace] is created by:
 
 - Ajmal Abdul Majeed
 - Mir Ayman Ali
