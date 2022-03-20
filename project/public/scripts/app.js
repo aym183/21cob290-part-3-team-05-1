@@ -12,8 +12,8 @@ var ready = (callback) => {
 var problemTypes = [];
 
 ready(() => { 
-    loadData(); 
-    getProblemTypes();
+    // loadData(); 
+    // getProblemTypes();
 });
 
 var emp_table;
@@ -825,24 +825,24 @@ ready(() => {
 });
 
 // Get relevant data for input fields and store in variables for later use
-function loadData() {
-    var xhttp = new XMLHttpRequest();
+// function loadData() {
+//     var xhttp = new XMLHttpRequest();
     
-    xhttp.onload = function() {
-        var info = JSON.parse(this.responseText);
+//     xhttp.onload = function() {
+//         var info = JSON.parse(this.responseText);
        
-        emp_table = info[0];
-        handler_table = info[1];
-        hardware_table = info[2];
-        os_table = info[3];
-        software_table = info[4];
-        operator_table = info[5];
+//         emp_table = info[0];
+//         handler_table = info[1];
+//         hardware_table = info[2];
+//         os_table = info[3];
+//         software_table = info[4];
+//         operator_table = info[5];
     
-    };
-    xhttp.open("POST", "data_tables.php");
-    xhttp.setRequestHeader("Content-type", 'application/json');
-    xhttp.send();
-}
+//     };
+//     xhttp.open("POST", "data_tables.php");
+//     xhttp.setRequestHeader("Content-type", 'application/json');
+//     xhttp.send();
+// }
 
 // Input Fields Events
 ready(() => { 
@@ -1124,26 +1124,40 @@ function createPreviousFix1(previousFix, type) {
 /**
  * Get all problem types from the database.
  */
-function getProblemTypes() {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(this.responseText);
-            if (response['status']['success'] === true) {
-                problemTypes = response['data'];
-            } else {
-                const message = document.createElement('div');
-                const p = message.appendChild(document.createElement('p'));
-                p.textContent = response['status']['errorMessage'];
-                createPopUp(
-                    message,
-                    [
-                        {text: "OK", colour: "#af0505"}
-                    ]
-                );
-            }
-        }
-    };
-    httpRequest.open("GET", "api/v1/problem-types", true);
-    httpRequest.send();
-}
+// function getProblemTypes() {
+//     var httpRequest = new XMLHttpRequest();
+//     httpRequest.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             const response = JSON.parse(this.responseText);
+//             if (response['status']['success'] === true) {
+//                 problemTypes = response['data'];
+//             } else {
+//                 const message = document.createElement('div');
+//                 const p = message.appendChild(document.createElement('p'));
+//                 p.textContent = response['status']['errorMessage'];
+//                 createPopUp(
+//                     message,
+//                     [
+//                         {text: "OK", colour: "#af0505"}
+//                     ]
+//                 );
+//             }
+//         }
+//     };
+//     httpRequest.open("GET", "api/v1/problem-types", true);
+//     httpRequest.send();
+// }
+
+
+function convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    //   console.log([date.getFullYear(), mnth, day].join("-"));
+    console.log(document.getElementById('lastUpdated'))
+    console.log([date.getFullYear(), mnth, day].join("-"))
+        document.getElementById('lastUpdated').innerHTML = [date.getFullYear(), mnth, day].join("-");
+    // return [date.getFullYear(), mnth, day].join("-");
+  }
+
+convert(document.getElementById('lastUpdated'));

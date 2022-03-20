@@ -128,17 +128,10 @@ CREATE TABLE IF NOT EXISTS dropped (
     drop_date DATE NOT NULL,
     drop_time TIME NOT NULL,
     ticket_id MEDIUMINT UNSIGNED NOT NULL,
-    -- internal_specialist_id MEDIUMINT UNSIGNED,
-    -- external_specialist_id MEDIUMINT UNSIGNED,
     handler_id MEDIUMINT UNSIGNED NOT NULL,
     PRIMARY KEY (drop_id),
     FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
     FOREIGN KEY (handler_id) REFERENCES handler(user_id)
-    -- FOREIGN KEY (internal_specialist_id) REFERENCES internal_specialist(employee_id),
-    -- FOREIGN KEY (external_specialist_id) REFERENCES external_specialist(external_specialist_id),
-    -- CONSTRAINT either_internal_or_external CHECK
-    --     ((internal_specialist_id IS NOT NULL AND external_specialist_id IS NULL)
-    --     OR (internal_specialist_id IS NULL AND external_specialist_id IS NOT NULL))
 );
 
 CREATE TABLE IF NOT EXISTS skillset (
