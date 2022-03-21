@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS employee (
     name VARCHAR(150),
     job VARCHAR(100),
     department VARCHAR(100),
-    telephone CHAR(10),
+    telephone CHAR(15),
     PRIMARY KEY (employee_id)
 );
 
