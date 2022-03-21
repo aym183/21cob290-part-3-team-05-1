@@ -39,24 +39,22 @@ app.get('/index.html', (req, res) => {
     
     const con = require('./public/scripts/dbconfig');
 
-    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
-    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-    INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-    WHERE ticket.employee_id = 2005
-    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                WHEN status = 'submitted' THEN 2
-                WHEN status = 'pending' THEN 3
-                WHEN status = 'unsuccessful' THEN 4
-                WHEN status = 'active' THEN 5
-                ELSE 6 END`, 
+<<<<<<< HEAD
+    con.query(`SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 5;`, 
+=======
+    con.query("SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 5;", 
+>>>>>>> 1590ce79f016fc6f9195e553aac2c20d71a0073a
     function (err, result, fields) {
         if (err) throw err;
     
         query_output = result;
+<<<<<<< HEAD
+=======
+
+        console.log(result);
+        // for(i = 0; i< 5; i++){
+        //     console.log(result[i]);
+>>>>>>> 1590ce79f016fc6f9195e553aac2c20d71a0073a
 
 
         // console.log(result);
@@ -130,5 +128,5 @@ app.get('/index.html', (req, res) => {
 // app.set('port', port);
 
 
-
-app.listen(port)
+// port
+app.listen(5005)
