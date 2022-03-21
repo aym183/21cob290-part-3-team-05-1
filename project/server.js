@@ -38,13 +38,12 @@ app.get('/index.html', (req, res) => {
     
     const con = require('./public/scripts/dbconfig');
 
-    con.query("SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 5;", 
+    con.query("SELECT status, ticket_id, problem_type.name, last_updated, handler_id from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 2013;", 
     function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
         query_output = result;
-
-        console.log(result);
+        console.log(result[0].status);
         // for(i = 0; i< 5; i++){
         //     console.log(result[i]);
 
@@ -98,5 +97,5 @@ app.get('/index.html', (req, res) => {
 // app.set('port', port);
 
 
-// port
-app.listen(5005)
+
+app.listen(port)
