@@ -1,4 +1,4 @@
--- Dummy data as of 10.03.22 (March 10)
+-- Dummy data as of 21.03.22 (March 21)
 
 INSERT INTO `employee` (`employee_id`, `name`, `job`, `department`, `telephone`) VALUES
 (2001 , 'Marie Kelle' ,'Specialist'  ,'Legal' ,'+44 5283 803529' ),
