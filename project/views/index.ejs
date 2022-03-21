@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
-    <script src="/scripts/app.js"></script>
     <title>Home Page</title>
 </head>
 <body>
@@ -150,7 +149,6 @@
                 </thead>
 
                 <tbody class="ticket-body employee-ticket-body">
-                    <script>console.log(dropdownVals)</script>
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
                             <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
@@ -427,6 +425,8 @@
             <p class="center">&#169; 2022 AHS</p>
         </footer>
     </div>
+
+    <script src="/scripts/app.js"></script>
  
         <!-- // $(document).ready(function () {
         //     $(document.body).on("click", "#navbar__logo", function(e) {

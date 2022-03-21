@@ -1150,13 +1150,14 @@ function createPreviousFix1(previousFix, type) {
 
 
 function convert(str) {
+    console.log(str.innerHTML);
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     //   console.log([date.getFullYear(), mnth, day].join("-"));
     console.log(document.getElementById('lastUpdated'))
     console.log([date.getFullYear(), mnth, day].join("-"))
-        document.getElementById('lastUpdated').innerHTML = [date.getFullYear(), mnth, day].join("-");
+        // document.getElementById('lastUpdated').innerHTML = [date.getFullYear(), mnth, day].join("-");
     // return [date.getFullYear(), mnth, day].join("-");
   }
 

@@ -55,23 +55,11 @@ app.get('/index.html', (req, res) => {
                 ELSE 6 END`, 
     function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
-
+    
         query_output = result;
 
-        console.log(result);
-        // for(i = 0; i< 5; i++){
-        //     console.log(result[i]);
-
-        // }
-
-        // res.render('index', {
-        //     dropdownVals: result,
-
-        // })
-
-
-        // const table = document.querySelector('ticket-body employee-ticket-body');
+        // console.log(result);
+    
         con.end();
     });
 
@@ -86,13 +74,9 @@ app.get('/index.html', (req, res) => {
                 ELSE 6 END`, 
     function (err, result, fields) {
         if (err) throw err;
+
         // console.log(result);
-
-        console.log(result);
-        // for(i = 0; i< 5; i++){
-        //     console.log(result[i]);
-
-        // }
+    
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: result,
