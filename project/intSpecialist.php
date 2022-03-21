@@ -428,3 +428,7 @@
     <script src="scripts/function.js"></script>
 </body>
 </html>
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security

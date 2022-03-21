@@ -58,6 +58,7 @@ app.get('/index.html', (req, res) => {
     
         query_output = result;
 
+
         // console.log(result);
     
         con.end();
@@ -74,6 +75,7 @@ app.get('/index.html', (req, res) => {
                 ELSE 6 END`, 
     function (err, result, fields) {
         if (err) throw err;
+
 
         // console.log(result);
     
@@ -128,5 +130,5 @@ app.get('/index.html', (req, res) => {
 // app.set('port', port);
 
 
-// port
-app.listen(5005)
+
+app.listen(port)
