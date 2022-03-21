@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     creation_date DATE NOT NULL,
     last_updated DATE NOT NULL,
     handler_id MEDIUMINT UNSIGNED NOT NULL,
-    solved_by MEDIUMINT UNSIGNED NOT NULL,
+    solved_by MEDIUMINT UNSIGNED,
     operating_system VARCHAR(50),
     hardware_id MEDIUMINT UNSIGNED, /* Hardware id bit */
     software_id MEDIUMINT UNSIGNED,

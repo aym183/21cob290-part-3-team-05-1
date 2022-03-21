@@ -128,4 +128,4 @@ INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
 (18 , 2002, 9 );
 
 INSERT INTO `dropped`  VALUES
-(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 2002, 1);
+(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002);
