@@ -50,6 +50,8 @@ app.get('/faq.html', (req, res) =>{
 });
 
 
+
+
 app.all('/index.html', (req, res) => {  
     console.log("index")
     console.log(req);
