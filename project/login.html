@@ -2,10 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=!, initial-scale=1.0">
-    <title>Log In</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
+    <title>Login</title>
 </head>
 
+<body>
+
+    <div class="topSection">
+        
+        <!-- TOP NAVBAR SECTION -->
+        <div class="topNavbar">
+            <div class="topNavbar__container">
+                <div class="topNavbar__item">
+                    <div class="topNavbar__logo">
+                        <p id="navbar__logo">Deskspace</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__section">
+
+        <!-- TICKET TABLE SECTION -->
+        <div class="mainSection__container" id="loginForm-container">
+            
+            <div class="table-detail__section">
+                <div class="table-title__container">
+                    <h5 class="table-title">Log In</h5> 
+                </div>
+            </div>
+            
+            <div class="loginForm">
+                <form method="post" action="login" class="card mt-3">
+                    <div class="card-body">
+                        <div class="mb-3 mt-2">
+                            <label for="uname">Username: </label>
+                            <input type="text" class="form-control" name="uname" id="username" placeholder="Enter Username Here">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pword">Password: </label>
+                            <input type="password" class="form-control" name="pword" id="password" placeholder="Enter Password Here">
+                        </div>
+                        <div class="alert d-none" id="loginAlertBox">
+                            This is just a placeholder, show and hide this as needed
+                        </div>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                </form>
+                
+            </div>
+
+            
+        </div>
+
+        <footer>
+            <p class="center">&#169; 2022 Team 5</p>
+        </footer>
+
+    </div>
+</body>
+<!--
 <body>
     <div class="card vertical-center">
         <div class="card" >
@@ -41,4 +101,5 @@
 </body> 
 
 </body>
+-->
 </html>
