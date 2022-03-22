@@ -33,6 +33,11 @@ app.get('/faq.html', (req, res) =>{
 
 });
 
+app.get('/login.html', (req, res) =>{
+    console.log("login")
+    res.sendFile(path.join(__dirname +  '/login.html'));
+});
+
 app.get('/index.html', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
