@@ -230,45 +230,8 @@
                             </tbody>
                         </table> 
                         </div>
-                        <div class="ticket__information">
-                            <button class="info-edit-btn" id="caller-btn">Update Caller Information</button>
-                            <label for="caller-name">Caller Name</label>
-                            <input id="caller-name" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <span class="validation_error" id="caller-name-error"></span>
-                            <label for="caller-id">Caller ID</label>
-                            <input id="caller-id" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <span class="validation_error" id="caller-id-error"></span>
-                            <label for="caller-phone">Caller Telephone</label>
-                            <input id="caller-phone" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <div class="break-line"></div>
-                            <div class="details-table__container" id="emp-table__container">
-                                <div class="emp-search__container">
-                                    <label for="caller-search">Search:</label>
-                                    <input id="caller-search" type="text"> 
-                                </div>
-                                <div class="details-table__wrapper">
-                                <h3 class="centered-text">Employee Details</h3>
-                                    <table class="edit-details__table" id="emp-details__table">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>ID</th>
-                                                <th>Job Title</th>
-                                                <th class="switch_table">Department</th>
-                                                <th class="switch_table">Telephone</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- javacript inserted here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="ticket__information">                            
                             <button class="info-edit-btn" id="edit-btn">Edit</button>
-                            <label for="operator-name">Operator Name</label>
-                            <input id="operator-name" type="text"
-                            list="operators" class="edit-field" autocomplete="off" value="" readonly>
-                            <datalist id="operators">
                             <!-- <?php
                             foreach ($autocompletion['operators'] as $operator) {
                                 echo "<option value=\"" . $operator['name'] . "\">";
@@ -344,7 +307,7 @@
                             
                         </div>
 
-                        <div class="ticket_history_section">
+                        <!-- <div class="ticket_history_section">
                             <button class="info-edit-btn" id="ticket_history_btn" onclick='displayTicketHistory()'>Show Past Edit(s)</button>
                             <div class="ticket_history_container" id="ticket_history_body" style = "display:none;"></div>
                         </div>
@@ -352,7 +315,7 @@
                         <div class="solution_history_section">
                         <button class="info-edit-btn" id="solution_history_btn" onclick='displaySolutionHistory()'>Show Solution History</button>
                         <div class="solution_history_container" id="solution_history_body" style = "display:none;"></div>
-                        </div>
+                        </div> -->
                         
                         <div class="update__section">
                             <hr>
@@ -367,7 +330,7 @@
         
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
-                    <p>Close Form</p>
+                    <p>Solution Form</p>
                     <div class="solution__wrapper">
                         <div class="topSolution__section">    
                             <div class="solution__label">
@@ -409,7 +372,6 @@
                                         <span class="checkmark unchecked"><i id="check-state" class="fas fa-check"></i></span>
                                     </label> 
                                 </div>
-                                <div id = 'solution_remaining_chars' >500 characters remaining</div>
                             </div>
                         </div>
                         <div class="close__border">
