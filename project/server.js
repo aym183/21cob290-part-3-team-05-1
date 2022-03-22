@@ -35,6 +35,12 @@ app.get('/createServer', (req, res) =>{
 
 });
 
+app.get('/login.html', (req, res) =>{
+    console.log("faq")
+    res.sendFile(path.join(__dirname +  '/login.html'));
+    // res.render('login.html')
+
+});
 
 app.get('/faq.html', (req, res) =>{
     console.log("faq")
@@ -43,8 +49,8 @@ app.get('/faq.html', (req, res) =>{
 
 });
 
-app.route()
-app.get('/index.html', (req, res) => {  
+
+app.all('/index.html', (req, res) => {  
     console.log("index")
     console.log(req);
     // res.writeHead(200, {'content-type':'text/html'})
