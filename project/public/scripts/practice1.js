@@ -31,6 +31,23 @@ app.get('/faq.html', (req, res) =>{
     console.log("faq")
     res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
+    const con = require('./dbconfig');
+    con.query("SELECT problem_type.name from ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id where employee_id = 2014;", function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+        query_output = result;
+        console.log(result[0].status);
+        // for(i = 0; i< 5; i++){
+        //     console.log(result[i]);
+
+        // }
+        res.render('faq', {
+            dropdownVals: result
+        })
+        // const table = document.querySelector('ticket-body employee-ticket-body');
+        con.end();
+    });
+
 
 });
 
