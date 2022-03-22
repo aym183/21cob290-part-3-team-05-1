@@ -40,7 +40,7 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.all('/auth', (req, res) {
+app.post('/auth', (req, res) =>{
 	// Capture the input fields
     const con = require('./public/scripts/dbconfig');
 	let username = request.body.username;
