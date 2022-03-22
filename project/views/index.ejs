@@ -223,10 +223,12 @@
                                 </tr>
                             </thead>
                             <tbody class = "detail-headers">
+                                <% for(var i=0; i < dropdownVals.length; i++) { %>
                                 <tr>
-                                    <th id="detail-status"><span class="t-status"></span></th>
-                                    <th id="detail-id"></th>
+                                    <th id="detail-status"><span class="t-status"><%=dropdownVals[i].status%></span></th>
+                                    <th id="detail-id"><%=dropdownVals[i].ticket_id%></th>
                                 </tr>
+                                <% } %>
                             </tbody>
                         </table> 
                         </div>
@@ -253,11 +255,11 @@
                             ?> -->
                             </datalist>
                             <span class="validation_error" id="hardware-id-error"></span>
-                            <label for="hardware-type">Equipment Name</label>
+                            <label for="hardware-type">Hardware Name</label>
                             <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
-                            <label for="hardware-model">Equipment Model</label>
+                            <label for="hardware-model">Hardware Model</label>
                             <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
-                            <label for="hardware-make">Equipment Make</label>
+                            <label for="hardware-make">Hardware Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
                             <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>

@@ -16,6 +16,28 @@ ready(() => {
     // getProblemTypes();
 });
 
+
+function sendTicket(data) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("PUT", "../../server.js");
+    xhttp.setRequestHeader("Content-type", 'application/json');
+    xhttp.send(data);
+}
+
+$.ajax({
+    url: "/index",
+    type: "GET",
+    data: {userInput: 'userInputForm'},
+    dataType: "json",
+        success: function(response, status, http) {
+            if (response) {
+                console.log('AJAX worked!');
+            }
+        }
+    });
+
+
+
 var emp_table;
 var handler_table;
 var hardware_table;
@@ -239,8 +261,16 @@ ready(() => {
         const data = {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
-        };
+        }
+    
+        // console.log(data);
         const jsonString = JSON.stringify(data)
+
+        
+
+        // window.localStorage.setItem('data', e.target.closest("tr").children[1].textContent);
+        // sendTicket(jsonString);
+
         showTicketInfo(jsonString); 
         var status = e.target.closest('tr').firstChild.className;
         
