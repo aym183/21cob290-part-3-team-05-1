@@ -102,6 +102,17 @@ app.get('/index.html', (req, res) => {
         con.end();
     });
 
+    // con.query(`SELECT ticket_id, ticket.employee_id, status, description, notes, creation_date, last_updated, operating_system, equipment_serial_number, emp1.name, emp1.telephone, problem_type.name AS problem_name, emp2.name AS operator_name, software.name AS software_name, h.name AS handler_name, equipment.equipment_type, equipment.make, equipment.model, ticket.closing_date, ticket.closing_time FROM ticket 
+    // INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
+    // INNER JOIN equipment ON ticket.equipment_serial_number = equipment.serial_number
+    // INNER JOIN employee AS emp1 ON ticket.employee_id = emp1.employee_id
+    // INNER JOIN employee AS emp2 ON ticket.operator_id = emp2.employee_id
+    // INNER JOIN software ON ticket.software_id = software.software_id
+    // INNER JOIN (SELECT user_id, employee.name FROM handler
+    //             INNER JOIN employee ON handler.user_id = employee.employee_id
+    //             UNION
+    //             SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+    // WHERE ticket_id = ?`)
 
     // res.send("i here")
     // res.end()

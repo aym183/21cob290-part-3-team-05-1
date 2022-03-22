@@ -92,8 +92,8 @@ INSERT INTO `analyst` VALUES
 (2003, 2003),
 (2007, 2007);
 
-INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `solution_description`, `notes`, `creation_date`, `last_updated`, `handler_id`, `solved_by`, `operating_system`, `hardware_id`, `software_id`, `problem_type_id`, `number_of_drops`, `closing_date`, `closing_time`) VALUES
-(1, 2005, 'active' , 'medium' ,NULL ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, NULL, 1 ,  NULL, 2 ,  0 , NULL , NULL ),
+INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `problem_description`, `notes`, `creation_date`, `last_updated`, `handler_id`, `solved_by`, `operating_system`, `hardware_id`, `software_id`, `problem_type_id`, `number_of_drops`, `closing_date`, `closing_time`) VALUES
+(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, 'Apple iOS 14', 1 ,  2 ,  2 , 0,  NULL , NULL ),
 (2, 2005, 'dropped','low' , NULL, 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  NULL, 1 ,    4 , 1 ,NULL ,NULL),
 (3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , NULL , 3, NULL ,  7 , 0 ,'2022-03-03', '01:00:30'),
 (4, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 2010, 'Apple iOS 14' ,  5 ,2,  6 , 0 ,'2022-02-24','12:34:00'),

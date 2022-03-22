@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     employee_id MEDIUMINT UNSIGNED NOT NULL,
     status ENUM('active', 'dropped', 'submitted', 'pending', 'closed', 'unsuccessful') NOT NULL,
     priority ENUM('medium', 'low', 'high') NOT NULL,
-    solution_description VARCHAR(300),
+    problem_description VARCHAR(300),
     notes VARCHAR(1000),
     creation_date DATE NOT NULL,
     last_updated DATE NOT NULL,
