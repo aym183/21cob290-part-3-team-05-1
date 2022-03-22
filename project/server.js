@@ -1,21 +1,39 @@
 /* File formost of node/express operations */
 
 const express = require('express');
-const { connect } = require('./public/scripts/dbconfig');
-const app = express()
+// const { connect } = require('./public/scripts/dbconfig');
+const app = express();
 var path = require('path')
+var http = require('http');
+const server = http.createServer(app);
+const { Server, Socket } = require("socket.io");
+const io = new Server(server);
+
+
+// var http = require('http').createServer(app);
+// var socket = require('socket.io')
+// server = require("http").createServer(app);
+// const io = require('socket.io')(5005);
 // app.engine('html', require('ejs').renderFile);
 // app.set('view engine', 'html');
 // app.set('views', __dirname);
+
+// const http = require('http').createServer();
+// const io = require('socket.io')(http, {
+//     cors: {origin: "*"}
+// });
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-
+var bodyParser = require('body-parser'); 
+app.use(bodyParser.json());
 const sayHi = require('./public/scripts/dbconfig');
 const mysql = require('mysql2')
 var port = process.env.PORT;
 var query;
 console.log(port)
+var ticket_id;
 
 //5005
 
@@ -69,9 +87,12 @@ app.post('/auth', (req, res) =>{
 	}
 });
 
+
+
 app.get('/index.html', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
+    
     
     const con = require('./public/scripts/dbconfig');
 
@@ -95,7 +116,7 @@ app.get('/index.html', (req, res) => {
 
         query_output = result;
 
-        console.log(result);
+        // console.log(result);
         // for(i = 0; i< 5; i++){
         //     console.log(result[i]);
 
@@ -124,18 +145,48 @@ app.get('/index.html', (req, res) => {
         if (err) throw err;
         // console.log(result);
 
-        console.log(result);
+        query = result
+
+        // console.log(result);
         // for(i = 0; i< 5; i++){
         //     console.log(result[i]);
 
         // }
-        res.render('index', {
-            dropdownVals: query_output,
-            newdropdownVals: result,
+    
 
-        })
+
         // const table = document.querySelector('ticket-body employee-ticket-body');
         con.end();
+    });
+
+    io.on('connection',  (socket) => {
+        console.log('connected')
+        socket.on("message", (msg) => {
+            console.log(msg.id);
+            ticket_id = msg.id;
+        })
+        // console.log(socket.id);
+    });
+
+    con.query(`SELECT ticket_id, status, priority, problem_description, notes, software.name, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+        INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+        INNER JOIN  software on ticket.software_id = software.software_id 
+        INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+        INNER JOIN (SELECT user_id, employee.name FROM handler
+        INNER JOIN employee ON handler.user_id = employee.employee_id
+        UNION
+        SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+        WHERE ticket_id = ?;`,[ticket_id],function (err, result, fields) {
+        if (err) throw err;
+        
+        console.log(result)
+        res.render('index', {
+            dropdownVals: query_output,
+            newdropdownVals: query,
+            
+
+        })
+        
     });
 
     // con.query(`SELECT ticket_id, ticket.employee_id, status, description, notes, creation_date, last_updated, operating_system, equipment_serial_number, emp1.name, emp1.telephone, problem_type.name AS problem_name, emp2.name AS operator_name, software.name AS software_name, h.name AS handler_name, equipment.equipment_type, equipment.make, equipment.model, ticket.closing_date, ticket.closing_time FROM ticket 
@@ -190,6 +241,24 @@ app.get('/index.html', (req, res) => {
 // var port = normalizePort(process.env.PORT);
 // app.set('port', port);
 
+// var server = app.listen(5005, function(){
+//     console.log('listening for requests on port 4000,');
+// });
 
+// let io = socket(server)
+// io.on('click',  (data) => {
+//     console.log("An element clicked");
+// });
+
+// let io = io.on('click', (data) => {
+//     console.log("An element clicked")
+// });
 // port
-app.listen(5005)
+// app.listen(5005)
+// app.listen(5005)
+
+server.listen(5005, () => {
+    console.log('listening for requests on port 5005');
+});
+
+// app.listen(5005, ()=>console.log(' SERVER CONNECTED '))

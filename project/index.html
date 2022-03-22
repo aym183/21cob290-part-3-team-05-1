@@ -415,18 +415,8 @@
             <p class="center">&#169; 2022 AHS</p>
         </footer>
     </div>
-    <script src="scripts/app.js">
-        $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function(e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-        
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        });
-    </script>
-    <!-- <script src="scripts/searchbar.js" type="text/javascript"></script>
-    <script src="scripts/function.js"></script> -->
+    <script src="scripts/app.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
 </body>
 </html>

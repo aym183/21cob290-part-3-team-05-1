@@ -24,17 +24,7 @@ function sendTicket(data) {
     xhttp.send(data);
 }
 
-$.ajax({
-    url: "/index",
-    type: "GET",
-    data: {userInput: 'userInputForm'},
-    dataType: "json",
-        success: function(response, status, http) {
-            if (response) {
-                console.log('AJAX worked!');
-            }
-        }
-    });
+
 
 
 
@@ -253,15 +243,22 @@ function updateTicketInfo(data) {
 
 // Table row (Ticket) Clicked
 ready(() => { 
+    const socket = io()
+    // const socket = io('ws//localhost:5005')
     document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
         document.querySelector("#ticket-info").style.display = "flex";
         document.querySelector("#info-headers").style.display = "block";
         document.querySelector("#ticketList-container").style.display = "none";
         
+        
+        // socket.emit('click', 'hello server!');
+        // console.log(socket);
         const data = {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
         }
+
+        socket.emit('message',  data);
     
         // console.log(data);
         const jsonString = JSON.stringify(data)

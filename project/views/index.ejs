@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
+
     <title>Home Page</title>
 </head>
 <body>
@@ -391,19 +392,24 @@
         </footer>
     </div>
 
+    
     <script src="/scripts/app.js"></script>
- 
-        <!-- // $(document).ready(function () {
-        //     $(document.body).on("click", "#navbar__logo", function(e) {
-        //         e.preventDefault();
-        //         $("#ticketList-container").css("display", "flex")
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!-- <script>
+        ready(() => { 
+    document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
         
-        //         $("#ticket-info").css("display", "none")
-        //         $("#info-headers").css("display", "none")
-        //     });
-        // });  -->
- 
-    <!-- <script src="scripts/searchbar.js" type="text/javascript"></script>
-    <script src="scripts/function.js"></script> -->
+        const data = {
+            id: e.target.closest("tr").children[1].textContent,
+            status: e.target.closest("tr").children[0].textContent
+        }
+        socket.emit('click', 'hello server!');
+    
+        // console.log(data);
+        const jsonString = JSON.stringify(data)
+    });
+});
+    </script> -->
 </body>
 </html>
