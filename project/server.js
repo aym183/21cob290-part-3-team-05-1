@@ -59,30 +59,29 @@ app.get('/login.html', (req, res) =>{
 });
 
 app.post('/auth', (req, res) =>{
-	// Capture the input fields
     const con = require('./public/scripts/dbconfig');
-	let username = request.body.username;
-	let password = request.body.password;
-	// Ensure the input fields exists and are not empty
+	let username = req.body.username;
+	let password = req.body.password;
+
 	if (username && password) {
-		// Execute SQL query that'll select the account from the database based on the specified username and password
+
 		con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			// If there is an issue with the query, output the error
+
 			if (error) throw error;
-			// If the account exists
+
 			if (results.length > 0) {
-				// Authenticate the user
+
 				req.session.loggedin = true;
 				req.session.username = username;
-				// Redirect to home page
-				res.redirect('/home');
+
+				res.redirect('/faq.html');
 			} else {
-				res.send('Incorrect Username and/or Password!');
+				res.send('Login credentials incorrect.');
 			}			
 			res.end();
 		});
 	} else {
-		response.send('Please enter username and password!');
+		response.send('Please enter username and password.');
 		response.end();
 	}
 });
@@ -183,7 +182,7 @@ app.get('/index.html', (req, res) => {
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
-            
+
 
         })
         
