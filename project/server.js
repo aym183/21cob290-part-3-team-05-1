@@ -43,9 +43,10 @@ app.get('/faq.html', (req, res) =>{
 
 });
 
-app.post('/index.html', (req, res) => {  
+app.route()
+app.get('/index.html', (req, res) => {  
     console.log("index")
-    // console.log(req);
+    console.log(req);
     // res.writeHead(200, {'content-type':'text/html'})
     // console.log(data);
     
