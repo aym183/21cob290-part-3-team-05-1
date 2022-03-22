@@ -3,6 +3,7 @@
 const express = require('express');
 const { connect } = require('./public/scripts/dbconfig');
 const app = express()
+const session = require('express-session');
 var path = require('path')
 // app.engine('html', require('ejs').renderFile);
 // app.set('view engine', 'html');
