@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
-    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
 </head>
 
@@ -28,17 +29,12 @@
     <div class="main__section">
 
         <!-- TICKET TABLE SECTION -->
-        <div class="mainSection__container" id="loginForm-container">
+        <div class="d-flex justify-content-center align-items-center" id="loginForm-container">
             
-            <div class="table-detail__section">
-                <div class="table-title__container">
-                    <h3 class="text-center">Log In</h5> 
-                </div>
-            </div>
-            
-            <div class="loginForm">
-                <form method="post" action="/auth" class="text-center">
-                    <div class="card-body">
+            <div class="login-form">
+                <form method="post" action="/auth">
+                    <h3>Log In</h3>
+                    <div class="form-group">
                         <div class="form-outline">
                             <label for="uname">Username: </label>
                             <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username Here">
