@@ -161,7 +161,7 @@ app.get('/index.html', (req, res) => {
     
 
     console.log(ticket_id);
-        con.query(`SELECT ticket_id, status, priority, problem_description, notes, software.name, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+        con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
         INNER JOIN  software on ticket.software_id = software.software_id 
         INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id

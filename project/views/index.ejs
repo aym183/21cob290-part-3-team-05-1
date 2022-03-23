@@ -224,39 +224,23 @@
                                 </tr>
                             </thead>
                             <tbody class = "detail-headers">
-                                <% for(var i=0; i < dropdownVals.length; i++) { %>
+                               
                                 <tr>
-                                    <th id="detail-status"><span class="t-status"><%=dropdownVals[i].status%></span></th>
-                                    <th id="detail-id"><%=dropdownVals[i].ticket_id%></th>
+                                    <th id="detail-status"><span class="t-status"></span></th>
+                                    <th id="detail-id"></th>
                                 </tr>
-                                <% } %>
+                        
                             </tbody>
                         </table> 
                         </div>
                         <div class="ticket__information">                            
                             <button class="info-edit-btn" id="edit-btn">Edit</button>
-                            <!-- <?php
-                            foreach ($autocompletion['operators'] as $operator) {
-                                echo "<option value=\"" . $operator['name'] . "\">";
-                            }
-                            ?>
-                            </datalist>
-                            <span class="validation_error" id="operator-name-error"></span>
-                            <label for="call-time">Date Created</label>
-                            <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
-                            <label for="update-time">Last Updated</label>
-                            <input id="update-time" name="update-time" class="no-edit-field" type="text" value="" readonly>
-                            <label for="hardware-id">Hardware ID</label>
-                            <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
-                            <datalist id="hardware-numbers">
-                            <?php
-                            foreach ($autocompletion['hardware ids'] as $hardware_id) {
-                                echo "<option value=\"" . $hardware_id['serial_number'] . "\">";
-                            }
-                            ?> -->
-                            </datalist>
+                           
+                
+                            <label for="hardware-type">Priority</label>
+                            <input type="text" id="priority" class="no-edit-field" value="" readonly>
                             <span class="validation_error" id="hardware-id-error"></span>
-                            <label for="hardware-type">Hardware Name</label>
+                            <label for="hardware-type">Hardware Manufacturer</label>
                             <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
                             <label for="hardware-model">Hardware Model</label>
                             <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
