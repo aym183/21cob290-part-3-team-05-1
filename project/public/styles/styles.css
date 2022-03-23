@@ -896,6 +896,8 @@ tbody tr:hover {
     cursor: pointer; 
 }
 
+
+
 /* CLOSE FORM SECTION */
 
 .closeForm__section {
@@ -1457,3 +1459,21 @@ footer {
       top: 0;
     }
   }
+/* Create two equal columns that floats next to each other */
+.column_analyst {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    
+  }
+  
+  /* Clear floats after the columns */
+  .row_analyst:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .chartp{
+    border-left: 6px solid #2574A9;
+    padding-left: 10px;
+}
