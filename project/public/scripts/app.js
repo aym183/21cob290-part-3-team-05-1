@@ -51,41 +51,6 @@ var old_handlerName;
  */
 function showTicketInfo(data) {   
     
-        // var id = info['ticket_id'];
-        // var status = info['status'];
-        // var caller_id = info['employee_id'];
-        // var hardware_id = info['equipment_serial_number'];
-        // var os = info['operating_system'];
-        // var description = info['description'];
-        // var notes = info['notes'];
-        // var caller_name = info['name'];
-        // var caller_phone = info['telephone'];
-        // var problem_type = info['problem_name'];
-        // var date_created = info['creation_date'];
-        // var date_update = info['last_updated'];
-        // var operator = info['operator_name'];
-        // var software = info['software_name'];
-        // var handler = info['handler_name'];
-        // var hardware_type = info['equipment_type'];
-        // var hardware_model = info['model'];
-        // var hardware_make = info['make'];
-        // var close_time = info['closing_time'];
-        // var close_date = info['closing_date'];
-
-        // //To be used to compare in update section.
-        // old_operatorName = operator;
-        // old_hardwareId = hardware_id;
-        // old_os = os;
-        // old_softwareName = software;
-        // old_description = description;
-        // old_notes = notes;
-        // old_problemType = problem_type;
-        // old_handlerName = handler;
-
-        // document.querySelector('#detail-status span').innerText = status;
-        // document.querySelector('#detail-status').className = status;
-        // document.getElementById('detail-id').innerText = id;
-
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -100,22 +65,6 @@ function showTicketInfo(data) {
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
 
-
-       
-        // document.getElementById('handler-name').setAttribute("value", handler);
-        // document.getElementById('call-time').setAttribute("value", date_created);
-        // document.getElementById('update-time').setAttribute("value", date_update);
-        // document.getElementById('problem-type').setAttribute("value", problem_type);
-        // document.getElementById('software').setAttribute("value", software);
-        // document.getElementById('hardware-id').setAttribute("value", hardware_id);
-        // document.getElementById('hardware-type').setAttribute("value", hardware_type);
-        // document.getElementById('hardware-model').setAttribute("value", hardware_model);
-        // document.getElementById('hardware-make').setAttribute("value", hardware_make);
-        // document.getElementById('operating-system').setAttribute("value", os);
-        // document.getElementById('description').innerText = description;
-        // document.getElementById('notes').innerText = notes;
-        // document.getElementById('close-time').setAttribute("value", close_date + " " + close_time);
-        
         if (status == 'submitted' || status == 'pending') {
             const pending_solution = info['solution_description'];
             document.getElementById('solution-area').value = pending_solution;
@@ -255,36 +204,21 @@ ready(() => {
         document.querySelector("#ticketList-container").style.display = "none";
         
         
-        // socket.emit('click', 'hello server!');
-        // console.log(socket);
         const data = {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
         }
 
         socket.emit('message',  data);
-        
-
-        // socket.on('message', function(msg) {
-        //     console.log("HERE");
-        //     console.log(result);
-        // });
 
         socket.on('message', function(data, json) {
-            // console.log(data, json[0]);
-            // console.log(showTicketInfojson[0]);
+        
             showTicketInfo(json[0]); 
           });
     
         // console.log(data);
         const jsonString = JSON.stringify(data)
 
-        
-
-        // window.localStorage.setItem('data', e.target.closest("tr").children[1].textContent);
-        // sendTicket(jsonString);
-
-        
         var status = e.target.closest('tr').firstChild.className;
         
         if (status=="submitted") {
