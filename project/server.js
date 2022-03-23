@@ -32,7 +32,7 @@ app.get('/', (req, res) =>{
 
 app.get('/faq.html', (req, res) =>{
     console.log("faq")
-    res.sendFile(path.join(__dirname +  '/faq.html'));
+    // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
     const con = require('./public/scripts/dbconfig');
@@ -43,11 +43,11 @@ app.get('/faq.html', (req, res) =>{
         console.log(result);
 
         if (result.length>0) {
-            res.render('faq', {
-                dropdownVals: query_output,
-                newdropdownVals: query,
-                // problem_resolution: result
-            })
+            res.render('faq');
+            //     dropdownVals: query_output,
+            //     newdropdownVals: query,
+            //     // problem_resolution: result
+            // })
         }
     });
 });
