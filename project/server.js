@@ -60,6 +60,13 @@ app.get('/login.html', (req, res) =>{
 
 });
 
+app.get('/login.html', (req, res) =>{
+    console.log("analyst")
+    res.sendFile(path.join(__dirname +  '/analyst.html'));
+    // res.render('login.html')
+
+});
+
 app.post('/auth', (req, res) =>{
     const con = require('./public/scripts/dbconfig');
 	let username = req.body.username;
