@@ -158,16 +158,10 @@ app.get('/index.html', (req, res) => {
         con.end();
     });
 
-    io.on('connection',  (socket) => {
-        console.log('connected')
-        socket.on("message", (msg) => {
-            console.log(msg.id);
-            ticket_id = msg.id;
-        })
-        // console.log(socket.id);
-    });
+    
 
-    con.query(`SELECT ticket_id, status, priority, problem_description, notes, software.name, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+    console.log(ticket_id);
+        con.query(`SELECT ticket_id, status, priority, problem_description, notes, software.name, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
         INNER JOIN  software on ticket.software_id = software.software_id 
         INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
@@ -175,16 +169,36 @@ app.get('/index.html', (req, res) => {
         INNER JOIN employee ON handler.user_id = employee.employee_id
         UNION
         SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-        WHERE ticket_id = ?;`,[ticket_id],function (err, result, fields) {
+        WHERE ticket_id = 1;`,[ticket_id],function (err, result, fields) {
         if (err) throw err;
         
         console.log(result)
+
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
-
+            // ticket_details: result
 
         })
+
+
+        io.on('connection',  (socket) => {
+            console.log('connected')
+            socket.on("message", (msg) => {
+                console.log(parseInt(msg.id));
+                // ticket_id = parseInt(msg.id);
+                io.send('message', result);
+                // io.emit('ticket_details', msg);
+    
+            })
+
+
+            
+            // console.log(socket.id);
+        });
+        // io.on('connection', function() {
+        //     io.send('message', json);
+        //   });
         
     });
 

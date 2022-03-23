@@ -259,6 +259,18 @@ ready(() => {
         }
 
         socket.emit('message',  data);
+        
+
+        // socket.on('message', function(msg) {
+        //     console.log("HERE");
+        //     console.log(result);
+        // });
+
+        socket.on('message', function(data, json) {
+            console.log(data, json[0]);
+            console.log(showTicketInfojson[0]);
+            
+          });
     
         // console.log(data);
         const jsonString = JSON.stringify(data)
