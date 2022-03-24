@@ -82,7 +82,25 @@ app.get('/login.html', (req, res) =>{
 
 app.post('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
-    res.render('index', {data: req.body});
+    const con = require('./public/scripts/dbconfig');
+    let user_in = req.body.username;
+    let pass_in = req.body.password;
+    console.log(user_in);
+    console.log(pass_in);
+    if (user_in && pass_in) {
+        con.query('SELECT * FROM users WHERE username = ? AND password = ?', [user_in, pass_in], function(error, results, fields) {
+            if (error) throw error;
+			if (results.length > 0) {
+				res.send('Success!')
+			} else {
+				res.send('Incorrect Username and/or Password!');
+			}			
+			res.end();
+		});
+	} else {
+		res.send('Please enter Username and Password!');
+		res.end();
+	}
 });
 
 
