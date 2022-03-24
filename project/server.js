@@ -13,6 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 var bodyParser = require('body-parser'); 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(bodyParser.json());
 const sayHi = require('./public/scripts/dbconfig');
 const mysql = require('mysql2')
@@ -79,32 +80,9 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.post('/auth', (req, res) =>{
-    const con = require('./public/scripts/dbconfig');
-	let username = req.body.username;
-	let password = req.body.password;
-
-	if (username && password) {
-
-		con.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-
-			if (error) throw error;
-
-			if (results.length > 0) {
-
-				req.session.loggedin = true;
-				req.session.username = username;
-
-				res.redirect('/faq.html');
-			} else {
-				res.send('Login credentials incorrect.');
-			}			
-			res.end();
-		});
-	} else {
-		response.send('Please enter username and password.');
-		response.end();
-	}
+app.post('/auth', urlencodedParser, (req, res) =>{
+    console.log(req.body);
+    res.render('index', {data: req.body});
 });
 
 
