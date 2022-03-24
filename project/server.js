@@ -37,13 +37,18 @@ app.get('/faq.html', (req, res) =>{
 
     const con = require('./public/scripts/dbconfig');
     
-    con.query("SELECT ticket.problem_description, problem_type.name FROM ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id", 
+    con.query("SELECT ticket.status, ticket.problem_description, problem_type.name FROM ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id", 
     function(err, result, fields) {
         if (err) throw err;
         console.log(result);
 
         if (result.length>0) {
-            res.render('faq');
+            res.render('faq', {
+                dropdownVals: result
+               
+                // ticket_details: result
+    
+            });
             //     dropdownVals: query_output,
             //     newdropdownVals: query,
             //     // problem_resolution: result
