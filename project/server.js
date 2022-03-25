@@ -80,13 +80,13 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.post('/auth', urlencodedParser, (req, res) =>{
+app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
     const con = require('./public/scripts/dbconfig');
     let user_in = req.body.username;
     let pass_in = req.body.password;
     if (user_in && pass_in) {
-        con.query('SELECT * FROM users WHERE username = ? AND password = ?', [user_in, pass_in], function(error, results, fields) {
+        con.query('SELECT * FROM users WHERE username = ? AND AES_DECRYPT(password, SHA2(?, 256)) = ?', [user_in, user_in, pass_in], function(error, results, fields) {
             if (error) throw error;
 			if (results.length > 0) {
 				res.send('Success!')
