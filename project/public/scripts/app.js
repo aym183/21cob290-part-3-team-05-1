@@ -364,20 +364,8 @@ ready(() => {
             document.querySelector('#edit-btn').style.color = 'var(--buttonTextColor)';
             document.querySelector('#edit-btn').style.backgroundColor = 'var(--buttonHover)';
 
-            if(document.getElementsByClassName("ticket_history_section")[0]){
-                //disabling ticket history table
-                document.getElementById("ticket_history_btn").disabled = true;
-                old_err_msg = document.getElementById("err_ticket_history");
-                if(old_err_msg){
-                    old_err_msg.remove();
-                }
-                var x = document.getElementsByClassName("ticket_history_container")[0];
-                if(x.style.display === "block"){
-                    document.getElementById("ticket_history_btn").innerHTML="Show Past Edit(s)";
-                    document.getElementById("past_edits_container").remove();
-                    x.style.display = "none";
-                }
-            }
+            
+                
             document.querySelectorAll(".ticket__information .edit-field").forEach(field => { 
                 field.style.pointerEvents = "all",
                 field.style.backgroundColor = "white",
@@ -403,9 +391,7 @@ ready(() => {
             document.querySelector(".update__section").style.display = "none";
             document.querySelector("#emp-table__container").style.display = "none";
             //enable ticket history button once not in edit mode
-            if(document.getElementsByClassName("ticket_history_section")[0]){
-                document.getElementById("ticket_history_btn").disabled = false;
-            }
+            
         }
 
 
@@ -459,60 +445,6 @@ ready(() => {
             document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
 
         }else if (valid_details.length == 0) {
-            
-            const changed_values = [];
-            const changed_names = [];
-
-            if(old_operatorName != operator_name){
-                changed_values.push(operator_name);
-                changed_names.push('operator');
-                old_operatorName = operator_name;
-            }
-            if(old_hardwareId != hardware_id){
-                changed_values.push(hardware_id);
-                changed_names.push('hardware');
-                old_hardwareId = hardware_id;
-            }
-            if(!(old_os == null && os == "null") && old_os != os){
-                if(os == ""){
-                    changed_values.push("null");
-                    changed_names.push('OS');
-                }else{
-                    changed_values.push(os);
-                    changed_names.push('OS');
-                    old_os = os;
-                }
-            }
-            if(old_softwareName != software){
-                changed_values.push(software);
-                changed_names.push('software');
-                old_softwareName = software;
-            }
-            if(old_description != description){
-                changed_values.push(description);
-                changed_names.push('description');
-                old_description = description;
-            }
-            if(old_notes != notes){
-                changed_values.push(notes);
-                changed_names.push('notes');
-                old_notes = notes;
-            }
-            if(old_problemType != problem_type){
-                changed_values.push(problem_type);
-                changed_names.push('problem type');
-                old_problemType = problem_type;
-            }
-            if(old_handlerName != handler_name){
-                changed_values.push(handler_name);
-                changed_names.push('handler');
-                old_handlerName = handler_name;
-            }
-            var today = new Date();
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            var time = today.getHours() + ":" + today.getMinutes();
-            var dateTime = date+' '+time;
-
 
             const ticket_details = {
                 caller_id: caller_id,
@@ -527,24 +459,10 @@ ready(() => {
                 id: document.getElementById('detail-id').innerHTML
             };
 
-            const changed_details = {
-                id: document.getElementById('detail-id').innerHTML,
-                changed_values: changed_values,
-                changed_names: changed_names,
-                current_dateTime: dateTime,
-                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
-            };
+            
 
             const jsonString = JSON.stringify(ticket_details);
             updateTicketInfo(jsonString);
-
-            
-            const changedJsonString = JSON.stringify(changed_details);
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "update_history_log.php");
-            xhttp.setRequestHeader("Content-type", 'application/json');
-            xhttp.send(changedJsonString);
-            
            
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
