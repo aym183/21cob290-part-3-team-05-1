@@ -9,7 +9,8 @@
     "mysql2": "^2.3.3",
     "node-cache": "^5.1.2",
     "path": "^0.12.7",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "cookie-parser": "^1.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
