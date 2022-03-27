@@ -15,10 +15,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 var bodyParser = require('body-parser'); 
+const session = require("express-session");
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(bodyParser.json());
 const sayHi = require('./public/scripts/dbconfig');
-const mysql = require('mysql2')
+const mysql = require('mysql2');
+const { add } = require('nodemon/lib/rules');
 var port = process.env.PORT;
 var query;
 console.log(port)
@@ -27,6 +29,12 @@ var handler_id;
 var problem_type_id;
 var last_updated;
 var software_id;
+
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 //5005
 
@@ -96,7 +104,11 @@ app.all('/auth', urlencodedParser, (req, res) =>{
         con.query('SELECT * FROM users WHERE username = ? AND AES_DECRYPT(password, SHA2(?, 256)) = ?', [user_in, user_in, pass_in], function(error, results, fields) {
             if (error) throw error;
 			if (results.length > 0) {
-				res.send('Success!')
+                req.session.loggedin = true;
+                req.session.username = user_in;
+                req.session.save();
+				// res.send("Success! You are logged in as ", + req.session.username);
+                res.redirect('/home');
 			} else {
 				res.send('Incorrect Username and/or Password!');
 			}			
@@ -111,7 +123,14 @@ app.all('/auth', urlencodedParser, (req, res) =>{
 	}
 });
 
-
+app.get('/home', (req, res) => {
+	if (req.session.loggedin) {
+		res.send('Welcome back, ' + req.session.username + '!');
+	} else {
+		res.send('Please login to view this page!');
+	}
+	res.end();
+});
 
 app.get('/index.html', (req, res) => {  
     console.log("index")
