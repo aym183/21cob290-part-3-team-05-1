@@ -9,8 +9,6 @@ const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
 
-const con = require('./public/scripts/dbconfig');
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -50,7 +48,7 @@ app.get('/faq.html', (req, res) =>{
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
-    
+    const con = require('./public/scripts/dbconfig');
     
     con.query("SELECT ticket.status, ticket.problem_description, problem_type.name FROM ticket INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id", 
     function(err, result, fields) {
@@ -69,9 +67,7 @@ app.get('/faq.html', (req, res) =>{
             //     // problem_resolution: result
             // })
         }
-        
     });
-    con.end();
 });
 
 
@@ -82,12 +78,6 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.get('/account.html', (req, res) =>{
-    console.log("account")
-    res.sendFile(path.join(__dirname +  '/account.html'));
-    // res.render('login.html')
-
-});
 
 app.get('/login.html', (req, res) =>{
     console.log("analyst")
@@ -98,6 +88,7 @@ app.get('/login.html', (req, res) =>{
 
 app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
+    const con = require('./public/scripts/dbconfig');
     let user_in = req.body.username;
     let pass_in = req.body.password;
     if (user_in && pass_in) {
@@ -112,12 +103,9 @@ app.all('/auth', urlencodedParser, (req, res) =>{
 			} else {
 				res.send('Incorrect Username and/or Password!');
 			}			
-            res.end();
-          
-        });
-        con.end();
+			res.end();
+		});
 	} else {
-        
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
@@ -132,10 +120,52 @@ app.get('/home', (req, res) => {
 	res.end();
 });
 
+app.get('/account.html', (req, res) =>{
+    console.log("account")
+    // res.sendFile(path.join(__dirname +  '/account.html'));
+    const con = require('./public/scripts/dbconfig');
+    if (req.session.loggedin) {
+        con.query('SELECT user_id FROM users WHERE username = ?', [req.session.username], function(error, results, fields) {
+            if (error) throw error;
+			if (results.length > 0) {
+                console.log(results[0].user_id);
+                id_val = results[0].user_id;
+                
+                if (id_val > 2000 && id_val < 3000) {
+                    con.query('SELECT name, job, department, telephone FROM employee WHERE employee_id = ?', [id_val], 
+                    function(error, results, fields) {
+                        if (error) throw error;
+                        console.log(results);
+                        query_output = results;
+
+                        con.end();
+                    })
+                 } else {
+                    con.query('SELECT name FROM external_specialist WHERE external_specialist_id = ?', [id_val], 
+                    function(error, results, fields) {
+                        if (error) throw error;
+                        console.log(results);
+                        query_output = results;
+
+                        con.end();
+                 });
+                
+                res.render('account', {
+                    userVals: query_output
+                })
+
+			}		
+			res.end();
+        }});
+
+}});
+
 app.get('/index.html', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
     
+    
+    const con = require('./public/scripts/dbconfig');
 
     con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -156,9 +186,8 @@ app.get('/index.html', (req, res) => {
 
         query_output = result;
 
-      
+        con.end();
     });
-   
 
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -173,9 +202,8 @@ app.get('/index.html', (req, res) => {
 
         query = result
 
-       
+        con.end();
     });
-  
 
     
         con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
@@ -186,8 +214,7 @@ app.get('/index.html', (req, res) => {
         INNER JOIN employee ON handler.user_id = employee.employee_id
         UNION
         SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-        WHERE ticket_id = 1;`,[ticket_id],function(err, result, fields) {
-        console.log(err);
+        WHERE ticket_id = 1;`,[ticket_id],function (err, result, fields) {
         if (err) throw err;
         
 
@@ -196,7 +223,7 @@ app.get('/index.html', (req, res) => {
             newdropdownVals: query,
         })
 
-        
+
         io.on('connection',  (socket) => {
             console.log('connected')
             socket.on("message", (msg) => {
@@ -207,10 +234,7 @@ app.get('/index.html', (req, res) => {
     
             })
             })
-
-          
         });
-        // con.end();
 
     //     con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
     //         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
@@ -232,55 +256,24 @@ app.get('/index.html', (req, res) => {
 
         socket.on("update_message", (msg) => {
             console.log(msg);
-            
-            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
-                if (err) throw err;
-                problem_type_id = result[0].problem_type_id;
-            });
-            con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
-                if (err) throw err;
-                software_id = result[0].software_id;
-                // console.log(software_id);
-            });
-            con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
-                    UNION
-                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
-                if (err) throw err;
-                handler_id = result[0].user_id;
 
+    //         con.query(`SELECT problem_type_id from problem_type where name = ?;`, [msg.problem_type] , function (err, result, fields) {
                 
-            });
+    //         if (err) throw err;
+    //         console.log(result);
 
-            con.query(`UPDATE ticket 
-            SET priority = ?, hardware_id = ?, operating_system = ?, software_id = ?, problem_description = ?, notes = ?, problem_type_id = 2, handler_id = ?
-            WHERE ticket_id = ?`, [msg.priority, parseInt(msg.hardware_id), msg.os, software_id, msg.problem_description, msg.notes, problem_type_id, handler_id, parseInt(msg.id)], function (err, result, fields) {
-                
-                // console.log(msg.priority);
-                // console.log(parseInt(msg.hardware_id));
-                // console.log(msg.os);
-                // console.log(software_id);
-                // console.log(msg.problem_description);
-                // console.log(msg.notes);
-                // console.log(problem_type_id);
-                // console.log(handler_id);
-                if (err) throw err;
-            });   
-     
+    // });
 
-            
 
         });
     
     
         })
 
-    
 
     //killall -9 node
     
 });
-
-
 // var port = normalizePort(process.env.PORT);
 // app.set('port', port);
 
