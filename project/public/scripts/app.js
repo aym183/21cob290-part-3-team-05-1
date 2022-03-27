@@ -54,6 +54,7 @@ function showTicketInfo(data) {
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
+        document.getElementById('hardware-id').setAttribute("value", data.hardware_id);
         document.getElementById('hardware-type').setAttribute("value", data.manufacturer);
         document.getElementById('hardware-model').setAttribute("value", data.model);
         document.getElementById('hardware-make').setAttribute("value", data.make);
@@ -188,10 +189,12 @@ function showTicketInfo(data) {
  * @param {object} data containing ticket information to be updated
  */
 function updateTicketInfo(data) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "api/v1/tickets/ticket");
-    xhttp.setRequestHeader("Content-type", 'application/json');
-    xhttp.send(data);
+    const socket = io()
+    socket.emit('update_message',  data);
+
+    // socket.on('message', function(data, json) {
+    //     showTicketInfo(json[0]); 
+    // });
 }
 
 // Table row (Ticket) Clicked
@@ -403,66 +406,61 @@ ready(() => {
     document.querySelector("#update-btn").addEventListener("click", (e) => {
         
         
-        const caller_name = document.getElementById("caller-name").value;
-        const caller_id = document.getElementById("caller-id").value;
-        const operator_name = document.getElementById("operator-name").value;
+        const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
         const os = document.getElementById("operating-system").value;
         const software = document.getElementById("software").value;
-        const description = document.getElementById("description").value;
+        const problem_description = document.getElementById("description").value;
         const notes = document.getElementById("notes").value;
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
+
         
-        const valid_details = [];
-        if (!handler_table.some(e => e.name == handler_name)) {
-            valid_details.push('handler-name');
-        }
-        if (!hardware_table.some(e => e.serial_number == hardware_id)) {
-            valid_details.push('hardware-id');
-        }
-        if (!os_table.some(e => e.name == os) && os != "" && os !="null") {
-            valid_details.push('operating-system');
-        }
-        if (!software_table.some(e => e.name == software) && software != "") {
-            valid_details.push('software');
-        }
-        if (!operator_table.some(e => e.name == operator_name)) {
-            valid_details.push('operator-name');
-        }
-        if (!problemTypes.some(e => e.name == problem_type)) {
-            valid_details.push('problem-type');
-        }
+        // const valid_details = [];
+        // if (!handler_table.some(e => e.name == handler_name)) {
+        //     valid_details.push('handler-name');
+        // }
+        // if (!hardware_table.some(e => e.serial_number == hardware_id)) {
+        //     valid_details.push('hardware-id');
+        // }
+        // if (!os_table.some(e => e.name == os) && os != "" && os !="null") {
+        //     valid_details.push('operating-system');
+        // }
+        // if (!software_table.some(e => e.name == software) && software != "") {
+        //     valid_details.push('software');
+        // }
+        // if (!operator_table.some(e => e.name == operator_name)) {
+        //     valid_details.push('operator-name');
+        // }
+        // if (!problemTypes.some(e => e.name == problem_type)) {
+        //     valid_details.push('problem-type');
+        // }
 
-        if (valid_details.length != 0) {
+        // if (valid_details.length != 0) {
 
-            for (const element of valid_details) {
-                document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
-                document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
-                document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
-            }    
+        //     for (const element of valid_details) {
+        //         document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
+        //         document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
+        //         document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
+        //     }    
 
-            document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
+        //     document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
 
-        }else if (valid_details.length == 0) {
+        // }else if (valid_details.length == 0) {
 
             const ticket_details = {
-                caller_id: caller_id,
-                operator_name: operator_name,
+                priority: priority,
                 hardware_id: hardware_id,
                 os: os,
                 software: software,
-                des: description,
+                problem_description: problem_description,
                 notes: notes,
                 problem_type: problem_type,
                 handler_name: handler_name,
                 id: document.getElementById('detail-id').innerHTML
             };
 
-            
-
-            const jsonString = JSON.stringify(ticket_details);
-            updateTicketInfo(jsonString);
+            updateTicketInfo(ticket_details);
            
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
@@ -484,7 +482,7 @@ ready(() => {
             if(document.getElementsByClassName("ticket_history_section")[0]){
                 document.getElementById("ticket_history_btn").disabled = false;
             }
-        }    
+        // }    
 
     });    
 });

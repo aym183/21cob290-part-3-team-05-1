@@ -21,6 +21,10 @@ var port = process.env.PORT;
 var query;
 console.log(port)
 var ticket_id;
+var handler_id;
+var problem_type_id;
+var last_updated;
+var software_id;
 
 //5005
 
@@ -121,9 +125,8 @@ app.get('/index.html', (req, res) => {
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
                 WHEN status = 'pending' THEN 3
-                WHEN status = 'unsuccessful' THEN 4
-                WHEN status = 'active' THEN 5
-                ELSE 6 END`, 
+                WHEN status = 'active' THEN 4
+                ELSE 5 END`, 
     function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
@@ -139,31 +142,18 @@ app.get('/index.html', (req, res) => {
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
                 WHEN status = 'pending' THEN 3
-                WHEN status = 'unsuccessful' THEN 4
-                WHEN status = 'active' THEN 5
-                ELSE 6 END`, 
+                WHEN status = 'active' THEN 4
+                ELSE 5 END`, 
     function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
 
         query = result
 
-        // console.log(result);
-        // for(i = 0; i< 5; i++){
-        //     console.log(result[i]);
-
-        // }
-    
-
-
-        // const table = document.querySelector('ticket-body employee-ticket-body');
         con.end();
     });
 
     
-
-    console.log(ticket_id);
-        con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+        con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
         INNER JOIN  software on ticket.software_id = software.software_id 
         INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
@@ -174,13 +164,10 @@ app.get('/index.html', (req, res) => {
         WHERE ticket_id = 1;`,[ticket_id],function (err, result, fields) {
         if (err) throw err;
         
-        console.log(result)
 
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
-            // ticket_details: result
-
         })
 
 
@@ -193,16 +180,42 @@ app.get('/index.html', (req, res) => {
                 // io.emit('ticket_details', msg);
     
             })
-
-
-            
-            // console.log(socket.id);
+            })
         });
-        // io.on('connection', function() {
-        //     io.send('message', json);
-        //   });
-        
-    });
+
+    //     con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+    //         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+    //         INNER JOIN  software on ticket.software_id = software.software_id 
+    //         INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+    //         INNER JOIN (SELECT user_id, employee.name FROM handler
+    //         INNER JOIN employee ON handler.user_id = employee.employee_id
+    //         UNION
+    //         SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+    //         WHERE ticket_id = 1;`,[ticket_id],function (err, result, fields) {
+
+    //         if (err) throw err;
+
+    // });
+
+
+    io.on('connection',  (socket) => {
+        console.log('connected')
+
+        socket.on("update_message", (msg) => {
+            console.log(msg);
+
+    //         con.query(`SELECT problem_type_id from problem_type where name = ?;`, [msg.problem_type] , function (err, result, fields) {
+                
+    //         if (err) throw err;
+    //         console.log(result);
+
+    // });
+
+
+        });
+    
+    
+        })
 
 
     //killall -9 node
