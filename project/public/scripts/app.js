@@ -65,16 +65,16 @@ function showTicketInfo(data) {
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
 
-        if (status == 'submitted' || status == 'pending') {
+        if (data.status == 'submitted' || data.status == 'pending') {
             const pending_solution = info['solution_description'];
             document.getElementById('solution-area').value = pending_solution;
             
-        } else if (status == 'closed') {
+        } else if (data.status == 'closed') {
             const successful_solution = info['solution_description'];
             document.getElementById('solution-area').value = "";
             document.getElementById('solution').value = successful_solution;
 
-        } else if (status == 'unsuccessful') {
+        } else if (data.status == 'unsuccessful') {
             const unsuc_solution = info['solution_description'];
         } else {
             document.getElementById('solution-area').value = ""; 
