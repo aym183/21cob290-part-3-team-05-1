@@ -202,6 +202,7 @@ app.get('/index.html', (req, res) => {
             socket.on("message", (msg) => {
                 console.log(parseInt(msg.id));
                 // ticket_id = parseInt(msg.id);
+                console.log(result);
                 io.send('message', result);
                 // io.emit('ticket_details', msg);
     
@@ -232,30 +233,31 @@ app.get('/index.html', (req, res) => {
 
         socket.on("update_message", (msg) => {
             console.log(msg);
-            
+
             con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
                 if (err) throw err;
                 problem_type_id = result[0].problem_type_id;
-            });
-            con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
+                console.log(problem_type_id);
+                console.log("HERE");
+
+                 con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
                 if (err) throw err;
                 software_id = result[0].software_id;
-                // console.log(software_id);
-            });
+                
+           
             con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
                     UNION
                     SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
                 if (err) throw err;
                 handler_id = result[0].user_id;
 
-                
-            });
 
             con.query(`UPDATE ticket 
-            SET priority = ?, hardware_id = ?, operating_system = ?, software_id = ?, problem_description = ?, notes = ?, problem_type_id = 2, handler_id = ?
-            WHERE ticket_id = ?`, [msg.priority, parseInt(msg.hardware_id), msg.os, software_id, msg.problem_description, msg.notes, problem_type_id, handler_id, parseInt(msg.id)], function (err, result, fields) {
+                SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, handler_id = ? 
+                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
-                // console.log(msg.priority);
+                console.log(problem_type_id);
+                console.log("WORK PLEASE");
                 // console.log(parseInt(msg.hardware_id));
                 // console.log(msg.os);
                 // console.log(software_id);
@@ -265,6 +267,16 @@ app.get('/index.html', (req, res) => {
                 // console.log(handler_id);
                 if (err) throw err;
             });   
+
+
+            });
+
+        });
+    });
+            
+            
+           
+            
      
 
             

@@ -39,7 +39,7 @@ INSERT INTO `handler` VALUES
 INSERT INTO `hardware` 
 VALUES (1, 'Dell', 'Inspiron', '2022', 'active'),
 (2, 'Apple', 'Macbook Pro', '2016', 'active'),
-(3, 'Canon ', 'Pixma', '2022', 'active'),
+(3, 'Canon', 'Pixma', '2022', 'active'),
 (4, 'EPSON', 'Perfection Scanner', '2021', 'active'),
 (5, 'Apple', 'iPad Pro', '2021', 'active'),
 (6, 'Acer', 'Monitor', 'KG271G ', 'active'),

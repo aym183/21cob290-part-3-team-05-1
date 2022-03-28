@@ -51,6 +51,7 @@ var old_handlerName;
  */
 function showTicketInfo(data) {   
     
+        console.log(data);
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
