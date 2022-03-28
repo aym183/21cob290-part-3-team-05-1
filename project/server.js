@@ -133,6 +133,7 @@ app.get('/account.html', (req, res) =>{
 			if (results.length > 0) {
                 console.log(results[0].user_id);
                 id_val = results[0].user_id;
+                var query_output = null;
                 
                 if (id_val > 2000 && id_val < 3000) {
                     con.query('SELECT name, job, department, telephone FROM employee WHERE employee_id = ?', [id_val], 
@@ -140,6 +141,8 @@ app.get('/account.html', (req, res) =>{
                         if (error) throw error;
                         console.log(results);
                         query_output = results;
+
+                        
 
                         con.end();
                     })
@@ -153,11 +156,12 @@ app.get('/account.html', (req, res) =>{
                         con.end();
                  });
                 
+			    }
+            
                 res.render('account', {
                     userVals: query_output
-                })
+                })    
 
-			}		
 			res.end();
         }});
 
