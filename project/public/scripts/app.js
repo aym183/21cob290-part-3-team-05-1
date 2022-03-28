@@ -449,6 +449,10 @@ ready(() => {
 
         // }else if (valid_details.length == 0) {
 
+            var today = new Date();
+
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
             const ticket_details = {
                 priority: priority,
                 hardware_id: hardware_id,
@@ -458,6 +462,7 @@ ready(() => {
                 notes: notes,
                 problem_type: problem_type,
                 handler_name: handler_name,
+                last_updated: date,
                 id: document.getElementById('detail-id').innerHTML
             };
 

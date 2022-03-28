@@ -241,21 +241,6 @@ app.get('/index.html', (req, res) => {
 
           
         });
-        // con.end();
-
-    //     con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
-    //         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-    //         INNER JOIN  software on ticket.software_id = software.software_id 
-    //         INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-    //         INNER JOIN (SELECT user_id, employee.name FROM handler
-    //         INNER JOIN employee ON handler.user_id = employee.employee_id
-    //         UNION
-    //         SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-    //         WHERE ticket_id = 1;`,[ticket_id],function (err, result, fields) {
-
-    //         if (err) throw err;
-
-    // });
 
 
     io.on('connection',  (socket) => {
@@ -283,8 +268,8 @@ app.get('/index.html', (req, res) => {
 
 
             con.query(`UPDATE ticket 
-                SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, handler_id = ? 
-                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, handler_id ,parseInt(msg.id)], function (err, result, fields) {
+                SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
+                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
                 console.log(problem_type_id);
                 console.log("WORK PLEASE");
@@ -298,25 +283,12 @@ app.get('/index.html', (req, res) => {
                 if (err) throw err;
             });   
 
-
             });
 
         });
     });
-            
-            
-           
-            
-     
-
-            
-
         });
-    
-    
         })
-
-    
 
     //killall -9 node
     
