@@ -140,29 +140,33 @@ app.get('/account.html', (req, res) =>{
                     function(error, results, fields) {
                         if (error) throw error;
                         console.log(results);
-                        query_output = results;
-
                         
+                        res.render('account', {
+                            u_name: results[0].name,
+                            u_job: results[0].job,
+                            u_dept: results[0].department,
+                            u_phone: results[0].telephone
+                        })   
 
-                        con.end();
                     })
                  } else {
                     con.query('SELECT name FROM external_specialist WHERE external_specialist_id = ?', [id_val], 
                     function(error, results, fields) {
                         if (error) throw error;
                         console.log(results);
-                        query_output = results;
+                        
+                        res.render('account', {
+                            u_name: results[0].name,
+                            u_job: "External Specialist",
+                            u_dept: "",
+                            u_phone: ""
+                        })   
 
-                        con.end();
                  });
                 
 			    }
-            
-                res.render('account', {
-                    userVals: query_output
-                })    
-
-			res.end();
+                 
+            con.end();
         }});
 
 }});
