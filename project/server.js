@@ -117,7 +117,6 @@ app.all('/auth', urlencodedParser, (req, res) =>{
         });
         con.end();
 	} else {
-        
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
@@ -132,6 +131,45 @@ app.get('/home', (req, res) => {
 	res.end();
 });
 
+app.get('/account.html', (req, res) =>{
+    console.log("account")
+    // res.sendFile(path.join(__dirname +  '/account.html'));
+    const con = require('./public/scripts/dbconfig');
+    if (req.session.loggedin) {
+        con.query('SELECT user_id FROM users WHERE username = ?', [req.session.username], function(error, results, fields) {
+            if (error) throw error;
+			if (results.length > 0) {
+                console.log(results[0].user_id);
+                id_val = results[0].user_id;
+                
+                if (id_val > 2000 && id_val < 3000) {
+                    con.query('SELECT name, job, department, telephone FROM employee WHERE employee_id = ?', [id_val], 
+                    function(error, results, fields) {
+                        if (error) throw error;
+                        console.log(results);
+                        query_output = results;
+
+                        con.end();
+                    })
+                 } else {
+                    con.query('SELECT name FROM external_specialist WHERE external_specialist_id = ?', [id_val], 
+                    function(error, results, fields) {
+                        if (error) throw error;
+                        console.log(results);
+                        query_output = results;
+
+                        con.end();
+                 });
+                
+                res.render('account', {
+                    userVals: query_output
+                })
+
+			}		
+			res.end();
+        }});
+
+}});
 app.get('/index.html', (req, res) => {  
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
