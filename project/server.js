@@ -101,18 +101,43 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                 req.session.username = user_in;
                 req.session.save();
 				// res.send("Success! You are logged in as ", + req.session.username);
-                res.redirect('/home');
+                // res.redirect('/home');
+
+                con.query('SELECT user_id FROM users WHERE username = ?', [user_in], function(error, results, fields) {
+                    if (error) throw error;
+                    if (results.length > 0) {
+                        id_val = results[0].user_id;
+                        if (id_val < 2000) {
+                            return res.redirect('/index.html');
+                        } else {
+                            con.query('SELECT job FROM employee WHERE employee_id = ?', [id_val], 
+                            function(error, results, fields) {
+                                if (error) throw error;
+                                user_job = results[0].job;
+                                if (user_job = "Analyst") {
+                                    return res.redirect('/index.html');
+                                } else if (user_job = "Specialist") {
+                                    return res.redirect('/index.html');
+                                } else {
+                                    return res.redirect('/index.html');
+                                }
+
+                    }) 
+                        }
+
+
 			} else {
 				res.send('Incorrect Username and/or Password!');
+                res.end();
 			}			
-            res.end();
           
-        });
+            });
 	} else {
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
-});
+    });
+}});
 
 app.get('/home', (req, res) => {
 	if (req.session.loggedin) {
