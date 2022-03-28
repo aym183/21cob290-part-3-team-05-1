@@ -82,13 +82,6 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.get('/account.html', (req, res) =>{
-    console.log("account")
-    res.sendFile(path.join(__dirname +  '/account.html'));
-    // res.render('login.html')
-
-});
-
 app.get('/login.html', (req, res) =>{
     console.log("analyst")
     res.sendFile(path.join(__dirname +  '/analyst.html'));
@@ -115,7 +108,6 @@ app.all('/auth', urlencodedParser, (req, res) =>{
             res.end();
           
         });
-        con.end();
 	} else {
 		res.send('Please enter Username and Password!');
 		res.end();
