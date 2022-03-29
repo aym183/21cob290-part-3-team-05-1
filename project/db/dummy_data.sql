@@ -22,11 +22,18 @@ INSERT INTO `users` VALUES
 (2001 , 'MarieK'  , AES_ENCRYPT('Marie_PW',SHA2("MarieK",256))),
 (2002 ,'BernD'  ,  AES_ENCRYPT('Bern_Pw',SHA2("BernD",256))),
 (2003 , 'Dio'   ,  AES_ENCRYPT('Dio_Pw',SHA2("Dio",256))),
-(2004 , 'CatK'  ,   AES_ENCRYPT('Cat_Pw',SHA2("CatK",256))),
+(2004 , 'AbbyH'  ,   AES_ENCRYPT('Abby_Pw',SHA2("AbbyH",256))),
+(2005 , 'JoshuaS'  ,   AES_ENCRYPT('Joshua_Pw',SHA2("JoshuaS",256))),
+(2006 , 'CatK'  ,   AES_ENCRYPT('Cat_Pw',SHA2("CatK",256))),
 (2007 , 'AudreyB' , AES_ENCRYPT('Audrey_Pw',SHA2("AudreyB",256))),
-(2009 ,'RyanJ' , AES_ENCRYPT('Ryan_Pw',SHA2("RyanJ",256))),
+(2008 , 'BillyM'  ,   AES_ENCRYPT('Billy_Pw',SHA2("BillyM",256))),
+(2009 , 'RyanJ' , AES_ENCRYPT('Ryan_Pw',SHA2("RyanJ",256))),
 (2010 ,'EdwinS' , AES_ENCRYPT('Edwin_Pw',SHA2("EdwinS",256))),
+(2011 ,'DarcieB' , AES_ENCRYPT('Darcie_Pw',SHA2("DarcieB",256))),
+(2012 ,'RobD' , AES_ENCRYPT('Rob_Pw',SHA2("RobD",256))),
+(2013 ,'HollyL' , AES_ENCRYPT('Holly_Pw',SHA2("HollyL",256))),
 (2014 ,'Will Taha' , AES_ENCRYPT('Will_Pw',SHA2("Will Taha",256))),
+(2015 ,'AliH' , AES_ENCRYPT('Ali_Pw',SHA2("AliH",256))),
 (1011 , 'OscarT' , AES_ENCRYPT('OscarPw',SHA2("OscarT",256)));
 
 INSERT INTO `handler` VALUES
