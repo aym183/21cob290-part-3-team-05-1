@@ -94,9 +94,9 @@ INSERT INTO `analyst` VALUES
 (2007, 2007);
 
 INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `problem_description`, `notes`, `creation_date`, `last_updated`, `handler_id`, `solved_by`, `operating_system`, `hardware_id`, `software_id`, `problem_type_id`, `number_of_drops`, `closing_date`, `closing_time`) VALUES
-(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, 'Apple iOS 14', 1 ,  2 ,  2 , 0,  NULL , NULL ),
-(2, 2005, 'dropped','low' , NULL, 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  NULL, 1 ,    4 , 1 ,NULL ,NULL),
-(3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , NULL , 3, NULL ,  7 , 0 ,'2022-03-03', '01:00:30'),
+(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, 'Apple iOS 14', 1 ,  2 ,  2 , 1,  NULL , NULL ),
+(2, 2005, 'dropped','low' , 'Zoom meeting not connecting', 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  4, 1 ,    4 , 1 ,NULL ,NULL),
+(3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , 'Microsoft Windows 11' , 3, 2,  7 , 0 ,'2022-03-03', '01:00:30'),
 (4, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 2010, 'Apple iOS 14' ,  5 ,2,  6 , 0 ,'2022-02-24','12:34:00'),
 (5, 2014, 'active' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001, NULL ,'Microsoft Windows 10' ,  2,   2 ,  3 , 0 ,NULL , NULL    );    
 
@@ -129,4 +129,5 @@ INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
 (18 , 2002, 9 );
 
 INSERT INTO `dropped`  VALUES
-(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002);
+(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002),
+(2, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
