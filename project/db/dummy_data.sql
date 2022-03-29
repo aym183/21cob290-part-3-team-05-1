@@ -26,6 +26,7 @@ INSERT INTO `users` VALUES
 (2007 , 'AudreyB' , AES_ENCRYPT('Audrey_Pw',SHA2("AudreyB",256))),
 (2009 ,'RyanJ' , AES_ENCRYPT('Ryan_Pw',SHA2("RyanJ",256))),
 (2010 ,'EdwinS' , AES_ENCRYPT('Edwin_Pw',SHA2("EdwinS",256))),
+(2014 ,'Will Taha' , AES_ENCRYPT('Will_Pw',SHA2("Will Taha",256))),
 (1011 , 'OscarT' , AES_ENCRYPT('OscarPw',SHA2("OscarT",256)));
 
 INSERT INTO `handler` VALUES
@@ -97,7 +98,7 @@ INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `problem
 (2, 2005, 'dropped','low' , NULL, 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  NULL, 1 ,    4 , 1 ,NULL ,NULL),
 (3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , NULL , 3, NULL ,  7 , 0 ,'2022-03-03', '01:00:30'),
 (4, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 2010, 'Apple iOS 14' ,  5 ,2,  6 , 0 ,'2022-02-24','12:34:00'),
-(5, 2014, 'active' ,'medium' ,  NULL ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01',      2001, NULL ,'Microsoft Windows 10' ,  NULL,   2 ,  3 , 0 ,NULL , NULL    );    
+(5, 2014, 'active' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001, NULL ,'Microsoft Windows 10' ,  2,   2 ,  3 , 0 ,NULL , NULL    );    
 
 
 INSERT INTO `solution` VALUES

@@ -23,7 +23,7 @@ const mysql = require('mysql2');
 const { add } = require('nodemon/lib/rules');
 var port = process.env.PORT;
 var query;
-console.log(port)
+var session_username;
 var ticket_id;
 var handler_id;
 var problem_type_id;
@@ -99,13 +99,22 @@ app.all('/auth', urlencodedParser, (req, res) =>{
 			if (results.length > 0) {
                 req.session.loggedin = true;
                 req.session.username = user_in;
+
                 req.session.save();
+            
+                
+                
 				// res.send("Success! You are logged in as ", + req.session.username);
                 // res.redirect('/home');
 
                 con.query('SELECT user_id FROM users WHERE username = ?', [user_in], function(error, results, fields) {
                     if (error) throw error;
+
                     if (results.length > 0) {
+                        req.session.user_id = results[0].user_id;
+                        req.session.save();
+                        session_username = req.session.user_id;
+                        // console.log(req.session.user_id);
                         id_val = results[0].user_id;
                         if (id_val < 2000) {
                             return res.redirect('/index.html');
@@ -207,13 +216,13 @@ app.get('/index.html', (req, res) => {
                 INNER JOIN employee ON handler.user_id = employee.employee_id
                 UNION
                 SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-    WHERE ticket.employee_id = 2005
+    WHERE ticket.employee_id = ?
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
                 WHEN status = 'pending' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
-    function (err, result, fields) {
+    [session_username],function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
@@ -225,55 +234,48 @@ app.get('/index.html', (req, res) => {
 
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.employee_id = 2005
+    WHERE ticket.employee_id = ?
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
                 WHEN status = 'pending' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
-    function (err, result, fields) {
+    [session_username],function (err, result, fields) {
         if (err) throw err;
 
         query = result
-
-       
-    });
-  
-
-    
-        con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
-        INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-        INNER JOIN  software on ticket.software_id = software.software_id 
-        INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-        INNER JOIN (SELECT user_id, employee.name FROM handler
-        INNER JOIN employee ON handler.user_id = employee.employee_id
-        UNION
-        SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-        WHERE ticket_id = 1;`,[ticket_id],function(err, result, fields) {
-        console.log(err);
-        if (err) throw err;
-        
 
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
         })
+       
+    });
 
-        
-        io.on('connection',  (socket) => {
-            console.log('connected')
-            socket.on("message", (msg) => {
-                console.log(parseInt(msg.id));
-                // ticket_id = parseInt(msg.id);
-                console.log(result);
-                io.send('message', result);
-                // io.emit('ticket_details', msg);
-    
-            })
-            })
+    io.on('connection',  (socket) => {
+        console.log('connected')
+        socket.on("message", (msg) => {
+            console.log(parseInt(msg.id));
 
-          
+            con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
+            INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+            INNER JOIN  software on ticket.software_id = software.software_id 
+            INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+            INNER JOIN (SELECT user_id, employee.name FROM handler
+            INNER JOIN employee ON handler.user_id = employee.employee_id
+            UNION
+            SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+            WHERE ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+            console.log(err);
+            if (err) throw err;
+
+            console.log(result);
+            io.send('message', result);
+
         });
+
+        })
+        })
 
 
     io.on('connection',  (socket) => {
@@ -302,7 +304,7 @@ app.get('/index.html', (req, res) => {
 
             con.query(`UPDATE ticket 
                 SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
-                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
+                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
                 console.log(problem_type_id);
                 console.log("WORK PLEASE");
