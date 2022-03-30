@@ -60,7 +60,8 @@ app.get('/faq.html', (req, res) =>{
 
         if (result.length>0) {
             res.render('faq', {
-                dropdownVals: result
+                dropdownVals: result,
+                loggeduser: session_username
                
                 // ticket_details: result
     
