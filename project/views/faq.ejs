@@ -79,7 +79,7 @@
                 <div class="profile__container">
                     <a href="employee_account.html" class="profile__item" id="profile-username">
                         
-                        <p id="username">Account</p>
+                        <p id="username"><%=loggeduser%></p>
                         <!--This is James part
                         -->
                         <!-- <?php
@@ -126,15 +126,7 @@
                 <div class="table-title__container">
                     <h5 class="table-title">Problem Resolutions</h5> 
                     <span class="total-tickets">
-                    <!-- <?php
-                        $sql = "SELECT * FROM ticket";
-                        if ($result=mysqli_query($conn, $sql)) {
-                            $rowcount=mysqli_num_rows($result);
-                            echo 'Total '. $rowcount. ' (50 per page)'; 
-                        } else {
-                            echo 'Total 0 (50 per page)';
-                        }
-                    ?> -->
+                   
                     </span>   
                 </div>
             </div>
@@ -150,7 +142,7 @@
                 <tbody class="ticket-body op-ticket-body">
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
-                            <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
+                            <!--<td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td> -->
                             <td><%=dropdownVals[i].problem_description%></td>
                             <td><%=dropdownVals[i].name%></td>
                                         

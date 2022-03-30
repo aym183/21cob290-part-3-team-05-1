@@ -22,10 +22,18 @@ INSERT INTO `users` VALUES
 (2001 , 'MarieK'  , AES_ENCRYPT('Marie_PW',SHA2("MarieK",256))),
 (2002 ,'BernD'  ,  AES_ENCRYPT('Bern_Pw',SHA2("BernD",256))),
 (2003 , 'Dio'   ,  AES_ENCRYPT('Dio_Pw',SHA2("Dio",256))),
-(2004 , 'CatK'  ,   AES_ENCRYPT('Cat_Pw',SHA2("CatK",256))),
+(2004 , 'AbbyH'  ,   AES_ENCRYPT('Abby_Pw',SHA2("AbbyH",256))),
+(2005 , 'JoshuaS'  ,   AES_ENCRYPT('Joshua_Pw',SHA2("JoshuaS",256))),
+(2006 , 'CatK'  ,   AES_ENCRYPT('Cat_Pw',SHA2("CatK",256))),
 (2007 , 'AudreyB' , AES_ENCRYPT('Audrey_Pw',SHA2("AudreyB",256))),
-(2009 ,'RyanJ' , AES_ENCRYPT('Ryan_Pw',SHA2("RyanJ",256))),
+(2008 , 'BillyM'  ,   AES_ENCRYPT('Billy_Pw',SHA2("BillyM",256))),
+(2009 , 'RyanJ' , AES_ENCRYPT('Ryan_Pw',SHA2("RyanJ",256))),
 (2010 ,'EdwinS' , AES_ENCRYPT('Edwin_Pw',SHA2("EdwinS",256))),
+(2011 ,'DarcieB' , AES_ENCRYPT('Darcie_Pw',SHA2("DarcieB",256))),
+(2012 ,'RobD' , AES_ENCRYPT('Rob_Pw',SHA2("RobD",256))),
+(2013 ,'HollyL' , AES_ENCRYPT('Holly_Pw',SHA2("HollyL",256))),
+(2014 ,'Will Taha' , AES_ENCRYPT('Will_Pw',SHA2("Will Taha",256))),
+(2015 ,'AliH' , AES_ENCRYPT('Ali_Pw',SHA2("AliH",256))),
 (1011 , 'OscarT' , AES_ENCRYPT('OscarPw',SHA2("OscarT",256)));
 
 INSERT INTO `handler` VALUES
@@ -93,11 +101,11 @@ INSERT INTO `analyst` VALUES
 (2007, 2007);
 
 INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `problem_description`, `notes`, `creation_date`, `last_updated`, `handler_id`, `solved_by`, `operating_system`, `hardware_id`, `software_id`, `problem_type_id`, `number_of_drops`, `closing_date`, `closing_time`) VALUES
-(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, 'Apple iOS 14', 1 ,  2 ,  2 , 0,  NULL , NULL ),
-(2, 2005, 'dropped','low' , NULL, 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  NULL, 1 ,    4 , 1 ,NULL ,NULL),
-(3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , NULL , 3, NULL ,  7 , 0 ,'2022-03-03', '01:00:30'),
+(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 , NULL, 'Apple iOS 14', 1 ,  2 ,  2 , 1,  NULL , NULL ),
+(2, 2005, 'dropped','low' , 'Zoom meeting not connecting', 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001 , NULL, 'Microsoft Windows 11' ,  4, 1 ,    4 , 1 ,NULL ,NULL),
+(3, 2008, 'closed' ,'low', 'Reboot system and replace cartridges'  , 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011 , 1011 , 'Microsoft Windows 11' , 3, 2,  7 , 0 ,'2022-03-03', '01:00:30'),
 (4, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 2010, 'Apple iOS 14' ,  5 ,2,  6 , 0 ,'2022-02-24','12:34:00'),
-(5, 2014, 'active' ,'medium' ,  NULL ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01',      2001, NULL ,'Microsoft Windows 10' ,  NULL,   2 ,  3 , 0 ,NULL , NULL    );    
+(5, 2014, 'active' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001, NULL ,'Microsoft Windows 10' ,  2,   2 ,  3 , 0 ,NULL , NULL    );    
 
 
 INSERT INTO `solution` VALUES
@@ -128,4 +136,5 @@ INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
 (18 , 2002, 9 );
 
 INSERT INTO `dropped`  VALUES
-(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002);
+(1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002),
+(2, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
