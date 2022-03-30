@@ -166,6 +166,7 @@ app.get('/index.html', (req, res) => {
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
     
+    // Query for ticket information
 
     con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -189,7 +190,7 @@ app.get('/index.html', (req, res) => {
       
     });
    
-
+    // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     WHERE ticket.employee_id = 2005
@@ -207,7 +208,7 @@ app.get('/index.html', (req, res) => {
     });
   
 
-    
+        // Ticket information
         con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
         INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
         INNER JOIN  software on ticket.software_id = software.software_id 
