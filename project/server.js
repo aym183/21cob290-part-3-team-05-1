@@ -23,6 +23,7 @@ const mysql = require('mysql2');
 const { add } = require('nodemon/lib/rules');
 var port = process.env.PORT;
 var query;
+var session_id;
 var session_username;
 var ticket_id;
 var handler_id;
@@ -99,7 +100,7 @@ app.all('/auth', urlencodedParser, (req, res) =>{
 			if (results.length > 0) {
                 req.session.loggedin = true;
                 req.session.username = user_in;
-
+                session_username = user_in;
                 req.session.save();
             
                 
@@ -113,8 +114,7 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                     if (results.length > 0) {
                         req.session.user_id = results[0].user_id;
                         req.session.save();
-                        session_username = req.session.user_id;
-                        // console.log(req.session.user_id);
+                        session_id = req.session.user_id;
                         id_val = results[0].user_id;
                         if (id_val < 2000) {
                             return res.redirect('/index.html');
@@ -222,7 +222,7 @@ app.get('/index.html', (req, res) => {
                 WHEN status = 'pending' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
-    [session_username],function (err, result, fields) {
+    [session_id],function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
@@ -240,7 +240,7 @@ app.get('/index.html', (req, res) => {
                 WHEN status = 'pending' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
-    [session_username],function (err, result, fields) {
+    [session_id],function (err, result, fields) {
         if (err) throw err;
 
         query = result
@@ -248,6 +248,7 @@ app.get('/index.html', (req, res) => {
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
+            loggeduser: session_username
         })
        
     });
