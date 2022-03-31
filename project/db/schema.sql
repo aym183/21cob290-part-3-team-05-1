@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS software (
 CREATE TABLE IF NOT EXISTS problem_type (
     problem_type_id MEDIUMINT UNSIGNED NOT NULL UNIQUE,
     name      VARCHAR(150) NOT NULL UNIQUE,
-    links_to MEDIUMINT UNSIGNED,
+    links_to VARCHAR(300),
     PRIMARY KEY (problem_type_id)
 );
 
