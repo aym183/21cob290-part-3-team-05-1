@@ -70,8 +70,30 @@ app.get('/index', (req, res) => {
         // const table = document.querySelector('ticket-body employee-ticket-body');
         con.end();
     });
-
     
+/*
+    app.get('/external', (req, res) => {
+        console.log("external")
+        const con = require('./dbconfig');
+
+        con.query(";", function (err, result, fields) {
+            if (err) throw err;
+            // console.log(result);
+            query_output = result;
+            console.log(result[0].status);
+            // for(i = 0; i< 5; i++){
+            //     console.log(result[i]);
+
+            // }
+            res.render('external', {
+                dropdownVals: result
+            })
+            // const table = document.querySelector('ticket-body employee-ticket-body');
+            con.end();
+        });
+   */ 
+
+
     // res.writeHead(200, {'content-type':'text/html'})
     
     // res.render('index.html');
