@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=!, initial-scale=1.0">
-    <title>Your Account</title>
-    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Your Account</title>
 </head>
 
 <body>
@@ -32,19 +34,19 @@
                     <div class="row mt-5 align-items-center">
                         <div class="col">
                             <div class="row align-items-center">
-                                    <h4 class="mb-1">Jane Doe</h4>
+                                    <h4 class="mb-1"><%=u_name%></h4>
                             </div>
                                 <div class="col">
-                                    <p class="small mb-0 text-muted">Make-it-All Ltd</p>
-                                    <p class="small mb-0 text-muted">Add Job Title Here</p>
-                                    <p class="small mb-0 text-muted">+44 0000 000000</p>
+                                    <p class="small mb-0 text-muted"><%=u_job%></p>
+                                    <p class="small mb-0 text-muted"><%=u_dept%></p>
+                                    <p class="small mb-0 text-muted"><%=u_phone%></p>
                                 </div>
                         </div>
                     </div>
 
                     <hr class="my-4" />
                     
-                    <form>
+                    <form method="post" action="/changepass">
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -57,15 +59,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword6">Confirm Password</label>
-                                <input type="password" class="form-control" id="inputPassword6" />
+                                <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword6" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <p class="mb-2">Password requirements</p>
                             <p class="small text-muted mb-2">To create a new password, you have to meet all of the following requirements:</p>
                             <ul class="small text-muted pl-4 mb-0">
-                                <li>Minimum 8 character</li>
-                                <li>At least one special character</li>
+                                <li>Minimum 8 characters</li>
+                                <li>At least one lowercase and one uppercase letter</li>
                                 <li>At least one number</li>
                             </ul>
                         </div>

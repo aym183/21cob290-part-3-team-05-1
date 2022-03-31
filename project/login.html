@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
+    <link rel="stylesheet" type = 'text/css' href="/styles/login.css" /> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
 </head>
@@ -28,10 +29,13 @@
 
     <div class="main__section">
 
-        <!-- TICKET TABLE SECTION -->
-        <div class="d-flex justify-content-center align-items-center" id="loginForm-container">
-            
-            <div class="login-form">
+        <div class="d-flex justify-content-center align-items-center" id="loginForm-container" style="position: fixed;
+        top: 25%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -100px;">
+        <div class="centered"> 
+            <div class="form-login">
                 <form method="post" action="/auth">
                     <h3>Log In</h3>
                     <div class="form-group">
@@ -44,11 +48,15 @@
                             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password Here">
                         </div>
                     </div>
-                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                    <div id="button_div" style="display: flex;
+                    justify-content: center;
+                    align-items: center;">
+                    <button type="submit" id="submitBtn" class="btn btn-primary center">Submit</button>
+                    </div>
                 </form>
                 
             </div>
-
+        </div>   
             
         </div>
 
