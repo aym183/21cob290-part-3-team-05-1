@@ -73,17 +73,17 @@ VALUES (1, 'Zoom Meetings', 1, 1),
 INSERT INTO `problem_type`  
 VALUES (1, 'Software', NULL),
 (2, 'Hardware', NULL),
-(3, 'Office', 1),
-(4, 'Zoom', 1),
-(5, 'PC (Conventional)', 2),
-(6, 'Apple ', 2),
-(7, 'Printers', 2),
-(8, 'Scanners', 2),
-(9, 'Monitors', 2),
-(10, 'Excel', 3),
-(11, 'Word', 3),
-(12, 'Browser', 1),
-(13, 'Creative', 1);
+(3, 'Office', '1'),
+(4, 'Zoom', '1'),
+(5, 'PC (Conventional)', '2'),
+(6, 'Apple ', '2'),
+(7, 'Printers', '2'),
+(8, 'Scanners', '2'),
+(9, 'Monitors', "2"),
+(10, 'Excel', '1, 3'),
+(11, 'Word', '1, 3'),
+(12, 'Browser', '1'),
+(13, 'Printer ink empty', '2, 7');
 
 INSERT INTO `internal_specialist` VALUES
 (2001 , 2001),
