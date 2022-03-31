@@ -25,6 +25,7 @@ var port = process.env.PORT;
 var query;
 var session_id;
 var session_username;
+var session_job;
 var ticket_id;
 var handler_id;
 var problem_type_id;
@@ -113,8 +114,6 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                 req.session.username = user_in;
                 session_username = user_in;
                 req.session.save();
-            
-                
                 
 				// res.send("Success! You are logged in as ", + req.session.username);
                 // res.redirect('/home');
@@ -128,6 +127,7 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                         session_id = req.session.user_id;
                         id_val = results[0].user_id;
                         if (id_val < 2000) {
+                            session_job = "Employee";
                             return res.redirect('/index.html');
                         } else {
                             con.query('SELECT job FROM employee WHERE employee_id = ?', [id_val], 
@@ -135,10 +135,13 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                                 if (error) throw error;
                                 user_job = results[0].job;
                                 if (user_job == "Specialist") {
+                                    session_job = user_job;
                                     return res.redirect('/intspecialist.html');
                                 } else if (user_job == "Analyst") {
+                                    session_job = user_job;
                                     return res.redirect('/index.html');
                                 } else {
+                                    session_job = "External Specialist";
                                     return res.redirect('/index.html');
                                 }
 
