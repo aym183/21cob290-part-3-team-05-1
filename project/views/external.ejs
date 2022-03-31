@@ -218,7 +218,7 @@
                                 echo "<option value=\"" . $operator['name'] . "\">";
                             }
                             ?>
-                            </datalist>
+                            </datalist> -->
                             <span class="validation_error" id="operator-name-error"></span>
                             <label for="call-time">Date Created</label>
                             <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
@@ -227,7 +227,8 @@
                             <label for="hardware-id">Hardware ID</label>
                             <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
                             <datalist id="hardware-numbers">
-                            <?php
+                            
+                            <!-- <?php
                             foreach ($autocompletion['hardware ids'] as $hardware_id) {
                                 echo "<option value=\"" . $hardware_id['serial_number'] . "\">";
                             }
@@ -381,7 +382,7 @@
     </div>
     <script src="scripts/app.js"></script>
     <script src="scripts/function.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+  
 
     <!-- /* $(document).ready(function () {
             $(document.body).on("click", "#navbar__logo", function (e) {
