@@ -91,6 +91,16 @@ app.get('/login.html', (req, res) =>{
 
 });
 
+app.get('/intspecialist.html', (req, res) =>{
+    if (req.session.loggedin) {
+		console.log("internal specialist")
+        res.render('intSpecialist')
+	} else {
+		res.send('Please login to view this page!');
+	}
+    res.end();
+})
+
 app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
     let user_in = req.body.username;
@@ -124,9 +134,9 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                             function(error, results, fields) {
                                 if (error) throw error;
                                 user_job = results[0].job;
-                                if (user_job = "Analyst") {
-                                    return res.redirect('/index.html');
-                                } else if (user_job = "Specialist") {
+                                if (user_job == "Specialist") {
+                                    return res.redirect('/intspecialist.html');
+                                } else if (user_job == "Analyst") {
                                     return res.redirect('/index.html');
                                 } else {
                                     return res.redirect('/index.html');
