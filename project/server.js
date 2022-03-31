@@ -54,11 +54,16 @@ app.get('/faq.html', (req, res) =>{
 
     
     
-    con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name  from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id where links_to LIKE '2%' OR problem_type.problem_type_id = 2 
+    con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name  
+    from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
+    where links_to LIKE '2%' OR problem_type.problem_type_id = 2 
+
     UNION ALL
-    SELECT ticket.problem_description, 'Software' as 'prob_name', problem_type.name from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id where links_to LIKE '1%' OR problem_type.problem_type_id = 1;`,
-   // UNION ALL
-   // SELECT 'Network' as 'name',count(ticket.problem_type_id) as 'Amount' from problem_type INNER JOIN ticket ON problem_type.problem_type_id = ticket.problem_type_id where links_to LIKE '3%' OR problem_type.problem_type_id = 3;`, 
+
+    SELECT ticket.problem_description, 'Software' as 'prob_name', problem_type.name 
+    from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
+    where links_to LIKE '1%' OR problem_type.problem_type_id = 1;`,
+    
     function(err, result, fields) {
         if (err) throw err;
         console.log(result);
@@ -77,6 +82,15 @@ app.get('/faq.html', (req, res) =>{
             // })
         }
         
+    });
+    con.end();
+
+    con.query(`SELECT solution.solution_description FROM solution 
+    INNER JOIN ticket_solution WHERE solution.solution_id = ticket_solution.solution_id
+    INNER JOIN ticket WHERE ticket_solution.ticket_id = ticket.ticket_id;`,
+    function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
     });
     con.end();
 });
@@ -138,16 +152,17 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                             function(error, results, fields) {
                                 if (error) throw error;
                                 user_job = results[0].job;
-                                if (user_job == "Specialist") {
-                                    session_job = user_job;
-                                    return res.redirect('/intspecialist.html');
-                                } else if (user_job == "Analyst") {
-                                    session_job = user_job;
-                                    return res.redirect('/index.html');
-                                } else {
-                                    session_job = "External Specialist";
-                                    return res.redirect('/index.html');
-                                }
+                                return res.redirect('/index.html');
+                                // if (user_job == "Specialist") {
+                                //     session_job = user_job;
+                                //     return res.redirect('/intspecialist.html');
+                                // } else if (user_job == "Analyst") {
+                                //     session_job = user_job;
+                                //     return res.redirect('/index.html');
+                                // } else {
+                                //     session_job = "External Specialist";
+                                //     return res.redirect('/index.html');
+                                // }
 
                     }) 
                         }
