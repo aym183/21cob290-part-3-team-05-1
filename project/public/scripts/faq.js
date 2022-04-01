@@ -18,7 +18,7 @@ socket.emit('solution',  data);
 
 // after data is recieved, calling function to show solution info
 socket.on('solution', function(data, json) {
-    showTicketInfo(json[0]); 
+    addRowHandlers(json[0]); 
 });
 
 
