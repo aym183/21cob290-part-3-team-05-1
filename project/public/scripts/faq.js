@@ -1,4 +1,4 @@
-function addRowHandlers() {
+function addRowHandlers(data) {
     var table = document.getElementById("tableId");
     var rows = table.getElementsByTagName("tr");
     for (i = 0; i < rows.length; i++) {
