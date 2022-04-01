@@ -201,44 +201,42 @@
 
                 </div>
             </div>
-            <div class="faq_answer" style="background-color: var(--secondaryColor); display: flex; flex-direction: column;">
+            <div class="faq_answer" style="background-color: var(--secondaryColor); 
+            display: flex; flex-direction: column; padding: 20px 20px;">
                 <div>
                     <button class="info-edit-btn" id="edit-btn">Edit</button>
                     </datalist>
                 </div>
 
                 <span class="validation_error" id="software-error"></span>
+                <label for="description">FAQ Description</label>
+                <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5"></textarea> 
+                <div id='remaining_chars'>300 characters remaining</div>
+    
+                <br>
+                
+                <label for="notes">Notes</label>  
+                <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5"></textarea>
+                <div id='notes_remaining_chars'>1000 characters remaining</div>
+        
+                <br>
+               
+                <label for="problem-type">Problem Type</label>
+                <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
+                <datalist id="problem-types">
+                <!-- <?php
+                $problems = get_problem_types(true, false);
+                foreach ($problems as $problem) {
+                    echo "<option value=\"" . $problem['name'] . "\">";
+                }
+                ?> -->
 
-                <div>
-                    <label for="description">FAQ Description</label>
-                    <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5"></textarea> 
-                    <div id = 'remaining_chars' >300 characters remaining</div>
-                </div>
+                </datalist>
+                
                 <br>
-                <div>
-                    <label for="notes">Notes</label>  
-                    <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5"></textarea>
-                    <div id = 'notes_remaining_chars' >1000 characters remaining</div>
-                </div>
-                <br>
-                <div>
-                    <label for="problem-type">Problem Type</label>
-                    <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
-                    <datalist id="problem-types">
-                    <!-- <?php
-                    $problems = get_problem_types(true, false);
-                    foreach ($problems as $problem) {
-                        echo "<option value=\"" . $problem['name'] . "\">";
-                    }
-                    ?> -->
-
-                    </datalist>
-                </div>
-                <br>
-                <div>
-                    <label for="solution" class="solution">Solution</label>
-                    <textarea type="text" id="solutionBox" class="solution" rows="5"></textarea>
-                </div>
+            
+                <label for="solution" class="solution">Solution</label>
+                <textarea type="text" id="solutionBox" class="solution" rows="5"></textarea>
                 
                 <div class="close__border">
                     <hr>

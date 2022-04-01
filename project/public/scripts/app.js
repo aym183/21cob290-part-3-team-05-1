@@ -212,9 +212,10 @@ ready(() => {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
         }
-
+// Creation of socket
         socket.emit('message',  data);
 
+        // after data is recieved, calling function to show ticket info
         socket.on('message', function(data, json) {
         
             showTicketInfo(json[0]); 

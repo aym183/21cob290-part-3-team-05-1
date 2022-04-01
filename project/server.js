@@ -85,13 +85,23 @@ app.get('/faq.html', (req, res) =>{
     });
     con.end();
 
-    con.query(`SELECT solution.solution_description FROM solution 
-    INNER JOIN ticket_solution WHERE solution.solution_id = ticket_solution.solution_id
-    INNER JOIN ticket WHERE ticket_solution.ticket_id = ticket.ticket_id;`,
-    function(err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-    });
+    io.on('connection',  (socket) => {
+        console.log('connected')
+        socket.on("solution", (msg) => {
+            console.log(parseInt(msg.id));
+
+            con.query(`SELECT solution.solution_description FROM solution 
+            INNER JOIN ticket_solution WHERE solution.solution_id = ticket_solution.solution_id
+            INNER JOIN ticket WHERE ticket_solution.ticket_id = ticket.ticket_id;`,
+            [parseInt(msg.id)],function(err, result, fields) {
+            console.log(err);
+            if (err) throw err;
+
+            console.log(result);
+            io.send('solution', result);
+            })
+        });
+        })
     con.end();
 });
 
@@ -286,7 +296,7 @@ app.get('/index.html', (req, res) => {
         })
        
     });
-
+// ``````condition that executed on calling of socket
     io.on('connection',  (socket) => {
         console.log('connected')
         socket.on("message", (msg) => {
