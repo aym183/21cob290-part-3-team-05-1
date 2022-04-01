@@ -124,6 +124,21 @@ app.get('/external.html', (req, res) => {
     if (req.session.loggedin) {
         console.log("external specialist")
         res.render('external')
+        //query connection for external specialist
+        con.query(`;`,
+        [session_id], function (err, result, fields) {
+            if (err) throw err;
+
+            query = result
+
+            res.render('external', {
+                dropdownVals: query_output,
+                newdropdownVals: query,
+                loggeduser: session_username
+            })
+
+        });
+
     } else {
         res.send('Please login to view this page!');
     }
