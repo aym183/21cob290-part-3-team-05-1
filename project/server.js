@@ -152,7 +152,7 @@ app.get('/external.html', (req, res) => {
         res.send('Please login to view this page!');
     }
     res.end();
-})
+});
 
 app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
