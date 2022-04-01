@@ -124,7 +124,9 @@ app.get('/external.html', (req, res) => {
     if (req.session.loggedin) {
         console.log("external specialist")
         res.render('external')
+
         //query connection for external specialist and display home page for external specialist
+        
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     INNER JOIN external_specialist ON ticket.handler_id = external_specialist.external_specialist_id 
