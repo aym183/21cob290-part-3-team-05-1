@@ -92,7 +92,8 @@ app.get('/faq.html', (req, res) =>{
 
             con.query(`SELECT solution.solution_description FROM solution 
             INNER JOIN ticket_solution WHERE solution.solution_id = ticket_solution.solution_id
-            INNER JOIN ticket WHERE ticket_solution.ticket_id = ticket.ticket_id;`,
+            INNER JOIN ticket WHERE ticket_solution.ticket_id = ticket.ticket_id
+            WHERE ;`,
             [parseInt(msg.id)],function(err, result, fields) {
             console.log(err);
             if (err) throw err;
