@@ -120,6 +120,16 @@ app.get('/intspecialist.html', (req, res) =>{
     res.end();
 })
 
+app.get('/external.html', (req, res) => {
+    if (req.session.loggedin) {
+        console.log("external specialist")
+        res.render('external')
+    } else {
+        res.send('Please login to view this page!');
+    }
+    res.end();
+})
+
 app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
     let user_in = req.body.username;
