@@ -335,24 +335,23 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                         session_id = req.session.user_id;
                         id_val = results[0].user_id;
                         if (id_val < 2000) {
-                            session_job = "Employee";
-                            return res.redirect('/index.html');
+                            session_job = "External Specialist";
+                            return res.redirect('/external.html');
                         } else {
                             con.query('SELECT job FROM employee WHERE employee_id = ?', [id_val], 
                             function(error, results, fields) {
                                 if (error) throw error;
                                 user_job = results[0].job;
-                                return res.redirect('/index.html');
-                                // if (user_job == "Specialist") {
-                                //     session_job = user_job;
-                                //     return res.redirect('/intspecialist.html');
-                                // } else if (user_job == "Analyst") {
-                                //     session_job = user_job;
-                                //     return res.redirect('/index.html');
-                                // } else {
-                                //     session_job = "External Specialist";
-                                //     return res.redirect('/index.html');
-                                // }
+                                 if (user_job == "Specialist") {
+                                     session_job = user_job;
+                                     return res.redirect('/intspecialist.html');
+                                 } else if (user_job == "Analyst") {
+                                     session_job = user_job;
+                                     return res.redirect('/analyst.html');
+                                 } else {
+                                     session_job = "Employee";
+                                     return res.redirect('/index.html');
+                                 }
 
                     }) 
                         }
