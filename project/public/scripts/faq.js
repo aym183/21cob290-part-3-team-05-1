@@ -12,7 +12,7 @@ function addRowHandlers(data) {
       };
       currentRow.onclick = createClickHandler(currentRow);
     }
-  }
+}
 
 socket.emit('solution',  data);
 
