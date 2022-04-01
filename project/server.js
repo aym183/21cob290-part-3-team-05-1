@@ -301,7 +301,7 @@ app.get('/index.html', (req, res) => {
 
             query = result
 
-            res.render('index', {
+            res.render('external', {
                 dropdownVals: query_output,
                 newdropdownVals: query,
                 loggeduser: session_username
