@@ -113,7 +113,7 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.get('/login.html', (req, res) =>{
+app.get('/analyst.html', (req, res) =>{
     console.log("analyst")
     res.sendFile(path.join(__dirname +  '/analyst.html'));
     // res.render('login.html')
