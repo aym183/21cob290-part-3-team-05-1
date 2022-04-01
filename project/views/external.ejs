@@ -99,6 +99,15 @@
                 </thead>
 
                 <tbody class="ticket-body employee-ticket-body">
+                    
+                    <% for(var i=0; i < dropdownVals.length; i++) { %>
+                        <tr>
+                            <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
+                            <td><%=dropdownVals[i].ticket_id%></td>
+                            <td id='lastUpdated'><%=dropdownVals[i].last_updated%></td>
+                            <td><%=dropdownVals[i].name%></td></tr>
+                    <% } %>
+                    
                     <!-- <?php
                     $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
                     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -138,7 +147,7 @@
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="external.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
                         </div>
                     </div>
                     <div class="information__title">
@@ -209,7 +218,7 @@
                                 echo "<option value=\"" . $operator['name'] . "\">";
                             }
                             ?>
-                            </datalist>
+                            </datalist> -->
                             <span class="validation_error" id="operator-name-error"></span>
                             <label for="call-time">Date Created</label>
                             <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
@@ -218,7 +227,8 @@
                             <label for="hardware-id">Hardware ID</label>
                             <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
                             <datalist id="hardware-numbers">
-                            <?php
+                            
+                            <!-- <?php
                             foreach ($autocompletion['hardware ids'] as $hardware_id) {
                                 echo "<option value=\"" . $hardware_id['serial_number'] . "\">";
                             }
@@ -371,7 +381,9 @@
         </footer>
     </div>
     <script src="scripts/app.js"></script>
+    <script src="scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+  
 
     <!-- /* $(document).ready(function () {
             $(document.body).on("click", "#navbar__logo", function (e) {
