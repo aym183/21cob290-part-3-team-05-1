@@ -129,7 +129,7 @@ app.get('/external.html', (req, res) => {
         
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.handler_id = ? 
+    WHERE ticket.handler_id = 1011
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
                 WHEN status = 'pending' THEN 3
