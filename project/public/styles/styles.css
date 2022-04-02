@@ -757,6 +757,8 @@ tbody tr:hover {
     border-bottom-width: 2px;
     padding-left: 10px;
     padding: 0 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .ticket__information .no-edit-field {
@@ -884,8 +886,9 @@ tbody tr:hover {
 }
 
 .update__container > button {
-    font-size: 20px;
+    font-size: 30px;
     padding: 10px;
+    width: 500px;
     background-color: #7dd494;
     color: var(--secondaryText);
 }
