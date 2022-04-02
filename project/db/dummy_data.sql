@@ -117,11 +117,11 @@ INSERT INTO `solution` VALUES
 INSERT INTO `ticket_solution`  VALUES
 (3 ,1 ,'successful' ,1011),
 (4 , 2, 'successful' ,2010),
-(5 , 3, 'pending' ,2001);
+(6 , 3, 'pending' ,2001);
 
 
 INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
-(1, 2001 , 1 ),
+(1, 2001 , 1),
 (2, 2001 , 3 ),
 (3, 2002 ,  2),
 (4, 2001, 4),

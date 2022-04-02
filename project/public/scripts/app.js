@@ -51,6 +51,16 @@ var old_handlerName;
  */
 function showTicketInfo(data) {   
     
+        const socket = io()
+
+        socket.emit('solution_message',  data.ticket_id);
+
+        socket.on('solution_message', function(data, json) {
+        
+            console.log(json[0]); 
+          });
+    
+
         console.log(data);
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
@@ -66,9 +76,10 @@ function showTicketInfo(data) {
         document.getElementById('problem-type').setAttribute("value", data.name);
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
-
-        if (data.status == 'submitted' || data.status == 'pending') {
-            const pending_solution = info['solution_description'];
+// data.solution_status == 'submitted' || 
+        if (data.solution_status == 'pending') {
+            console.log("I AM HERE");
+            const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
             
         } else if (data.status == 'closed') {
@@ -217,10 +228,12 @@ ready(() => {
 
         // after data is recieved, calling function to show ticket info
         socket.on('message', function(data, json) {
+            console.log(json[0]);
         
             showTicketInfo(json[0]); 
           });
-    
+        
+        
         // console.log(data);
         const jsonString = JSON.stringify(data)
 
