@@ -109,7 +109,7 @@
                             <p class="navbar__links">Problem Resolutions</p>
                         </li>
                     </a>           
-                    <a href="employee_account.html" class="navbar__item-div">
+                    <a href="account.html" class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
                             <p class="navbar__links">Account</p>
@@ -263,41 +263,19 @@
                             </div>
 
                             <div class="solution_button_wrapper">
-                                <div class="solution__buttons">
-                                    <button type="button" class="form-btn" id="editSolution-btn">edit</button>
-                                </div>
                                 <div class="solution__buttons discard-solution">
                                     <button type="button" class="form-btn" id="dropSolution-btn">Discard Solution</button>
                                 </div>
-                                <div class="solution__buttons previous-solution">
-                                    <button type="button" class="form-btn" id="previousFix-btn">Previous fixes</button>
-                                </div>
                             </div>
                         </div>
-                        <div class="previous-fixes-header pf-head1">
-                                        <h3>Previous Fixes</h3>
-                                        <button type="button" class="form-btn" id="goback-btn"><i class="fas fa-arrow-left"></i></button>
-                                        <button type="button" class="previous-fixes-filter device-filter">This device</button>
-                                        <button type="button" class="previous-fixes-filter model-filter">Make and Model</button>
-                                        <button type="button" class="previous-fixes-filter software-filter">Software</button>
-                                        <button type="button" class="previous-fixes-filter problem-type-filter">Problem Type</button>
-                        </div>
+                       
                         <div class="solutionArea__section">
                             <div class="solutionInput__wrapper">
                                 <textarea name="solution" id="solution-area" maxlength = "500" cols="60" rows="10" placeholder="Type solution..."></textarea>
                                 <!-- Previous Fixes -->
-                                <div class="previous-fix__container">
-                                </div>       
+                                 
                             </div>
 
-                            <div class="dropSolution__section">
-                                <div class="checkbox__section"> 
-                                    <label class="checkbox__container">Caller has been given the solution
-                                        <input type="checkbox" id="myCheckbox">
-                                        <span class="checkmark unchecked"><i id="check-state" class="fas fa-check"></i></span>
-                                    </label> 
-                                </div>
-                            </div>
                         </div>
                         <div class="close__border">
                             <hr>
@@ -316,6 +294,7 @@
 
     
     <script src="/scripts/app.js"></script>
+    <script src="/scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     
 </body>

@@ -51,17 +51,8 @@ var old_handlerName;
  */
 function showTicketInfo(data) {   
     
-        const socket = io()
 
-        socket.emit('solution_message',  data.ticket_id);
-
-        socket.on('solution_message', function(data, json) {
-        
-            console.log(json[0]); 
-          });
-    
-
-        console.log(data);
+        // console.log(data);
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -78,20 +69,19 @@ function showTicketInfo(data) {
         document.getElementById('handler-name').setAttribute("value", data.Handler);
 // data.solution_status == 'submitted' || 
         if (data.solution_status == 'pending') {
-            console.log("I AM HERE");
             const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
             
-        } else if (data.status == 'closed') {
-            const successful_solution = info['solution_description'];
+        } else if (data.status == 'successful') {
+            const successful_solution = data.solution_description;
             document.getElementById('solution-area').value = "";
             document.getElementById('solution').value = successful_solution;
-
-        } else if (data.status == 'unsuccessful') {
-            const unsuc_solution = info['solution_description'];
         } else {
             document.getElementById('solution-area').value = ""; 
         }
+        // } else if (data.status == 'unsuccessful') {
+        //     const unsuc_solution = info['solution_description'];
+        // } 
 
         var op_body = document.querySelector(".op-ticket-body");
         op_body && op_body.querySelectorAll("tr").forEach(row => { 
@@ -430,38 +420,7 @@ ready(() => {
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
 
-        
-        // const valid_details = [];
-        // if (!handler_table.some(e => e.name == handler_name)) {
-        //     valid_details.push('handler-name');
-        // }
-        // if (!hardware_table.some(e => e.serial_number == hardware_id)) {
-        //     valid_details.push('hardware-id');
-        // }
-        // if (!os_table.some(e => e.name == os) && os != "" && os !="null") {
-        //     valid_details.push('operating-system');
-        // }
-        // if (!software_table.some(e => e.name == software) && software != "") {
-        //     valid_details.push('software');
-        // }
-        // if (!operator_table.some(e => e.name == operator_name)) {
-        //     valid_details.push('operator-name');
-        // }
-        // if (!problemTypes.some(e => e.name == problem_type)) {
-        //     valid_details.push('problem-type');
-        // }
-
-        // if (valid_details.length != 0) {
-
-        //     for (const element of valid_details) {
-        //         document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
-        //         document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
-        //         document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
-        //     }    
-
-        //     document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
-
-        // }else if (valid_details.length == 0) {
+       
 
             var today = new Date();
 
@@ -533,229 +492,12 @@ ready(() => {
         changeStatus(jsonString);
     }); 
 
-    // edit solution button
-    const editsolution = document.querySelector("#editSolution-btn");
-    editsolution && editsolution.addEventListener("click", (e) => {
-        
-        if (document.querySelector("#editSolution-btn").innerHTML == "edit") {
-            
-            document.querySelector('.checkmark').classList.remove('checked');
-            document.querySelector('.checkmark').classList.add('unchecked');
-            document.getElementById("close-btn").setAttribute('disabled','disabled');
-            document.querySelector(".closeButton").style.opacity = "0.3";
-            document.querySelector("#solution-area").style.backgroundColor = "white";
-            document.querySelector(".solutionArea__section").style.backgroundColor = "white";
-            document.querySelector("#solution-area").style.pointerEvents = "all";
-            document.querySelector("#editSolution-btn").innerHTML = "Update";
-
-        }
-        else if (document.querySelector("#editSolution-btn").innerHTML == "Update") {
-            
-            document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
-            document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
-            document.querySelector("#solution-area").style.pointerEvents = "none";
-            document.querySelector("#editSolution-btn").innerHTML = "edit";
-        }   
-    }); 
 
     // Previous Fixes button on close form
-    var previousFixBtn = document.querySelector('#previousFix-btn');
-    previousFixBtn && previousFixBtn.addEventListener('click', (e) => {
-
-        document.querySelector('.previous-fix__container').style.display = 'block';
-        document.querySelector('.pf-head1').style.display = 'block';
-        document.querySelector('.solution__label').style.display = 'none';
-        document.querySelector('#solution-area').style.display = 'none';
-        document.querySelector('.previous-solution').style.display = 'none';
-        document.querySelector('.dropSolution__section').style.display = 'none';
-        document.querySelector('#editSolution-btn').style.display = 'none';
-
-        const hardware_value = document.querySelector("#hardware-id").value;
-        const software_value = document.querySelector("#software").value;
-        const problem_value = document.querySelector("#problem-type").value;
-        getPreviousFixes1(hardware_value, 'hardware');
-        getPreviousFixes1(software_value, 'software');
-        
-        // problemTypes in form.js
-        for (problemType of problemTypes) {
-            if (problem_value == problemType['name']) {
-                getPreviousFixes1(problemType['problem_type_id'], 'problem-type');
-                break;
-            }
-        }
-
-        document.querySelector('.device-filter').classList.add('btn-clicked');
-        document.querySelector('.model-filter').classList.remove('btn-clicked');
-        document.querySelector('.software-filter').classList.remove('btn-clicked');
-        document.querySelector('.problem-type-filter').classList.remove('btn-clicked');
-    });
-
-    /* Highlight clicked previous fix. Ensure only one can be clicked at a
-    * time. */
-    const previousfix_container = document.querySelector('.previous-fix__container');
-    previousfix_container && previousfix_container.addEventListener('click', function(event) {
-        let target = event.target;
-        if (target.matches('.previous-fix') || target.matches('.previous-fix *')) {
-
-            
-            const new_solution = target.closest('.previous-fix').querySelector('.fix-solution').innerHTML;
-            
-            document.querySelector('#solution-area').value = new_solution;
-
-            document.querySelector('.previous-fix__container').style.display = 'none';
-            document.querySelector('.pf-head1').style.display = 'none';
-            document.querySelector('.solution__label').style.display = 'flex';
-            document.querySelector('#solution-area').style.display = 'block';
-            document.querySelector('.previous-solution').style.display = 'block';
-            document.querySelector('.dropSolution__section').style.display = 'flex';
-            document.querySelector('#editSolution-btn').style.display = 'block';
-
-            document.querySelectorAll('.previous-fix')
-            .forEach(element => element.remove());
-
-
-        }
-    });
-    const gobackbtn = document.querySelector('#goback-btn')
-    gobackbtn && gobackbtn.addEventListener('click', (e) => {
-        document.querySelector('.previous-fix__container').style.display = 'none';
-        document.querySelector('.pf-head1').style.display = 'none';
-        document.querySelector('.solution__label').style.display = 'flex';
-        document.querySelector('#solution-area').style.display = 'block';
-        document.querySelector('.previous-solution').style.display = 'block';
-        document.querySelector('.dropSolution__section').style.display = 'flex';
-        document.querySelector('#editSolution-btn').style.display = 'block';
-
-        document.querySelectorAll('.previous-fix')
-        .forEach(element => element.remove());
-    });
-
-    /* On previous fixes filter click, show only the fixes of particular type. */
-    const pfhead = document.querySelector('.pf-head1');
-    pfhead && pfhead.addEventListener('click', function(event) {
-        let target = event.target;
-        if (target.matches('.previous-fixes-filter')) {
-
-            const previousFixContainer = document.querySelector('.previous-fix__container');
-            const previousFixesFilter = target;
-            const filterClicked = previousFixesFilter.classList.contains('btn-clicked');
-
-            target.closest('.pf-head1').querySelectorAll('.previous-fixes-filter')
-                .forEach(element => element.classList.remove('btn-clicked'));
-            if (filterClicked) {
-                const hardwareInput = document.querySelector('#hardware-id').value;
-                if (hardwareIDs.includes(hardwareInput)) {
-                    previousFixContainer.querySelectorAll('.device-fix, .model-fix')
-                        .forEach(element => element.classList.remove('hidden'));
-                }
-
-                const softwareInput = querySelector('#software').value;
-                if (softwareNames.includes(softwareInput)) {
-                    previousFixContainer.querySelectorAll('.software-fix')
-                        .forEach(element => element.classList.remove('hidden'));
-                }
-
-                const problemTypeInputElement = target.closest('.problem-section')
-                    .querySelector('.problem-type-field');
-                if (problemTypeInputElement.hasAttribute('data-problem-type-id')) {
-                    previousFixContainer.querySelectorAll('.problem-type-fix')
-                        .forEach(element => element.classList.remove('hidden'));
-                }
-            } else {
-                previousFixesFilter.classList.add('btn-clicked');
-
-                previousFixContainer.querySelectorAll('.previous-fix')
-                    .forEach(element => element.classList.add('hidden'));
-
-                if (previousFixesFilter.classList.contains("device-filter")) {
-                        previousFixContainer.querySelectorAll('.device-fix')
-                            .forEach(element => element.classList.remove('hidden'));
-                } else if (previousFixesFilter.classList.contains("model-filter")) {
-                        previousFixContainer.querySelectorAll('.model-fix')
-                            .forEach(element => element.classList.remove('hidden'));
-                } else if (previousFixesFilter.classList.contains("software-filter")) {
-                        previousFixContainer.querySelectorAll('.software-fix')
-                            .forEach(element => element.classList.remove('hidden'));
-                } else if (previousFixesFilter.classList.contains("problem-type-filter")) {
-                        previousFixContainer.querySelectorAll('.problem-type-fix')
-                            .forEach(element => element.classList.remove('hidden'));
-                }
-            }
-        }
-    });
     
-    // checkmark checked and unchecked states
-    var checkbox = document.querySelector('.checkmark');
-    checkbox && checkbox.addEventListener('click', (e) => {
-        if (!checkbox.classList.contains('checked')) {
-
-            const solution = document.querySelector("#solution-area").value;
-            const old_status = document.querySelector("#detail-status span").innerHTML;
-            if (solution != "") {
-                document.querySelector('.checkmark').classList.remove('unchecked');
-                document.querySelector('.checkmark').classList.add('checked');
-                document.getElementById("close-btn").removeAttribute('disabled');
-                document.querySelector("#close-btn").style.cursor = "pointer";
-                document.querySelector(".closeButton").style.opacity = "1";
-                const data = {
-                    old_status: old_status,
-                    new_status: 'pending',
-                    solution: document.getElementById('solution-area').value,
-                    id: document.getElementById('detail-id').innerHTML
-                };
-                const jsonString = JSON.stringify(data);
-                changeStatus(jsonString);
-            } else {
-    
-            }
-        } else if (checkbox.classList.contains('checked')) {
-            document.querySelector('.checkmark').classList.remove('checked');
-            document.querySelector('.checkmark').classList.add('unchecked');
-            document.getElementById("close-btn").setAttribute('disabled','disabled');
-            document.querySelector(".closeButton").style.opacity = "0.3";
-            document.querySelector("#solution-area").style.cursor = "default";
-            
-            const handler_name = document.querySelector("#handler-name").value;
-            const operator_array = [];
-            for (const element of operator_table) {
-                operator_array.push(element['name']);
-            }
-
-            if (operator_array.includes(handler_name)) {
-                const data = {
-                    old_status: 'pending',
-                    new_status: 'active',
-                    solution: document.getElementById('solution-area').innerHTML,
-                    id: document.getElementById('detail-id').innerHTML
-                };
-                const jsonString = JSON.stringify(data);
-                changeStatus(jsonString);
-            }
-
-        }
-    });
 
 });
 
-// Get relevant data for input fields and store in variables for later use
-// function loadData() {
-//     var xhttp = new XMLHttpRequest();
-    
-//     xhttp.onload = function() {
-//         var info = JSON.parse(this.responseText);
-       
-//         emp_table = info[0];
-//         handler_table = info[1];
-//         hardware_table = info[2];
-//         os_table = info[3];
-//         software_table = info[4];
-//         operator_table = info[5];
-    
-//     };
-//     xhttp.open("POST", "data_tables.php");
-//     xhttp.setRequestHeader("Content-type", 'application/json');
-//     xhttp.send();
-// }
 
 // Input Fields Events
 ready(() => { 
@@ -924,154 +666,3 @@ ready(() => {
     
 });
 
-/**
- * Fetches previous fixes of particular type.
- *
- * @param {string} value Value to search previous fixes for.
- * @param {string} Type of previous fixes to fetch.
- */
-function getPreviousFixes1(value, type) {
-    /* Fetch data only if employee id exists. */
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const response = JSON.parse(this.responseText);
-            if (response['status']['success'] === true) {
-                populatePreviousFixesList1(response['data']);
-            } else {
-                const message = document.createElement('div');
-                const p = message.appendChild(document.createElement('p'));
-                p.textContent = response['status']['errorMessage'];
-                createPopUp(
-                    message,
-                    [
-                        {text: "OK", colour: "#af0505"}
-                    ]
-                );
-            }
-        }
-    };
-    if (type == 'hardware') {
-        httpRequest.open("GET", `api/v1/tickets/previous-fixes?type=hardware&device_number=${value}`, true);
-    } else if (type == 'software') {
-        httpRequest.open("GET", `api/v1/tickets/previous-fixes?type=software&software_name=${value}`, true);
-    } else if (type == 'problem-type') {
-        httpRequest.open("GET", `api/v1/tickets/previous-fixes?type=problem-type&problem-type-id=${value}`, true);
-    }
-    httpRequest.send();
-}
-
-/**
- * Populates previous fixes list.
- *
- * @param {object} previousFixes Object containing previous fixes to be added.
- * to be populated.
- */
-function populatePreviousFixesList1(previousFixes) {
-    const previousFixesContainer = document.querySelector('.previous-fix__container');
-    for (const previousFix of previousFixes['device']) {
-        let  previousFixElement = createPreviousFix1(previousFix, 'device');
-        previousFixesContainer.appendChild(previousFixElement);
-    }
-    for (const previousFix of previousFixes['model']) {
-        let  previousFixElement = createPreviousFix1(previousFix, 'model');
-        previousFixesContainer.appendChild(previousFixElement);
-    }
-    for (const previousFix of previousFixes['software']) {
-        let  previousFixElement = createPreviousFix1(previousFix, 'software');
-        previousFixesContainer.appendChild(previousFixElement);
-    }
-    for (const previousFix of previousFixes['problem-type']) {
-        let  previousFixElement = createPreviousFix1(previousFix, 'problem-type');
-        previousFixesContainer.appendChild(previousFixElement);
-    }
-}
-
-/**
- * Creates a previous fix element "bubble".
- *
- * @param {object} previousFix Previous Fix for which HTML element is to be
- * created.
- * @param {string} type Type of previous fix.
- * @return {object} New previous fix HTML element.
- */
-function createPreviousFix1(previousFix, type) {
-    const previousFixElement = document.createElement('div');
-    previousFixElement.classList.add("previous-fix");
-    previousFixElement.setAttribute('data-solution-id', previousFix['solution_id']);
-    switch (type) {
-        case "device":
-            previousFixElement.classList.add('device-fix');
-            break;
-        case "model":
-            previousFixElement.classList.add('model-fix');
-            previousFixElement.classList.add('hidden');
-            break;
-        case "software":
-            previousFixElement.classList.add('software-fix');
-            previousFixElement.classList.add('hidden');
-            break;
-        case "problem-type":
-            previousFixElement.classList.add('problem-type-fix');
-            break;
-        default:
-            break;
-    }
-    
-    const fixDesc = document.createElement('div');
-    fixDesc.classList.add("fix-description");
-    fixDesc.textContent = previousFix['description'];
-    previousFixElement.appendChild(fixDesc);
-
-    const separator = document.createElement('hr');
-    previousFixElement.appendChild(separator);
-
-    const fixSol = document.createElement('div');
-    fixSol.classList.add("fix-solution");
-    fixSol.textContent = previousFix['solution'];
-    previousFixElement.appendChild(fixSol);
-
-    return previousFixElement;
-}
-
-/**
- * Get all problem types from the database.
- */
-// function getProblemTypes() {
-//     var httpRequest = new XMLHttpRequest();
-//     httpRequest.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             const response = JSON.parse(this.responseText);
-//             if (response['status']['success'] === true) {
-//                 problemTypes = response['data'];
-//             } else {
-//                 const message = document.createElement('div');
-//                 const p = message.appendChild(document.createElement('p'));
-//                 p.textContent = response['status']['errorMessage'];
-//                 createPopUp(
-//                     message,
-//                     [
-//                         {text: "OK", colour: "#af0505"}
-//                     ]
-//                 );
-//             }
-//         }
-//     };
-//     httpRequest.open("GET", "api/v1/problem-types", true);
-//     httpRequest.send();
-// }
-
-
-function convert(str) {
-    console.log(str.innerHTML);
-    var date = new Date(str),
-      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    //   console.log([date.getFullYear(), mnth, day].join("-"));
-    console.log(document.getElementById('lastUpdated'))
-    console.log([date.getFullYear(), mnth, day].join("-"))
-        // document.getElementById('lastUpdated').innerHTML = [date.getFullYear(), mnth, day].join("-");
-    // return [date.getFullYear(), mnth, day].join("-");
-  }
-
-convert(document.getElementById('lastUpdated'));

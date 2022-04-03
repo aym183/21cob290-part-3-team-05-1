@@ -538,13 +538,7 @@ app.get('/index.html', (req, res) => {
                 
                 console.log(problem_type_id);
                 console.log("WORK PLEASE");
-                // console.log(parseInt(msg.hardware_id));
-                // console.log(msg.os);
-                // console.log(software_id);
-                // console.log(msg.problem_description);
-                // console.log(msg.notes);
-                // console.log(problem_type_id);
-                // console.log(handler_id);
+        
                 if (err) throw err;
             });   
 
@@ -554,6 +548,29 @@ app.get('/index.html', (req, res) => {
     });
         });
         })
+
+
+        io.on('connection',  (socket) => {
+            console.log('connected')
+    
+            socket.on("close_ticket", (msg) => {
+                console.log(msg); 
+                con.query(`UPDATE ticket
+                SET status = ? where ticket_id = ?;`,[msg.new_status, parseInt(msg.id)],function(err, result, fields) {
+         
+                if (err) throw err;
+
+                    con.query(`UPDATE ticket_solution
+                    SET solution_status = 'successful' where ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+            
+                    if (err) throw err;
+
+                    });
+
+                });
+                
+            });
+            })
 
     //killall -9 node
     
