@@ -52,7 +52,7 @@ var old_handlerName;
 function showTicketInfo(data) {   
     
 
-        // console.log(data);
+        console.log(data);
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -67,12 +67,13 @@ function showTicketInfo(data) {
         document.getElementById('problem-type').setAttribute("value", data.name);
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
+
 // data.solution_status == 'submitted' || 
-        if (data.solution_status == 'pending') {
+        if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
             
-        } else if (data.status == 'successful') {
+        } else if (data.status == 'unsuccessful') {
             const successful_solution = data.solution_description;
             document.getElementById('solution-area').value = "";
             document.getElementById('solution').value = successful_solution;
@@ -86,7 +87,7 @@ function showTicketInfo(data) {
         var op_body = document.querySelector(".op-ticket-body");
         op_body && op_body.querySelectorAll("tr").forEach(row => { 
             row.addEventListener("click", (e) => {
-                var status = e.target.closest('tr').firstChild.className;
+                var status = data.status;
                 
                 if (status=="submitted") {
         
@@ -139,6 +140,9 @@ function showTicketInfo(data) {
         
                     document.querySelector(".closeForm__section").style.display = "none";
                     document.querySelector("#solution").style.display = "block";
+                    document.getElementById('solution').setAttribute("value", data.solution_description);
+                    document.getElementById('close-time').setAttribute("value", data.closing_time)
+
                 }
                 else {
                     var c = document.querySelectorAll('.closed__field');
@@ -194,6 +198,7 @@ ready(() => {
             status: e.target.closest("tr").children[0].textContent
         }
 // Creation of socket
+        console.log(data);
         socket.emit('message',  data);
 
         // after data is recieved, calling function to show ticket info
