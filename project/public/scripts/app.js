@@ -227,10 +227,11 @@ ready(() => {
         // console.log(data);
         const jsonString = JSON.stringify(data)
 
-        var status = e.target.closest('tr').firstChild.className;
+        var status = data.status;
+     
         
         if (status=="submitted") {
-
+            
             var c = document.querySelectorAll('.closed__field');
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
@@ -471,9 +472,9 @@ ready(() => {
     // discard solution button
     var drop_btn = document.querySelector("#dropSolution-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
-        document.querySelector('.checkmark').classList.remove('checked');
-        document.querySelector('.checkmark').classList.add('unchecked');
-        document.getElementById('solution-area').innerText = "";
+        // document.querySelector('.checkmark').classList.remove('checked');
+        // document.querySelector('.checkmark').classList.add('unchecked');
+        document.getElementById('solution-area').value = "";
         document.querySelector("#close-btn").setAttribute('disabled','disabled');
         document.querySelector("#close-btn").style.cursor = "default";
         document.querySelector(".closeButton").style.opacity = "0.3";
@@ -488,8 +489,8 @@ ready(() => {
             solution: document.getElementById('solution-area').value,
             id: document.getElementById('detail-id').innerHTML
         };
-        const jsonString = JSON.stringify(data);
-        changeStatus(jsonString);
+        
+        changeStatus(data);
     }); 
 
 

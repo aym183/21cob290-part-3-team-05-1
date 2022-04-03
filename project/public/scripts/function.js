@@ -45,8 +45,6 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             // const jsonString = JSON.stringify(data);
             changeStatus(data);
             // window.location.href = "index.html";
-        } else if (btnName == "problemType") {
-            element.remove();
         } else if (btnName == "logout") {
             destroySession(() => window.location.href = "login.html");
             

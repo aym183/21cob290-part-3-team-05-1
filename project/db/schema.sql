@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS analyst (
 CREATE TABLE IF NOT EXISTS ticket (
     ticket_id MEDIUMINT UNSIGNED,
     employee_id MEDIUMINT UNSIGNED NOT NULL,
-    status ENUM('active', 'dropped', 'submitted', 'pending', 'closed', 'unsuccessful') NOT NULL,
+    status ENUM('active', 'dropped', 'submitted', 'closed', 'unsuccessful') NOT NULL,
     priority ENUM('medium', 'low', 'high') NOT NULL,
     problem_description VARCHAR(300),
     notes VARCHAR(1000),
