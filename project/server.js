@@ -33,11 +33,16 @@ var last_updated;
 var software_id;
 var ticket_status;
 
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
+app.use (session ({
+       secret: "secret",
+       saveUninitialized: false,
+       resave: true,
+       rolling: true,
+       cookie:{
+        maxAge: 1000*60*60 // default session expiration is set to 1 hour
+        },
+    })
+ );
 
 //5005
 
@@ -423,10 +428,10 @@ app.get('/account.html', (req, res) =>{
                  });
                 
 			    }
-                 
-            con.end();
         }});
 
+} else {
+    res.redirect('/login.html');
 }});
 app.get('/index.html', (req, res) => {  
     console.log("index")
