@@ -73,10 +73,11 @@ function showTicketInfo(data) {
             const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
             
-        } else if (data.status == 'unsuccessful') {
+        } else if (data.status == 'closed') {
             const successful_solution = data.solution_description;
             document.getElementById('solution-area').value = "";
             document.getElementById('solution').value = successful_solution;
+            document.getElementById('close-time').value = data.closing_time;
         } else {
             document.getElementById('solution-area').value = ""; 
         }
@@ -140,8 +141,7 @@ function showTicketInfo(data) {
         
                     document.querySelector(".closeForm__section").style.display = "none";
                     document.querySelector("#solution").style.display = "block";
-                    document.getElementById('solution').setAttribute("value", data.solution_description);
-                    document.getElementById('close-time').setAttribute("value", data.closing_time)
+                   
 
                 }
                 else {
