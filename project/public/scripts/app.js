@@ -472,8 +472,7 @@ ready(() => {
     // discard solution button
     var drop_btn = document.querySelector("#dropSolution-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
-        // document.querySelector('.checkmark').classList.remove('checked');
-        // document.querySelector('.checkmark').classList.add('unchecked');
+
         document.getElementById('solution-area').value = "";
         document.querySelector("#close-btn").setAttribute('disabled','disabled');
         document.querySelector("#close-btn").style.cursor = "default";

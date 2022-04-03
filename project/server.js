@@ -31,6 +31,7 @@ var handler_id;
 var problem_type_id;
 var last_updated;
 var software_id;
+var ticket_status;
 
 app.use(session({
 	secret: 'secret',
@@ -554,18 +555,22 @@ app.get('/index.html', (req, res) => {
             console.log('connected')
     
             socket.on("close_ticket", (msg) => {
+                ticket_status = msg.new_status
                 console.log(msg); 
                 con.query(`UPDATE ticket
                 SET status = ? where ticket_id = ?;`,[msg.new_status, parseInt(msg.id)],function(err, result, fields) {
          
                 if (err) throw err;
+                    
+                        con.query(`UPDATE ticket_solution
+                        SET solution_status = ? where ticket_id = ?;`,[ticket_status, parseInt(msg.id)],function(err, result, fields) {
+                
+                        if (err) throw err;
+    
+                        });
 
-                    con.query(`UPDATE ticket_solution
-                    SET solution_status = 'successful' where ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
-            
-                    if (err) throw err;
-
-                    });
+               
+                   
 
                 });
                 
