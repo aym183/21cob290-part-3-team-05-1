@@ -109,26 +109,6 @@ function showTicketInfo(data) {
                     document.querySelector(".discard-solution").style.display = "block";
         
                 }
-                else if (status=="pending") {
-        
-                    var c = document.querySelectorAll('.closed__field');
-                    for (var i = 0; i < c.length; i++) {
-                         c[i].style.display = 'none';
-                    }
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector('.checkmark').classList.remove('unchecked');
-                        document.querySelector('.checkmark').classList.add('checked');
-                        document.querySelector("#close-btn").removeAttribute('disabled');
-                        document.querySelector("#close-btn").style.cursor = "pointer";
-                        document.querySelector(".closeButton").style.opacity = "1";
-                    }
-                    
-                    document.querySelector('.solution-status').innerText = "Solution Submitted";
-                    document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
-        
-                    document.querySelector(".discard-solution").style.display = "block";
-                }
                 else if (status=="unsuccessful") {
                     document.querySelector(".closeForm__section").style.display = "block";
                 }
@@ -139,9 +119,8 @@ function showTicketInfo(data) {
                     }
                     if (document.querySelector(".checkmark") !== null) {
                         document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector('.checkmark').classList.remove('checked');
-                        document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
+                        // document.querySelector('.checkmark').classList.remove('checked');
+                        // document.querySelector('.checkmark').classList.add('unchecked');x                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
                         document.querySelector("#close-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
@@ -159,6 +138,7 @@ function showTicketInfo(data) {
                     }
         
                     document.querySelector(".closeForm__section").style.display = "none";
+                    document.querySelector("#solution").style.display = "block";
                 }
                 else {
                     var c = document.querySelectorAll('.closed__field');
