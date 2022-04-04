@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
+    <script type="text/javascript" src="public/scripts/home_charts.js"></script>
+    <title>Analyst Homepage ejs</title>
+</head>
+
+<body>
+    <div class="topSection">
+
+        <!-- TOP NAVBAR SECTION -->
+        <div class="topNavbar">
+            <div class="topNavbar__container">
+                <div class="topNavbar__item">
+                    <div class="topNavbar__logo">
+                        <p id="navbar__logo">Deskspace</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="main__section">
+
+        <!-- SIDE NAVBAR SECTION -->
+        <div class="navbar">
+            <div class="navbar__container">
+                <ul class="navbar__menu">
+                    <a class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-home"></i></p>
+                            <p class="navbar__links">Home</p>
+                        </li>
+                    </a>
+                    <a href="indepth.html" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-plus"></i></p>
+                            <p class="navbar__links">In-Depth</p>
+                        </li>
+                    </a>
+                    <a href="/account.html" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-user"></i></p>
+                            <p class="navbar__links">Account</p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- CHART SECTION -->
+        
+        <div>
+            <div class="row_analyst">
+                <div class="column_analyst">
+                    <div>
+                    <h1>Chart 1</h1>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
+                    <script>
+
+
+                        const ctx = document.getElementById('myChart').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [12, 19, 3, 5, 2, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive:false
+                                
+                            }
+
+                        });
+                    </script>
+                    <p class="chartp"></p>
+                </div>
+               
+                <div>
+                    <h1>Chart 3</h1>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <canvas id="myChart3" width="400" height="400" style="margin: 0 auto;"></canvas>
+                    <script>
+
+
+                        const ctxxx = document.getElementById('myChart3').getContext('2d');
+                        const myChart3 = new Chart(ctxxx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], //Change for new labels
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [12, 19, 3, 5, 2, 3], //change for data imported from sql queries
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive:false
+                                
+                            }
+
+                        });
+                    </script>
+                    <p class="chartp"></p>
+                    
+
+                </div>
+
+
+                </div>
+                <div class="column_analyst" >
+                    <div>
+                        <h1>Chart 2</h1>
+                        
+                        <canvas id="pie-chart" width="400" height="400" style="margin: 0 auto;" ></canvas>
+                        <script>
+                
+                          new Chart(document.getElementById("pie-chart"), {
+                            type: 'pie',
+                            data: {
+                              labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+                              datasets: [{
+                                label: "Population (millions)",
+                                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                data: [2478,5267,734,784,433]
+                              }]
+                            },
+                            options: {
+                              responsive:false
+                            }
+                          });</script>
+                          <p class="chartp"></p>
+                    </div>
+                     <div>
+                    <h1>Chart 4</h1>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <canvas id="myChart4" width="400" height="400" style="margin: 0 auto;"></canvas>
+                    <script>
+
+
+                        const ctxx = document.getElementById('myChart4').getContext('2d');
+                        const myChart4 = new Chart(ctxx, {
+                            type: 'bar',
+                            data: {
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                datasets: [{
+                                    label: '# of Votes',
+                                    data: [12, 19, 3, 5, 2, 3],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive:false
+                                
+                            }
+
+                        });
+                    </script>
+                    <p class="chartp"></p>
+                    
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="center">&#169; 2022 Team 5</p>
+    </footer>
+
+    </div>
+
+</html>
