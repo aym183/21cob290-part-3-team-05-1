@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
-    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
     <link rel="stylesheet" type = 'text/css' href="/styles/login.css" /> 
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Login</title>
 </head>
@@ -28,16 +28,13 @@
     </div>
 
     <div class="main__section">
-
-        <div class="d-flex justify-content-center align-items-center" id="loginForm-container" style="position: fixed;
-        top: 25%;
-        left: 50%;
-        margin-top: -50px;
-        margin-left: -100px;">
-        <div class="centered"> 
+    <div id="border-container" class="form__border">
+        <span class="border border-dark rounded-sm form__border">
+        <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
+        <div> 
             <div class="form-login">
                 <form method="post" action="/auth">
-                    <h3>Log In</h3>
+                    <h3 style="text-align: center">Log In</h3>
                     <div class="form-group">
                         <div class="form-outline">
                             <label for="uname">Username: </label>
@@ -57,9 +54,10 @@
                 
             </div>
         </div>   
-            
-        </div>
 
+        </div>
+    </span>
+    </div>
         <footer>
             <p class="center">&#169; 2022 Team 5</p>
         </footer>
