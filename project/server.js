@@ -119,11 +119,22 @@ app.get('/login.html', (req, res) =>{
 
 });
 
-app.get('/analyst.html', (req, res) =>{
-    console.log("analyst")
-    res.sendFile(path.join(__dirname +  '/analyst.html'));
-    // res.render('login.html')
 
+app.get('/analyst.html', (req, res) =>{
+    //res.sendFile(path.join(__dirname +  '/analyst.html'));
+    if(req.session.loggedin) {
+        console.log("analyst")
+        res.render('analyst')}
+
+    //Query for first chart
+    con.query('SELECT job, COUNT(*) FROM `employee` GROUP BY job',
+    [session_id],function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        query_output = result;
+    
+    })
 });
 
 app.get('/intspecialist.html', (req, res) => {  
