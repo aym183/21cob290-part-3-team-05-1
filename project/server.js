@@ -8,7 +8,6 @@ var http = require('http');
 const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
-const bcrypt = require("bcryptjs");
 
 const con = require('./public/scripts/dbconfig');
 
