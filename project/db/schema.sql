@@ -91,8 +91,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     notes VARCHAR(1000),
     creation_date DATE NOT NULL,
     last_updated DATE NOT NULL,
-    handler_id MEDIUMINT UNSIGNED NOT NULL,
-    solved_by MEDIUMINT UNSIGNED,
+    handler_id MEDIUMINT UNSIGNED,
     operating_system VARCHAR(50),
     hardware_id MEDIUMINT UNSIGNED, /* Hardware id bit */
     software_id MEDIUMINT UNSIGNED,
@@ -106,7 +105,6 @@ CREATE TABLE IF NOT EXISTS ticket (
     FOREIGN KEY (software_id) REFERENCES software(software_id),
     FOREIGN KEY (problem_type_id) REFERENCES problem_type(problem_type_id),
     FOREIGN KEY (handler_id) REFERENCES handler(user_id),
-    FOREIGN KEY (solved_by) REFERENCES handler(user_id),
     FOREIGN KEY (operating_system) REFERENCES operating_system(name)
 );
 

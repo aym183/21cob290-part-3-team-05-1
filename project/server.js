@@ -33,16 +33,11 @@ var last_updated;
 var software_id;
 var ticket_status;
 
-app.use (session ({
-       secret: "secret",
-       saveUninitialized: false,
-       resave: true,
-       rolling: true,
-       cookie:{
-        maxAge: 1000*60*60 // default session expiration is set to 1 hour
-        },
-    })
- );
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 //5005
 
@@ -428,10 +423,10 @@ app.get('/account.html', (req, res) =>{
                  });
                 
 			    }
+                 
+            con.end();
         }});
 
-} else {
-    res.redirect('/login.html');
 }});
 app.get('/index.html', (req, res) => {  
     console.log("index")
@@ -487,28 +482,75 @@ app.get('/index.html', (req, res) => {
         console.log('connected')
         socket.on("message", (msg) => {
             console.log(parseInt(msg.id));
+            if(msg.status == 'closed'){
+                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
+                solution.solution_description from ticket
+                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                INNER JOIN  software on ticket.software_id = software.software_id 
+                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                INNER JOIN (SELECT user_id, employee.name FROM handler
+                INNER JOIN employee ON handler.user_id = employee.employee_id
+                UNION
+                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                console.log(err);
+                if (err) throw err;
 
-            con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
-            solution.solution_description from ticket
-            INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-            INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
-            INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
-            INNER JOIN  software on ticket.software_id = software.software_id 
-            INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-            INNER JOIN (SELECT user_id, employee.name FROM handler
-            INNER JOIN employee ON handler.user_id = employee.employee_id
-            UNION
-            SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-            WHERE ticket.ticket_id = 6;`,[parseInt(msg.id)],function(err, result, fields) {
-            console.log(err);
-            if (err) throw err;
+                console.log(result);
+                io.send('message', result);
 
-            console.log(result);
-            io.send('message', result);
+                });
+            }
 
-        });
+            else if(msg.status == 'active' || msg.status == 'dropped'){
 
-        })
+                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
+                from ticket
+                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                INNER JOIN  software on ticket.software_id = software.software_id 
+                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                INNER JOIN (SELECT user_id, employee.name FROM handler
+                INNER JOIN employee ON handler.user_id = employee.employee_id
+                UNION
+                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                console.log(err);
+                if (err) throw err;
+
+                console.log(result);
+                io.send('message', result);
+
+                });
+
+            }
+
+            else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
+
+                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
+                solution.solution_description from ticket
+                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                INNER JOIN software on ticket.software_id = software.software_id 
+                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                INNER JOIN (SELECT user_id, employee.name FROM handler
+                INNER JOIN employee ON handler.user_id = employee.employee_id
+                UNION
+                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                console.log(err);
+                if (err) throw err;
+
+                console.log(result);
+                io.send('message', result);
+
+                });
+
+            }
+                })
+           
 
 
         })
@@ -518,13 +560,12 @@ app.get('/index.html', (req, res) => {
         console.log('connected')
 
         socket.on("update_message", (msg) => {
-            console.log(msg);
+           
 
             con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
                 if (err) throw err;
                 problem_type_id = result[0].problem_type_id;
-                console.log(problem_type_id);
-                console.log("HERE");
+                
 
                  con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
                 if (err) throw err;
@@ -542,8 +583,7 @@ app.get('/index.html', (req, res) => {
                 SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
                 WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
-                console.log(problem_type_id);
-                console.log("WORK PLEASE");
+    
         
                 if (err) throw err;
             });   
@@ -561,23 +601,37 @@ app.get('/index.html', (req, res) => {
     
             socket.on("close_ticket", (msg) => {
                 ticket_status = msg.new_status
-                console.log(msg); 
-                con.query(`UPDATE ticket
-                SET status = ? where ticket_id = ?;`,[msg.new_status, parseInt(msg.id)],function(err, result, fields) {
+                console.log(msg);
+                console.log(ticket_status); 
+                if(ticket_status == 'closed'){
+
+                    con.query(`UPDATE ticket
+                    SET status = ?, closing_date = ?, closing_time = ? where ticket_id = ?;`,[msg.new_status, msg.date, msg.time, parseInt(msg.id)],function(err, result, fields) {
          
-                if (err) throw err;
+                    if (err) throw err;
                     
+                    if(ticket_status == 'closed'){
                         con.query(`UPDATE ticket_solution
-                        SET solution_status = ? where ticket_id = ?;`,[ticket_status, parseInt(msg.id)],function(err, result, fields) {
+                        SET solution_status = 'successful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
                 
                         if (err) throw err;
-    
-                        });
 
-               
-                   
+                        });
+                    }
+                    else if(ticket_status == 'unsuccessful'){
+                        con.query(`UPDATE ticket_solution
+                        SET solution_status = 'unsuccessful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
+                
+                        if (err) throw err;
+
+                        });
+                    }
+
 
                 });
+
+                }
+                
                 
             });
             })

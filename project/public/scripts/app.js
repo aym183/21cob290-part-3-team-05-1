@@ -52,7 +52,7 @@ var old_handlerName;
 function showTicketInfo(data) {   
     
 
-        // console.log(data);
+        console.log(data);
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -67,15 +67,17 @@ function showTicketInfo(data) {
         document.getElementById('problem-type').setAttribute("value", data.name);
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
+
 // data.solution_status == 'submitted' || 
-        if (data.solution_status == 'pending') {
+        if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
             
-        } else if (data.status == 'successful') {
+        } else if (data.status == 'closed') {
             const successful_solution = data.solution_description;
             document.getElementById('solution-area').value = "";
             document.getElementById('solution').value = successful_solution;
+            document.getElementById('close-time').value = data.closing_time;
         } else {
             document.getElementById('solution-area').value = ""; 
         }
@@ -86,7 +88,7 @@ function showTicketInfo(data) {
         var op_body = document.querySelector(".op-ticket-body");
         op_body && op_body.querySelectorAll("tr").forEach(row => { 
             row.addEventListener("click", (e) => {
-                var status = e.target.closest('tr').firstChild.className;
+                var status = data.status;
                 
                 if (status=="submitted") {
         
@@ -109,26 +111,6 @@ function showTicketInfo(data) {
                     document.querySelector(".discard-solution").style.display = "block";
         
                 }
-                else if (status=="pending") {
-        
-                    var c = document.querySelectorAll('.closed__field');
-                    for (var i = 0; i < c.length; i++) {
-                         c[i].style.display = 'none';
-                    }
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector('.checkmark').classList.remove('unchecked');
-                        document.querySelector('.checkmark').classList.add('checked');
-                        document.querySelector("#close-btn").removeAttribute('disabled');
-                        document.querySelector("#close-btn").style.cursor = "pointer";
-                        document.querySelector(".closeButton").style.opacity = "1";
-                    }
-                    
-                    document.querySelector('.solution-status').innerText = "Solution Submitted";
-                    document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
-        
-                    document.querySelector(".discard-solution").style.display = "block";
-                }
                 else if (status=="unsuccessful") {
                     document.querySelector(".closeForm__section").style.display = "block";
                 }
@@ -139,9 +121,8 @@ function showTicketInfo(data) {
                     }
                     if (document.querySelector(".checkmark") !== null) {
                         document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector('.checkmark').classList.remove('checked');
-                        document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
+                        // document.querySelector('.checkmark').classList.remove('checked');
+                        // document.querySelector('.checkmark').classList.add('unchecked');x                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
                         document.querySelector("#close-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
@@ -159,6 +140,9 @@ function showTicketInfo(data) {
                     }
         
                     document.querySelector(".closeForm__section").style.display = "none";
+                    document.querySelector("#solution").style.display = "block";
+                   
+
                 }
                 else {
                     var c = document.querySelectorAll('.closed__field');
@@ -214,6 +198,7 @@ ready(() => {
             status: e.target.closest("tr").children[0].textContent
         }
 // Creation of socket
+        console.log(data);
         socket.emit('message',  data);
 
         // after data is recieved, calling function to show ticket info

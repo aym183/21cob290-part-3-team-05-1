@@ -35,12 +35,21 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     const btn2 = buttons.appendChild(document.createElement('button'));
     btn2.className = "form-btn confirm-btn";
     btn2.textContent = button2;
-    btn2.addEventListener("click", (e) => {          
+    btn2.addEventListener("click", (e) => {    
+
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();      
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
         if (btnName == "close") {
+
             const data = {
                 new_status: 'closed',
                 solution: document.getElementById('solution-area').value,
-                id: document.getElementById('detail-id').innerHTML
+                id: document.getElementById('detail-id').innerHTML,
+                date: date,
+                time: time
+
             };
             // const jsonString = JSON.stringify(data);
             changeStatus(data);
