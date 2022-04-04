@@ -132,7 +132,12 @@ app.get('/analyst.html', (req, res) =>{
         if (err) throw err;
         console.log(result);
 
-        query_output = result;
+        query_chart1 = result;
+    
+        res.render('analyst', {
+            dataframe: query_chart1
+           
+        })
     
     })
 });

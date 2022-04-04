@@ -65,6 +65,8 @@
 
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
+                    <% for(var i=0; i < dataframe.length; i++) { %>
+                        var string_labels = <%- JSON.stringify(dataframe); %>;
                     <script>
 
 
@@ -72,9 +74,11 @@
                         const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: string_labels,
+                                
                                 datasets: [{
-                                    label: '# of Votes',
+                                    label: 'Number of emplyees',
+                                    
                                     data: [12, 19, 3, 5, 2, 3],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
