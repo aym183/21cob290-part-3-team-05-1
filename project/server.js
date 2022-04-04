@@ -8,6 +8,7 @@ var http = require('http');
 const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
+const bcrypt = require("bcryptjs");
 
 const con = require('./public/scripts/dbconfig');
 
@@ -433,6 +434,11 @@ app.get('/account.html', (req, res) =>{
 } else {
     res.redirect('/login.html');
 }});
+
+app.post('/changepass', (req, res) => {
+    console.log(req.body)
+    let newpass_in = req.body.newpass;
+});
 
 app.get('/index.html', (req, res) => {  
     console.log("index")
