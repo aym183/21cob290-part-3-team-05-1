@@ -99,7 +99,7 @@ app.get('/faq.html', (req, res) =>{
 
             con.query(`SELECT solution.solution_description FROM solution 
             INNER JOIN ticket_solution ON solution.solution_id = ticket_solution.solution_id 
-            INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id WHERE solution.solution_description=?;`,
+            INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id WHERE ticket.ticket_id=?;`,
             [parseInt(msg.id)],function(err, result, fields) {
             console.log(err);
             if (err) throw err;
@@ -109,7 +109,7 @@ app.get('/faq.html', (req, res) =>{
             })
         });
         })
-    con.end();
+    //con.end();
 } else {
     res.send('Please login to view this page!');
 } 
