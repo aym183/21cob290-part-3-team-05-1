@@ -18,7 +18,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <p id="navbar__logo">Deskspace</a>
+                        <p id="navbar__logo"><%= dat1.toJSON() %></a>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <div class="column_analyst">
                     <div>
                     <h1>Chart 1</h1>
-
+                    
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
                     
@@ -73,7 +73,7 @@
                         const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: string_labels,
+                                labels: ['d','s'],
                                 
                                 datasets: [{
                                     label: 'Number of emplyees',

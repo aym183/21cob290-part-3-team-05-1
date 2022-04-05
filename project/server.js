@@ -127,18 +127,18 @@ app.get('/analyst.html', (req, res) =>{
         res.render('analyst')}
 
     //Query for first chart
-    con.query('SELECT job, COUNT(*) FROM `employee` GROUP BY job',
+    con.query('SELECT job, COUNT(*) as `count` FROM `employee` GROUP BY job',
     [session_id],function (err, result, fields) {
         if (err) throw err;
-        console.log(result);
+        //console.log(result);
 
-        query_chart1 = result;
-    
+        var query_chart1 = result;
+                //console.log(query_chart1[0].job)
         res.render('analyst', {
-            dataframe: query_chart1
-           
-        })
-    
+            dat1: query_chart1[0].job
+
+        })  
+        
     })
 });
 
