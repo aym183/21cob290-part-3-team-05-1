@@ -26,6 +26,28 @@
         </div>
     </div>
 
+    <div class="main__section">
+
+        <!-- SIDE NAVBAR SECTION -->
+        <div class="navbar">
+            <div href="/redir.html" class="navbar__container">
+                <ul class="navbar__menu">
+                    <a class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-home"></i></p>
+                            <p class="navbar__links">Home</p>
+                        </li>
+                    </a>
+                    <a href="/account.html" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-user"></i></p>
+                            <p class="navbar__links">Account</p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
     <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8 mx-auto">
@@ -34,9 +56,9 @@
                     <div class="row mt-5 align-items-center">
                         <div class="col">
                             <div class="row align-items-center">
-                                    <h4 class="mb-1"><%=u_name%></h4><br><br>
+                                    <h2 class="mb-1"><%=u_name%></h4><br><br>
                             </div>
-                                <div class="col">
+                                <div class="col mt-2">
                                     <p class="small mb-0 text-muted"><%=u_job%></p>
                                     <p class="small mb-0 text-muted"><%=u_dept%></p>
                                     <p class="small mb-0 text-muted"><%=u_phone%></p>
@@ -48,6 +70,14 @@
             </div>
             <div id="options">
                 <h5 class="ml-3">Options</h5>
+                <div class="ml-3" id="buttons">
+                <a href="/redir.html">
+                    <button class="btn btn-primary">Return to Dashboard</button><br>
+                </a>
+                <a href="/changepass.html">
+                    <button class="btn btn-primary mt-2">Change Password</button>
+                </a>
+            </div>
             </div>
         </div>
     </div>
