@@ -18,7 +18,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <p id="navbar__logo"><%= dat1%></a>
+                        <p id="navbar__logo">Deskspace</a>
                     </div>
                 </div>
             </div>
@@ -61,24 +61,24 @@
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div>
-                    <h1>Chart 1</h1>
+                        <h1><%= dat2 %></h1>
                     
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
-                    
-                    <script>
-
-
-                        const ctx = document.getElementById('myChart').getContext('2d');
-                        const myChart = new Chart(ctx, {
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
+                        
+                        <script>
+                            
+                            let chart1label = '<%= dat2 %>' 
+                            console.log(chart1label)
+                            const ctx = document.getElementById('myChart').getContext('2d');
+                            const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: ['d','s'],
-                                
+                                labels: chart1label,
                                 datasets: [{
-                                    label: 'Number of emplyees',
-                                    
+                                    label: '# of Votes',
                                     data: [12, 19, 3, 5, 2, 3],
+    
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
