@@ -54,8 +54,8 @@ app.get('/', (req, res) =>{
 });
 
 app.get('/faq.html', (req, res) =>{
-    console.log("faq")
     if(req.session.loggedin) {
+    console.log("faq")
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
@@ -111,11 +111,8 @@ app.get('/faq.html', (req, res) =>{
         })
     con.end();
 } else {
-    res.send('Please login to view this page!');
-} 
-res.end();
-    
-});
+    res.redirect('/login.html');
+}});
 
 
 app.get('/login.html', (req, res) =>{
