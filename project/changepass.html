@@ -20,7 +20,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <p id="navbar__logo">Deskspace</a>
+                        <p id="navbar__logo" style="position: fixed; left: 48.25%; margin-left: -100px;">Deskspace</a>
                     </div>    
                 </div>
             </div>
@@ -33,18 +33,18 @@
         <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
         <div> 
             <div class="form-login">
-                <form method="post" action="/auth">
+                <form method="post" action="/auth" class="form__content">
                     <h4 style="text-align: center">Change Password</h3>
                     <div class="form-group">
                         <div class="form-outline">
                             <label for="inputPassword5">Old Password </label>
                             <input type="password" class="form-control" id="inputPassword4" name="oldpass" placeholder="Enter password..." />
                         </div>
-                        <div class="form-outline">
+                        <div class="form-outline mt-3">
                             <label for="inputPassword5">New Password: </label>
                             <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword5" name="newpass" placeholder="Enter new password..." />
                         </div>
-                        <div class="form-outline">
+                        <div class="form-outline mt-3">
                             <label for="inputPassword6">Confirm Password: </label>
                             <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword6" name="newpass-confirm" placeholder="Confirm new password..."/>
                         </div>
@@ -52,7 +52,7 @@
                     <div id="button_div" style="display: flex;
                     justify-content: center;
                     align-items: center;">
-                    <button type="submit" id="submitBtn" class="btn btn-primary center">Submit</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary center mt-3">Submit</button>
                     </div>
                 </form>
                 
