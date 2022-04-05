@@ -20,7 +20,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <p id="navbar__logo">Deskspace</a>
+                        <p id="navbar__logo" style="position: fixed; left: 48.25%; margin-left: -100px;">Deskspace</a>
                     </div>    
                 </div>
             </div>
@@ -28,19 +28,19 @@
     </div>
 
     <div class="main__section">
-    <div id="border-container" class="form__border">
+    <div id="border-container" class="form__border rounded">
         <span class="border border-dark rounded-sm form__border">
         <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
         <div> 
             <div class="form-login">
-                <form method="post" action="/auth">
+                <form method="post" action="/auth" class="form__content">
                     <h3 style="text-align: center">Log In</h3>
                     <div class="form-group">
                         <div class="form-outline">
                             <label for="uname">Username: </label>
                             <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username Here">
                         </div>
-                        <div class="form-outline">
+                        <div class="form-outline mt-3">
                             <label for="pword">Password: </label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password Here">
                         </div>
@@ -48,7 +48,7 @@
                     <div id="button_div" style="display: flex;
                     justify-content: center;
                     align-items: center;">
-                    <button type="submit" id="submitBtn" class="btn btn-primary center">Submit</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary center mt-3">Submit</button>
                     </div>
                 </form>
                 
