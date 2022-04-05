@@ -134,7 +134,7 @@ app.get('/analyst.html', async function (req, res) {
     
 
         //Query for first chart
-        con.query('SELECT job, COUNT(*) as count FROM employee',function (err, result, fields) {
+        con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
 
         if (err) throw err;
         
@@ -142,18 +142,18 @@ app.get('/analyst.html', async function (req, res) {
         console.log(query_chart1);
         let labs = query_chart1.map(a => a.job)
         let datapoints = query_chart1.map(b => b.count) 
-        console.log(typeof labs)
+        console.log(labs)
 
-        res.render('analyst', {
+        return res.render('analyst', {
             dat1: datapoints,
             dat2: labs
             }) 
     
     })
     } else {
-        res.send('Please login to view this page!');
+        return res.send('Please login to view this page!');
     }
-res.end();    
+return res.end();    
 });
 
 app.get('/intspecialist.html', (req, res) => {  
