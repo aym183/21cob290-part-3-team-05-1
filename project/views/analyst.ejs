@@ -67,7 +67,7 @@
                         <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
                         
                         <script>
-                            let lab = '<%=  dat2 %>'
+                            
                             
                 
                             const ctx = document.getElementById('myChart').getContext('2d');
@@ -79,7 +79,7 @@
                                     datasets: [{
                                         label: test,
                                         
-                                        data: '<%=  dat1 %>',
+                                        data: ['<%=  dat1 %>'],
     
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
