@@ -61,27 +61,26 @@
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div>
-                        
-
-                    <h1>Chart 1</h1>
+                        <h1>Chart 1</h1>
                     
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
-                    
-                    <script>
-                        let lab = '<%=  dat2 %>'
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
                         
-			
-                        const ctx = document.getElementById('myChart').getContext('2d');
-                        const myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['<%=  dat2 %>'],
-                                
-                                datasets: [{
-                                    label: test,
+                        <script>
+                            
+                            
+                
+                            const ctx = document.getElementById('myChart').getContext('2d');
+                            const myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['<%=  dat2 %>'],
                                     
-                                    data: '<%=  dat1 %>',
+                                    datasets: [{
+                                        label: test,
+                                        
+                                        data: ['<%=  dat1 %>'],
+    
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
