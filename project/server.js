@@ -127,7 +127,8 @@ app.get('/analyst.html', (req, res) =>{
         res.render('analyst')}
 
     //Query for first chart
-    con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',
+    con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
+        if (err) throw err;
     
 
         query_chart1 = result,
@@ -137,7 +138,7 @@ app.get('/analyst.html', (req, res) =>{
 
         })  
         
-    )
+    })
 });
 
 app.get('/intspecialist.html', (req, res) => {  
