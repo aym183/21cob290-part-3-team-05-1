@@ -133,7 +133,7 @@ app.get('/analyst.html', (req, res) =>{
         //console.log(result);
 
         var query_chart1 = result;
-                //console.log(query_chart1[0].job)
+                console.log(query_chart1[0].job)
         res.render('analyst', {
             dat1: query_chart1[0].job
 
