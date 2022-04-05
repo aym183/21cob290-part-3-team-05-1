@@ -135,10 +135,10 @@ app.get('/analyst.html', (req, res) =>{
         if (err) throw err;
         
         query_chart1 = result;
-        console.log(query_chart1)
+        //console.log(query_chart1)
         let labs = query_chart1.map(a => a.job)
         let datapoints = query_chart1.map(b => b.count) 
-        console.log(typeof labs)
+        console.log(labs)
 
         return res.render('analyst', {
             dat1: datapoints,
