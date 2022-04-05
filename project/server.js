@@ -402,6 +402,12 @@ app.get('/home', (req, res) => {
 	res.end();
 });
 
+app.get('/changepass.html', (req, res) =>{
+    console.log("change pass")
+    res.sendFile(path.join(__dirname +  '/changepass.html'));
+
+});
+
 app.get('/account.html', (req, res) =>{
     console.log("account")
     // res.sendFile(path.join(__dirname +  '/account.html'));
