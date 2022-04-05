@@ -120,21 +120,27 @@ app.get('/login.html', (req, res) =>{
 });
 
 
-app.get('/analyst.html', (req, res) =>{
+app.get('/analyst.html', async function (req, res) {
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
     if(req.session.loggedin) {
-        console.log("analyst")
-        res.render('analyst')}
-
-    //Query for first chart
-    con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
-        if (err) throw err;
+        console.log("analyst")}
+        //res.render('analyst')}
     
 
-        query_chart1 = result,
-        //console.log(query_chart1[0].job)
+        //Query for first chart
+    con.query('SELECT job, COUNT(*) as count FROM employee',function (err, result, fields) {
+        if (err) throw err;
+        
+        query_chart1 = result;
+        console.log(query_chart1)
+        let labs = query_chart1.map(a => a.job)
+        let datapoints = query_chart1.map(b => b.count) 
+        console.log(typeof labs)
+
         res.render('analyst', {
-            dat1: query_chart1[0].job
+            dat1: datapoints,
+            dat2: labs
+            
 
         })  
         
