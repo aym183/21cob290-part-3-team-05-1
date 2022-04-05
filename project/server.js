@@ -123,20 +123,19 @@ app.get('/login.html', (req, res) =>{
 });
 
 
-app.get('/analyst.html', async function (req, res) {
+app.get('/analyst.html', (req, res) =>{
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
     if(req.session.loggedin) {
         console.log("analyst")
         
     
 
-        //Query for first chart
-        con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
-
+    //Query for first chart
+    con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
         if (err) throw err;
         
-        query_chart1 = result
-        console.log(query_chart1);
+        query_chart1 = result;
+        console.log(query_chart1)
         let labs = query_chart1.map(a => a.job)
         let datapoints = query_chart1.map(b => b.count) 
         console.log(typeof labs)
@@ -278,12 +277,10 @@ app.get('/intspecialist.html', (req, res) => {
     });
         });
         })
-    }
-    else {
-        res.send('Please login to view this page!');
-    }
-     res.end();
-});
+
+} else {
+    res.redirect('/login.html');
+}});
 
 
 app.get('/external.html', (req, res) => {
@@ -338,11 +335,9 @@ app.get('/external.html', (req, res) => {
             })
         })
 
-    } else {
-        res.send('Please login to view this page!');
-    }
-    res.end();
-});
+} else {
+    res.redirect('/login.html');
+}});
 
 app.all('/auth', urlencodedParser, (req, res) =>{
     console.log(req.body);
