@@ -135,9 +135,23 @@ app.get('/analyst.html', (req, res) =>{
         if (err) throw err;
         
         query_chart1 = result;
-        //console.log(query_chart1)
-        let labs = query_chart1.map(a => a.job)
-        let datapoints = query_chart1.map(b => b.count) 
+        console.log(query_chart1[0])
+
+       // function getfields(input, field) {
+        //    var out =  [];
+        //    for (var i=0; i<input.length; ++i)
+       //     out.push(input[i][field]);
+        //    return out
+        //}
+
+        //var labs = getfields(query_chart1, "job")
+        //var labs = query_chart1.map(a => a.job)
+        //var labs = query_chart1.getJSONArray("job");
+        //var labs = JSON.stringify(labs)
+        //var labs = JSON.parse(labs)
+        console.log(typeof labs)
+        var datapoints = query_chart1.map(b => b.count) 
+        
         console.log(labs)
 
         return res.render('analyst', {
