@@ -100,7 +100,8 @@ app.get('/faq.html', (req, res) =>{
             con.query(`SELECT solution.solution_description FROM solution 
             INNER JOIN ticket_solution ON solution.solution_id = ticket_solution.solution_id 
             INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id 
-            WHERE ticket.ticket_id=3 AND solution_status = "successful";`,
+            WHERE ticket.problem_description = 'Reboot system and replace cartridges' 
+            AND ticket_solution.solution_status = 'successful';`,
             [parseInt(msg.id)],function(err, result, fields) {
             console.log(err);
             if (err) throw err;
