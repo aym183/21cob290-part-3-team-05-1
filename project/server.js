@@ -139,7 +139,7 @@ app.get('/analyst.html', async function (req, res) {
         console.log(query_chart1);
         let labs = query_chart1.map(a => a.job)
         let datapoints = query_chart1.map(b => b.count) 
-        console.log(labs)
+        console.log(typeof labs)
 
         return res.render('analyst', {
             dat1: datapoints,
@@ -147,10 +147,10 @@ app.get('/analyst.html', async function (req, res) {
             }) 
     
     })
-    } else {
-        return res.send('Please login to view this page!');
-    }
-return res.end();    
+    } //else {
+      //  return res.send('Please login to view this page!');
+  //  }
+//return res.end();    
 });
 
 app.get('/intspecialist.html', (req, res) => {  
