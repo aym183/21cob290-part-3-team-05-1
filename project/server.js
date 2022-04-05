@@ -149,14 +149,14 @@ app.get('/analyst.html', (req, res) =>{
         //var labs = query_chart1.getJSONArray("job");
         //var labs = JSON.stringify(labs)
         //var labs = JSON.parse(labs)
-        console.log(typeof labs)
-        var datapoints = query_chart1.map(b => b.count) 
+        // console.log(typeof labs)
+        // var datapoints = query_chart1.map(b => b.count) 
         
-        console.log(labs)
+        console.log(result)
 
         return res.render('analyst', {
-            dat1: datapoints,
-            dat2: labs
+            // dat1: datapoints,
+            // dat2: labs
             }) 
     
     })
