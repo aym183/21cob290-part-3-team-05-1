@@ -29,3 +29,4 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
         showSolutionInfo(json[0]); 
     });
 });
+
