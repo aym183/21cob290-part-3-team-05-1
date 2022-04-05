@@ -55,6 +55,7 @@ app.get('/', (req, res) =>{
 
 app.get('/faq.html', (req, res) =>{
     console.log("faq")
+    if(req.session.loggedin) {
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
@@ -109,6 +110,11 @@ app.get('/faq.html', (req, res) =>{
         });
         })
     con.end();
+} else {
+    res.send('Please login to view this page!');
+} 
+res.end();
+    
 });
 
 
@@ -124,7 +130,7 @@ app.get('/analyst.html', (req, res) =>{
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
     if(req.session.loggedin) {
         console.log("analyst")
-        res.render('analyst')}
+        res.render('analyst')
 
     //Query for first chart
     con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
@@ -139,6 +145,10 @@ app.get('/analyst.html', (req, res) =>{
         })  
         
     })
+} else {
+    res.send('Please login to view this page!');
+    }
+    res.end();
 });
 
 app.get('/intspecialist.html', (req, res) => {  
@@ -461,6 +471,7 @@ app.post('/changepass', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {  
+    if (req.session.loggedin) {
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
     
@@ -670,7 +681,9 @@ app.get('/index.html', (req, res) => {
 
     //killall -9 node
     
-});
+} else {
+    res.redirect('/login.html');
+}});
 
 
 // var port = normalizePort(process.env.PORT);
