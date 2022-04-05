@@ -1,0 +1,26 @@
+.centered {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
+  
+  .form__border {
+    width: 244.64px; 
+    height: 320px; 
+    position: fixed;
+    top: 23.5%;
+    left: 49.15%;
+    margin-top: -50px;
+    margin-left: -100px;
+    background-color: #93bee6;
+  }
+  
+  .main__section {
+      display: grid;
+      overflow: auto;
+      flex-grow: 1;
+      align-items: stretch;
+      background-color: #b4dbd9;
+  }

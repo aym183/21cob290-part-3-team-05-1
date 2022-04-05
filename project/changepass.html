@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
-    <link rel="stylesheet" type = 'text/css' href="/styles/login.css" /> 
+    <link rel="stylesheet" type = 'text/css' href="/styles/changepass.css" /> 
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Change Password</title>
@@ -33,15 +33,20 @@
         <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
         <div> 
             <div class="form-login">
-                <form method="post" action="/changepass">
-                    <h3 style="text-align: center">Change Password</h3>
+                <form method="post" action="/auth">
+                    <h4 style="text-align: center">Change Password</h3>
                     <div class="form-group">
                         <div class="form-outline">
-                            <label for="inputPassword5">New Password</label>
-                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword5" name="newpass" />
+                            <label for="inputPassword5">Old Password </label>
+                            <input type="password" class="form-control" id="inputPassword4" name="oldpass" placeholder="Enter password..." />
+                        </div>
                         <div class="form-outline">
-                            <label for="inputPassword6">Confirm Password</label>
-                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword6" name="newpass-confirm" />
+                            <label for="inputPassword5">New Password: </label>
+                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword5" name="newpass" placeholder="Enter new password..." />
+                        </div>
+                        <div class="form-outline">
+                            <label for="inputPassword6">Confirm Password: </label>
+                            <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" id="inputPassword6" name="newpass-confirm" placeholder="Confirm new password..."/>
                         </div>
                     </div>
                     <div id="button_div" style="display: flex;
