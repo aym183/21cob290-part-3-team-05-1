@@ -22,6 +22,11 @@ function showSolutionInfo(data) {
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
     
+    const data = {
+        problem_description: e.target.closest("tr").children[0].textContent
+        
+    }
+
     socket.emit('solution',  data);
 
     // after data is recieved, calling function to show solution info
