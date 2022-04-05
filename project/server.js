@@ -90,22 +90,24 @@ app.get('/faq.html', (req, res) =>{
         }
         
     });
-    con.end();
+    //con.end();
 
     io.on('connection',  (socket) => {
         console.log('connected')
         socket.on("solution", (msg) => {
-            console.log(parseInt(msg.id));
+            // console.log(parseInt(msg.problem_description));
 
-            con.query(`SELECT solution.solution_description FROM solution 
+            con.query(`SELECT ticket.problem_description, ticket.notes, ticket.problem_type_id, solution.solution_description 
+            FROM solution 
             INNER JOIN ticket_solution ON solution.solution_id = ticket_solution.solution_id 
             INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id 
-            WHERE ticket.problem_description = 'Reboot system and replace cartridges' 
+            WHERE ticket.problem_description = ? 
             AND ticket_solution.solution_status = 'successful';`,
-            [parseInt(msg.id)],function(err, result, fields) {
+            [msg.problem_description],function(err, result, fields) {
             console.log(err);
             if (err) throw err;
 
+            console.log('hello');
             console.log(result);
             io.send('solution', result);
             })

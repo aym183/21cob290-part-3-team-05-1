@@ -15,8 +15,8 @@ function addRowHandlers() {
 
 function showSolutionInfo(data) {   
     console.log(data);
-    document.getElementById('solutionBox').innerHTML =  data.solution;
-    document.getElementById('solutionBox').value = data.solution
+    document.getElementById('solutionBox').innerHTML =  data.solution_description;
+    // document.getElementById('solutionBox').value = data.solution_description;
 }
 
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
@@ -24,13 +24,16 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
     
     const data = {
         problem_description: e.target.closest("tr").children[0].textContent
-        
     }
+
+    console.log(data);
+    console.log('hello');
 
     socket.emit('solution',  data);
 
     // after data is recieved, calling function to show solution info
     socket.on('solution', function(data, json) {
+        console.log(json)
         showSolutionInfo(json[0]); 
     });
 });
