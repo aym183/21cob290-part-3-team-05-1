@@ -16,6 +16,10 @@ function addRowHandlers() {
 function showSolutionInfo(data) {   
     console.log(data);
     document.getElementById('solutionBox').value =  data.solution_description;
+    document.getElementById('description').value =  data.problem_description;
+    document.getElementById('notes').value =  data.notes;
+    document.getElementById('problem-type').value =  data.problem_type_id;
+
     // document.getElementById('solutionBox').value = data.solution_description;
 }
 
