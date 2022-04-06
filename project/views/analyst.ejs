@@ -70,29 +70,28 @@
 
                         <% for(var i=0; i < dat1.length; i++) { %>
                             
-                                <h1><%=dat1[i].job%></h1>
-                                <h1><%=dat1[i].count%></h1>
-                                <h1> <%=dat2%> </h1>
+                                <%=dat2.push(dat1[i].job)%>
+                                <%=dat3.push(dat1[i].count)%>
+                                
                                 
                                             
                          <% } %>
-
-
-                        <% for(var i=0; i < dat1.length; i++) { %>
-                            
+                           
+                           
+                         
                         <script>
+                            console.log(typeof dat2)
                             
-                            var newarr =  `<%=dat1[i].job%>`  
-                            var labelchart1 = `<%=dat1[i].job%>`
-                            var datachart1 = `<%=dat1[i].count%>`
+                            var labelchart1 = `<%=dat2%>`
+                            var datachart1 = `<%=dat3%>`
                             const ctx = document.getElementById('myChart').getContext('2d');
                             const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: newarr,
+                                labels: ["Admin",'',"Analyst",'',"Call Centre Employee",'',"Clerk",'',"Designer",'',"Developer",'',"Reports",'',"Specialist",'',"Supervisor",'',"Support"],
                                 datasets: [{
-                                    label: '# of Votes',
-                                    data: [1,2,3,4,5],
+                                    label: 'Number of employees',
+                                    data: datachart1,
     
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
@@ -120,7 +119,7 @@
 
                         });
                     </script>
-                    <% } %>
+                    
                     <p class="chartp"></p>
                 </div>
                
