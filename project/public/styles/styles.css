@@ -512,7 +512,6 @@ h1 {
     position: sticky;
     top: 0;
     align-self: flex-start;
-    
 }
 
 .navbar__container {
@@ -1482,4 +1481,13 @@ footer {
     padding-left: 10px;
     padding-bottom: 70px;
 
+}
+
+#account_navbar {
+    width: 300px;
+    max-width: 300px;
+    height: 100%;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
 }

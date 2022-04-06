@@ -433,6 +433,19 @@ app.get('/changepass.html', (req, res) =>{
 
 });
 
+app.get('/logout', (req, res) =>{
+    if (req.session.loggedin) {
+        req.session.destroy(err => {
+          if (err) {
+            res.status(400).send('Unable to log out')
+          } else {
+            res.redirect('/login.html')
+          }
+        });
+} else {
+     res.redirect('/login.html');
+}});
+
 app.get('/account.html', (req, res) =>{
     console.log("account")
     // res.sendFile(path.join(__dirname +  '/account.html'));
