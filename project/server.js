@@ -143,7 +143,7 @@ app.get('/analyst.html', (req, res) =>{
         // console.log(query_chart1[0])
 
        // function getfields(input, field) {
-        //    var out =  [];
+            var out =  [];
         //    for (var i=0; i<input.length; ++i)
        //     out.push(input[i][field]);
         //    return out
@@ -158,9 +158,10 @@ app.get('/analyst.html', (req, res) =>{
         // var datapoints = query_chart1.map(b => b.count) 
         
         console.log(query_chart1[0]);
-
+        //var labarr = []
         return res.render('analyst', {
              dat1: query_chart1,
+             dat2: out
             // dat2: labs
             }) 
     
