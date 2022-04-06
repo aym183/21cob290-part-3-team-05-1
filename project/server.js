@@ -141,20 +141,21 @@ app.get('/analyst.html', (req, res) =>{
             
             query_chart1 = result;
 
-            var out =  [];
-            var out2 =  [];
+            
             
 
 
   
             
     
-    });
-    con.query('SELECT COUNT(*) AS tickets  FROM `dropped` UNION SELECT COUNT(*)  FROM `ticket`', function(err, result2, fields) {
+    })
+    con.query('SELECT COUNT(*) AS tickets  FROM `dropped` UNION SELECT COUNT(*)  FROM `ticket`', function(err, result, fields) {
         if (err) throw err;
         
         
-        query_chart2 = result2
+        query_chart2 = result
+        var out =  [];
+        var out2 =  [];
         var out3 =  [];
         var out4 =  [];
 
@@ -168,8 +169,8 @@ app.get('/analyst.html', (req, res) =>{
         }) 
 
 
-    });
-
+    })
+    }})
 
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin) {
