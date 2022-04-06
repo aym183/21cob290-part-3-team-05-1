@@ -10,6 +10,7 @@
     <title>Your Account</title>
 </head>
 
+
 <body>
 
     <div class="topSection">
@@ -27,10 +28,19 @@
     </div>
 
     <div class="main__section">
+        <%= console.log(u_job) %>
 
         <!-- SIDE NAVBAR SECTION -->
         <div class="navbar">
-            <div href="redir.html" class="navbar__container">
+            <% if (u_job == "Analyst") { %>
+                <div href="analyst.html" class="navbar__container">
+            <%} else if (u_job == "External Specialist") { %>
+                <div href="external.html" class="navbar__container">
+            <%} else if (u_job == "Specialist") { %>
+                <div href="intspecialist.html" class="navbar__container">
+            <%} else { %>        
+                <div href="index.html" class="navbar__container">
+            <% } %>
                 <ul class="navbar__menu">
                     <a class="navbar__item-div">
                         <li class="navbar__item">
@@ -71,10 +81,18 @@
             <div id="options">
                 <h5 class="ml-3">Options</h5>
                 <div class="ml-3" id="buttons">
-                <a href="redir.html">
+                <% if (u_job == "Analyst") { %>
+                    <a href="analyst.html">
+                <%} else if (u_job == "External Specialist") { %>
+                    <a href="external.html">
+                <%} else if (u_job == "Specialist") { %>
+                    <a href="intspecialist.html">
+                <%} else { %>        
+                    <a href="index.html">
+                <% } %>
                     <button class="btn btn-primary">Return to Dashboard</button><br>
                 </a>
-                <a href="/changepass.html">
+                <a href="changepass.html">
                     <button class="btn btn-primary mt-2">Change Password</button>
                 </a>
             </div>
