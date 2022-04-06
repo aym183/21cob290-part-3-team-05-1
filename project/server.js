@@ -160,7 +160,7 @@ app.get('/analyst.html', (req, res) =>{
         console.log(result)
 
         return res.render('analyst', {
-            // dat1: datapoints,
+             dat1: query_chart1,
             // dat2: labs
             }) 
     

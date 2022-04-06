@@ -61,20 +61,21 @@
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div>
-                        <h1><%= dat2 %></h1>
+                        <h1>Chart 1</h1>
                     
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
                         
-                        <script>
+                        
+                        <% for(var i=0; i < dat1.length; i++) { %>
                             
-                            let chart1label = '<%= dat2 %>' 
-                            console.log(chart1label)
+                        <script>
+                            var labelchart1 = `<%=dat1[i].job%>`
                             const ctx = document.getElementById('myChart').getContext('2d');
                             const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: chart1label,
+                                labels: labelchart1,
                                 datasets: [{
                                     label: '# of Votes',
                                     data: [12, 19, 3, 5, 2, 3],
@@ -105,6 +106,7 @@
 
                         });
                     </script>
+                    <% } %>
                     <p class="chartp"></p>
                 </div>
                
