@@ -32,23 +32,23 @@
 
         <!-- SIDE NAVBAR SECTION -->
         <div id="account-navbar">
-                <div class="navbar__container">
-                <ul class="navbar__menu">
+                <div id="navbar__container">
+                <ul id="navbar__menu">
                     <% if (u_job == "Analyst") { %>
-                        <a href="analyst.html" class="navbar__item-div">
+                        <a href="analyst.html" id="navbar__item-div">
                     <%} else if (u_job == "External Specialist") { %>
-                        <a href="external.html" class="navbar__item-div">
+                        <a href="external.html" id="navbar__item-div">
                     <%} else if (u_job == "Specialist") { %>
-                        <a href="intspecialist.html" class="navbar__item-div">
+                        <a href="intspecialist.html" id="navbar__item-div">
                     <%} else { %>        
-                        <a href="index.html" class="navbar__item-div">
+                        <a href="index.html" id="navbar__item-div">
                     <% } %>
                         <li class="navbar__item">
                             <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>
-                    <a href="account.html" class="navbar__item-div">
+                    <a href="account.html" id="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
                             <p class="navbar__links">Account</p>
