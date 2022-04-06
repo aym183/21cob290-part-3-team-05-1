@@ -399,7 +399,7 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                                      return res.redirect('/analyst.html');
                                  } else {
                                      session_job = "Employee";
-                                     return res.redirect('/analyst.html');
+                                     return res.redirect('/index.html');
                                  }
 
                     }) 
