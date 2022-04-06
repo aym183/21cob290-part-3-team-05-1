@@ -94,7 +94,7 @@ app.get('/faq.html', (req, res) =>{
 
     io.on('connection',  (socket) => {
         console.log('connected')
-        socket.on("solution", (msg) => {
+        socket.on("solution_details", (msg) => {
             // console.log(parseInt(msg.problem_description));
 
             con.query(`SELECT ticket.problem_description, ticket.notes, ticket.problem_type_id, solution.solution_description 
@@ -107,9 +107,10 @@ app.get('/faq.html', (req, res) =>{
             console.log(err);
             if (err) throw err;
 
-            console.log('hello');
-            console.log(result);
-            io.send('solution', result);
+            console.log('hello HERE');
+            console.log(result[0]);
+            socket.emit('solution_details', result[0]);
+            // io.send('solution_details', result);
             })
         });
         })

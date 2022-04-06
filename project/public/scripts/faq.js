@@ -15,7 +15,7 @@ function addRowHandlers() {
 
 function showSolutionInfo(data) {   
     console.log(data);
-    document.getElementById('solutionBox').innerHTML =  data.solution_description;
+    document.getElementById('solutionBox').value =  data.solution_description;
     // document.getElementById('solutionBox').value = data.solution_description;
 }
 
@@ -29,12 +29,20 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
     console.log(data);
     console.log('hello');
 
-    socket.emit('solution',  data);
+    socket.emit('solution_details',  data);
 
     // after data is recieved, calling function to show solution info
-    socket.on('solution', function(data, json) {
-        console.log(json)
-        showSolutionInfo(json[0]); 
+    // socket.on('solution_details', function(data, json) {
+    //     console.log('hello2');
+    //     console.log(json)
+    //     showSolutionInfo(json[0]); 
+    // });
+
+    socket.on('solution_details', function(data, json) {
+      console.log('hello2');
+      console.log(data);
+      showSolutionInfo(data)
+      // showTicketInfo(json[0]); 
     });
 });
 
