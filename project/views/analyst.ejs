@@ -61,28 +61,16 @@
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div>
-                        <h1>Chart 1</h1>
+                        <h1>Number of Employees</h1>
                     
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart" width="400" height="400" style="margin: 0 auto;"></canvas>
-                        
-                        
-
                         <% for(var i=0; i < dat1.length; i++) { %>
-                            
                                 <%=dat2.push(dat1[i].job)%>
-                                <%=dat3.push(dat1[i].count)%>
-                                
-                                
-                                            
+                                <%=dat3.push(dat1[i].count)%>         
                          <% } %>
-                           
-                           
-                         
                         <script>
-                            console.log(typeof dat2)
-                            
-                            var labelchart1 = `<%=dat2%>`
+                            //var labelchart1 = `<%=dat2%>`
                             var datachart1 = `<%=dat3%>`
                             const ctx = document.getElementById('myChart').getContext('2d');
                             const myChart = new Chart(ctx, {
@@ -174,14 +162,13 @@
                 </div>
                 <div class="column_analyst" >
                     <div>
-                        <h1>Chart 2</h1>
+                        <h1>Ticket Data</h1>
                         
 
                         <% for(var i=0; i < dat4.length; i++) { %>
                             
-                            <h1><%=dat5.push(dat4[i])%></h1>
-                            <h1><%=dat6.push(dat4[i+1])%></h1>
-                            
+                            <%=dat5.push(dat4[i].count)%>
+                            <%=dat6.push(dat4[i].status)%>
                             
                                         
                      <% } %>
@@ -189,19 +176,20 @@
 
                         <canvas id="pie-chart" width="400" height="400" style="margin: 0 auto;" ></canvas>
                         <script>
-                
+                            var datachart2 = `<%=dat5%>`
                           new Chart(document.getElementById("pie-chart"), {
                             type: 'pie',
                             data: {
-                              labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+                              labels: ["Active", "","Dropped","","Closed",""],
                               datasets: [{
-                                label: "Population (millions)",
+                                label: "Number of Tickets",
                                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                                data: [2478,5267,734,784,433]
+                                data: datachart2
                               }]
                             },
                             options: {
                               responsive:false
+                              
                             }
                           });</script>
                           <p class="chartp"></p>

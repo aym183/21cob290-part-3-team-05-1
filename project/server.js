@@ -149,17 +149,19 @@ app.get('/analyst.html', (req, res) =>{
             
     
     })
-    con.query('SELECT COUNT(*) AS tickets  FROM `dropped` UNION SELECT COUNT(*)  FROM `ticket`', function(err, result, fields) {
+    con.query('SELECT status, COUNT(*) as count FROM `ticket` GROUP BY status', function(err, result, fields) {
         if (err) throw err;
         
         
         query_chart2 = result
+        console.log(query_chart1)
+        console.log(query_chart2)
         var out =  [];
         var out2 =  [];
         var out3 =  [];
         var out4 =  [];
 
-        return res.render('analyst', {
+        res.render('analyst', {
             dat1: query_chart1,
             dat2: out,
             dat3: out2,
