@@ -138,43 +138,38 @@ app.get('/analyst.html', (req, res) =>{
     //Query for first chart
     con.query('SELECT job, COUNT(*) as `count` FROM employee GROUP BY job',function (err, result, fields) {
         if (err) throw err;
-        
-        query_chart1 = result;
-        // console.log(query_chart1[0])
+            
+            query_chart1 = result;
 
-       // function getfields(input, field) {
             var out =  [];
             var out2 =  [];
             
-        //    for (var i=0; i<input.length; ++i)
-       //     out.push(input[i][field]);
-        //    return out
-        //}
 
-        //var labs = getfields(query_chart1, "job")
-        //var labs = query_chart1.map(a => a.job)
-        //var labs = query_chart1.getJSONArray("job");
-        //var labs = JSON.stringify(labs)
-        //var labs = JSON.parse(labs)
-        // console.log(typeof labs)
-        // var datapoints = query_chart1.map(b => b.count) 
-        
-        
 
-        //var labarr = []
-        return res.render('analyst', {
-             dat1: query_chart1,
-             dat2: out,
-             dat3: out2
-            // dat2: labs
-            }) 
+  
+            
     
-    })
-    } //else {
-      //  return res.send('Please login to view this page!');
-  //  }
-//return res.end();    
-});
+    });
+    con.query('SELECT COUNT(*) AS tickets  FROM `dropped` UNION SELECT COUNT(*)  FROM `ticket`', function(err, result2, fields) {
+        if (err) throw err;
+        
+        
+        query_chart2 = result2
+        var out3 =  [];
+        var out4 =  [];
+
+        return res.render('analyst', {
+            dat1: query_chart1,
+            dat2: out,
+            dat3: out2,
+            dat4: query_chart2,
+            dat5: out3,
+            dat6: out4
+        }) 
+
+
+    });
+
 
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin) {
