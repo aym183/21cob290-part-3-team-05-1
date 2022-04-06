@@ -140,7 +140,7 @@ app.get('/analyst.html', (req, res) =>{
         if (err) throw err;
         
         query_chart1 = result;
-        console.log(query_chart1[0])
+        // console.log(query_chart1[0])
 
        // function getfields(input, field) {
         //    var out =  [];
@@ -157,7 +157,7 @@ app.get('/analyst.html', (req, res) =>{
         // console.log(typeof labs)
         // var datapoints = query_chart1.map(b => b.count) 
         
-        console.log(result)
+        console.log(query_chart1[0]);
 
         return res.render('analyst', {
              dat1: query_chart1,
@@ -398,7 +398,7 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                                      return res.redirect('/analyst.html');
                                  } else {
                                      session_job = "Employee";
-                                     return res.redirect('/index.html');
+                                     return res.redirect('/analyst.html');
                                  }
 
                     }) 
