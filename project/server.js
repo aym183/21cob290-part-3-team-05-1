@@ -173,8 +173,12 @@ app.get('/analyst.html', (req, res) =>{
 
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin) {
+<<<<<<< Updated upstream
         // console.log("internal scpecialist")
         res.render('intSpecialist')
+=======
+        console.log("internal scpecialist")
+>>>>>>> Stashed changes
     // res.writeHead(200, {'content-type':'text/html'})
     
     // Query for ticket information
@@ -215,7 +219,7 @@ app.get('/intspecialist.html', (req, res) => {
 
         query = result
 
-        res.render('index', {
+        res.render('intSpecialist', {
             dropdownVals: query_output,
             newdropdownVals: query,
             loggeduser: session_username
