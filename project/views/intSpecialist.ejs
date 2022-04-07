@@ -128,8 +128,8 @@
                         <th>Status</th> 
                         <th>ID</th> 
                         <th>Problem Type</th>     
-                        <th>Name</th> 
-                        <th>Last Updated</th>
+                        <th>Last Updated</th> 
+                        <th>Name</th>
                     </tr>
                 </thead>
 
@@ -183,74 +183,30 @@
                             </tbody>
                         </table> 
                         </div>
-                        <div class="ticket__information">
-                            <button class="info-edit-btn" id="caller-btn">Update Caller Information</button>
-                            <label for="caller-name">Caller Name</label>
-                            <input id="caller-name" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <span class="validation_error" id="caller-name-error"></span>
-                            <label for="caller-id">Caller ID</label>
-                            <input id="caller-id" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <span class="validation_error" id="caller-id-error"></span>
-                            <label for="caller-phone">Caller Telephone</label>
-                            <input id="caller-phone" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                            <div class="break-line"></div>
-                            <div class="details-table__container" id="emp-table__container">
-                                <div class="emp-search__container">
-                                    <label for="caller-search">Search:</label>
-                                    <input id="caller-search" type="text"> 
-                                </div>
-                                <div class="details-table__wrapper">
-                                <h3 class="centered-text">Employee Details</h3>
-                                    <table class="edit-details__table" id="emp-details__table">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>ID</th>
-                                                <th>Job Title</th>
-                                                <th class="switch_table">Department</th>
-                                                <th class="switch_table">Telephone</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- javacript inserted here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="ticket__information">                            
                             <button class="info-edit-btn" id="edit-btn">Edit</button>
-                            <label for="operator-name">Operator Name</label>
-                            <input id="operator-name" type="text"
-                            list="operators" class="edit-field" autocomplete="off" value="" readonly>
-                            <datalist id="operators">
-                            
-                            </datalist>
-                            <span class="validation_error" id="operator-name-error"></span>
-                            <label for="call-time">Date Created</label>
-                            <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
-                            <label for="update-time">Last Updated</label>
-                            <input id="update-time" name="update-time" class="no-edit-field" type="text" value="" readonly>
-                            <label for="hardware-id">Hardware ID</label>
-                            <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
-                            <datalist id="hardware-numbers">
-                            
-                            </datalist>
+                           
+                            <label for="Priority">Priority</label>
+                            <input type="text" id="priority" class="edit-field" value="" readonly>
                             <span class="validation_error" id="hardware-id-error"></span>
-                            <label for="hardware-type">Equipment Name</label>
+                            <label for="hardware-type">Hardware ID</label>
+                            <input type="text" id="hardware-id" class="edit-field" value="" readonly>
+                            <label for="hardware-type">Hardware Manufacturer</label>
                             <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
-                            <label for="hardware-model">Equipment Model</label>
+                            <label for="hardware-model">Hardware Model</label>
                             <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
-                            <label for="hardware-make">Equipment Make</label>
+                            <label for="hardware-make">Hardware Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
                             <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>
                             <datalist id="operating-systems">
-                            
+                        
                             </datalist>
                             <span class="validation_error" id="operating-system-error"></span>
                             <label for="software">Software</label>
                             <input type="text" id="software" class="edit-field" value="" list="software-list" readonly>
                             <datalist id="software-list">
-                            
+                          
                             </datalist>
                             <span class="validation_error" id="software-error"></span>
                             <label for="description">Problem Description</label>
@@ -260,29 +216,19 @@
                             <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5"></textarea>
                             <div id = 'notes_remaining_chars' >1000 characters remaining</div>
                             <label for="problem-type">Problem Type</label>
-                            <input type="text" id="problem-type" class="edit-field" list="problem-types" value="">  
+                            <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
                             <datalist id="problem-types">
-                            
+                    
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>
-                            <input type="text" id="handler-name" class="edit-field" value="" readonly>
+                            <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
                             <span class="validation_error" id="handler-name-error"></span>
                             <label for="solution" class="closed__field">Solution</label>
                             <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>
                             <label for="close-time" class="closed__field">Time closed</label>
                             <input id="close-time" name="close-time" class="closed__field no-edit-field" type="text" value="">
                             
-                        </div>
-
-                        <div class="ticket_history_section">
-                            <button class="info-edit-btn" id="ticket_history_btn" onclick='displayTicketHistory()'>Show Past Edit(s)</button>
-                            <div class="ticket_history_container" id="ticket_history_body" style = "display:none;"></div>
-                        </div>
-
-                        <div class="solution_history_section">
-                        <button class="info-edit-btn" id="solution_history_btn" onclick='displaySolutionHistory()'>Show Solution History</button>
-                        <div class="solution_history_container" id="solution_history_body" style = "display:none;"></div>
                         </div>
                         
                         <div class="update__section">
@@ -298,7 +244,7 @@
         
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
-                    <p>Close Form</p>
+                    <p>Submit Form</p>
                     <div class="solution__wrapper">
                         <div class="topSolution__section">    
                             <div class="solution__label">
@@ -309,22 +255,9 @@
                                 <div class="solution__buttons">
                                     <button type="button" class="form-btn" id="editSolution-btn">edit</button>
                                 </div>
-                                <div class="solution__buttons discard-solution">
-                                    <button type="button" class="form-btn" id="dropSolution-btn">Discard Solution</button>
-                                </div>
-                                <div class="solution__buttons previous-solution">
-                                    <button type="button" class="form-btn" id="previousFix-btn">Previous fixes</button>
-                                </div>
                             </div>
                         </div>
-                        <div class="previous-fixes-header pf-head1">
-                                        <h3>Previous Fixes</h3>
-                                        <button type="button" class="form-btn" id="goback-btn"><i class="fas fa-arrow-left"></i></button>
-                                        <button type="button" class="previous-fixes-filter device-filter">This device</button>
-                                        <button type="button" class="previous-fixes-filter model-filter">Make and Model</button>
-                                        <button type="button" class="previous-fixes-filter software-filter">Software</button>
-                                        <button type="button" class="previous-fixes-filter problem-type-filter">Problem Type</button>
-                        </div>
+                       
                         <div class="solutionArea__section">
                             <div class="solutionInput__wrapper">
                                 <textarea name="solution" id="solution-area" maxlength = "500" cols="60" rows="10" placeholder="Type solution..."></textarea>
@@ -334,19 +267,13 @@
                             </div>
 
                             <div class="dropSolution__section">
-                                <div class="checkbox__section"> 
-                                    <label class="checkbox__container">Caller has been given the solution
-                                        <input type="checkbox" id="myCheckbox">
-                                        <span class="checkmark unchecked"><i id="check-state" class="fas fa-check"></i></span>
-                                    </label> 
-                                </div>
                                 <div id = 'solution_remaining_chars' >500 characters remaining</div>
                             </div>
                         </div>
                         <div class="close__border">
                             <hr>
-                            <div class="section-container update__container closeButton">
-                                <button type="button" class="form-btn" id="close-btn">Close Ticket</button>
+                            <div class="section-container update__container solutionButton">
+                                <button type="button" class="form-btn" id="submit-btn">Submit Ticket</button>
                             </div>
                         </div>
                     </div> 

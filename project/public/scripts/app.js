@@ -100,8 +100,8 @@ function showTicketInfo(data) {
                     if (document.querySelector(".checkmark") !== null) {
                         document.querySelector('.checkmark').classList.remove('checked');
                         document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                        document.querySelector("#close-btn").style.cursor = "default";
+                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                        document.querySelector("#submit-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
                     
@@ -122,8 +122,8 @@ function showTicketInfo(data) {
                     if (document.querySelector(".checkmark") !== null) {
                         document.querySelector(".closeForm__section").style.display = "block";
                         // document.querySelector('.checkmark').classList.remove('checked');
-                        // document.querySelector('.checkmark').classList.add('unchecked');x                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                        document.querySelector("#close-btn").style.cursor = "default";
+                        // document.querySelector('.checkmark').classList.add('unchecked');x                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                        document.querySelector("#submit-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
                     
@@ -153,8 +153,8 @@ function showTicketInfo(data) {
                         document.querySelector(".closeForm__section").style.display = "block";
                         document.querySelector('.checkmark').classList.remove('checked');
                         document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                        document.querySelector("#close-btn").style.cursor = "default";
+                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                        document.querySelector("#submit-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
                     
@@ -224,8 +224,8 @@ ready(() => {
             if (document.querySelector(".checkmark") !== null) {
                 document.querySelector('.checkmark').classList.remove('checked');
                 document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                document.querySelector("#close-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
             
@@ -247,8 +247,8 @@ ready(() => {
                 document.querySelector(".closeForm__section").style.display = "block";
                 document.querySelector('.checkmark').classList.remove('unchecked');
                 document.querySelector('.checkmark').classList.add('checked');
-                document.querySelector("#close-btn").removeAttribute('disabled');
-                document.querySelector("#close-btn").style.cursor = "pointer";
+                document.querySelector("#submit-btn").removeAttribute('disabled');
+                document.querySelector("#submit-btn").style.cursor = "pointer";
                 document.querySelector(".closeButton").style.opacity = "1";
             }
             
@@ -268,8 +268,8 @@ ready(() => {
                 document.querySelector(".closeForm__section").style.display = "block";
                 document.querySelector('.checkmark').classList.remove('checked');
                 document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                document.querySelector("#close-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
             
@@ -288,8 +288,8 @@ ready(() => {
                 document.querySelector(".closeForm__section").style.display = "block";
                 document.querySelector('.checkmark').classList.remove('checked');
                 document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                document.querySelector("#close-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
             
@@ -319,8 +319,8 @@ ready(() => {
                 document.querySelector(".closeForm__section").style.display = "block";
                 document.querySelector('.checkmark').classList.remove('checked');
                 document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#close-btn").setAttribute('disabled','disabled');
-                document.querySelector("#close-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
 
@@ -459,8 +459,8 @@ ready(() => {
     drop_btn && drop_btn.addEventListener("click", (e) => {
 
         document.getElementById('solution-area').value = "";
-        document.querySelector("#close-btn").setAttribute('disabled','disabled');
-        document.querySelector("#close-btn").style.cursor = "default";
+        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+        document.querySelector("#submit-btn").style.cursor = "default";
         document.querySelector(".closeButton").style.opacity = "0.3";
 
         document.querySelector('.solution-status').innerText = "Solution Discarded";
@@ -644,10 +644,71 @@ function ticketDetailTable(table_type, input) {
 }
 
 ready(() => { 
-    var close_btn = document.querySelector("#close-btn");
-    close_btn && close_btn.addEventListener("click", (e) => {
-        popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm", "");         
+    document.querySelector("#editSolution-btn").addEventListener("click", (e) => {
+        const edit_btn = document.querySelector("#editSolution-btn");
+
+        if (!edit_btn.classList.contains('pushed-btn')) {
+            edit_btn.classList.add('pushed-btn');
+            document.querySelector('#editSolution-btn').style.color = 'var(--buttonTextColor)';
+            document.querySelector('#editSolution-btn').style.backgroundColor = 'var(--buttonHover)';
+
+            
+                
+            document.querySelectorAll("#solution-area").forEach(field => { 
+                field.style.pointerEvents = "all",
+                field.style.backgroundColor = "white",
+                field.style.borderColor = 'black';
+                field.removeAttribute("readonly")    
+                })
+            
+                document.querySelector(".solutionArea__section").style.backgroundColor = "white";
+            // document.querySelector(".update__section").style.display = "block";
+        } else {
+            edit_btn.classList.remove('pushed-btn');
+            document.querySelector('#editSolution-btn').style.color = null;
+            document.querySelector('#editSolution-btn').style.backgroundColor = null;
+
+            document.querySelectorAll(".solution-area").forEach(field => { 
+                field.style.pointerEvents = "none",
+                field.style.backgroundColor = "rgb(236, 236, 236)",
+                field.setAttribute("readonly", true) 
+                field.style.borderColor = "#ccc";
+            })
+            // document.querySelectorAll(".ticket__information label").forEach(label => { 
+            //     label.style.color = "black";   
+            // })
+            // document.querySelector(".update__section").style.display = "none";
+            // document.querySelector("#emp-table__container").style.display = "none";
+            //enable ticket history button once not in edit mode
+            
+        }
+
+
+    });    
+});
+
+//Ticket Submission
+ready(() => { 
+
+    document.querySelector("#submit-btn").addEventListener("click", (e) => {
+        console.log("Solution");
+        socket = io();
+     const edit_btn = document.querySelector("#submit-btn");
+    // submit_btn && submit_btn.addEventListener("click", (e) => {
+        var submit_solution =  document.getElementById("solution-area").value;   
+        const data = {
+            solution: submit_solution
+        }
+        console.log(data);
+        console.log(submit_solution);  
+        socket.emit("Submit-Ticket", data);
+
+        
+        ticket_status = document.getElementById('detail-status').innerHTML;
+        console.log(ticket_status);
     });
     
+
+
 });
 
