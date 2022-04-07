@@ -696,16 +696,16 @@ ready(() => {
      const edit_btn = document.querySelector("#submit-btn");
     // submit_btn && submit_btn.addEventListener("click", (e) => {
         var submit_solution =  document.getElementById("solution-area").value;   
+        var ticket_status = document.getElementById('detail-status').innerHTML;
         const data = {
-            solution: submit_solution
+            solution: submit_solution,
+            status: ticket_status
         }
         console.log(data);
         console.log(submit_solution);  
         socket.emit("Submit-Ticket", data);
 
         
-        ticket_status = document.getElementById('detail-status').innerHTML;
-        console.log(ticket_status);
     });
     
 
