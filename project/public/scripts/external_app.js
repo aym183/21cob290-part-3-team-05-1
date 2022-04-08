@@ -398,13 +398,8 @@ ready(() => {
         
         
         const priority = document.getElementById("priority").value;
-        const hardware_id = document.getElementById("hardware-id").value;
-        const os = document.getElementById("operating-system").value;
-        const software = document.getElementById("software").value;
         const problem_description = document.getElementById("description").value;
         const notes = document.getElementById("notes").value;
-        const problem_type = document.getElementById("problem-type").value;
-        const handler_name = document.getElementById("handler-name").value;
 
        
 
@@ -414,13 +409,8 @@ ready(() => {
 
             const ticket_details = {
                 priority: priority,
-                hardware_id: hardware_id,
-                os: os,
-                software: software,
                 problem_description: problem_description,
                 notes: notes,
-                problem_type: problem_type,
-                handler_name: handler_name,
                 last_updated: date,
                 id: document.getElementById('detail-id').innerHTML
             };
