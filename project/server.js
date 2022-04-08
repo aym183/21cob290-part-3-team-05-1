@@ -408,11 +408,20 @@ app.get('/intspecialist.html', (req, res) => {
             con.query(`INSERT INTO solution (solution_description)
             values(?)`,[msg.solution], function (err, result, fields) {
                 if (err) throw err;
+            
+            con.query(`UPDATE ticket
+            SET status = 'submitted'
+            WHERE handler_id = (SELECT user_id FROM handler 
+                INNER JOIN employee on handler.user_id = employee.employee_id  
+                INNER JOIN internal_specialist on employee.employee_id = internal_specialist.handler_id 
+                WHERE employee.name = ?)`,[msg.h_name], function (err, result, fields) {
+                if (err) throw err;
+    
             });
-        });
+        
+            });
         })
-
-
+})
 
 });
 
