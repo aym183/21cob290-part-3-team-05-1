@@ -277,7 +277,7 @@ app.get('/intspecialist.html', (req, res) => {
                 });
             }
 
-            else if(msg.status == 'active' || msg.status == 'dropped'){
+            else if(msg.status == 'active'){
 
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
                 from ticket
@@ -328,7 +328,7 @@ app.get('/intspecialist.html', (req, res) => {
 
         })
 
-    
+    // updating of ticket
     io.on('connection',  (socket) => {
         console.log('connected')
 
@@ -376,51 +376,6 @@ app.get('/intspecialist.html', (req, res) => {
         });
         })
 
-} else {
-    res.redirect('/login.html');
-}
-
-    // updating of ticket
-    io.on('connection',  (socket) => {
-        console.log('connected')
-
-        socket.on("update_message", (msg) => {
-           
-
-            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
-                if (err) throw err;
-                problem_type_id = result[0].problem_type_id;
-                
-
-                 con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
-                if (err) throw err;
-                software_id = result[0].software_id;
-                
-           
-            con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
-                    UNION
-                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
-                if (err) throw err;
-                handler_id = result[0].user_id;
-
-
-            con.query(`UPDATE ticket 
-                SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
-                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
-                
-    
-        
-                if (err) throw err;
-            });   
-
-            });
-
-        });
-    });
-        });
-        })
-
-    
     // Query to update tickets solution upon submission
     io.on('connection', (socket) => {
         console.log('connected')
@@ -446,6 +401,11 @@ app.get('/intspecialist.html', (req, res) => {
             });
         })
 })
+
+
+} else {
+    res.redirect('/login.html');
+}
 
 });
 

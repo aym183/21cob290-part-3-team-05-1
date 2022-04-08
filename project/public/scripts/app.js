@@ -690,10 +690,13 @@ ready(() => {
 //Ticket Submission
 ready(() => { 
 
+    const refreshPage = () => {
+        location.reload();
+      }
+
     document.querySelector("#submit-btn").addEventListener("click", (e) => {
         console.log("Solution");
         socket = io();
-     const edit_btn = document.querySelector("#submit-btn");
     // submit_btn && submit_btn.addEventListener("click", (e) => {
         var submit_solution =  document.getElementById("solution-area").value;   
         var ticket_status = document.getElementById('detail-status').innerHTML;
@@ -711,6 +714,7 @@ ready(() => {
         socket.emit("Submit-Ticket", data);
 
         console.log(ticket_status);
+        refreshPage();
     });
     
 
