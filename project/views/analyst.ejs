@@ -112,21 +112,29 @@
                 </div>
                
                 <div>
-                    <h1>Chart 3</h1>
-
+                    <h1>Priority Data</h1>
+                    <div>
+                    <% for(var i=0; i < dat7.length; i++) { %>
+                            
+                        <%=dat8.push(dat7[i].count)%>
+                        <%=dat9.push(dat7[i].priority)%>
+                        
+                                    
+                    <% } %>
+                </div>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <canvas id="myChart3" width="400" height="400" style="margin: 0 auto;"></canvas>
                     <script>
 
-
+                        var datachart3 = `<%=dat8%>`
                         const ctxxx = document.getElementById('myChart3').getContext('2d');
                         const myChart3 = new Chart(ctxxx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], //Change for new labels
+                                labels: ['Medium', '', 'Low', '', 'High'], //Change for new labels
                                 datasets: [{
-                                    label: '# of Votes',
-                                    data: [12, 19, 3, 5, 2, 3], //change for data imported from sql queries
+                                    label: 'Number od tickets',
+                                    data: datachart3, //change for data imported from sql queries
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
@@ -180,7 +188,7 @@
                           new Chart(document.getElementById("pie-chart"), {
                             type: 'pie',
                             data: {
-                              labels: ["Active", "","Dropped","","Closed",""],
+                              labels: ["Active", "","Dropped","","Closed","", "Pending","","Submitted", "Unsuccessfull"], //need to get query to get lables so order can be changed (swap submitted and closed)
                               datasets: [{
                                 label: "Number of Tickets",
                                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
@@ -195,21 +203,32 @@
                           <p class="chartp"></p>
                     </div>
                      <div>
-                    <h1>Chart 4</h1>
+
+
+                    <h1>Ticket Solution Data</h1>
+
+                    <% for(var i=0; i < dat10.length; i++) { %>
+                            
+                        <%-dat11.push(dat10[i].count)%>
+                        <%-dat12.push(dat10[i].solution_status)%>
+                        
+                                    
+                     <% } %>
+
 
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <canvas id="myChart4" width="400" height="400" style="margin: 0 auto;"></canvas>
                     <script>
-
+                        let datachart4 = `<%=dat11%>`
 
                         const ctxx = document.getElementById('myChart4').getContext('2d');
                         const myChart4 = new Chart(ctxx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: ['Successful', '', 'Unsuccessful', '', 'Pending'],
                                 datasets: [{
-                                    label: '# of Votes',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    label: 'Number of tickets',
+                                    data: datachart4,
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
