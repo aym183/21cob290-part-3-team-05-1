@@ -27,9 +27,9 @@
             </div>
 
             <div class="profile__container">
-                <a href="employee_account.html" class="profile__item" id="profile-username">
+                <a href="/account.html" class="profile__item" id="profile-username">
 
-                    <p id="username">Account</p>
+                    <p id="username"><%=loggeduser%></p>
                     <!-- <?php
                             echo '<p id="username">'. $uname .'</p>'
                         ?> -->
@@ -57,10 +57,10 @@
                             <p class="navbar__links">Problem Resolutions</p>
                         </li>
                     </a> -->
-                    <a href="employee_account.html" class="navbar__item-div">
+                    <a href=/account.html" class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
-                            <p class="navbar__links"><%=loggeduser%></p>
+                            <p class="navbar__links">Account</p>
                         </li>
                     </a>
                 </ul>
@@ -100,42 +100,14 @@
 
                 <tbody class="ticket-body employee-ticket-body">
                     
-                    <% for(var i=0; i < dropdownVals.length; i++) { %>
+                    <% for(var i=0; i < newdropdownVals.length; i++) { %>
                         <tr>
-                            <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
-                            <td><%=dropdownVals[i].ticket_id%></td>
-                            <td id='lastUpdated'><%=dropdownVals[i].last_updated%></td>
-                            <td><%=dropdownVals[i].name%></td></tr>
+                            <td class=<%=newdropdownVals[i].status%>><span class="t-status"><%=newdropdownVals[i].status%></span></td>
+                            <td><%=newdropdownVals[i].ticket_id%></td>
+                            <td id='lastUpdated'><%=newdropdownVals[i].name%></td>
+                            <td><%=newdropdownVals[i].last_updated%></td></tr>
                     <% } %>
-                    
-                    <!-- <?php
-                    $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
-                    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-                    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-                    INNER JOIN (SELECT user_id, employee.name FROM handler
-                                INNER JOIN employee ON handler.user_id = employee.employee_id
-                                UNION
-                                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                                WHEN status = 'submitted' THEN 2
-                                WHEN status = 'pending' THEN 3
-                                WHEN status = 'unsuccessful' THEN 4
-                                WHEN status = 'active' THEN 5
-                                ELSE 6 END
-                    LIMIT 0, 50";
-                    $result = mysqli_query($conn, $sql) or die("Bad Query: $sql");
-                    while ($row = mysqli_fetch_array($result)){
-                        
-                        echo'<tr>';
-                        echo '<td class="'.$row[1].'"><span class="t-status">'.$row[1].'</span></td>';
-                        echo '<td>'.$row[0].'</td>';
-                        echo '<td>'.$row[3].'</td>';
-                        echo '<td>'.$row[4].'</td>';
-                        echo '<td>'.$row[2].'</td>';
-                        echo '<td>'.$row[5].'</td>';
-                        echo'</tr>';
-                    }
-                ?> -->
+                   
                 </tbody>
             </table>
 
@@ -175,133 +147,50 @@
                         </table>
                     </div>
                     <div class="ticket__information">
-                        <button class="info-edit-btn" id="caller-btn">Update Caller Information</button>
-                        <label for="caller-name">Caller Name</label>
-                        <input id="caller-name" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                        <span class="validation_error" id="caller-name-error"></span>
-                        <label for="caller-id">Caller ID</label>
-                        <input id="caller-id" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                        <span class="validation_error" id="caller-id-error"></span>
-                        <label for="caller-phone">Caller Telephone</label>
-                        <input id="caller-phone" type="text" class="no-edit-field" autocomplete="off" value="" readonly>
-                        <div class="break-line"></div>
-                        <div class="details-table__container" id="emp-table__container">
-                            <div class="emp-search__container">
-                                <label for="caller-search">Search:</label>
-                                <input id="caller-search" type="text">
-                            </div>
-                            <div class="details-table__wrapper">
-                                <h3 class="centered-text">Employee Details</h3>
-                                <table class="edit-details__table" id="emp-details__table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>ID</th>
-                                            <th>Job Title</th>
-                                            <th class="switch_table">Department</th>
-                                            <th class="switch_table">Telephone</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- javacript inserted here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                         <button class="info-edit-btn" id="edit-btn">Edit</button>
-                        <label for="operator-name">Operator Name</label>
-                        <input id="operator-name" type="text" list="operators" class="edit-field" autocomplete="off"
-                            value="" readonly>
-                        <datalist id="operators">
-                            <!-- <?php
-                            foreach ($autocompletion['operators'] as $operator) {
-                                echo "<option value=\"" . $operator['name'] . "\">";
-                            }
-                            ?>
-                            </datalist> -->
-                            <span class="validation_error" id="operator-name-error"></span>
-                            <label for="call-time">Date Created</label>
-                            <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
-                            <label for="update-time">Last Updated</label>
-                            <input id="update-time" name="update-time" class="no-edit-field" type="text" value="" readonly>
+                            <label for="Priority">Priority</label>
+                            <input type="text" id="priority" class="no-edit-field" value="" readonly>                    
                             <label for="hardware-id">Hardware ID</label>
-                            <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
-                            <datalist id="hardware-numbers">
+                            <input type="text" id="hardware-id" class="no-edit-field" list="hardware-numbers" value="" readonly> 
+                            <span class="validation_error" id="hardware-id-error"></span>
+                            <label for="hardware-type">Equipment Name</label>
+                            <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
+                            <label for="hardware-model">Equipment Model</label>
+                            <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
+                            <label for="hardware-make">Equipment Make</label>
+                            <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
+                            <label for="operating-system">Operating System</label>
+                            <input type="text" id="operating-system" class="no-edit-field" list="operating-systems" value=""
+                                readonly>
+        
+                            <span class="validation_error" id="operating-system-error"></span>
+                            <label for="software">Software</label>
+                            <input type="text" id="software" class="no-edit-field" value="" list="software-list" readonly>
+                            <datalist id="software-list">
                             
-                            <!-- <?php
-                            foreach ($autocompletion['hardware ids'] as $hardware_id) {
-                                echo "<option value=\"" . $hardware_id['serial_number'] . "\">";
-                            }
-                            ?> -->
-                        </datalist>
-                        <span class="validation_error" id="hardware-id-error"></span>
-                        <label for="hardware-type">Equipment Name</label>
-                        <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
-                        <label for="hardware-model">Equipment Model</label>
-                        <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
-                        <label for="hardware-make">Equipment Make</label>
-                        <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
-                        <label for="operating-system">Operating System</label>
-                        <input type="text" id="operating-system" class="edit-field" list="operating-systems" value=""
-                            readonly>
-                        <datalist id="operating-systems">
-                            <!-- <?php
-                            foreach ($autocompletion['operating systems'] as $operating_system) {
-                                echo "<option value=\"" . $operating_system['name'] . "\">";
-                            }
-                            
-                            ?> -->
-                        </datalist>
-                        <span class="validation_error" id="operating-system-error"></span>
-                        <label for="software">Software</label>
-                        <input type="text" id="software" class="edit-field" value="" list="software-list" readonly>
-                        <datalist id="software-list">
-                            <!-- <?php
-                            foreach ($autocompletion['software'] as $software) {
-                                echo "<option value=\"" . $software['name'] . "\">";
-                            }
-                            ?> -->
-                        </datalist>
-                        <span class="validation_error" id="software-error"></span>
-                        <label for="description">Problem Description</label>
-                        <textarea type="text" id="description" maxlength="300" class="edit-field" rows="5"></textarea>
-                        <div id='remaining_chars'>300 characters remaining</div>
-                        <label for="notes">Notes</label>
-                        <textarea type="text" id="notes" maxlength="1000" class="edit-field" rows="5"></textarea>
-                        <div id='notes_remaining_chars'>1000 characters remaining</div>
-                        <label for="problem-type">Problem Type</label>
-                        <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>
-                        <datalist id="problem-types">
-                            <!-- <?php
-                            $problems = get_problem_types(true, false);
-                            foreach ($problems as $problem) {
-                                echo "<option value=\"" . $problem['name'] . "\">";
-                            }
-                            ?> -->
-                        </datalist>
-                        <span class="validation_error" id="problem-type-error"></span>
-                        <label for="handler-name">Handler Name</label>
-                        <input type="text" id="handler-name" class="edit-field" value="" readonly>
-                        <span class="validation_error" id="handler-name-error"></span>
-                        <label for="solution" class="closed__field">Solution</label>
-                        <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>
-                        <label for="close-time" class="closed__field">Time closed</label>
-                        <input id="close-time" name="close-time" class="closed__field no-edit-field" type="text"
-                            value="">
+                            </datalist>
+                            <span class="validation_error" id="software-error"></span>
+                            <label for="description">Problem Description</label>
+                            <textarea type="text" id="description" maxlength="300" class="edit-field" rows="5"></textarea>
+                            <div id='remaining_chars'>300 characters remaining</div>
+                            <label for="notes">Notes</label>
+                            <textarea type="text" id="notes" maxlength="1000" class="edit-field" rows="5"></textarea>
+                            <div id='notes_remaining_chars'>1000 characters remaining</div>
+                            <label for="problem-type">Problem Type</label>
+                            <input type="text" id="problem-type" class="no-edit-field" list="problem-types" value="" readonly>
+                            <span class="validation_error" id="problem-type-error"></span>
+                            <label for="handler-name">Handler Name</label>
+                            <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
+                            <span class="validation_error" id="handler-name-error"></span>
+                            <label for="solution" class="closed__field">Solution</label>
+                            <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>
+                            <label for="close-time" class="closed__field">Time closed</label>
+                            <input id="close-time" name="close-time" class="closed__field no-edit-field" type="text"
+                                value="">
 
-                    </div>
+                        </div>
 
-                    <div class="ticket_history_section">
-                        <button class="info-edit-btn" id="ticket_history_btn" onclick='displayTicketHistory()'>Show Past
-                            Edit(s)</button>
-                        <div class="ticket_history_container" id="ticket_history_body" style="display:none;"></div>
-                    </div>
-
-                    <div class="solution_history_section">
-                        <button class="info-edit-btn" id="solution_history_btn" onclick='displaySolutionHistory()'>Show
-                            Solution History</button>
-                        <div class="solution_history_container" id="solution_history_body" style="display:none;"></div>
-                    </div>
+                    
 
                     <div class="update__section">
                         <hr>
@@ -316,9 +205,9 @@
 
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
-                    <p>Close Form</p>
+                    <p>Submit Form</p>
                     <div class="solution__wrapper">
-                        <div class="topSolution__section">
+                        <div class="topSolution__section">    
                             <div class="solution__label">
                                 <p class="solution-status"></p>
                             </div>
@@ -327,52 +216,28 @@
                                 <div class="solution__buttons">
                                     <button type="button" class="form-btn" id="editSolution-btn">edit</button>
                                 </div>
-                                <div class="solution__buttons discard-solution">
-                                    <button type="button" class="form-btn" id="dropSolution-btn">Discard
-                                        Solution</button>
-                                </div>
-                                <div class="solution__buttons previous-solution">
-                                    <button type="button" class="form-btn" id="previousFix-btn">Previous fixes</button>
-                                </div>
                             </div>
                         </div>
-                        <div class="previous-fixes-header pf-head1">
-                            <h3>Previous Fixes</h3>
-                            <button type="button" class="form-btn" id="goback-btn"><i
-                                    class="fas fa-arrow-left"></i></button>
-                            <button type="button" class="previous-fixes-filter device-filter">This device</button>
-                            <button type="button" class="previous-fixes-filter model-filter">Make and Model</button>
-                            <button type="button" class="previous-fixes-filter software-filter">Software</button>
-                            <button type="button" class="previous-fixes-filter problem-type-filter">Problem
-                                Type</button>
-                        </div>
+                       
                         <div class="solutionArea__section">
                             <div class="solutionInput__wrapper">
-                                <textarea name="solution" id="solution-area" maxlength="500" cols="60" rows="10"
-                                    placeholder="Type solution..."></textarea>
+                                <textarea name="solution" id="solution-area" maxlength = "500" cols="60" rows="10" placeholder="Type solution..."></textarea>
                                 <!-- Previous Fixes -->
                                 <div class="previous-fix__container">
-                                </div>
+                                </div>       
                             </div>
 
                             <div class="dropSolution__section">
-                                <div class="checkbox__section">
-                                    <label class="checkbox__container">Caller has been given the solution
-                                        <input type="checkbox" id="myCheckbox">
-                                        <span class="checkmark unchecked"><i id="check-state"
-                                                class="fas fa-check"></i></span>
-                                    </label>
-                                </div>
-                                <div id='solution_remaining_chars'>500 characters remaining</div>
+                                <div id = 'solution_remaining_chars' >500 characters remaining</div>
                             </div>
                         </div>
                         <div class="close__border">
                             <hr>
-                            <div class="section-container update__container closeButton">
-                                <button type="button" class="form-btn" id="close-btn">Close Ticket</button>
+                            <div class="section-container update__container solutionButton">
+                                <button type="button" class="form-btn" id="submit-btn">Submit Ticket</button>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -381,21 +246,9 @@
         </footer>
     </div>
     <script src="scripts/external_app.js"></script>
-    <script src="scripts/external_function.js"></script>
+    <script src="scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
   
-
-    <!-- /* $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function (e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        }); -->
-    <!-- <script src="scripts/searchbar.js" type="text/javascript"></script>
-    <script src="scripts/function.js"></script> -->
 </body>
 
 </html>
