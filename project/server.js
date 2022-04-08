@@ -141,15 +141,25 @@ app.get('/analyst.html', (req, res) =>{
         if (err) throw err;
             
             query_chart1 = result;
-
-            
-            
-
-
-  
-            
+   
     
     })
+
+    con.query('SELECT priority, COUNT(*) as count FROM `ticket` GROUP BY priority',function (err, result, fields) {
+        if (err) throw err;
+            
+            query_chart3 = result;
+    
+    })
+
+    con.query('SELECT solution_status, COUNT(*) as count FROM `ticket_solution` GROUP BY solution_status',function (err, result, fields) {
+        if (err) throw err;
+            
+            query_chart4 = result;
+    
+    })
+
+
     con.query('SELECT status, COUNT(*) as count FROM `ticket` GROUP BY status', function(err, result, fields) {
         if (err) throw err;
         
@@ -157,10 +167,16 @@ app.get('/analyst.html', (req, res) =>{
         query_chart2 = result
         console.log(query_chart1)
         console.log(query_chart2)
+        console.log(query_chart3)
+        console.log(query_chart4)
         var out =  [];
         var out2 =  [];
         var out3 =  [];
         var out4 =  [];
+        var out5 = [];
+        var out6 = [];
+        var out7 = [];
+        var out8 = [];
 
         res.render('analyst', {
             dat1: query_chart1,
@@ -168,7 +184,13 @@ app.get('/analyst.html', (req, res) =>{
             dat3: out2,
             dat4: query_chart2,
             dat5: out3,
-            dat6: out4
+            dat6: out4,
+            dat7: query_chart3,
+            dat8: out5,
+            dat9: out6,
+            dat10: query_chart4,
+            dat11: out7,
+            dat12: out8
         }) 
 
 
@@ -408,11 +430,20 @@ app.get('/intspecialist.html', (req, res) => {
             con.query(`INSERT INTO solution (solution_description)
             values(?)`,[msg.solution], function (err, result, fields) {
                 if (err) throw err;
+            
+            con.query(`UPDATE ticket
+            SET status = 'submitted'
+            WHERE handler_id = (SELECT user_id FROM handler 
+                INNER JOIN employee on handler.user_id = employee.employee_id  
+                INNER JOIN internal_specialist on employee.employee_id = internal_specialist.handler_id 
+                WHERE employee.name = ?)`,[msg.h_name], function (err, result, fields) {
+                if (err) throw err;
+    
             });
-        });
+        
+            });
         })
-
-
+})
 
 });
 
