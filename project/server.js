@@ -33,7 +33,7 @@ var problem_type_id;
 var last_updated;
 var software_id;
 var ticket_status;
-var solution_id;
+var solution_id2;
 var ext_spec_id;
 
 app.use (session ({
@@ -390,14 +390,23 @@ app.get('/intspecialist.html', (req, res) => {
             
             con.query(`UPDATE ticket
             SET status = 'submitted'
-            WHERE handler_id = (SELECT user_id FROM handler 
-                INNER JOIN employee on handler.user_id = employee.employee_id  
-                INNER JOIN internal_specialist on employee.employee_id = internal_specialist.handler_id 
-                WHERE employee.name = ?)`,[msg.h_name], function (err, result, fields) {
+            WHERE ticket_id = ?`,[msg.id], function (err, result, fields) {
                 if (err) throw err;
-    
+            
+
+            con.query(`SELECT solution_id
+            FROM solution
+            WHERE solution_description = ?`,[msg.solution], function (err, result, fields){
+                if (err) throw err;
+                solution_id2 = result[0].solution_id
+            
+
+            con.query(`INSERT INTO ticket_solution
+            values(?, ?, ?, ?)`,[msg.id, solution_id2, 'pending', session_id], function (err, result, fields) {
+                if (err) throw err;
             });
-        
+            });
+        });
             });
         })
 })
@@ -533,7 +542,7 @@ app.get('/external.html', (req, res) => {
                                 
                                     
                                 con.query(`INSERT INTO ticket_solution
-                                VALUES(?, ?, ?, ?)`, [msg.id, solution_id, 'pending', ext_spec_id], function (err, result, fields) {
+                                VALUES(?, ?, ?, ?)`, [msg.id, 'pending', ext_spec_id], function (err, result, fields) {
                                     if (err) throw err;
                         
                                     

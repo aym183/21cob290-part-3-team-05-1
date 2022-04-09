@@ -714,7 +714,6 @@ ready(() => {
         socket.emit("Submit-Ticket", data);
 
         console.log(ticket_status);
-        refreshPage();
     });
     
 
