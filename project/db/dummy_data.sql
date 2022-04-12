@@ -7,7 +7,7 @@ INSERT INTO `employee` (`employee_id`, `name`, `job`, `department`, `telephone`)
 (2004 , 'Abby Haskell', 'Developer' ,'Business Development' ,'+44 4081 804861'),
 (2005 , 'Joshua Sells' ,'Call Centre Employee' ,'Sales' ,'+44 2835 283467'),
 (2006 , 'Cathrin Knowller', 'Specialist' ,'Creative'  ,'+44 2048 284870' ),
-(2007 , 'Audrey Barker' , 'Analyst ' ,'Technical '  ,'+44 0923 956322'),
+(2007 , 'Audrey Barker' , 'Analyst' ,'Technical '  ,'+44 0923 956322'),
 (2008 ,'Billy Marsden  '  ,'Support'  ,'Sales' ,'+44 2935 828593' ),
 (2009 , 'Ryan Jenson' ,'Specialist' , 'Mobile ',  '+44 9324 945921'),
 (2010 , 'Edwin Smith' ,'Specialist ','OS' ,'+44 1328 502231' ),
