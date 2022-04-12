@@ -131,6 +131,7 @@ app.get('/login.html', (req, res) =>{
 });
 
 
+
 app.get('/analyst.html', (req, res) =>{
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
     if(req.session.loggedin) {
@@ -197,7 +198,16 @@ app.get('/analyst.html', (req, res) =>{
 
 
     })
-    }})
+    }}
+)
+app.get('/indepth.html', (req, res) =>{
+    console.log("indepth")    
+    
+
+});
+
+
+
 
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin) {
