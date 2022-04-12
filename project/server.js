@@ -8,7 +8,7 @@ var http = require('http');
 const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
-
+let alert = require('alert'); 
 const con = require('./public/scripts/dbconfig');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -621,7 +621,8 @@ app.all('/auth', urlencodedParser, (req, res) =>{
           
             });
 	} else {
-		res.send('Please enter Username and Password!');
+        alert("Incorrect username and/or password. Please try again.")
+		res.redirect('/login.html');
 		res.end();
 	}
     });
