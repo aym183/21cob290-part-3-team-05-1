@@ -202,7 +202,7 @@ app.get('/analyst.html', (req, res) =>{
 )
 app.get('/indepth.html', (req, res) =>{
     console.log("indepth")    
-    
+    res.sendFile(path.join(__dirname +  '/indepth.html'));
 
 });
 
