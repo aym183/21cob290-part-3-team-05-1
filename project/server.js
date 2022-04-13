@@ -428,9 +428,12 @@ app.get('/intspecialist.html', (req, res) => {
 
         socket.on("Drop-Ticket", (msg) => {
             console.log("Dropping tickets big bro");
-            console.log(msg)
-
-
+            console.log(msg);
+            con.query(`UPDATE ticket
+            SET status = 'dropped', handler_id = 'NULL'
+            WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
+                if (err) throw err;
+            });
         })
 
 })

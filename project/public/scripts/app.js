@@ -786,6 +786,10 @@ ready(() => {
 
 //Dropping of tickets
 ready(() => { 
+
+        
+        // console.log(document.getElementById("#detail-status").innerHTML);
+
     document.querySelector("#drop-btn").addEventListener("click", (e) => {
         socket = io();
         var solution = null;
@@ -797,10 +801,13 @@ ready(() => {
             status: status,
             id: ticket_id
         }
-
+        console.log(status);
         console.log(data);
         socket.emit("Drop-Ticket", data);
+
     });
+
+
 
 });
 
