@@ -794,13 +794,10 @@ ready(() => {
 
     document.querySelector("#drop-btn").addEventListener("click", (e) => {
         socket = io();
-        var solution = null;
-        var status = null;
+
         var ticket_id = document.getElementById(`detail-id`).innerHTML;
 
         const data = {
-            solution: solution,
-            status: status,
             id: ticket_id
         }
         console.log(status);
@@ -814,9 +811,32 @@ ready(() => {
 });
 
 
-function historyLog(data){
-    
+
+
+// History log button
+ready(() => { 
+
+document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
+    var container = document.getElementsByClassName("ticket_history_container")[0];
+    if (container.style.display === "none") {
+        
+
+        //sending ticket id to query
+        var ticket_Id = document.getElementById("detail-id").innerHTML;
+        const ticketId_Obj = {
+            ticketId: ticket_Id
+        };
+        const socket2 = io();
+     
+        var response;
+        
+        socket2.emit('display_history',  ticketId_Obj);
+
+        socket2.on('display_history', function(data, json) {
+            console.log(data);
+            
             var info = data;
+            var container = document.getElementsByClassName("ticket_history_container")[0];
 
             var old_err_msg = document.getElementById("err_ticket_history");
             if(info.length == 0){
@@ -847,7 +867,7 @@ function historyLog(data){
                     edit_leftside_section.setAttribute("class", "edit_leftside_section");
                     var changed_item_txt = document.createElement('p');
                     changed_item_txt.setAttribute("id","past_edit_item_txt");
-                    const item_node = document.createTextNode(info[i][2]);
+                    const item_node = document.createTextNode(info[i]['edited_item']);
                     changed_item_txt.appendChild(item_node);
                     edit_leftside_section.appendChild(changed_item_txt);
 
@@ -862,9 +882,9 @@ function historyLog(data){
                     id_txt.setAttribute("id","past_edit_id_txt");
                     var date_time_txt = document.createElement('p');
                     date_time_txt.setAttribute("id","past_edit_date_time_txt");
-                    const name_node = document.createTextNode(info[i][0]);
-                    const id_node = document.createTextNode("("+info[i][1]+")");
-                    const date_time_node = document.createTextNode(info[i][4]);
+                    const name_node = document.createTextNode(info[i]['name']);
+                    const id_node = document.createTextNode("("+info[i]['user_id']+")");
+                    const date_time_node = document.createTextNode(info[i]['date_time']);
                     name_txt.appendChild(name_node);
                     id_txt.appendChild(id_node);
                     date_time_txt.appendChild(date_time_node);
@@ -877,7 +897,7 @@ function historyLog(data){
                     var newValueLabel_txt = document.createElement('p');
                     var changed_value_txt = document.createElement('p');
                     var newValueLabel_node = document.createTextNode("New Value :");
-                    var changed_value_node = document.createTextNode(info[i][3]);
+                    var changed_value_node = document.createTextNode(info[i]['new_value']);
                     newValueLabel_txt.appendChild(newValueLabel_node);
                     changed_value_txt.appendChild(changed_value_node);
                     edit_bottom_section.appendChild(newValueLabel_txt);
@@ -895,30 +915,6 @@ function historyLog(data){
                 container.style.display = "block";
                 document.getElementById("ticket_history_btn").innerHTML="Hide Past Edit(s)";
             }
-}
-
-
-// History log button
-ready(() => { 
-
-document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
-    var container = document.getElementsByClassName("ticket_history_container")[0];
-    if (container.style.display === "none") {
-        
-
-        //sending ticket id to query
-        var ticket_Id = document.getElementById("detail-id").innerHTML;
-        const ticketId_Obj = {
-            ticketId: ticket_Id
-        };
-        const socket2 = io();
-     
-        var response;
-        
-        socket2.emit('display_history',  ticketId_Obj);
-
-        socket2.on('display_history', function(data, json) {
-            console.log(data);
         });
 
     } else {

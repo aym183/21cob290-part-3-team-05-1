@@ -514,8 +514,7 @@ app.get('/intspecialist.html', (req, res) => {
             console.log("Dropping tickets big bro");
             console.log(msg);
             con.query(`UPDATE ticket
-            SET status = 'dropped', handler_id = 'NULL'
-            WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
+            SET status = 'dropped' WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
                 if (err) throw err;
             });
         })
