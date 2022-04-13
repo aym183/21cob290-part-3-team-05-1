@@ -56,7 +56,7 @@
                             </li>
                         </a>
                     <% } %> 
-                    <% if (u_job.includes("Employee")) { %>
+                    <% if (u_job != "Analyst" || u_job != "Specialist" || u_job != "External Specialist") { %>
                         <a href="faq.html" id="navbar__item-div">
                             <li id="navbar__item">
                                 <p><i class="fas fa-user"></i></p>
