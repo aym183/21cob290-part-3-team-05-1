@@ -182,6 +182,15 @@ function updateTicketInfo(data) {
     // });
 }
 
+ready(() => { 
+    var close_btn = document.querySelector("#close-btn");
+    close_btn && close_btn.addEventListener("click", (e) => {
+        popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm", "");         
+    });
+    refreshPage();
+});
+
+
 // Table row (Ticket) Clicked
 ready(() => { 
     const socket = io()
