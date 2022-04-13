@@ -46,12 +46,12 @@ function showTicketInfo(data) {
         old_hardwareId = data.hardware_id;
         old_os = data.operating_system;
         old_softwareName = data.software;
-        old_description = description;
+        old_description = data.problem_description;
         old_notes = data.notes;
         old_problemType = data.name;
         old_handlerName = data.Handler;
 
-        console.log(data); 
+     
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -176,7 +176,7 @@ function showTicketInfo(data) {
 function updateTicketInfo(data) {
     const socket = io()
     socket.emit('update_message',  data);
-
+    socket.destroy();
     // socket.on('message', function(data, json) {
     //     showTicketInfo(json[0]); 
     // });
@@ -202,9 +202,10 @@ ready(() => {
 
         // after data is recieved, calling function to show ticket info
         socket.on('message', function(data, json) {
-            console.log(json[0]);
+            console.log(json);
         
             showTicketInfo(json[0]); 
+            socket.destroy();
           });
         
         
@@ -433,10 +434,10 @@ ready(() => {
             changed_names.push('software');
             old_softwareName = software;
         }
-        if(old_description != description){
-            changed_values.push(description);
+        if(old_description != problem_description){
+            changed_values.push(problem_description);
             changed_names.push('description');
-            old_description = description;
+            old_description = problem_description;
         }
         if(old_notes != notes){
             changed_values.push(notes);
@@ -490,6 +491,7 @@ ready(() => {
             socket = io();
             socket.emit('history_update',  changed_details);
            
+            socket.destroy();
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
             document.querySelector('#edit-btn').style.color = null;
@@ -806,6 +808,126 @@ ready(() => {
         socket.emit("Drop-Ticket", data);
 
     });
+
+
+
+});
+
+
+function historyLog(data){
+    
+            var info = data;
+
+            var old_err_msg = document.getElementById("err_ticket_history");
+            if(info.length == 0){
+                
+                if(!old_err_msg){
+                    const parent = document.getElementsByClassName("ticket_history_section")[0];
+                    var error_msg = document.createElement("p");
+                    error_msg.textContent = "There have been no changes to ticket since creation.";
+                    error_msg.setAttribute("id", "err_ticket_history");
+                    parent.appendChild(error_msg);
+                }
+
+            }else{
+                
+                if(old_err_msg){
+                    old_err_msg.remove();
+                }
+                
+                var past_edits_container = document.createElement('div');
+                past_edits_container.setAttribute("id","past_edits_container");
+                
+                //each increment in loop goes through displaying a single edit
+                for(let i = 0; i < info.length; i++){
+                    var edit_container = document.createElement('div');
+                    edit_container.setAttribute("class","edit_container");
+
+                    var edit_leftside_section = document.createElement('div');
+                    edit_leftside_section.setAttribute("class", "edit_leftside_section");
+                    var changed_item_txt = document.createElement('p');
+                    changed_item_txt.setAttribute("id","past_edit_item_txt");
+                    const item_node = document.createTextNode(info[i][2]);
+                    changed_item_txt.appendChild(item_node);
+                    edit_leftside_section.appendChild(changed_item_txt);
+
+                    var edit_main_container = document.createElement('div');
+                    edit_main_container.setAttribute("class", "edit_main_container");
+
+                    var edit_header_section = document.createElement('div');
+                    edit_header_section.setAttribute("class", "edit_header_section");
+                    var name_txt = document.createElement('p');
+                    name_txt.setAttribute("id","past_edit_name_txt");
+                    var id_txt = document.createElement('p');
+                    id_txt.setAttribute("id","past_edit_id_txt");
+                    var date_time_txt = document.createElement('p');
+                    date_time_txt.setAttribute("id","past_edit_date_time_txt");
+                    const name_node = document.createTextNode(info[i][0]);
+                    const id_node = document.createTextNode("("+info[i][1]+")");
+                    const date_time_node = document.createTextNode(info[i][4]);
+                    name_txt.appendChild(name_node);
+                    id_txt.appendChild(id_node);
+                    date_time_txt.appendChild(date_time_node);
+                    edit_header_section.appendChild(name_txt);
+                    edit_header_section.appendChild(id_txt);
+                    edit_header_section.appendChild(date_time_txt);
+
+                    var edit_bottom_section = document.createElement('div');
+                    edit_bottom_section.setAttribute("class", "edit_bottom_section");
+                    var newValueLabel_txt = document.createElement('p');
+                    var changed_value_txt = document.createElement('p');
+                    var newValueLabel_node = document.createTextNode("New Value :");
+                    var changed_value_node = document.createTextNode(info[i][3]);
+                    newValueLabel_txt.appendChild(newValueLabel_node);
+                    changed_value_txt.appendChild(changed_value_node);
+                    edit_bottom_section.appendChild(newValueLabel_txt);
+                    edit_bottom_section.appendChild(changed_value_txt);
+                    
+                    edit_main_container.appendChild(edit_header_section);
+                    edit_main_container.appendChild(edit_bottom_section);
+                    edit_container.appendChild(edit_leftside_section);
+                    edit_container.appendChild(edit_main_container);
+                    past_edits_container.appendChild(edit_container);
+                    container.appendChild(past_edits_container);
+                }
+
+
+                container.style.display = "block";
+                document.getElementById("ticket_history_btn").innerHTML="Hide Past Edit(s)";
+            }
+}
+
+
+// History log button
+ready(() => { 
+
+document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
+    var container = document.getElementsByClassName("ticket_history_container")[0];
+    if (container.style.display === "none") {
+        
+
+        //sending ticket id to query
+        var ticket_Id = document.getElementById("detail-id").innerHTML;
+        const ticketId_Obj = {
+            ticketId: ticket_Id
+        };
+        const socket2 = io();
+     
+        var response;
+        
+        socket2.emit('display_history',  ticketId_Obj);
+
+        socket2.on('display_history', function(data, json) {
+            console.log(data);
+        });
+
+    } else {
+        document.getElementById("ticket_history_btn").innerHTML="Show Past Edit(s)";
+        document.getElementById("past_edits_container").remove();
+        container.style.display = "none";
+    }
+
+});
 
 
 

@@ -1039,7 +1039,7 @@ app.get('/index.html', (req, res) => {
                     if (err) throw err;
                     console.log(result[0].user_id);
                     haxndler_id = result[0].user_id;
-                    
+                    console.log(handler_id);
 
                     for (let i = 0; i < msg.changed_names.length; i++) {
 
@@ -1055,7 +1055,31 @@ app.get('/index.html', (req, res) => {
                 });
 
                 });
+
+                
                 })
+
+            io.on('connection',  (socket) => {
+                socket.on("display_history", (msg) => {
+                    console.log(msg);
+
+                    con.query(`SELECT h.name, h.user_id, edited_item, new_value, date_time FROM history_log
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h 
+                    ON history_log.handler_id = h.user_id
+                    WHERE ticket_id = ?`,[msg.ticketId],function (err, result, fields) {
+                    if (err) throw err;
+                    console.log(result);
+                    socket.emit('display_history', result)
+                    // io.send('display_history', result);
+                    // haxndler_id = result[0].user_id;
+
+                });
+
+                });
+            })
 
     //killall -9 node
     

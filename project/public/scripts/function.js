@@ -1,3 +1,5 @@
+// const { response } = require("express");
+
 function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     
     const popup = document.createElement('div');
@@ -132,8 +134,5 @@ function changeStatus(data){
     const socket = io()
     console.log(data);
     socket.emit('close_ticket',  data);
-
-    // socket.on('close_ticket', function(data, json) {
-    //     console.log(json[0]); 
-    // });
 }
+
