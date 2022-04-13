@@ -816,6 +816,9 @@ ready(() => {
         const data = {
             id: ticket_id
         }
+
+        popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
+
         console.log(data);
         socket.emit("Drop-Ticket", data);
 
