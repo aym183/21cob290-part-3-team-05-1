@@ -136,3 +136,75 @@ function changeStatus(data){
     socket.emit('close_ticket',  data);
 }
 
+// CODE FOR CHARACTER COUNTERS IN TICKET DETAILS
+const edit_button = document.getElementById('edit-btn');
+const soln_edit_button = document.getElementById('editSolution-btn');
+const spec_soln_edit_button = document.getElementById('spec-editSolution-btn');
+const text_area = document.getElementById('description');
+const notes_text_area = document.getElementById('notes');
+const remaining_chars = document.getElementById('remaining_chars');
+const notes_remaining_chars = document.getElementById('notes_remaining_chars');
+const soln_text_area = document.getElementById('solution-area')
+const solutionremaining_chars = document.getElementById('solution_remaining_chars');
+const max_chars = 300;
+const solution_max_chars = 500;
+const notes_max_chars = 1000;
+
+// Event listener that subtracts characters from current input on click of edit button for operator
+edit_button && edit_button.addEventListener('click', () => {
+
+    const remaining = max_chars - text_area.value.length;
+    remaining_chars.textContent = remaining + ' characters remaining';
+
+    const notes_remaining = notes_max_chars - notes_text_area.value.length;
+    notes_remaining_chars.textContent = notes_remaining + ' characters remaining';
+ 
+
+});
+
+// Event listener that subtracts characters from current input on click of solution edit button for specialist
+spec_soln_edit_button  && spec_soln_edit_button .addEventListener('click', () => {
+
+    const remaining = solution_max_chars - soln_text_area.value.length;
+    solutionremaining_chars.textContent = remaining + ' characters remaining';
+
+});
+
+// Event listener that subtracts characters from current input on click of solution edit button
+soln_edit_button && soln_edit_button.addEventListener('click', () => {
+
+    const remaining = solution_max_chars - soln_text_area.value.length;
+    solutionremaining_chars.textContent = remaining + ' characters remaining';
+
+});
+
+// Event listener that subtracts characters on user input in the solution form
+soln_text_area && soln_text_area.addEventListener('input', () => {
+    
+    const remaining = solution_max_chars - soln_text_area.value.length;
+    const color = remaining < solution_max_chars * 0.1 ? 'red' : null;
+    solutionremaining_chars.textContent = remaining + ' characters remaining';
+    solutionremaining_chars.style.color = color;
+
+});
+
+// Event listener that subtracts characters on user input in the description
+text_area && text_area.addEventListener('input', () => {
+    
+    const remaining = max_chars - text_area.value.length;
+    const color = remaining < max_chars * 0.1 ? 'red' : null;
+    remaining_chars.textContent = remaining + ' characters remaining';
+    remaining_chars.style.color = color;
+
+});
+
+// Event listener that subtracts characters on user input in the notes
+notes_text_area && notes_text_area.addEventListener('input', () => {
+    
+    const remaining = notes_max_chars - notes_text_area.value.length;
+    const color = remaining < notes_max_chars * 0.1 ? 'red' : null;
+    notes_remaining_chars.textContent = remaining + ' characters remaining';
+    notes_remaining_chars.style.color = color;
+
+});
+
