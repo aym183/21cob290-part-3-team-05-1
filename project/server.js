@@ -57,7 +57,7 @@ app.get('/', (req, res) =>{
 });
 
 app.get('/faq.html', (req, res) =>{
-    if(req.session.loggedin) {
+    if(req.session.loggedin && session_job == "Employee") {
     console.log("faq")
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
@@ -134,7 +134,7 @@ app.get('/login.html', (req, res) =>{
 
 app.get('/analyst.html', (req, res) =>{
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
-    if(req.session.loggedin) {
+    if(req.session.loggedin && session_job == "Analyst") {
         console.log("analyst")
         
     
@@ -210,7 +210,7 @@ app.get('/indepth.html', (req, res) =>{
 
 
 app.get('/intspecialist.html', (req, res) => {  
-    if(req.session.loggedin) {
+    if(req.session.loggedin && session_job == "Specialist") {
         // console.log("internal scpecialist")
         console.log("internal scpecialist")
     // res.writeHead(200, {'content-type':'text/html'})
@@ -446,7 +446,7 @@ app.get('/intspecialist.html', (req, res) => {
 
 
 app.get('/external.html', (req, res) => {
-    if (req.session.loggedin) {
+    if (req.session.loggedin && session_job == "External Specialist") {
         console.log("external specialist")
 
         //query connection for external specialist and display home page for external specialist
@@ -736,7 +736,7 @@ app.post('/changepass', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {  
-    if (req.session.loggedin) {
+    if (req.session.loggedin && session_job == "Employee") {
     console.log("index")
     // res.writeHead(200, {'content-type':'text/html'})
     
