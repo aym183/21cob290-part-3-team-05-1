@@ -422,6 +422,19 @@ app.get('/intspecialist.html', (req, res) => {
 })
 
 
+
+    io.on('connection', (socket) => {
+        console.log('connected')
+
+        socket.on("Drop-Ticket", (msg) => {
+            console.log("Dropping tickets big bro");
+            console.log(msg)
+
+
+        })
+
+})
+
 } else {
     res.redirect('/login.html');
 }
