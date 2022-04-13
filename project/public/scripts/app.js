@@ -25,18 +25,8 @@ function sendTicket(data) {
 }
 
 
-
-
-
-var emp_table;
-var handler_table;
-var hardware_table;
-var os_table;
-var software_table;
-var operator_table;
-
 //Used in Update button function
-var old_operatorName;
+var old_priority;
 var old_hardwareId;
 var old_os;
 var old_softwareName;
@@ -52,7 +42,16 @@ var old_handlerName;
 function showTicketInfo(data) {   
     
 
-        console.log(data);
+        old_priority = data.priority;
+        old_hardwareId = data.hardware_id;
+        old_os = data.operating_system;
+        old_softwareName = data.software;
+        old_description = description;
+        old_notes = data.notes;
+        old_problemType = data.name;
+        old_handlerName = data.Handler;
+
+        console.log(data); 
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -406,7 +405,59 @@ ready(() => {
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
 
-       
+        const changed_values = [];
+        const changed_names = [];
+
+        if(old_priority != priority){
+            changed_values.push(priority);
+            changed_names.push('priority');
+            old_priority = priority;
+        }
+        if(old_hardwareId != hardware_id){
+            changed_values.push(hardware_id);
+            changed_names.push('hardware');
+            old_hardwareId = hardware_id;
+        }
+        if(!(old_os == null && os == "null") && old_os != os){
+            if(os == ""){
+                changed_values.push("null");
+                changed_names.push('OS');
+            }else{
+                changed_values.push(os);
+                changed_names.push('OS');
+                old_os = os;
+            }
+        }
+        if(old_softwareName != software){
+            changed_values.push(software);
+            changed_names.push('software');
+            old_softwareName = software;
+        }
+        if(old_description != description){
+            changed_values.push(description);
+            changed_names.push('description');
+            old_description = description;
+        }
+        if(old_notes != notes){
+            changed_values.push(notes);
+            changed_names.push('notes');
+            old_notes = notes;
+        }
+        if(old_problemType != problem_type){
+            changed_values.push(problem_type);
+            changed_names.push('problem type');
+            old_problemType = problem_type;
+        }
+        if(old_handlerName != handler_name){
+            changed_values.push(handler_name);
+            changed_names.push('handler');
+            old_handlerName = handler_name;
+        }
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes();
+        var dateTime = date+' '+time;
+
 
             var today = new Date();
 
@@ -425,7 +476,19 @@ ready(() => {
                 id: document.getElementById('detail-id').innerHTML
             };
 
+            const changed_details = {
+                id: document.getElementById('detail-id').innerHTML,
+                changed_values: changed_values,
+                changed_names: changed_names,
+                current_dateTime: dateTime,
+                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
+            };
+            
+        
             updateTicketInfo(ticket_details);
+
+            socket = io();
+            socket.emit('history_update',  changed_details);
            
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
@@ -442,7 +505,7 @@ ready(() => {
                 label.style.color = "black";   
             })
             document.querySelector(".update__section").style.display = "none";
-            document.querySelector("#emp-table__container").style.display = "none";
+            // document.querySelector("#emp-table__container").style.display = "none";
             
             if(document.getElementsByClassName("ticket_history_section")[0]){
                 document.getElementById("ticket_history_btn").disabled = false;
@@ -716,6 +779,34 @@ ready(() => {
         console.log(ticket_status);
     });
     
+
+
+});
+
+
+//Dropping of tickets
+ready(() => { 
+
+        
+        // console.log(document.getElementById("#detail-status").innerHTML);
+
+    document.querySelector("#drop-btn").addEventListener("click", (e) => {
+        socket = io();
+        var solution = null;
+        var status = null;
+        var ticket_id = document.getElementById(`detail-id`).innerHTML;
+
+        const data = {
+            solution: solution,
+            status: status,
+            id: ticket_id
+        }
+        console.log(status);
+        console.log(data);
+        socket.emit("Drop-Ticket", data);
+
+    });
+
 
 
 });
