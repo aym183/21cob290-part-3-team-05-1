@@ -808,8 +808,8 @@ ready(() => {
 
         
         // console.log(document.getElementById("#detail-status").innerHTML);
-
-    document.querySelector("#drop-btn").addEventListener("click", (e) => {
+    var drop_btn = document.querySelector("#drop-btn");
+    drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
         var ticket_id = document.getElementById(`detail-id`).innerHTML;
 
