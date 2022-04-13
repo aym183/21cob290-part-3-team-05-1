@@ -1259,6 +1259,21 @@ footer {
     cursor: pointer; 
 }
 
+.drop-btn {
+    border-radius: 20px;
+    padding: 5px;
+    font-size: 10 px;
+    color: var(--buttonHover);
+    background-color: var(--droppedColor);
+    border: 1px solid var(--droppedColor);
+}
+
+.drop-btn:hover {
+    background-color: #af0505;
+    opacity: 0.4    ;
+    cursor: pointer;
+}
+
 .green-btn {
     background-color: rgb(3, 149, 3);
 }

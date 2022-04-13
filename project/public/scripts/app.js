@@ -302,8 +302,8 @@ ready(() => {
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
             
-            document.querySelector('.solution-status').innerText = "Solution Dropped";
-            document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
+            //document.querySelector('.solution-status').innerText = "Solution Dropped";
+            //sdocument.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
 
             if (document.querySelector(".discard-solution") !== null) {
                 document.querySelector(".discard-solution").style.display = "none";
