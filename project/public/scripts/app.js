@@ -794,16 +794,11 @@ ready(() => {
 
     document.querySelector("#drop-btn").addEventListener("click", (e) => {
         socket = io();
-        var solution = null;
-        var status = null;
         var ticket_id = document.getElementById(`detail-id`).innerHTML;
 
         const data = {
-            solution: solution,
-            status: status,
             id: ticket_id
         }
-        console.log(status);
         console.log(data);
         socket.emit("Drop-Ticket", data);
 
