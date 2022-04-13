@@ -52,7 +52,7 @@
         <div class="navbar">
             <div class="navbar__container">
                 <ul class="navbar__menu">
-                    <a class="navbar__item-div">
+                    <a href="analyst.html" class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
@@ -76,252 +76,55 @@
 
         <!-- CHART SECTION -->
 
+
         <div>
-            <div class="row_analyst">
-                <div class="column_analyst">
-                    <div class="card">
-                        <h2 style="text-align: center;">Number of Employees</h2>
-
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <canvas id="myChart" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        <p style="font-size: 0px; opacity: 0;"><% for(var i=0; i < dat1.length; i++) { %>
-                            <%-dat2.push(dat1[i].job)%>
-                                <%-dat3.push(dat1[i].count)%>
-                                    <% } %></p>
-                                        <script>
-                                            //var labelchart1 = `<%=dat2%>`
-                                            var datachart1 = `<%=dat3%>`
-                                            const ctx = document.getElementById('myChart').getContext('2d');
-                                            const myChart = new Chart(ctx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: ["Admin", '', "Analyst", '', "Call Centre Employee", '', "Clerk", '', "Designer", '', "Developer", '', "Reports", '', "Specialist", '', "Supervisor", '', "Support"],
-                                                    datasets: [{
-                                                        label: 'Number of employees',
-                                                        data: datachart1,
-
-                                                        backgroundColor: [
-                                                            'rgba(255, 99, 132, 0.2)',
-                                                            'rgba(54, 162, 235, 0.2)',
-                                                            'rgba(255, 206, 86, 0.2)',
-                                                            'rgba(75, 192, 192, 0.2)',
-                                                            'rgba(153, 102, 255, 0.2)',
-                                                            'rgba(255, 159, 64, 0.2)'
-                                                        ],
-                                                        borderColor: [
-                                                            'rgba(255, 99, 132, 1)',
-                                                            'rgba(54, 162, 235, 1)',
-                                                            'rgba(255, 206, 86, 1)',
-                                                            'rgba(75, 192, 192, 1)',
-                                                            'rgba(153, 102, 255, 1)',
-                                                            'rgba(255, 159, 64, 1)'
-                                                        ],
-                                                        borderWidth: 1
-                                                    }]
-                                                },
-                                                options: {
-                                                    responsive: false,
-                                                    scales: {
-                                                        x: {
-                                                            grid: {
-                                                                display: false,
-                                                            }
-                                                        },
-                                                        y: {
-                                                            grid: {
-                                                                display: false,
-                                                            }
-                                                        }
-                                                    }
-
-                                                }
-
-                                            });
-                                        </script>
-
-                                        <p class="chartp"></p>
+            <div class="row_indepth">
+                <div class = "column_indepth">
+                    <div>
+                        <h2 style="text-align: center;">Chart 1</h2>
+                        <!--chart-->
                     </div>
-
-                    <div class="card">
-                        <h2 style="text-align: center">Priority Data</h2>
-                        <div>
-                            <h1 style="font-size: 0px; opacity: 0;"><% for(var i=0; i < dat7.length; i++) { %>
-
-                                <%=dat8.push(dat7[i].count)%>
-                                    <%=dat9.push(dat7[i].priority)%>
-
-
-                                        <% } %></h1>
-                        </div>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <canvas id="myChart3" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        <script>
-
-                            var datachart3 = `<%=dat8%>`
-                            const ctxxx = document.getElementById('myChart3').getContext('2d');
-                            const myChart3 = new Chart(ctxxx, {
-                                type: 'bar',
-                                data: {
-                                    labels: ['Medium', '', 'Low', '', 'High'], //Change for new labels
-                                    datasets: [{
-                                        label: 'Number of tickets',
-                                        data: datachart3, //change for data imported from sql queries
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: false,
-                                    scales: {
-                                        x: {
-                                            grid: {
-                                                display: false,
-                                            }
-                                        },
-                                        y: {
-                                            grid: {
-                                                display: false,
-                                            }
-                                        }
-                                    }
-
-
-                                }
-
-                            });
-                        </script>
-                        <p class="chartp"></p>
-
-
+                    <div>
+                        <h2 style="text-align: center;">Chart 4</h2>
+                        <!--chart-->
                     </div>
-
-
+                    <div>
+                        <h2 style="text-align: center;">Chart 7</h2>
+                        <!--chart-->
+                    </div>
                 </div>
-                <div class="column_analyst">
-                    <div class="card">
-                        <h2 style="text-align: center">Ticket Status Data</h2>
-
-
-                        <h1 style="font-size: 0px; opacity: 0;"> <% for(var i=0; i < dat4.length; i++) { %>
-
-                            <%=dat5.push(dat4[i].count)%>
-                                <%=dat6.push(dat4[i].status)%>
-
-
-                                    <% } %> </h1>
-
-
-                                        <canvas id="pie-chart" width="300" height="300"
-                                            style="margin: 0 auto;"></canvas>
-                                        <script>
-                                            var datachart2 = `<%=dat5%>`
-                                            new Chart(document.getElementById("pie-chart"), {
-                                                type: 'pie',
-                                                data: {
-                                                    labels: ["Active", "", "Dropped", "", "Closed", "", "Pending"], //need to get query to get lables so order can be changed (swap submitted and closed)
-                                                    datasets: [{
-                                                        label: "Number of Tickets",
-                                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#a4cd50", "#FFFFFF", "#d03943"],
-                                                        data: datachart2
-                                                    }]
-                                                },
-                                                options: {
-                                                    responsive: false,
-                                                    
-
-                                                }
-                                            });</script>
-                                        <p class="chartp"></p>
+                <div class="column_indepth">
+                    <div >
+                        <h2 style="text-align: center;">Chart 2</h2>
+                        <!--chart-->
                     </div>
-                    <div class="card">
-
-
-                        <h2 style="text-align: center">Ticket Solution Data</h2>
-
-                        <h1 style="font-size: 0px; opacity: 0;"><% for(var i=0; i < dat10.length; i++) { %>
-
-                            <%-dat11.push(dat10[i].count)%>
-                                <%-dat12.push(dat10[i].solution_status)%>
-
-
-                                    <% } %></h1>
-
-
-                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                        <canvas id="myChart4" width="300" height="300" style="margin: 0 auto;"></canvas>
-                                        <script>
-                                            let datachart4 = `<%=dat11%>`
-
-                                            const ctxx = document.getElementById('myChart4').getContext('2d');
-                                            const myChart4 = new Chart(ctxx, {
-                                                type: 'bar',
-                                                data: {
-                                                    labels: ['Successful', '', 'Unsuccessful', '', 'Pending'],
-                                                    datasets: [{
-                                                        label: 'Number of tickets',
-                                                        data: datachart4,
-                                                        backgroundColor: [
-                                                            'rgba(255, 99, 132, 0.2)',
-                                                            'rgba(54, 162, 235, 0.2)',
-                                                            'rgba(255, 206, 86, 0.2)',
-                                                            'rgba(75, 192, 192, 0.2)',
-                                                            'rgba(153, 102, 255, 0.2)',
-                                                            'rgba(255, 159, 64, 0.2)'
-                                                        ],
-                                                        borderColor: [
-                                                            'rgba(255, 99, 132, 1)',
-                                                            'rgba(54, 162, 235, 1)',
-                                                            'rgba(255, 206, 86, 1)',
-                                                            'rgba(75, 192, 192, 1)',
-                                                            'rgba(153, 102, 255, 1)',
-                                                            'rgba(255, 159, 64, 1)'
-                                                        ],
-                                                        borderWidth: 1
-                                                    }]
-                                                },
-                                                options: {
-                                                    responsive: false,
-                                                    scales: {
-                                                        x: {
-                                                            grid: {
-                                                                display: false,
-                                                            }
-                                                        },
-                                                        y: {
-                                                            grid: {
-                                                                display: false,
-                                                            }
-                                                        }
-                                                    }
-
-                                                }
-
-                                            });
-                                        </script>
-                                        <p class="chartp"></p>
-
-
+                    <div>
+                        <h2 style="text-align: center;">Chart 5</h2>
+                        <!--chart-->
+                    </div>
+                    <div>
+                        <h2 style="text-align: center;">Chart 8</h2>
+                        <!--chart-->
+                    </div>
+                </div>
+                <div class="column_indepth">
+                    <div >
+                        <h2 style="text-align: center;">Chart 3</h2>
+                        <!--chart-->
+                    </div>
+                    <div>
+                        <h2 style="text-align: center;">Chart 6</h2>
+                        <!--chart-->
+                    </div>
+                    <div>
+                        <h2 style="text-align: center;">Chart 9</h2>
+                        <!--chart-->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        
     <footer>
         <p class="center">&#169; 2022 Team 5</p>
     </footer>
