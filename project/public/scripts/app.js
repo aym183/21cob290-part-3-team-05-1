@@ -187,7 +187,7 @@ ready(() => {
     close_btn && close_btn.addEventListener("click", (e) => {
         popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm", "");         
     });
-    refreshPage();
+    // refreshPage;
 });
 
 
@@ -246,41 +246,47 @@ ready(() => {
             }
 
         }
-        else if (status=="pending") {
+        // else if (status=="pending") {
 
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'none';
-            }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('unchecked');
-                document.querySelector('.checkmark').classList.add('checked');
-                document.querySelector("#submit-btn").removeAttribute('disabled');
-                document.querySelector("#submit-btn").style.cursor = "pointer";
-                document.querySelector(".closeButton").style.opacity = "1";
-            }
+        //     var c = document.querySelectorAll('.closed__field');
+        //     for (var i = 0; i < c.length; i++) {
+        //          c[i].style.display = 'none';
+        //     }
+        //     if (document.querySelector(".checkmark") !== null) {
+        //         document.querySelector(".closeForm__section").style.display = "block";
+        //         document.querySelector('.checkmark').classList.remove('unchecked');
+        //         document.querySelector('.checkmark').classList.add('checked');
+        //         document.querySelector("#submit-btn").removeAttribute('disabled');
+        //         document.querySelector("#submit-btn").style.cursor = "pointer";
+        //         document.querySelector(".closeButton").style.opacity = "1";
+        //     }
             
-            document.querySelector('.solution-status').innerText = "Solution Submitted";
-            document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+        //     document.querySelector('.solution-status').innerText = "Solution Submitted";
+        //     document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
 
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "block";
-            }
-        }
+        //     if (document.querySelector(".discard-solution") !== null) {
+        //         document.querySelector(".discard-solution").style.display = "block";
+        //     }
+        // }
         else if (status=="unsuccessful") {
             var c = document.querySelectorAll('.closed__field');
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
+            
+            document.querySelector(".closeForm__section").style.display = "block";
+            document.querySelector("#dropSolution-btn").style.display = "none";
+            document.querySelector("#close-btn").setAttribute('disabled','disabled');
+            document.querySelector("#close-btn").style.opacity = "0.3";
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+
+                // document.querySelector(".closeForm__section").style.display = "block";
+                // document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                // document.querySelector("#closeButton").setAttribute('disabled','disabled');
+                // document.querySelector("#submit-btn").style.cursor = "default";
+                // document.querySelector(".closeButton").style.opacity = "0.3";
+            
             
             document.querySelector('.solution-status').innerText = "";
 
@@ -293,14 +299,15 @@ ready(() => {
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
+           
+            
+            document.querySelector(".closeForm__section").style.display = "block";
+            document.querySelector("#dropSolution-btn").style.display = "none";
+            document.querySelector("#close-btn").setAttribute('disabled','disabled');
+            document.querySelector("#close-btn").style.opacity = "0.3";
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            
             
             //document.querySelector('.solution-status').innerText = "Solution Dropped";
             //sdocument.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
@@ -324,14 +331,15 @@ ready(() => {
                  c[i].style.display = 'none';
             }
             
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
+            
+            document.querySelector(".closeForm__section").style.display = "block";
+            document.querySelector("#dropSolution-btn").style.display = "none";
+            document.querySelector("#close-btn").setAttribute('disabled','disabled');
+            document.querySelector("#close-btn").style.opacity = "0.3";
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            
+            
 
             
             document.querySelector('.solution-status').innerText = "";
@@ -341,18 +349,18 @@ ready(() => {
             }
         } 
 
-        if (document.querySelector(".discard-solution") !== null) {
-            for (const element of operator_table) {
-                if (element['name'].includes(e.target.closest("tr").children[5].textContent)) {
-                    document.querySelector(".discard-solution").style.display = "none";
-                    document.querySelector(".previous-solution").style.display = "block";
-                    break;
+        // if (document.querySelector(".discard-solution") !== null) {
+        //     for (const element of operator_table) {
+        //         if (element['name'].includes(e.target.closest("tr").children[5].textContent)) {
+        //             document.querySelector(".discard-solution").style.display = "none";
+        //             document.querySelector(".previous-solution").style.display = "block";
+        //             break;
     
-                } else {
-                    document.querySelector(".previous-solution").style.display = "none";
-                }
-            }
-        }
+        //         } else {
+        //             document.querySelector(".previous-solution").style.display = "none";
+        //         }
+        //     }
+        // }
     });
   
 });
