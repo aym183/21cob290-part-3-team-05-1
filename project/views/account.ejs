@@ -48,6 +48,22 @@
                             <p id="navbar__links">Home</p>
                         </li>
                     </a>
+                    <% if (u_job == "Analyst") { %>
+                        <a href="indepth.html" id="navbar__item-div">
+                            <li id="navbar__item">
+                                <p><i class="fas fa-user"></i></p>
+                                <p id="navbar__links">In-Depth</p>
+                            </li>
+                        </a>
+                    <% } %> 
+                    <% if (u_job.includes("Employee")) { %>
+                        <a href="faq.html" id="navbar__item-div">
+                            <li id="navbar__item">
+                                <p><i class="fas fa-user"></i></p>
+                                <p id="navbar__links">Problem Resolutions</p>
+                            </li>
+                        </a>
+                    <% } %>     
                     <a href="account.html" id="navbar__item-div">
                         <li id="navbar__item">
                             <p><i class="fas fa-user"></i></p>
