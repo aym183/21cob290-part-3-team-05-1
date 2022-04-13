@@ -140,3 +140,8 @@ INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
 INSERT INTO `dropped`  VALUES
 (1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002),
 (2, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
+
+
+INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+VALUES (1, 2002, 'priority', 'high', '2022-04-13 03:08:00'),
+(1, 2002, 'hardware', '1', '2022-04-13 03:09:00');

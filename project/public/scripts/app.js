@@ -483,9 +483,12 @@ ready(() => {
                 current_dateTime: dateTime,
                 current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
             };
-            console.log(changed_details);
-
+            
+        
             updateTicketInfo(ticket_details);
+
+            socket = io();
+            socket.emit('history_update',  changed_details);
            
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');

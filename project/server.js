@@ -929,6 +929,34 @@ app.get('/index.html', (req, res) => {
             });
             })
 
+            io.on('connection',  (socket) => {
+                console.log('connected')
+        
+                socket.on("history_update", (msg) => {
+                    console.log(msg);
+
+                    con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
+                    if (err) throw err;
+                    console.log(result[0].user_id);
+                    haxndler_id = result[0].user_id;
+                    
+
+                    for (let i = 0; i < msg.changed_names.length; i++) {
+
+                        con.query(`INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+                        VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
+                
+                        if (err) throw err;
+
+                        });
+                        
+                    }
+
+                });
+
+                });
+                })
+
     //killall -9 node
     
 } else {
