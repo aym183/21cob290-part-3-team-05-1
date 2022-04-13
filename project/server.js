@@ -506,7 +506,7 @@ app.get('/intspecialist.html', (req, res) => {
 })
 
 
-
+    //Dropping of tickets
     io.on('connection', (socket) => {
         console.log('connected')
 
