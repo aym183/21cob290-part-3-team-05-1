@@ -783,7 +783,22 @@ ready(() => {
 
 });
 
+
+//Dropping of tickets
 ready(() => { 
+    document.querySelector("#drop-btn").addEventListener("click", (e) => {
+        var solution = null;
+        var status = null;
+        var ticket_id = document.getElementById(`detail-id`).innerHTML;
+
+        const data = {
+            solution: solution,
+            status: status,
+            id: ticket_id
+        }
+
+        console.log(data);
+    });
 
 });
 
