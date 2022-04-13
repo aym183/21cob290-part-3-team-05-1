@@ -7,7 +7,7 @@ INSERT INTO `employee` (`employee_id`, `name`, `job`, `department`, `telephone`)
 (2004 , 'Abby Haskell', 'Developer' ,'Business Development' ,'+44 4081 804861'),
 (2005 , 'Joshua Sells' ,'Call Centre Employee' ,'Sales' ,'+44 2835 283467'),
 (2006 , 'Cathrin Knowller', 'Specialist' ,'Creative'  ,'+44 2048 284870' ),
-(2007 , 'Audrey Barker' , 'Analyst ' ,'Technical '  ,'+44 0923 956322'),
+(2007 , 'Audrey Barker' , 'Analyst' ,'Technical '  ,'+44 0923 956322'),
 (2008 ,'Billy Marsden  '  ,'Support'  ,'Sales' ,'+44 2935 828593' ),
 (2009 , 'Ryan Jenson' ,'Specialist' , 'Mobile ',  '+44 9324 945921'),
 (2010 , 'Edwin Smith' ,'Specialist ','OS' ,'+44 1328 502231' ),
@@ -140,3 +140,8 @@ INSERT INTO `skillset` (`skill_id`, `handler_id`, `problem_type_id`) VALUES
 INSERT INTO `dropped`  VALUES
 (1, 'Employee ran Windows network diagnostics - specialist not needed', '2022-03-02', '15:25:03', 1, 2002),
 (2, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
+
+
+INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+VALUES (1, 2002, 'priority', 'high', '2022-04-13 03:08:00'),
+(1, 2002, 'hardware', '1', '2022-04-13 03:09:00');

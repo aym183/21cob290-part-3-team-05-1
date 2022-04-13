@@ -8,7 +8,7 @@ var http = require('http');
 const server = http.createServer(app);
 const { Server, Socket } = require("socket.io");
 const io = new Server(server);
-
+let alert = require('alert'); 
 const con = require('./public/scripts/dbconfig');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -131,6 +131,7 @@ app.get('/login.html', (req, res) =>{
 });
 
 
+
 app.get('/analyst.html', (req, res) =>{
     //res.sendFile(path.join(__dirname +  '/analyst.html'));
     if(req.session.loggedin) {
@@ -197,7 +198,16 @@ app.get('/analyst.html', (req, res) =>{
 
 
     })
-    }})
+    }}
+)
+app.get('/indepth.html', (req, res) =>{
+    console.log("indepth")    
+    res.sendFile(path.join(__dirname +  '/indepth.html'));
+
+});
+
+
+
 
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin) {
@@ -621,7 +631,8 @@ app.all('/auth', urlencodedParser, (req, res) =>{
           
             });
 	} else {
-		res.send('Please enter Username and Password!');
+        alert("Incorrect username and/or password. Please try again.")
+		res.redirect('/login.html');
 		res.end();
 	}
     });
@@ -917,6 +928,34 @@ app.get('/index.html', (req, res) => {
                 
             });
             })
+
+            io.on('connection',  (socket) => {
+                console.log('connected')
+        
+                socket.on("history_update", (msg) => {
+                    console.log(msg);
+
+                    con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
+                    if (err) throw err;
+                    console.log(result[0].user_id);
+                    haxndler_id = result[0].user_id;
+                    
+
+                    for (let i = 0; i < msg.changed_names.length; i++) {
+
+                        con.query(`INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+                        VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
+                
+                        if (err) throw err;
+
+                        });
+                        
+                    }
+
+                });
+
+                });
+                })
 
     //killall -9 node
     
