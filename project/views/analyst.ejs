@@ -75,13 +75,13 @@
         </div>
 
         <!-- CHART SECTION -->
-        
+
         <div>
             <h1 style="text-align: center; padding-top: 20px; ">Dashboard</h1>
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div class="card">
-                        <h2 style="text-align: center; padding-top: 25px; ">Number of Employees</h2>
+                        <h2 style="text-align: center; padding-top: 25px;">Number of Employees</h2>
                         <p style="font-size: 30px; opacity: 0;">test</p>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart" width="300" height="300" style="margin: 0 auto;"></canvas>
@@ -103,14 +103,7 @@
                                         label: 'Number of employees',
                                         data: datachart1,
 
-                                        backgroundColor: [
-                                            '#003f5c', '#003f5c',
-                                            '#2f4b7c', '#003f5c',
-                                            '#665191', '#003f5c',
-                                            '#a05195', '#003f5c',
-                                            '#d45087', '#003f5c',
-                                            '#ff7c43', '#003f5c'
-                                        ],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56',"#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb"],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -124,6 +117,11 @@
                                 },
                                 options: {
                                     responsive: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
                                     scales: {
                                         x: {
                                             grid: {
@@ -131,6 +129,7 @@
                                             }
                                         },
                                         y: {
+                                            title: { text: "Number of Employees", display: true },
                                             grid: {
                                                 display: false,
                                             }
@@ -171,11 +170,7 @@
                                     datasets: [{
                                         label: 'Number of tickets',
                                         data: datachart3, //change for data imported from sql queries
-                                        backgroundColor: [
-                                            '#665191', '#003f5c',
-                                            '#a05195', '#003f5c',
-                                            '#d45087', '#003f5c'
-                                        ],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -189,6 +184,11 @@
                                 },
                                 options: {
                                     responsive: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
                                     scales: {
                                         x: {
                                             grid: {
@@ -196,6 +196,7 @@
                                             }
                                         },
                                         y: {
+                                            title: { text: "Number of tickets", display: true },
                                             grid: {
                                                 display: false,
                                             }
@@ -239,12 +240,18 @@
                                     labels: ["Active", "", "Dropped", "", "Closed", "", "Pending"], //need to get query to get lables so order can be changed (swap submitted and closed)
                                     datasets: [{
                                         label: "Number of Tickets",
-                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#a4cd50", "#FFFFFF", "#d03943"],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         data: datachart2
                                     }]
                                 },
                                 options: {
                                     responsive: false,
+                                    plugins: {
+                                       
+                                        legend: {
+                                            display: true
+                                        }
+                                    },
 
 
                                 }
@@ -280,11 +287,7 @@
                                     datasets: [{
                                         label: 'Number of tickets',
                                         data: datachart4,
-                                        backgroundColor: [
-                                            '#665191', '#003f5c',
-                                            '#a05195', '#003f5c',
-                                            '#d45087', '#003f5c'
-                                        ],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -298,6 +301,11 @@
                                 },
                                 options: {
                                     responsive: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
                                     scales: {
                                         x: {
                                             grid: {
@@ -305,6 +313,7 @@
                                             }
                                         },
                                         y: {
+                                            title: { text: "Number of tickets", display: true },
                                             grid: {
                                                 display: false,
                                             }

@@ -201,10 +201,94 @@ app.get('/analyst.html', (req, res) =>{
     }}
 )
 app.get('/indepth.html', (req, res) =>{
-    console.log("indepth")    
-    res.render('indepth')
+      
+    if(req.session.loggedin) {
+        console.log("indepth") 
+    
+        
+        
 
-});
+    con.query(`SELECT COUNT(ticket.problem_type_id) as no, name
+    FROM   problem_type
+          JOIN ticket  
+          WHERE problem_type.problem_type_id = ticket.problem_type_id
+          GROUP BY problem_type.name
+          ORDER BY name ASC`,function (err, result, fields) {
+        if (err) throw err;
+            
+            idc4 = result;
+    
+    })
+
+    con.query(`SELECT COUNT(ticket.ticket_id) as count, employee.name
+    FROM   handler
+          JOIN employee
+          JOIN ticket  
+          WHERE ticket.closing_date IS NOT NULL AND handler.user_id = ticket.handler_id AND employee.employee_id = handler.user_id
+          GROUP BY employee.name
+          ORDER BY employee.name ASC`,function (err, result, fields) {
+        if (err) throw err;
+            
+            idc2 = result;
+    
+    })
+
+    con.query(`SELECT COUNT(ticket.ticket_id) as count, employee.name
+    FROM   handler
+          JOIN employee
+          JOIN ticket  
+          WHERE ticket.status LIKE "dropped" AND handler.user_id = ticket.handler_id AND employee.employee_id = handler.user_id
+          GROUP BY employee.name
+          ORDER BY employee.name ASC`,function (err, result, fields) {
+        if (err) throw err;
+            
+            idc3 = result;
+    
+    })
+
+
+    con.query(`SELECT ticket.handler_id, COUNT(ticket.ticket_id) as count, employee.name
+    FROM   handler
+          JOIN employee
+          JOIN ticket  
+          WHERE ticket.closing_date IS NULL AND handler.user_id = ticket.handler_id AND employee.employee_id = handler.user_id
+          GROUP BY employee.name
+          ORDER BY employee.name ASC`,function (err, result, fields) {
+        if (err) throw err;
+        var out =  [];
+        var out2 =  [];
+        var out3 =  [];
+        var out4 =  [];
+        var out5 = [];
+        var out6 = [];
+        var out7 = [];
+        var out8 = [];
+        var out9 = [];
+        var out10 = [];      
+        idc1 = result
+        console.log(idc4)
+        
+        res.render('indepth', {
+            dat1: idc1,
+            dat2: out,
+            dat3: out2,
+            dat4: idc2,
+            dat5: out3,
+            dat6: out4,
+            dat7: idc3,
+            dat8: out5,
+            dat9: out6,
+            dat10: idc4,
+            dat11: out7,
+            dat12: out8
+
+
+            
+        }) 
+   
+    
+    })
+}});
 
 
 
