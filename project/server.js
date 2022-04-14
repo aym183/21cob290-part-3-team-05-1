@@ -371,7 +371,7 @@ app.get('/intspecialist.html', (req, res) => {
                 });
             }
 
-            else if(msg.status == 'active'){
+            else if(msg.status == 'active' || msg.status !== 'dropped'){
 
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
                 from ticket
