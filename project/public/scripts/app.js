@@ -820,8 +820,6 @@ ready(() => {
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
 
         console.log(data);
-        console.log(reason);
-        socket.emit("Drop-Ticket", data);
 
     });
 

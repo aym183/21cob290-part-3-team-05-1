@@ -511,15 +511,21 @@ app.get('/intspecialist.html', (req, res) => {
         console.log('connected')
         
 
-        socket.on("close-Ticket", (msg) => {
+        socket.on('close_ticket', (msg) => {
             console.log("Dropping tickets big bro");
-            console.log(msg);
+            // console.log(msg.reason);
+            // console.log(msg.current_dateTime);
+            // console.log(msg.current_date);
+            // console.log(msg.id);
+            // console.log(session_id);
             con.query(`UPDATE ticket
             SET status = 'dropped' WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
                 if (err) throw err;
 
-            con.query(`INSERT into dropped
-            values(?, ?, ?, ?)`, )
+            con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
+            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, msg.id, session_id], function (err, result, fields){
+
+            });
             });
         })
 

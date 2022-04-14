@@ -64,11 +64,12 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 new_status: 'dropped',
                 solution: document.getElementById('solution-area').value,
                 id: document.getElementById('detail-id').innerHTML,
-                reason: document.querySelector(".reason-area").value
-
+                reason: document.querySelector(".reason-area").value,
+                current_dateTime: time,
+                current_date: date
             };
-            const jsonString = JSON.stringify(data);
-            changeStatus(jsonString);
+            // const jsonString = JSON.stringify(data);
+            changeStatus(data);
             
             //-----This will update ticket history log
             const changed_values = [document.querySelector(".reason-area").value];
@@ -131,9 +132,9 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
 }
 
 function changeStatus(data){
-    const socket = io()
+    const socket = io();
+    socket.emit('close_ticket', data);
     console.log(data);
-    socket.emit('close_ticket',  data);
 }
 
 // CODE FOR CHARACTER COUNTERS IN TICKET DETAILS
