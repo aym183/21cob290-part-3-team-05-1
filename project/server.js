@@ -509,13 +509,17 @@ app.get('/intspecialist.html', (req, res) => {
     //Dropping of tickets
     io.on('connection', (socket) => {
         console.log('connected')
+        
 
-        socket.on("Drop-Ticket", (msg) => {
+        socket.on("close-Ticket", (msg) => {
             console.log("Dropping tickets big bro");
             console.log(msg);
             con.query(`UPDATE ticket
             SET status = 'dropped' WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
                 if (err) throw err;
+
+            con.query(`INSERT into dropped
+            values(?, ?, ?, ?)`, )
             });
         })
 
