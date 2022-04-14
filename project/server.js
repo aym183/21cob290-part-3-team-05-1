@@ -205,7 +205,29 @@ app.get('/indepth.html', (req, res) =>{
     if(req.session.loggedin) {
         console.log("indepth") 
     
-        
+
+    con.query(`SELECT
+    SUM(CASE WHEN handler_id LIKE '1%' THEN 1 ELSE 0 END) AS external
+  , SUM(CASE WHEN handler_id LIKE '2%' THEN 1 ELSE 0 END ) AS internal
+FROM ticket`,function (err, result, fields) {
+        if (err) throw err;
+            
+            idc6 = result;
+    
+    })  
+
+
+    con.query(`SELECT COUNT(*) as count, employee.name as name
+    FROM ticket
+        JOIN employee
+        WHERE employee.employee_id = ticket.employee_id
+        GROUP BY ticket.employee_id
+        ORDER BY employee.name ASC`,function (err, result, fields) {
+        if (err) throw err;
+            
+            idc5 = result;
+    
+    })   
         
 
     con.query(`SELECT COUNT(ticket.problem_type_id) as no, name
@@ -264,7 +286,9 @@ app.get('/indepth.html', (req, res) =>{
         var out7 = [];
         var out8 = [];
         var out9 = [];
-        var out10 = [];      
+        var out10 = []; 
+        var out11 = [];
+        var out12 = [];      
         idc1 = result
         console.log(idc4)
         
@@ -280,7 +304,13 @@ app.get('/indepth.html', (req, res) =>{
             dat9: out6,
             dat10: idc4,
             dat11: out7,
-            dat12: out8
+            dat12: out8,
+            dat13: idc5,
+            dat14: out9,
+            dat15: out10,
+            dat16: idc6,
+            dat17: out11,
+            dat18: out12
 
 
             

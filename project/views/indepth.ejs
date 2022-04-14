@@ -80,7 +80,8 @@
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div class="card">
-                        <h2 style="text-align: center;padding-top: 25px; padding-bottom: 25px;">Active tickets per specialist</h2>
+                        <h2 style="text-align: center;padding-top: 25px; padding-bottom: 25px;">Active tickets per
+                            specialist</h2>
                         <!--chart-->
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -98,12 +99,12 @@
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: ["Burn Duck","","Billy Marsden","", "Cathrin Knowller","","Edwin Smith","", "Marie Kelle","", "Ryan Jenson" ],
+                                    labels: ["Burn Duck", "", "Billy Marsden", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
                                     datasets: [{
-                                        label: 'Number of active tickets',
+                                        label: 'Number of ticket requests',
                                         data: datachart1,
 
-                                        backgroundColor:["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384","#FFFFFF","#36a2eb","#FFFFFF","#cc65fe","#FFFFFF",'#ffce56'],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56', "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -145,42 +146,43 @@
                     </div>
 
                     <div class="card">
-                            <h2 style="text-align: center;padding-top: 25px;padding-bottom: 25px;">Closed tickets per specialist</h2>
-                            <!--chart-->
-    
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <canvas id="myChart2" width="300" height="300" style="margin: 0 auto;"></canvas>
-                            <p style="font-size: 0px; opacity: 0;">
-                                <% for(var i=0; i < dat4.length; i++) { %>
-                                    <%-dat5.push(dat4[i].name)%>
-                                        <%-dat6.push(dat4[i].count)%>
-                                            <% } %>
-                            </p>
-                            <script>
-                                //var labelchart1 = `<%=dat2%>`
-                                var datachart2 = `<%=dat6%>`
-                                const ctxx = document.getElementById('myChart2').getContext('2d');
-                                const myChart2 = new Chart(ctxx, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ["Burn Duck","","Billy Marsden","", "Cathrin Knowller","","Edwin Smith","", "Marie Kelle","", "Ryan Jenson" ],
-                                        datasets: [{
-                                            label: 'Number of active tickets',
-                                            data: datachart2,
-    
-                                            backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384","#FFFFFF","#36a2eb","#FFFFFF","#cc65fe","#FFFFFF",'#ffce56'],
-                                            borderColor: [
-                                                'rgba(255, 99, 132, 1)',
-                                                'rgba(54, 162, 235, 1)',
-                                                'rgba(255, 206, 86, 1)',
-                                                'rgba(75, 192, 192, 1)',
-                                                'rgba(153, 102, 255, 1)',
-                                                'rgba(255, 159, 64, 1)'
-                                            ],
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
+                        <h2 style="text-align: center;padding-top: 25px;padding-bottom: 25px;">Closed tickets per
+                            specialist</h2>
+                        <!--chart-->
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart2" width="300" height="300" style="margin: 0 auto;"></canvas>
+                        <p style="font-size: 0px; opacity: 0;">
+                            <% for(var i=0; i < dat4.length; i++) { %>
+                                <%-dat5.push(dat4[i].name)%>
+                                    <%-dat6.push(dat4[i].count)%>
+                                        <% } %>
+                        </p>
+                        <script>
+                            //var labelchart1 = `<%=dat2%>`
+                            var datachart2 = `<%=dat6%>`
+                            const ctxx = document.getElementById('myChart2').getContext('2d');
+                            const myChart2 = new Chart(ctxx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ["Burn Duck", "", "Billy Marsden", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
+                                    datasets: [{
+                                        label: 'Number of active tickets',
+                                        data: datachart2,
+
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
                                     responsive: false,
                                     plugins: {
                                         legend: {
@@ -202,18 +204,87 @@
                                     }
 
                                 }
-    
-                                });
-                            </script>
-    
-                            <p class="chartp"></p>
-                        </div>
-    
-                        </div>
+
+                            });
+                        </script>
+
+                        <p class="chartp"></p>
+                    </div>
+
+                    <div class="card">
+                        <h2 style="text-align: center;padding-top: 25px; padding-bottom: 25px;">Ticket Requests from
+                            employees</h2>
+                        <!--chart-->
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart13" width="300" height="300" style="margin: 0 auto;"></canvas>
+                        <p style="font-size: 0px; opacity: 0;">
+                            <% for(var i=0; i < dat13.length; i++) { %>
+                                <%-dat14.push(dat13[i].name)%>
+                                    <%-dat15.push(dat13[i].count)%>
+                                        <% } %>
+                        </p>
+                        <script>
+                            //var labelchart1 = `<%=dat2%>`
+                            var datachart1 = `<%=dat15%>`
+                            const ctxxxx = document.getElementById('myChart13').getContext('2d');
+                            const myChart13 = new Chart(ctxxxx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ["Abby Haskell", "", "Abby Haskell", "", "Billy Marsden", "", "	Darcie Bueller", "", "Holly Livingstone", "", "Joshua Sells","","Rob Davidson","","Will Taha",],
+                                    datasets: [{
+                                        label: 'Number of active tickets',
+                                        data: datachart1,
+
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            grid: {
+                                                display: false,
+                                            }
+                                        },
+                                        y: {
+                                            title: { text: "Number of tickets", display: true },
+                                            grid: {
+                                                display: false,
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            });
+                        </script>
+
+                        <p class="chartp"></p>
+                    </div>
+                </div>
+
+
+
                 <div class="column_analyst">
                     <div class="card">
 
-                        <h2 style="text-align: center;padding-top: 25px;padding-bottom: 25px;">Dropped tickets per specialist</h2>
+                        <h2 style="text-align: center;padding-top: 25px;padding-bottom: 25px;">Dropped tickets per
+                            specialist</h2>
                         <!--chart-->
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -236,7 +307,7 @@
                                         label: 'Number of active tickets',
                                         data: datachart3,
 
-                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384","#FFFFFF","#36a2eb","#FFFFFF","#cc65fe","#FFFFFF",'#ffce56'],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -288,22 +359,22 @@
 
 
                                         <% } %>
-                               
-                                       
-                                        
-                                        </h1>
+
+
+
+                        </h1>
 
 
                         <canvas id="pie-chart" width="300" height="300" style="margin: 0 auto;"></canvas>
                         <script>
-                            var datachart4 = `<%=dat11%>` 
+                            var datachart4 = `<%=dat11%>`
                             new Chart(document.getElementById("pie-chart"), {
                                 type: 'pie',
                                 data: {
-                                    labels: ["Apple", "", "Excel", "", "Hardware","", "Office", "", "Printers", "", "Zoom"], //need to get query to get lables so order can be changed (swap submitted and closed)
+                                    labels: ["Apple", "", "Excel", "", "Hardware", "", "Office", "", "Printers", "", "Zoom"], //need to get query to get lables so order can be changed (swap submitted and closed)
                                     datasets: [{
                                         label: "Number of Tickets",
-                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384","#FFFFFF","#36a2eb","#FFFFFF","#cc65fe","#FFFFFF",'#ffce56'],
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
                                         data: datachart4
                                     }]
                                 },
@@ -315,6 +386,48 @@
                             });</script>
                         <p class="chartp"></p>
                     </div>
+                    
+                    <div class="card">
+                        <h2 style="text-align: center; padding-top: 25px;padding-bottom: 25px;">Internal Vs External tickets</h2>
+
+
+                        <h1 style="font-size: 0px; opacity: 0;">
+                            
+
+                                <%=dat17.push(dat16[0].internal)%>
+                                    <%=dat17.push(dat16[0].external)%>
+
+
+                                       
+
+
+
+                        </h1>
+
+
+                        <canvas id="pie-chart2" width="300" height="300" style="margin: 0 auto;"></canvas>
+                        <script>
+                            var datachart4 = `<%=dat17%>`
+                            new Chart(document.getElementById("pie-chart2"), {
+                                type: 'pie',
+                                data: {
+                                    labels: ["External", "", "Internal", ], //need to get query to get lables so order can be changed (swap submitted and closed)
+                                    datasets: [{
+                                        label: "Number of Tickets",
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
+                                        data: datachart4
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+
+
+                                }
+                            });</script>
+                        <p class="chartp"></p>
+                    </div>
+
+
                 </div>
             </div>
         </div>
