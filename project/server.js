@@ -574,12 +574,11 @@ app.get('/external.html', (req, res) => {
         
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.handler_id = ?
-    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                WHEN status = 'submitted' THEN 2
-                WHEN status = 'pending' THEN 3
-                WHEN status = 'active' THEN 4
-                ELSE 5 END;`,
+    WHERE ticket.handler_id = ? and status != "dropped"
+    ORDER BY CASE WHEN status = 'submitted' THEN 1
+                WHEN status = 'unsuccessful' THEN 2
+                WHEN status = 'active' THEN 3
+                ELSE 4 END`,
         [session_id], function (err, result, fields) {
             if (err) throw err;
 
