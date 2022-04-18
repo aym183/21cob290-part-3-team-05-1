@@ -71,22 +71,23 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             // const jsonString = JSON.stringify(data);
             dropStatus(data);
             
-            // //-----This will update ticket history log
-            // const changed_values = [document.querySelector(".reason-area").value];
-            // const changed_names = ["dropped"];
-            // var today = new Date();
-            // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            // var time = today.getHours() + ":" + today.getMinutes();
-            // var dateTime = date+' '+time;
+            //-----This will update ticket history log
+            const changed_values = [document.querySelector(".reason-area").value];
+            const changed_names = ["dropped"];
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes();
+            var dateTime = date+' '+time;
             
-            // const ticket_details = {
-            //     id: document.getElementById('detail-id').innerHTML,
-            //     changed_values: changed_values,
-            //     changed_names: changed_names,
-            //     current_dateTime: dateTime,
-            //     current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
-            // };
+            const ticket_details = {
+                id: document.getElementById('detail-id').innerHTML,
+                changed_values: changed_values,
+                changed_names: changed_names,
+                current_dateTime: dateTime,
+                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
+            };
             
+            updateHistory(ticket_details);
             // const ticket_details_json = JSON.stringify(ticket_details);
             // var xhttp = new XMLHttpRequest();
             // xhttp.open("POST", "update_history_log.php");

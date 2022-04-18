@@ -399,7 +399,7 @@ app.get('/intspecialist.html', (req, res) => {
                 });
             }
 
-            else if(msg.status == 'active' || msg.status !== 'dropped'){
+            else if(msg.status == 'active' || msg.status != 'dropped'){
 
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
                 from ticket
@@ -597,7 +597,7 @@ app.get('/external.html', (req, res) => {
             socket.on("message", (msg) => {
                 console.log(parseInt(msg.id));
 
-                if(msg.status == "active"){
+                if(msg.status == "active" || msg.status == "unsuccessful"){
                     con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
                     INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
                     INNER JOIN  software on ticket.software_id = software.software_id 
@@ -637,6 +637,9 @@ app.get('/external.html', (req, res) => {
                     });
 
                 }
+                else{
+                    ;
+                }
 
             })
         })
@@ -673,14 +676,16 @@ app.get('/external.html', (req, res) => {
                     con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields){
                         if (err) throw err;
                         no_of_drops = result[0].number_of_drops;
+                        new_no_drops = parseInt(no_of_drops)+1;
+                        console.log(new_no_drops);
                         console.log(result);
 
                         con.query(`UPDATE ticket
-                        SET status = 'dropped', number_of_drops = ?, WHERE ticket_id = ?`,[parseInt(no_of_drops)+1, msg.id], function (err, result, fields){
+                        SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
                             if (err) throw err;
         
                             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
-                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, msg.id, session_id], function (err, result, fields){
+                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields){
                 
                                 if (err) throw err;
                             });
