@@ -1,5 +1,3 @@
--- Dummy data as of 21.03.22 (March 21)
-
 INSERT INTO `employee` (`employee_id`, `name`, `job`, `department`, `telephone`) VALUES
 (2001 , 'Marie Kelle' ,'Specialist'  ,'Legal' ,'+44 5283 803529' ),
 (2002 , 'Bern Duck' ,'Specialist' ,'Hardware' ,'+44 3452 345924' ),
@@ -128,7 +126,7 @@ INSERT INTO `solution` VALUES
 (4, "Boot OS from an external hard drive or USB"),  
 (5, "Reboot system and replace cartridges"),  
 (6, "Boot OS from an external hard drive or USB"),  
-(7, "Reboot system and replace cartridges"),;
+(7, "Reboot system and replace cartridges");
 
 
 INSERT INTO `ticket_solution`  VALUES

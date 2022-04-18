@@ -1,4 +1,4 @@
-/* Defines schema for Helpify's database. */
+
 
 CREATE DATABASE IF NOT EXISTS teamb005;
 

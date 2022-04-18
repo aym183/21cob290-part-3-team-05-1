@@ -660,6 +660,38 @@ app.get('/external.html', (req, res) => {
 
             io.on('connection', (socket) => {
                 console.log('connected')
+                
+        
+                socket.on('drop_ticket', (msg) => {
+                    console.log("Dropping tickets big bro");
+                    // console.log(msg.reason);
+                    // console.log(msg.current_dateTime);
+                    // console.log(msg.current_date);
+                    // console.log(msg.id);
+                    // console.log(session_id);
+
+                    con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields){
+                        if (err) throw err;
+                        no_of_drops = result[0].number_of_drops;
+                        console.log(result);
+
+                        con.query(`UPDATE ticket
+                        SET status = 'dropped', number_of_drops = ?, WHERE ticket_id = ?`,[parseInt(no_of_drops)+1, msg.id], function (err, result, fields){
+                            if (err) throw err;
+        
+                            con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
+                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, msg.id, session_id], function (err, result, fields){
+                
+                                if (err) throw err;
+                            });
+                        })
+                    });
+                })
+        
+        })
+
+            io.on('connection', (socket) => {
+                console.log('connected')
         
                 socket.on("Submit-Ticket", (msg) => {
                     console.log("Solution for days");
