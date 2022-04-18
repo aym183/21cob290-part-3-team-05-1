@@ -84,7 +84,6 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 changed_values: changed_values,
                 changed_names: changed_names,
                 current_dateTime: dateTime,
-                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
             };
             
             updateHistory(ticket_details);
@@ -142,6 +141,12 @@ function dropStatus(data){
     const socket = io();
     socket.emit('drop_ticket', data);
     console.log(data);
+}
+
+function updateHistory(data){
+    const socket = io();
+    socket.emit("update_history", data);
+    
 }
 
 
