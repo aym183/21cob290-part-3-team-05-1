@@ -97,14 +97,16 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
         } else if (btnName == "submitSolution") { /* Submit solution value */
             
             const ticket_id = document.getElementById('detail-id').innerHTML;
+            const handler_name =document.getElementById('handler-name').value;
             const data = {
-                old_status: 'unsuccessful',
-                new_status: 'submitted',
+            
+                status: 'submitted',
                 solution: document.getElementById('solution-area').value,
-                id: ticket_id
+                id: ticket_id,
+                h_name: handler_name
             };
-            const jsonString = JSON.stringify(data);
-            changeStatus(jsonString);
+        
+            submitTicket(data);
         }
         document.querySelector(".overlay").remove();
         
@@ -141,6 +143,10 @@ function updateHistory(data){
     
 }
 
+function submitTicket(data){
+    const socket = io();
+    socket.emit("Submit-Ticket", data);
+}
 
 // CODE FOR CHARACTER COUNTERS IN TICKET DETAILS
 const edit_button = document.getElementById('edit-btn');

@@ -217,97 +217,29 @@ ready(() => {
         
         if (status=="submitted") {
             
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'none';
-            }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
-            
+            console.log("HERE");
+            document.querySelector(".solutionArea__section").style.display = "block";
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            document.querySelector("#submit-btn").style.opacity = "0.3";
             document.querySelector('.solution-status').innerText = "Solution Submitted";
             document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
 
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "block";
-            }
-
         }
-        else if (status=="pending") {
-
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'none';
-            }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('unchecked');
-                document.querySelector('.checkmark').classList.add('checked');
-                document.querySelector("#submit-btn").removeAttribute('disabled');
-                document.querySelector("#submit-btn").style.cursor = "pointer";
-                document.querySelector(".closeButton").style.opacity = "1";
-            }
-            
-            document.querySelector('.solution-status').innerText = "Solution Submitted";
-            document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
-
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "block";
-            }
-        }
+      
         else if (status=="unsuccessful") {
             var c = document.querySelectorAll('.closed__field');
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
+            
                 document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                 document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
+                
             
             document.querySelector('.solution-status').innerText = "";
 
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "none";
-            }
-        }
-        else if (status=="dropped") {
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'none';
-            }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
             
-            document.querySelector('.solution-status').innerText = "Solution Dropped";
-            document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
-
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "none";
-            }
-            
-        }
-        else if (status=="closed") {
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'block';
-            }
-
-            document.querySelector(".closeForm__section").style.display = "none";
         }
         else {
             var c = document.querySelectorAll('.closed__field');
@@ -315,14 +247,11 @@ ready(() => {
                  c[i].style.display = 'none';
             }
             
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector(".closeForm__section").style.display = "block";
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
+            
                 document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                 document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
+                document.querySelector("#submit-btn").style.opacity = "0.3";
+            
 
             
             document.querySelector('.solution-status').innerText = "";
@@ -345,6 +274,31 @@ ready(() => {
             }
         }
     });
+
+    document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
+        // Solution edit button styling on click
+        if (document.querySelector("#spec-editSolution-btn").innerHTML == "edit") {
+            
+            document.querySelector("#solution-area").style.backgroundColor = "white";
+            document.querySelector(".solutionArea__section").style.backgroundColor = "white";
+            document.querySelector("#solution-area").style.pointerEvents = "all";
+            document.querySelector("#spec-editSolution-btn").innerHTML = "Update";
+
+        }
+        // Solution update button styling on click
+        else if (document.querySelector("#spec-editSolution-btn").innerHTML == "Update") {
+
+            document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
+            document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
+            document.querySelector("#solution-area").style.pointerEvents = "none";
+            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";
+            // document.querySelector("#submit-btn").setAttribute('enabled','enabled');
+            // document.querySelector("#submit-btn").style.cursor = "default";
+            // document.querySelector("#submit-btn").style.opacity = "1";
+            
+        }   
+    }); 
+    
   
 });
 
@@ -633,49 +587,6 @@ function ticketDetailTable(table_type, input) {
     }
 }
 
-ready(() => { 
-    document.querySelector("#editSolution-btn").addEventListener("click", (e) => {
-        const edit_btn = document.querySelector("#editSolution-btn");
-
-        if (!edit_btn.classList.contains('pushed-btn')) {
-            edit_btn.classList.add('pushed-btn');
-            document.querySelector('#editSolution-btn').style.color = 'var(--buttonTextColor)';
-            document.querySelector('#editSolution-btn').style.backgroundColor = 'var(--buttonHover)';
-
-            
-                
-            document.querySelectorAll("#solution-area").forEach(field => { 
-                field.style.pointerEvents = "all",
-                field.style.backgroundColor = "white",
-                field.style.borderColor = 'black';
-                field.removeAttribute("readonly")    
-                })
-            
-                document.querySelector(".solutionArea__section").style.backgroundColor = "white";
-            // document.querySelector(".update__section").style.display = "block";
-        } else {
-            edit_btn.classList.remove('pushed-btn');
-            document.querySelector('#editSolution-btn').style.color = null;
-            document.querySelector('#editSolution-btn').style.backgroundColor = null;
-
-            document.querySelectorAll(".solution-area").forEach(field => { 
-                field.style.pointerEvents = "none",
-                field.style.backgroundColor = "rgb(236, 236, 236)",
-                field.setAttribute("readonly", true) 
-                field.style.borderColor = "#ccc";
-            })
-            // document.querySelectorAll(".ticket__information label").forEach(label => { 
-            //     label.style.color = "black";   
-            // })
-            // document.querySelector(".update__section").style.display = "none";
-            // document.querySelector("#emp-table__container").style.display = "none";
-            //enable ticket history button once not in edit mode
-            
-        }
-
-
-    });    
-});
 
 //Dropping of tickets
 ready(() => { 
@@ -684,15 +595,9 @@ ready(() => {
     var drop_btn = document.querySelector("#drop-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
-        // var ticket_id = document.getElementById(`detail-id`).innerHTML;
-
-        // const data = {
-        //     id: ticket_id
-        // }
 
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
 
-        console.log(data);
 
     });
 
@@ -705,23 +610,28 @@ ready(() => {
     document.querySelector("#submit-btn").addEventListener("click", (e) => {
         console.log("Solution");
         socket = io();
-     const edit_btn = document.querySelector("#submit-btn");
+        popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");       
+        document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";             
+        document.querySelector(".solution-status").textContent = "Solution Submitted";
+    
+     
     // submit_btn && submit_btn.addEventListener("click", (e) => {
-        var submit_solution =  document.getElementById("solution-area").value;   
-        var ticket_status = document.getElementById('detail-status').innerHTML;
-        var ticket_id = document.getElementById('detail-id').innerHTML;
-        var handler_name =document.getElementById('handler-name').value;
-        const data = {
-            solution: submit_solution,
-            status: ticket_status,
-            id: ticket_id,
-            h_name: handler_name
-        }
+        // var submit_solution =  document.getElementById("solution-area").value;   
+        // var ticket_status = document.getElementById('detail-status').innerHTML;
+        // var ticket_id = document.getElementById('detail-id').innerHTML;
+        // var handler_name =document.getElementById('handler-name').value;
+        // const data = {
+        //     solution: submit_solution,
+        //     status: ticket_status,
+        //     id: ticket_id,
+        //     h_name: handler_name
+        // }
         //console.log(handler_name);
-        console.log(data);
-        console.log(submit_solution); 
-        socket.emit("Submit-Ticket", data);
+        // console.log(data);
+        // console.log(submit_solution); 
+        // socket.emit("Submit-Ticket", data);
 
+        
         console.log(ticket_status);
     });
     
@@ -729,3 +639,20 @@ ready(() => {
 
 });
 
+
+
+ready(() => {
+
+    document.querySelector("#solution-area").addEventListener('keyup', (e) => {
+        if (document.querySelector('#solution-area').value == "") {
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            document.querySelector("#submit-btn").style.opacity = "0.3";  
+        }
+        else {
+            document.getElementById("submit-btn").removeAttribute('disabled');
+            document.querySelector("#submit-btn").style.cursor = "pointer";
+            document.querySelector("#submit-btn").style.opacity = "1"; 
+        }   
+    });
+});

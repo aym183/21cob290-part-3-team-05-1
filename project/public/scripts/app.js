@@ -795,6 +795,7 @@ ready(() => {
         console.log(submit_solution); 
         socket.emit("Submit-Ticket", data);
 
+        popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");
         console.log(ticket_status);
     });
     
