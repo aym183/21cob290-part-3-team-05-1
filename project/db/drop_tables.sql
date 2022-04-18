@@ -14,4 +14,5 @@ DROP TABLE IF EXISTS ticket_solution;
 DROP TABLE IF EXISTS handler;
 DROP TABLE IF EXISTS dropped;
 DROP TABLE IF EXISTS skillset;
+DROP TABLE IF EXISTS history_log;
 SET foreign_key_checks = 1;

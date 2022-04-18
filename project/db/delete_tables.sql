@@ -15,3 +15,4 @@ DELETE IGNORE FROM users;
 DELETE IGNORE FROM dropped;
 DELETE IGNORE FROM operating_system;
 DELETE IGNORE FROM skillset;
+DELETE IGNORE from history_log;

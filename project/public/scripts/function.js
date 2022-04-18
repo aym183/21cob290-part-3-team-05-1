@@ -87,15 +87,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             };
             
             updateHistory(ticket_details);
-            // const ticket_details_json = JSON.stringify(ticket_details);
-            // var xhttp = new XMLHttpRequest();
-            // xhttp.open("POST", "update_history_log.php");
-            // xhttp.setRequestHeader("Content-type", 'application/json');
-            // xhttp.send(ticket_details_json);
-            
-
-            // if (document.title == "External Specialist Home Page"){
-            //     console.log("External Spec");
+            document.querySelector(".overlay").remove();          
             //     window.location.href = "external.html";
             // }else{
                 
