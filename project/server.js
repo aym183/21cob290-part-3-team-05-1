@@ -51,7 +51,7 @@ app.use (session ({
 
 app.get('/', (req, res) =>{
     console.log("WORK")
-    res.send("<h1>Hi</h1>")
+    res.redirect('login.html')
     // res.render('login.html')
 
 });
