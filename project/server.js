@@ -609,6 +609,7 @@ app.get('/external.html', (req, res) => {
                     WHERE ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
                         console.log(err);
                         if (err) throw err;
+                        console.log(result);
     
                         io.send('message', result);
     
@@ -627,7 +628,7 @@ app.get('/external.html', (req, res) => {
                     INNER JOIN employee ON handler.user_id = employee.employee_id
                     UNION
                     SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                    WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                    WHERE ticket.ticket_id = ? AND ticket_solution.solution_status = "pending";`,[parseInt(msg.id)],function(err, result, fields) {
                     console.log(err);
                     if (err) throw err;
 
@@ -717,10 +718,28 @@ app.get('/external.html', (req, res) => {
                 socket.on("Submit-Ticket", (msg) => {
                     console.log("Solution for days");
                     console.log(msg);
-        
-                    con.query(`INSERT INTO solution (solution_description)
-                    values(?)`,[msg.solution], function (err, result, fields) {
+
+                    con.query(`SELECT * from ticket_solution WHERE solution_status = 'pending' and ticket_id = ?`,[msg.id] ,function (err, result, fields) {
                         if (err) throw err;
+                    
+                        console.log(result);
+                        solution_id = result[0].solution_id;
+                        if(result.length == 1){
+
+                           
+
+                            con.query(`UPDATE solution SET solution_description = ? WHERE solution_id = ?`, [msg.solution, parseInt(solution_id)], function (err, result, fields) {
+                                if (err) throw err;
+                    
+                                
+                            });
+                            console.log("ALREADY THERE");
+
+                        }else{
+                            console.log("No soln");
+                            con.query(`INSERT INTO solution (solution_description)
+                            values(?)`,[msg.solution], function (err, result, fields) {
+                            if (err) throw err;
                     
                         
                         con.query(`UPDATE ticket
@@ -759,6 +778,10 @@ app.get('/external.html', (req, res) => {
 
                 
                     });
+                        }
+                    });
+        
+                    
                 })
         })
 
