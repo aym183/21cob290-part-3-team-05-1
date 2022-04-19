@@ -11,6 +11,7 @@
 </head>
 
 
+
 <body>
 
     <div class="topSection">
@@ -97,7 +98,10 @@
             <div id="options" class="center">
                 <h5 class="ml-3">Options</h5>
                 <div class="ml-3" id="buttons">
-                <a href="/logout"class="btn btn-outline-info mt-2">Log Out</a><br>
+                <a class="btn btn-outline-info mt-2" id="logout">Log Out</a><br>
+                <b id="confirm-logout" style="visibility: hidden;">Are you sure you want to logout?</b>
+                <a href="/logout" class="btn btn-outline-info ml-2" id="logout-button" style="visibility: hidden;">Yes</a>
+                <a class="btn btn-outline-info ml-2" id="reject" style="visibility: hidden;">No</a><br>
                 <a href="changepass.html"class="btn btn-outline-info mt-2">Change Password</a>
             </div>
             </div>
@@ -111,6 +115,22 @@
 <script src="/scripts/app.js"></script>
 <script src="/scripts/function.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$("#logout").click(function() {
+    document.getElementById("confirm-logout").style.visibility = "visible";
+    document.getElementById("logout-button").style.visibility = "visible";
+    document.getElementById("reject").style.visibility = "visible";
+
+})
+
+$("#reject").click(function() {
+    document.getElementById("confirm-logout").style.visibility = "hidden";
+    document.getElementById("logout-button").style.visibility = "hidden";
+    document.getElementById("reject").style.visibility = "hidden";
+})
+</script>
 
 </body>
 
