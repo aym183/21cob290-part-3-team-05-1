@@ -125,8 +125,8 @@ app.get('/faq.html', (req, res) =>{
 
 app.get('/login.html', (req, res) =>{
     console.log("login")
-    res.sendFile(path.join(__dirname +  '/login.html'));
-    // res.render('login.html')
+    // res.sendFile(path.join(__dirname +  '/login.html'));
+     res.render('login')
 
 });
 
@@ -843,8 +843,8 @@ app.all('/auth', urlencodedParser, (req, res) =>{
           
             });
 	} else {
-        alert("Incorrect username and/or password. Please try again.")
-		res.redirect('/login.html');
+        error = "Incorrect username/password. Please try again."
+		res.render('login', {err: error});
 		res.end();
 	}
     });
