@@ -36,6 +36,7 @@ var ticket_status;
 var solution_id2;
 var ext_spec_id;
 var hardware_datalist;
+var operating_system;
 
 app.use (session ({
     secret: "secret",
@@ -1045,6 +1046,17 @@ app.get('/index.html', (req, res) => {
 
       
     });
+
+    con.query(`SELECT name from operating_system;`, 
+    [session_id],function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        operating_system = result;
+        
+
+      
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -1064,7 +1076,8 @@ app.get('/index.html', (req, res) => {
             dropdownVals: query_output,
             newdropdownVals: query,
             loggeduser: session_username,
-            hardwareids: hardware_id
+            hardwareids: hardware_id,
+            operating_sys: operating_system
         })
     });
     

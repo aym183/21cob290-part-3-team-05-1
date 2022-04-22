@@ -217,9 +217,12 @@
                             <label for="hardware-make">Hardware Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
-                            <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>
-                            <datalist id="operating-systems">
-                        
+                            <input type="text" id="operating-system" class="edit-field" list="new_operating-systems" value="" readonly>
+                            <datalist id="new_operating-systems">
+
+                                <% for(var i=0; i < operating_sys.length; i++) { %>
+                                    <option><%=operating_sys[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="operating-system-error"></span>
                             <label for="software">Software</label>
