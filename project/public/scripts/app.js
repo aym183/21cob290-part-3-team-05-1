@@ -175,6 +175,11 @@ function showTicketInfo(data) {
    
 }
 
+function Disablebtn(data) {
+    const socket = io()
+    
+}
+
 /**
  * Updates ticket information in database
  * @param {object} data containing ticket information to be updated
@@ -541,7 +546,8 @@ ready(() => {
 
             socket = io();
             socket.emit('ticket_update_history',  changed_details);
-        
+           
+            socket.destroy();
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
             document.querySelector('#edit-btn').style.color = null;
