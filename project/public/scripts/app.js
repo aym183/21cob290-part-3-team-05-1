@@ -506,9 +506,8 @@ ready(() => {
             updateTicketInfo(ticket_details);
 
             socket = io();
-            socket.emit('history_update',  changed_details);
-           
-            socket.destroy();
+            socket.emit('ticket_update_history',  changed_details);
+        
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');
             document.querySelector('#edit-btn').style.color = null;

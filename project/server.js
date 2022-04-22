@@ -588,6 +588,25 @@ io.on('connection', (socket) => {
 
 });
 
+io.on('connection', (socket) => {
+    socket.on('ticket_update_history', (msg) => {
+        console.log(msg.id);
+        console.log(msg);
+        console.log("I AM HERE")
+
+            for (let i = 0; i < msg.changed_names.length; i++) {
+                con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                            values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                
+                                if (err) throw err;
+                            });
+                        }
+                    
+    })
+
+});
+
+
 } else {
     res.redirect('/login.html');
 }
@@ -1198,7 +1217,7 @@ app.get('/index.html', (req, res) => {
             io.on('connection',  (socket) => {
                 console.log('connected')
         
-                socket.on("history_update", (msg) => {
+                socket.on("ticket_update_history", (msg) => {
                     console.log(msg);
 
                     con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
