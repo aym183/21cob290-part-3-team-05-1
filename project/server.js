@@ -35,6 +35,7 @@ var software_id;
 var ticket_status;
 var solution_id2;
 var ext_spec_id;
+var hardware_datalist;
 
 app.use (session ({
     secret: "secret",
@@ -1032,6 +1033,18 @@ app.get('/index.html', (req, res) => {
 
       
     });
+
+    con.query(`SELECT hardware_id from hardware;`, 
+    [session_id],function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        hardware_id = result;
+        console.log("HARDWARE");
+        console.log(hardware_id);
+
+      
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -1050,11 +1063,12 @@ app.get('/index.html', (req, res) => {
         res.render('index', {
             dropdownVals: query_output,
             newdropdownVals: query,
-            loggeduser: session_username
+            loggeduser: session_username,
+            hardwareids: hardware_id
         })
-       
     });
-// ``````condition that executed on calling of socket
+    
+    // condition that executed on calling of socket
     io.on('connection',  (socket) => {
         console.log('connected')
         socket.on("message", (msg) => {

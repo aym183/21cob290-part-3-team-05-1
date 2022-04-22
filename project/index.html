@@ -19,60 +19,6 @@
                     <div class="topNavbar__logo">
                         <a href="index.html" id="navbar__logo">TEAM-05</a>
                     </div>    
-                    <div class="topNavbar__search" id="search-div">
-                        <div class="search__container">
-                            <form>
-                                <button class = "searchButtons" id="filter-btn"><i class="fas fa-sliders-h"></i></button>
-                                <input class="searchInput" type="text" placeholder="Search Ticket">
-                                <button class="searchButtons" type="button" id="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        <!-- Search Filters -->
-                        <div class="dropdownFilters">
-                            <p class= "filter-tag">Status</p>
-        
-                            <select id ="filter-status" name="status" class="filter-status">
-                                <option value="all">All</option>
-                                <option value="closed">Closed</option>
-                                <option value="active">Active</option>
-                                <option value="submitted">Submitted</option>
-                                <option value="dropped">Dropped</option>
-                            </select>
-                            <p class= "filter-tag">Ticket ID</p>
-                            <input type="text" class="filter-search" id ="filter-id">
-                            <p class= "filter-tag">Problem Type</p>
-                            <input type="text" class="filter-search" id ="filter-type">
-                            <p class= "filter-tag">Caller Name</p>
-                            <input type="text" class="filter-search" id ="filter-cname">
-                            <p class= "filter-tag">Handler Name</p>
-                            <input type="text" class="filter-search" id ="filter-sname">
-                            <p class= "filter-tag filter-date1">Last Updated Range</p>
-                            <div class="input-date1">
-                                <input id = "date1" type="date" data-date-inline-picker="true" name="date-search1" class="filter-search input-date-created" placeholder="Created">
-                                <div class="date__dropdown dropdown1"></div>
-                            </div>
-                            <div class="input-date2">
-                                <input id = "date2" type="date" data-date-inline-picker="true" name="date-search2" class="filter-search input-date-closed" placeholder="Closed">
-                                <div class="date__dropdown dropdown2"></div>
-                            </div>
-                            <select id ="filter-custom" name="custom" class="filter-status">
-                                <option value="employee_id">Employee ID</option>
-                                <option value="operator_id">Operator ID</option>
-                                <option value="handler_id">Handler ID</option>
-                                <option value="operating_system">OS</option>
-                                <option value="number_of_drops">No. of Drops ></option>
-                                <option value="softw_name">Software</option>
-                                <option value="hardw_name">Hardware</option>
-                            </select>
-                            <input type="text" class="filter-search" id ="filter-custom-value">
-                            <div id="none-found" style="display:none;">
-                                No Results Found
-                            </div>
-                            <div class="dropdown-button-wrapper">
-                                <button class="dropdown-btn">Search</button>
-                            </div>
-                        </div>        
-                    </div>
                 </div>
 
                 <div class="profile__container">
@@ -268,15 +214,11 @@
                             <label for="call-time">Date Created</label>
                             <input id="call-time" name="call-time" class="no-edit-field" type="text" value="" readonly>
                             <label for="update-time">Last Updated</label>
-                            <input id="update-time" name="update-time" class="no-edit-field" type="text" value="" readonly>
+                            <input id="update-time" name="update-time" class="no-edit-field" type="text" value="" readonly>-->
                             <label for="hardware-id">Hardware ID</label>
-                            <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers" value="" readonly>
-                            <datalist id="hardware-numbers">
-                            <?php
-                            foreach ($autocompletion['hardware ids'] as $hardware_id) {
-                                echo "<option value=\"" . $hardware_id['serial_number'] . "\">";
-                            }
-                            ?> -->
+                            <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers2" value="" readonly>
+                            <datalist id="hardware-numbers2">
+                                <option>DARK GREEN</option>
                             </datalist>
                             <span class="validation_error" id="hardware-id-error"></span>
                             <label for="hardware-type">Equipment Name</label>
