@@ -1,5 +1,7 @@
 // const { response } = require("express");
 
+const { resolveInclude } = require("ejs");
+
 function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     
     const popup = document.createElement('div');
@@ -15,7 +17,8 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     if (btnName == "drop") {
         var reason = popup.appendChild(document.createElement('textarea'));
         reason.className = "reason-area";
-        reason.setAttribute("placeholder", "Type Reason...");
+        reason.setAttribute("margin", "5");
+        reason.setAttribute("placeholder", "Type Reaso...");
         reason.setAttribute("type", "text");
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
