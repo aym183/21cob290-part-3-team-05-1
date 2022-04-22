@@ -20,26 +20,6 @@
                     <div class="topNavbar__logo">
                         <a href="intSpecialist.php" id="navbar__logo">Deskspace</a>
                     </div>
-                    <div class="topNavbar__search" id="search-div">
-                        <div class="search__container">
-                            <form>
-                                <button class="searchButtons" id="filter-btn"><i class="fas fa-sliders-h"></i></button>
-                                <input class="searchInput" type="text" placeholder="Search Chart">
-                                <button class="searchButtons" type="button" id="search-btn"><i class="fa fa-search"
-                                        aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        <!--
-
-                        <div class="profile__container">
-                            <a href="" class="profile__item" id="profile-username">
-        
-                                <p id="username">Analyst</p>
-                                
-                                
-                            </a>
-                        </div> -->
-                    </div>
                 </div>
             </div>
         </div>
@@ -99,9 +79,9 @@
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: ["Burn Duck", "", "Billy Marsden", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
+                                    labels: ["Burn Duck", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
                                     datasets: [{
-                                        label: 'Number of ticket requests',
+                                        
                                         data: datachart1,
 
                                         backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56', "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
@@ -130,7 +110,7 @@
                                             }
                                         },
                                         y: {
-                                            title: { text: "Number of Employees", display: true },
+                                            title: { text: "Number of Tickets", display: true },
                                             grid: {
                                                 display: false,
                                             }
@@ -165,9 +145,9 @@
                             const myChart2 = new Chart(ctxx, {
                                 type: 'bar',
                                 data: {
-                                    labels: ["Burn Duck", "", "Billy Marsden", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
+                                    labels: ["Burn Duck", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
                                     datasets: [{
-                                        label: 'Number of active tickets',
+                                       
                                         data: datachart2,
 
                                         backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
@@ -196,7 +176,7 @@
                                             }
                                         },
                                         y: {
-                                            title: { text: "Number of Employees", display: true },
+                                            title: { text: "Number of Tickets", display: true },
                                             grid: {
                                                 display: false,
                                             }
@@ -231,9 +211,9 @@
                             const myChart13 = new Chart(ctxxxx, {
                                 type: 'bar',
                                 data: {
-                                    labels: ["Abby Haskell", "", "Abby Haskell", "", "Billy Marsden", "", "	Darcie Bueller", "", "Holly Livingstone", "", "Joshua Sells","","Rob Davidson","","Will Taha",],
+                                    labels: ["Abby Haskell", "", "Abby Haskell", "", "	Darcie Bueller", "", "Holly Livingstone", "", "Joshua Sells", "", "Rob Davidson", "", "Will Taha",],
                                     datasets: [{
-                                        label: 'Number of active tickets',
+                                       
                                         data: datachart1,
 
                                         backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
@@ -302,9 +282,9 @@
                             const myChart3 = new Chart(ctxxx, {
                                 type: 'bar',
                                 data: {
-                                    labels: ["Burn Duck", "", "Billy Marsden", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
+                                    labels: ["Burn Duck", "", "Cathrin Knowller", "", "Edwin Smith", "", "Marie Kelle", "", "Ryan Jenson"],
                                     datasets: [{
-                                        label: 'Number of active tickets',
+                                      
                                         data: datachart3,
 
                                         backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
@@ -333,7 +313,7 @@
                                             }
                                         },
                                         y: {
-                                            title: { text: "Number of Employees", display: true },
+                                            title: { text: "Number of Tickets", display: true },
                                             grid: {
                                                 display: false,
                                             }
@@ -371,59 +351,53 @@
                             new Chart(document.getElementById("pie-chart"), {
                                 type: 'pie',
                                 data: {
-                                    labels: ["Apple", "", "Excel", "", "Hardware", "", "Office", "", "Printers", "", "Zoom"], //need to get query to get lables so order can be changed (swap submitted and closed)
+                                    labels: ["Apple", "", "Browser", "", "Excel", "", "Hardware", "", "Monitor", "", "Office", "", "PC", "", "Printer", "", "Printer Ink Empty", "", "Scanner", "", "Software", "", "Word", "", "Zoom"], //need to get query to get lables so order can be changed (swap submitted and closed)
                                     datasets: [{
-                                        label: "Number of Tickets",
-                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
+                                      
+                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56', "#FFFFFF","#EB2900", "#FFFFFF","#FF8C00", "#FFFFFF","#FAFF79", "#FFFFFF","#7EFF00", "#FFFFFF","#FF3BDC"],
                                         data: datachart4
                                     }]
                                 },
                                 options: {
-                                    responsive: false,
+
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    }
 
 
                                 }
                             });</script>
                         <p class="chartp"></p>
                     </div>
-                    
+
                     <div class="card">
-                        <h2 style="text-align: center; padding-top: 25px;padding-bottom: 25px;">Internal Vs External tickets</h2>
+                        <h2 style="text-align: center; padding-top: 25px;padding-bottom: 25px;">Internal Vs External
+                            tickets</h2>
 
 
-                        <h1 style="font-size: 0px; opacity: 0;">
-                            
+                            <table class="ticket__table op-ticket-table" id="table-info" style=" margin: auto;width: 50%;">
+                                <thead id="headers">
+                                    <tr>
+                                        <th>Internal</th> 
+                                        <th>External</th> 
+                                    </tr>
+                                </thead>
+                
+                                <tbody class="ticket-body employee-ticket-body">
+                                   
+                                        <tr>
+                                            <td>2</td>
+                                            <td>1</td>
+                                                        
+                                     
+                                        </tr>
+                
+                                </tbody>
+                            </table>
 
-                                <%=dat17.push(dat16[0].internal)%>
-                                    <%=dat17.push(dat16[0].external)%>
-
-
-                                       
-
-
-
-                        </h1>
-
-
-                        <canvas id="pie-chart2" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        <script>
-                            var datachart4 = `<%=dat17%>`
-                            new Chart(document.getElementById("pie-chart2"), {
-                                type: 'pie',
-                                data: {
-                                    labels: ["External", "", "Internal", ], //need to get query to get lables so order can be changed (swap submitted and closed)
-                                    datasets: [{
-                                        label: "Number of Tickets",
-                                        backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
-                                        data: datachart4
-                                    }]
-                                },
-                                options: {
-                                    responsive: false,
-
-
-                                }
-                            });</script>
+                        
                         <p class="chartp"></p>
                     </div>
 
