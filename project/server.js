@@ -546,6 +546,14 @@ app.get('/intspecialist.html', (req, res) => {
             // console.log(msg.current_date);
             // console.log(msg.id);
             // console.log(session_id);
+
+            con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields){
+                if (err) throw err;
+                no_of_drops = result[0].number_of_drops;
+                new_no_drops = parseInt(no_of_drops)+1;
+                console.log(new_no_drops);
+                console.log(result);
+
             con.query(`UPDATE ticket
             SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, msg.id], function (err, result, fields){
                 if (err) throw err;
@@ -556,6 +564,7 @@ app.get('/intspecialist.html', (req, res) => {
 
             });
             });
+        });
         })
 
 })
