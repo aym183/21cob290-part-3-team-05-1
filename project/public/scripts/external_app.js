@@ -405,7 +405,7 @@ ready(() => {
             };
             updateTicketInfo(ticket_details);
             const socket = io();
-            socket.emit("extupdate_history", changed_details);
+            socket.emit("ticket_update_history", changed_details);
 
             
            

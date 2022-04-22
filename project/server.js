@@ -573,6 +573,7 @@ io.on('connection', (socket) => {
     console.log('connected')
     
 
+    // FOR DROPPED
     socket.on('update_history', (msg) => {
             console.log("COME HERE");
    
@@ -727,19 +728,40 @@ app.get('/external.html', (req, res) => {
         io.on('connection', (socket) => {
             console.log('connected with HISTORY')
             
-            
-            socket.on('extupdate_history', (msg) => {
+            // FOR DROPPED
+            socket.on('update_history', (msg) => {
                 console.log(msg.id);
                 console.log(msg);
                 console.log("I AM HERE")
 
-                for (let i = 0; i < msg.changed_names.length; i++) {
+        
                     con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
                                 values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
                     
                                     if (err) throw err;
                                 });
-                }
+        
+            })
+
+        });
+
+        io.on('connection', (socket) => {
+            console.log('connected with HISTORY')
+            
+            // FOR TICKET
+            socket.on('ticket_update_history', (msg) => {
+                console.log(msg.id);
+                console.log(msg);
+                console.log("I AM HERE")
+
+                    for (let i = 0; i < msg.changed_names.length; i++) {
+                        con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                                    values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                        
+                                        if (err) throw err;
+                                    });
+                                }
+                            
             })
 
         });
