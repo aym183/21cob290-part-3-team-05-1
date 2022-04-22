@@ -228,7 +228,9 @@
                             <label for="software">Software</label>
                             <input type="text" id="software" class="edit-field" value="" list="software-list" readonly>
                             <datalist id="software-list">
-                          
+                                <% for(var i=0; i < software_vals.length; i++) { %>
+                                    <option><%=software_vals[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="software-error"></span>
                             <label for="description">Problem Description</label>
@@ -240,7 +242,9 @@
                             <label for="problem-type">Problem Type</label>
                             <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
                             <datalist id="problem-types">
-                    
+                                <% for(var i=0; i < probtype_vals.length; i++) { %>
+                                    <option><%=probtype_vals[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>

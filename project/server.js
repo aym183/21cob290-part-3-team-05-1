@@ -37,6 +37,8 @@ var solution_id2;
 var ext_spec_id;
 var hardware_datalist;
 var operating_system;
+var software_datalist;
+var prob_type_vals;
 
 app.use (session ({
     secret: "secret",
@@ -1057,6 +1059,26 @@ app.get('/index.html', (req, res) => {
 
       
     });
+
+    con.query(`SELECT name from software;`, 
+    [session_id],function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        software_datalist = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from problem_type;`, 
+    [session_id],function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        prob_type_vals = result;
+        
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -1077,7 +1099,10 @@ app.get('/index.html', (req, res) => {
             newdropdownVals: query,
             loggeduser: session_username,
             hardwareids: hardware_id,
-            operating_sys: operating_system
+            operating_sys: operating_system,
+            software_vals: software_datalist,
+            probtype_vals: prob_type_vals
+        
         })
     });
     
