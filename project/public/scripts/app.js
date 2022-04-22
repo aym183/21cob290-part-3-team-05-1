@@ -104,10 +104,16 @@ function showTicketInfo(data) {
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
                     
+                    document.querySelector(".solutionArea__section").style.display = "block";
+                    document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                    document.querySelector("#submit-btn").style.cursor = "default";
+                    document.querySelector("#submit-btn").style.opacity = "0.3";
                     document.querySelector('.solution-status').innerText = "Solution Submitted";
                     document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+                    // document.querySelector('.solution-status').innerText = "Solution Submitted";
+                    // document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
         
-                    document.querySelector(".discard-solution").style.display = "block";
+                    // document.querySelector(".discard-solution").style.display = "block";
         
                 }
                 else if (status=="unsuccessful") {
@@ -366,6 +372,30 @@ ready(() => {
         //     }
         // }
     });
+
+    document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
+        // Solution edit button styling on click
+        if (document.querySelector("#spec-editSolution-btn").innerHTML == "edit") {
+            
+            document.querySelector("#solution-area").style.backgroundColor = "white";
+            document.querySelector(".solutionArea__section").style.backgroundColor = "white";
+            document.querySelector("#solution-area").style.pointerEvents = "all";
+            document.querySelector("#spec-editSolution-btn").innerHTML = "Update";
+
+        }
+        // Solution update button styling on click
+        else if (document.querySelector("#spec-editSolution-btn").innerHTML == "Update") {
+
+            document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
+            document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
+            document.querySelector("#solution-area").style.pointerEvents = "none";
+            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";
+            // document.querySelector("#submit-btn").setAttribute('enabled','enabled');
+            // document.querySelector("#submit-btn").style.cursor = "default";
+            // document.querySelector("#submit-btn").style.opacity = "1";
+            
+        }   
+    }); 
   
 });
 
