@@ -238,8 +238,12 @@ ready(() => {
                 document.querySelector(".closeButton").style.opacity = "0.3";
             }
             
-            document.querySelector('.solution-status').innerText = "Solution Submitted";
-            document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+                document.querySelector(".solutionArea__section").style.display = "block";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").style.opacity = "0.3";
+                document.querySelector('.solution-status').innerText = "Solution Submitted";
+                document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
 
             if (document.querySelector(".discard-solution") !== null) {
                 document.querySelector(".discard-solution").style.display = "block";
@@ -944,5 +948,21 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 
 
 
+});
+
+ready(() => {
+
+    document.querySelector("#solution-area").addEventListener('keyup', (e) => {
+        if (document.querySelector('#solution-area').value == "") {
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            document.querySelector("#submit-btn").style.opacity = "0.3";  
+        }
+        else {
+            document.getElementById("submit-btn").removeAttribute('disabled');
+            document.querySelector("#submit-btn").style.cursor = "pointer";
+            document.querySelector("#submit-btn").style.opacity = "1"; 
+        }   
+    });
 });
 

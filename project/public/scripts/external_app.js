@@ -103,13 +103,13 @@ function showTicketInfo(data) {
                          c[i].style.display = 'none';
                     }
                     document.querySelector(".closeForm__section").style.display = "block";
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector('.checkmark').classList.remove('checked');
-                        document.querySelector('.checkmark').classList.add('unchecked');
+                    // if (document.querySelector(".checkmark") !== null) {
+                    //     document.querySelector('.checkmark').classList.remove('checked');
+                    //     document.querySelector('.checkmark').classList.add('unchecked');
                         document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                         document.querySelector("#submit-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
-                    }
+                    // }
                     
                     document.querySelector('.solution-status').innerText = "Solution Submitted";
                     document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
