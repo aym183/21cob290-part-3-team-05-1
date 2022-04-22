@@ -575,12 +575,14 @@ io.on('connection', (socket) => {
 
     socket.on('update_history', (msg) => {
 
-        con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
-                    values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[0], msg.changed_values[0], msg.current_dateTime], function (err, result, fields){
-        
-                        if (err) throw err;
-                    });
+        for (let i = 0; i < msg.changed_names.length; i++) {
+            con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                        values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+            
+                            if (err) throw err;
+                        });
 
+        }
     })
 
 });
@@ -723,17 +725,21 @@ app.get('/external.html', (req, res) => {
         })
 
         io.on('connection', (socket) => {
-            console.log('connected')
+            console.log('connected with HISTORY')
             
-    
-            socket.on('update_history', (msg) => {
+            
+            socket.on('extupdate_history', (msg) => {
+                console.log(msg.id);
+                console.log(msg);
+                console.log("I AM HERE")
 
-                con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
-                            values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[0], msg.changed_values[0], msg.current_dateTime], function (err, result, fields){
-                
-                                if (err) throw err;
-                            });
-
+                for (let i = 0; i < msg.changed_names.length; i++) {
+                    con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                                values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                    
+                                    if (err) throw err;
+                                });
+                }
             })
 
         });

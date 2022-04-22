@@ -24,6 +24,10 @@ function sendTicket(data) {
     xhttp.send(data);
 }
 
+function updateHistory(data){
+    const socket = io();
+    socket.emit("update_history", data);
+}
 
 
 
@@ -53,6 +57,8 @@ function showTicketInfo(data) {
     
 
         console.log(data);
+        old_description = data.problem_description;
+        old_notes = data.notes;
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
@@ -355,7 +361,28 @@ ready(() => {
         const problem_description = document.getElementById("description").value;
         const notes = document.getElementById("notes").value;
 
-       
+        
+        const changed_values = [];
+        const changed_names = [];
+
+        
+        if(old_description != problem_description){
+            changed_values.push(problem_description);
+            changed_names.push('description');
+            old_description = problem_description;
+        }
+        if(old_notes != notes){
+            changed_values.push(notes);
+            changed_names.push('notes');
+            old_notes = notes;
+        }
+        
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes();
+        var dateTime = date+' '+time;
+        
+
 
             var today = new Date();
 
@@ -369,7 +396,18 @@ ready(() => {
                 id: document.getElementById('detail-id').innerHTML
             };
 
+            const changed_details = {
+                id: document.getElementById('detail-id').innerHTML,
+                changed_values: changed_values,
+                changed_names: changed_names,
+                current_dateTime: dateTime,
+                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
+            };
             updateTicketInfo(ticket_details);
+            const socket = io();
+            socket.emit("extupdate_history", changed_details);
+
+            
            
             
             document.querySelector('#edit-btn').classList.remove('pushed-btn');

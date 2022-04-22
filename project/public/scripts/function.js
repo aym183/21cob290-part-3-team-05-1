@@ -137,10 +137,15 @@ function dropStatus(data){
     console.log(data);
 }
 
-function updateHistory(data){
+function updateHistory(data, type){
     const socket = io();
     socket.emit("update_history", data);
     
+}
+
+function ext_Update_History(data){
+    const socket = io();
+    socket.emit("ext_history", data);
 }
 
 function submitTicket(data){
