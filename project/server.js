@@ -546,8 +546,8 @@ app.get('/intspecialist.html', (req, res) => {
             // console.log(msg.current_date);
             // console.log(msg.id);
             // console.log(session_id);
-            console.log(msg.changed_names);
-            console.log(msg.changed_values);
+            console.log(msg.changed_names[0]);
+            console.log(msg.changed_values[0]);
             con.query(`UPDATE ticket
             SET status = 'dropped' WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
                 if (err) throw err;
