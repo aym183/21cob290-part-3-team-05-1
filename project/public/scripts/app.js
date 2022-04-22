@@ -169,6 +169,11 @@ function showTicketInfo(data) {
    
 }
 
+function Disablebtn(data) {
+    const socket = io()
+    
+}
+
 /**
  * Updates ticket information in database
  * @param {object} data containing ticket information to be updated
