@@ -574,15 +574,15 @@ io.on('connection', (socket) => {
     
 
     socket.on('update_history', (msg) => {
-
-        for (let i = 0; i < msg.changed_names.length; i++) {
+            console.log("COME HERE");
+   
             con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
-                        values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                        values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[0], msg.changed_values[0], msg.current_dateTime], function (err, result, fields){
             
                             if (err) throw err;
                         });
 
-        }
+        
     })
 
 });
