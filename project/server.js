@@ -547,8 +547,9 @@ app.get('/intspecialist.html', (req, res) => {
             // console.log(msg.id);
             // console.log(session_id);
             con.query(`UPDATE ticket
-            SET status = 'dropped' WHERE ticket_id = ?`,[msg.id], function (err, result, fields){
+            SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, msg.id], function (err, result, fields){
                 if (err) throw err;
+
 
             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
             values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, msg.id, session_id], function (err, result, fields){
