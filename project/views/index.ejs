@@ -248,7 +248,12 @@
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>
-                            <input type="text" id="handler-name" class="edit-field" value="" readonly>
+                            <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" readonly>
+                            <datalist id="handler-names">
+                                <% for(var i=0; i < handler_vals.length; i++) { %>
+                                    <option><%=handler_vals[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
                             <span class="validation_error" id="handler-name-error"></span>
                             <label for="solution" class="closed__field">Solution</label>
                             <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>

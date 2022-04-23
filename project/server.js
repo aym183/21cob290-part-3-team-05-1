@@ -39,6 +39,7 @@ var hardware_datalist;
 var operating_system;
 var software_datalist;
 var prob_type_vals;
+var handlers;
 
 app.use (session ({
     secret: "secret",
@@ -1037,8 +1038,7 @@ app.get('/index.html', (req, res) => {
       
     });
 
-    con.query(`SELECT hardware_id from hardware;`, 
-    [session_id],function (err, result, fields) {
+    con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
@@ -1049,8 +1049,7 @@ app.get('/index.html', (req, res) => {
       
     });
 
-    con.query(`SELECT name from operating_system;`, 
-    [session_id],function (err, result, fields) {
+    con.query(`SELECT name from operating_system;`, function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
@@ -1060,8 +1059,7 @@ app.get('/index.html', (req, res) => {
       
     });
 
-    con.query(`SELECT name from software;`, 
-    [session_id],function (err, result, fields) {
+    con.query(`SELECT name from software;`, function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
@@ -1071,12 +1069,22 @@ app.get('/index.html', (req, res) => {
       
     });
 
-    con.query(`SELECT name from problem_type;`, 
-    [session_id],function (err, result, fields) {
+    con.query(`SELECT name from problem_type;`, function (err, result, fields) {
         if (err) throw err;
         // console.log(result);
 
         prob_type_vals = result;
+        
+    });
+
+
+    con.query(`SELECT employee.name from employee INNER JOIN handler ON employee_id = user_id
+    UNION 
+    SELECT external_specialist.name from external_specialist INNER JOIN handler on external_specialist_id = user_id;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        handlers = result;
         
     });
    
@@ -1101,8 +1109,8 @@ app.get('/index.html', (req, res) => {
             hardwareids: hardware_id,
             operating_sys: operating_system,
             software_vals: software_datalist,
-            probtype_vals: prob_type_vals
-        
+            probtype_vals: prob_type_vals,
+            handler_vals: handlers        
         })
     });
     
