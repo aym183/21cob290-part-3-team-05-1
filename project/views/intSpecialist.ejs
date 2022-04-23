@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>Specialist Home Page</title>
+</head>
+<body>
+
+    <div class="topSection">
+        
+        <!-- TOP NAVBAR SECTION -->
+        <div class="topNavbar">
+            <div class="topNavbar__container">
+                <div class="topNavbar__item">
+                    <div class="topNavbar__logo">
+                        <a href="intSpecialist.html" id="navbar__logo">TEAM-05</a>
+                    </div>    
+                </div>
+
+                <div class="profile__container">
+                    <a href="/account.html" class="profile__item" id="profile-username">
+
+                        <p id="username"><%=loggeduser%></p>
+                            
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="main__section">
+
+        <!-- SIDE NAVBAR SECTION -->
+        <div class="navbar">
+            <div class="navbar__container">
+                <ul class="navbar__menu">
+                    <a href="intSpecialist.html" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-home"></i></p>
+                            <p class="navbar__links">Home</p>
+                        </li>
+                    </a>                    
+                    <a href="/account.html" class="navbar__item-div">
+                        <li class="navbar__item">
+                            <p><i class="fas fa-user"></i></p>
+                            <p class="navbar__links">Account</p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TICKET TABLE SECTION -->
+        <div class="mainSection__container" id="ticketList-container">
+            
+            <div class="table-detail__section">
+                <div class="table-title__container">
+                    <h5 class="table-title">Tickets</h5> 
+                    <span class="total-tickets">
+
+                    </span>   
+                </div>
+            </div>
+            <table class="ticket__table op-ticket-table" id="table-info">
+                <thead id="headers">
+                    <tr>
+                        <th>Status</th> 
+                        <th>ID</th> 
+                        <th>Problem Type</th>     
+                        <th>Last Updated</th> 
+                        <th>Name</th>
+                    </tr>
+                </thead>
+
+                <tbody class="ticket-body employee-ticket-body">
+                    <% for(var i=0; i < dropdownVals.length; i++) { %>
+                        <tr>
+                            <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
+                            <td><%=dropdownVals[i].ticket_id%></td>
+                            <td><%=newdropdownVals[i].name%></td>
+                            <td id = 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
+                            <td><%=dropdownVals[i].name%></td>
+                                        
+                     <% } %>
+                        </tr>
+
+                </tbody>
+            </table>
+    
+        </div>
+
+        <div class="mainSection__container" id="ticket-info">
+            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
+            <div class="header__container" id="info-headers">
+                <div class="header__wrapper">
+                    <div class="header-wrapper">
+                        <div class="info-item">
+                            <a href="intSpecialist.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                        </div>   
+                    </div>
+                    <div class="information__title">
+                        <h2>Ticket Information</h2>
+                    </div> 
+
+                </div>
+            </div>    
+            <div class="mainSection__wrapper">
+                    <div class="ticketInformation__container">
+                        <div class="details__container">
+                        <table class="details__table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+                            <tbody class = "detail-headers">
+                                <tr>
+                                    <th id="detail-status"><span class="t-status"></span></th>
+                                    <th id="detail-id"></th>
+                                </tr>
+                            </tbody>
+                        </table> 
+                        </div>
+                        <div class="ticket__information">       
+                            <button type="button" class="drop-btn" id="drop-btn">Drop Ticket</button>                     
+                            <button class="info-edit-btn" id="edit-btn">Edit</button>
+
+                            <label for="Priority">Priority</label>
+                            <input type="text" id="priority" class="edit-field" value="" readonly>
+                            <span class="validation_error" id="hardware-id-error"></span>
+                            <label for="hardware-type">Hardware ID</label>
+                            <input type="text" id="hardware-id" class="edit-field" value="" readonly>
+                            <datalist id="hardware-numbers2">
+
+                                <% for(var i=0; i < hardwareids.length; i++) { %>
+                                    <option><%=hardwareids[i].hardware_id%></option>
+                                
+                                            
+                                <% } %>
+                            </datalist>
+                            <label for="hardware-type">Hardware Manufacturer</label>
+                            <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
+                            <label for="hardware-model">Hardware Model</label>
+                            <input type="text" id="hardware-model" class="no-edit-field" value="" readonly>
+                            <label for="hardware-make">Hardware Make</label>
+                            <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
+                            <label for="operating-system">Operating System</label>
+                            <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>
+                            <datalist id="new_operating-systems">
+
+                                <% for(var i=0; i < operating_sys.length; i++) { %>
+                                    <option><%=operating_sys[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
+                            <span class="validation_error" id="operating-system-error"></span>
+                            <label for="software">Software</label>
+                            <input type="text" id="software" class="edit-field" value="" list="software-list" readonly>
+                            <datalist id="software-list">
+                                <% for(var i=0; i < software_vals.length; i++) { %>
+                                    <option><%=software_vals[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
+                            <span class="validation_error" id="software-error"></span>
+                            <label for="description">Problem Description</label>
+                            <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5"></textarea> 
+                            <div id = 'remaining_chars' >300 characters remaining</div>
+                            <label for="notes">Notes</label>
+                            <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5"></textarea>
+                            <div id = 'notes_remaining_chars' >1000 characters remaining</div>
+                            <label for="problem-type">Problem Type</label>
+                            <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
+                            <datalist id="problem-types">
+                                <% for(var i=0; i < probtype_vals.length; i++) { %>
+                                    <option><%=probtype_vals[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
+                            <span class="validation_error" id="problem-type-error"></span>
+                            <label for="handler-name">Handler Name</label>
+                            <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
+                            <datalist id="handler-names">
+                                <% for(var i=0; i < handler_vals.length; i++) { %>
+                                    <option><%=handler_vals[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
+                            <span class="validation_error" id="handler-name-error"></span>
+                            <label for="solution" class="closed__field">Solution</label>
+                            <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>
+                            <label for="close-time" class="closed__field">Time closed</label>
+                            <input id="close-time" name="close-time" class="closed__field no-edit-field" type="text" value="">
+                            
+                        </div>
+                        
+                        <div class="update__section">
+                            <hr>
+                            <div class="section-container update__container">
+                                <button type="button" class="form-btn" id="update-btn">Update</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+            </div>    
+        
+            <div class="closeForm__section">
+                <div class="closeForm__wrapper tile">
+                    <p>Submit Form</p>
+                    <div class="solution__wrapper">
+                        <div class="topSolution__section">    
+                            <div class="solution__label">
+                                <p class="solution-status"></p>
+                            </div>
+
+                            <div class="solution_button_wrapper">
+                                <div class="solution__buttons">
+                                    <button type="button" class="form-btn" id="spec-editSolution-btn">edit</button>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="solutionArea__section">
+                            <div class="solutionInput__wrapper">
+                                <textarea name="solution" id="solution-area" maxlength = "500" cols="60" rows="10" placeholder="Type solution..."></textarea>
+                                <!-- Previous Fixes -->
+                                <div class="previous-fix__container">
+                                </div>       
+                            </div>
+
+                            <div class="dropSolution__section">
+                                <div id = 'solution_remaining_chars' >500 characters remaining</div>
+                            </div>
+                        </div>
+                        <div class="close__border">
+                            <hr>
+                            <div class="section-container update__container solutionButton">
+                                <button type="button" class="form-btn" id="submit-btn">Submit Ticket</button>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p class="center">&#169; 2022 AHS</p>
+        </footer>
+    </div>
+    <script src="scripts/app.js">
+        $(document).ready(function () {
+            $(document.body).on("click", "#navbar__logo", function(e) {
+                e.preventDefault();
+                $("#ticketList-container").css("display", "flex")
+        
+                $("#ticket-info").css("display", "none")
+                $("#info-headers").css("display", "none")
+            });
+        });
+    </script>
+    <script src="/scripts/function.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+</body>
+</html>

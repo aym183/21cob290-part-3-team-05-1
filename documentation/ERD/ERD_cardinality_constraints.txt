@@ -1,0 +1,35 @@
+Analyst
+One-to-one relationship between Analyst.employee_id and Employee.employee_id
+One-to-one relationship between Analyst.user_id and Users.user_id
+
+Dropped
+Many to one relationship between Dropped.handler_id and Handler.user_id
+Many to one relationship between Dropped.ticket_id and Ticket.ticket_id
+
+External Specialist
+One-to-one relationship between External_specialist.external_specialist_id and Handler.user_id
+
+Handler
+One-to-one relationship between Handler.user_id and Users.user_id
+
+Internal Specialist
+One-to-one relationship between Internal_specialist.handler_id and Handler.user_id
+One-to-one relationship between Internal_specialist.employee_id and Employee.employee_id
+
+Skillset
+One-to-one relationship between Skillset.handler_id and Handler.user_id
+One-to-many relationship between Skillset.problem_type_id and Problem_type.problem_type_id
+
+Ticket
+Many to one relationship between Ticket.operating_system and Operating_system.name
+Many to one relationship between Ticket.employee_id and Employee.employee_id
+Many to one relationship between Ticket.hardware_id and Hardware.hardware_id
+Many to one relationship between Ticket.software_id and Software.software_id
+Many to one relationship between Ticket.problem_type_id and Problem_type.problem_type_id
+Many to one relationship between Ticket.handler_id and Handler.user_id
+Many to one relationship between Ticket.solved_by and Handler.user_id
+
+Ticket Solution
+One to many relationship between Ticket_solution.solution_id and Solution.solution_id
+One to one relationship between Ticket_solution.ticket_id and Ticket.ticket_id
+Many to one relationship between Ticket_solution.handler_id and Handler.user_id

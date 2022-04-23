@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+    <link rel="stylesheet" type = 'text/css' href="/styles/login.css" /> 
+    <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" /> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Log In to Deskspace</title>
+</head>
+
+<body>
+
+    <div class="topSection">
+        
+        <!-- TOP NAVBAR SECTION -->
+        <div class="topNavbar">
+            <div class="topNavbar__container">
+                <div class="topNavbar__item">
+                    <div class="topNavbar__logo">
+                        <p id="navbar__logo" style="position: fixed; left: 48.25%; margin-left: -100px;">Deskspace</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__section">
+    <div id="border-container" class="form__border rounded">
+        <span class="border border-dark rounded-sm form__border">
+        <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
+        <div> 
+            <div class="form-login">
+                <form method="post" action="/auth" class="form__content">
+                    <h3 style="text-align: center">Welcome</h3>
+                    <div class="form-group">
+                        <div class="form-outline">
+                            <label for="uname">Username</label>
+                            <div class="input-icons">
+                                <i class="fa fa-user icon"></i>
+                                <input type="text" class="form-control input-field" name="username" id="username" placeholder="Enter Username Here" required>
+                            </div>
+                        </div>
+                        <div class="form-outline mt-3">
+                            <label for="pword">Password</label>
+                            <div class="input-icons">
+                                <i class="fa fa-key icon"></i>
+                                <input type="password" class="form-control input-field" name="password" id="password" placeholder="Enter Password Here" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="button_div" style="display: flex;
+                    justify-content: center;
+                    align-items: center;">
+                    <button type="submit" id="submitBtn" class="btn btn-info center mt-3 btn-block btn-rounded">LOGIN</button>
+                    </div>
+                </form>   
+            </div>
+        </div>   
+    </span>
+    </div>
+    </div>
+    <% if (locals.err) { %>
+        <p class="error" style="padding: 4px;">Incorrect username/password. Please try again.</p>
+    <% } %> 
+        <footer>
+            <p class="center" style="position: absolute; top: 92.5%; width: 100%;">&#169; 2022 Team 5</p>
+        </footer>
+
+    </div>
+</body>
+<!--
+<body>
+    <div class="card vertical-center">
+        <div class="card" >
+            <div class="card-body">
+                <h1 class="card-title text-center">Deskspace</h1>
+                <p class="card-subtitle text-center">Login</p>
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" action="login" class="card mt-3">
+                <div class="card-body">
+                    <div class="mb-3 mt-2">
+                        <label for="uname">Username: </label>
+                        <input type="text" class="form-control" name="uname" id="username" placeholder="Enter Username Here">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pword">Password: </label>
+                        <input type="password" class="form-control" name="pword" id="password" placeholder="Enter Password Here">
+                    </div>
+                    <div class="alert d-none" id="loginAlertBox">
+                        This is just a placeholder, show and hide this as needed
+                    </div>
+                </div>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+            </form>
+            
+        </div>
+
+    </div>
+    </div>
+    <script>
+    </script>
+</body> 
+
+</body>
+-->
+</html>

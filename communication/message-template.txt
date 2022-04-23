@@ -4,4 +4,8 @@ Dear <recipents>,
 
 Kind Regards,
 <your full name>
+<<<<<<< HEAD
 Team 05
+=======
+Team 05
+>>>>>>> development

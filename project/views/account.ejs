@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+    <link rel="stylesheet" type ='text/css' href="/styles/styles.css" /> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <title>Your Account</title>
+</head>
+
+
+
+<body>
+
+    <div class="topSection">
+        
+        <!-- TOP NAVBAR SECTION -->
+        <div class="topNavbar">
+            <div class="topNavbar__container">
+                <div class="topNavbar__item">
+                    <div class="topNavbar__logo">
+                        <p id="navbar__logo">Deskspace</a>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main__section">
+        <%= console.log(u_job) %>
+
+        <!-- SIDE NAVBAR SECTION -->
+        <div id="account-navbar">
+                <div id="navbar__container">
+                <ul id="navbar__menu">
+                    <% if (u_job == "Analyst") { %>
+                        <a href="analyst.html" id="navbar__item-div">
+                    <%} else if (u_job == "External Specialist") { %>
+                        <a href="external.html" id="navbar__item-div">
+                    <%} else if (u_job == "Specialist") { %>
+                        <a href="intspecialist.html" id="navbar__item-div">
+                    <%} else { %>        
+                        <a href="index.html" id="navbar__item-div">
+                    <% } %>
+                        <li id="navbar__item">
+                            <p><i class="fas fa-home"></i></p>
+                            <p id="navbar__links">Home</p>
+                        </li>
+                    </a>
+                    <% if (u_job == "Analyst") { %>
+                        <a href="indepth.html" id="navbar__item-div">
+                            <li id="navbar__item">
+                                <p><i class="fas fa-user"></i></p>
+                                <p id="navbar__links">In-Depth</p>
+                            </li>
+                        </a>
+                    <% } %> 
+                    <% if (u_job !== "Analyst" && u_job !== "Specialist" && u_job !== "External Specialist") { %>
+                        <a href="faq.html" id="navbar__item-div">
+                            <li id="navbar__item">
+                                <p><i class="fas fa-user"></i></p>
+                                <p id="navbar__links">Problem Resolutions</p>
+                            </li>
+                        </a>
+                    <% } %>     
+                    <a href="account.html" id="navbar__item-div">
+                        <li id="navbar__item">
+                            <p><i class="fas fa-user"></i></p>
+                            <p id="navbar__links">Account</p>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+            <div class="my-4">
+                <form>
+                    <div class="row mt-5 align-items-center center">
+                        <div class="col">
+                            <div class="row align-items-center">
+                                    <h2 class="mb-1" style="position: absolute; width: 100%;"><%=u_name%></h4><br><br>
+                            </div>
+                                <div class="col mt-2">
+                                    <p class="small mb-0 text-muted"><%=u_job%></p>
+                                    <p class="small mb-0 text-muted"><%=u_dept%></p>
+                                    <p class="small mb-0 text-muted"><%=u_phone%></p>
+                                </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+            </div>
+            <div id="options" class="center">
+                <h5>Options</h5>
+                <div id="buttons">
+                <a class="btn btn-outline-info mt-2" id="logout">Log Out</a><br>
+                <b id="confirm-logout" style="visibility: hidden;">Are you sure you want to logout?</b>
+                <a href="/logout" class="btn btn-outline-info ml-2" id="logout-button" style="visibility: hidden;">Yes</a>
+                <a class="btn btn-outline-info ml-2" id="reject" style="visibility: hidden;">No</a><br>
+                <a href="changepass.html"class="btn btn-outline-info mt-2">Change Password</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer style="position: absolute; bottom: 0; width: 100%;">
+        <p class="center" style="position: absolute; top: 35%; width: 100%;">&#169; 2022 Team 5</p>
+    </footer>
+
+<script src="/scripts/app.js"></script>
+<script src="/scripts/function.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$("#logout").click(function() {
+    document.getElementById("confirm-logout").style.visibility = "visible";
+    document.getElementById("logout-button").style.visibility = "visible";
+    document.getElementById("reject").style.visibility = "visible";
+
+})
+
+$("#reject").click(function() {
+    document.getElementById("confirm-logout").style.visibility = "hidden";
+    document.getElementById("logout-button").style.visibility = "hidden";
+    document.getElementById("reject").style.visibility = "hidden";
+})
+</script>
+
+</body>
+
