@@ -11,6 +11,13 @@ var ready = (callback) => {
 
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
+var hardware_list = [];
+var os_list = [];
+var software_list = [];
+var probtype_list = [];
+var handler_list = [];
+
+var span_list = [hardware_list, os_list, software_list, probtype_list, handler_list];
 
 ready(() => { 
     // loadData(); 
@@ -453,15 +460,28 @@ ready(() => {
 // Update Button clicked
 ready(() => { 
     document.querySelector("#update-btn").addEventListener("click", (e) => {
-        
-    
-        console.log(document.getElementById("new-operating-systems"));
 
-        var x = document.getElementById("new-operating-systems");
-        var i;
-        for (i = 0; i < x.options.length; i++) {
-            console.log(x.options[i].value);
+        
+        for(let i = 0; i<data_lists.length; i++){
+            console.log(document.getElementById("new-operating-systems"));
+            var current_list = span_list[i];
+            var x = document.getElementById(data_lists[i]);
+            var j;
+            for (j = 0; j < x.options.length; j++) {
+                current_list.push(x.options[j].value);
+                console.log(x.options[j].value);
         }
+            
+        }
+    
+        console.log(hardware_list);
+        console.log(os_list);
+        console.log(software_list);
+        console.log(probtype_list);
+        console.log(handler_list);
+
+
+
 
         const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
