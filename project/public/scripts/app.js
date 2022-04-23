@@ -500,6 +500,18 @@ ready(() => {
         if (!hardware_list.includes(hardware_id)) {
             valid_details.push('hardware-id');
         }
+        if (!os_list.includes(os)) {
+            valid_details.push('operating-system');
+        }
+        if (!software_list.includes(software)) {
+            valid_details.push('software');
+        }
+        if (!probtype_list.includes(problem_type)) {
+            valid_details.push('problem-type');
+        }
+        if (!handler_list.includes(handler_name)) {
+            valid_details.push('handler-name');
+        }
 
 
         if (valid_details.length != 0) {
