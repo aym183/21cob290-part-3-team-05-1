@@ -45,8 +45,35 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
     socket.on('solution_details', function(data, json) {
       console.log('hello2');
       console.log(data);
-      showSolutionInfo(data)
+      showSolutionInfo(data);
       // showTicketInfo(json[0]); 
     });
+
 });
+
+
+document.querySelector("#add-btn").addEventListener("click", (e) => {
+  document.querySelector(".AddTicketContainer").style.display="block";
+  console.log("hello");
+});
+
+document.querySelector("#add-ticket-btn").addEventListener("click", (e) => {
+  document.querySelector(".AddTicketContainer").style.display="none";
+  console.log("hello");
+});
+
+document.querySelector(".submitTicket").addEventListener("click", (e) => {
+  console.log("ladi");
+  priority = document.getElementById('priority').value;
+  softwareName = document.getElementById('software_name').value;
+  problemType = document.getElementById('problem_type').value;
+  hardwareID = document.getElementById('hardware)id').value;
+  handler = document.getElementById('handler').value;
+  operatingSystem = document.getElementById('os').value;
+  problemDescription = document.getElementById('problem_description').value;
+  priority1=document.querySelector("#priority").querySelector.value;
+  console.log(priority1);
+  console.log(docment.getElementById);
+});
+
 

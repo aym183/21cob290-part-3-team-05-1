@@ -183,9 +183,64 @@
                 ?> -->
                 </tbody>
             </table>
-    
-        </div>
 
+            <br>
+
+            <div>
+                <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
+            </div>
+            <div class="AddTicketContainer" style="display: none;">
+                <label for="priority">Priority</label>
+                <input type="text" id="priority" class="edit-field" list="priority" value="">
+    
+                <br>
+                
+                <label for="software_name">Software Name</label>  
+                <input type="text" id="software_name" class="edit-field" list="software_name" value="">
+        
+                <br>
+               
+                <label for="problem_type">Problem Type</label>
+                <input type="text" id="problem_type" class="edit-field" list="problem-types" value="">  
+                <datalist id="problem-types">
+                <!-- <?php
+                $problems = get_problem_types(true, false);
+                foreach ($problems as $problem) {
+                    echo "<option value=\"" . $problem['name'] . "\">";
+                }
+                ?> -->
+
+                </datalist>
+                
+                <br>
+
+                <label for="hardware_id">Hardware ID</label>  
+                <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="">
+            
+                <br>
+
+                <label for="software_name">Handler Name</label>  
+                <input type="text" id="handler" class="edit-field" list="handler" value="">
+
+                <br>
+
+                <label for="operating_system">Operating System </label>  
+                <input type="text" id="os" class="edit-field" list="os" value="">
+
+                <br>
+                
+                <label for="problem_description">Problem Description</label>
+                <textarea type="text" id="problem_description" class="no-edit-field" rows="5" value=""></textarea>
+                
+                <br>
+                <button type="submit" class="submitTicket">Submit Ticket</button>
+
+                <div>
+                <button type="button" class="form-btn" id="add-ticket-btn" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
+                </div>
+            </div>
+        </div>
+        
         <div class="mainSection__container" id="ticket-info">
             <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
             <div class="header__container" id="info-headers">
@@ -203,10 +258,10 @@
             </div>
             <div class="faq_answer" style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
             display: flex; flex-direction: column; padding: 20px 20px;">
-                <div>
+                <!-- <div>
                     <button class="info-edit-btn" id="edit-btn">Edit</button>
                     </datalist>
-                </div>
+                </div> -->
 
                 <span class="validation_error" id="software-error"></span>
                 <label for="description">FAQ Description</label>
@@ -238,17 +293,7 @@
                 <label for="solution" class="solution">Solution</label>
                 <textarea type="text" id="solutionBox" class="no-edit-field" rows="5" value="" readonly></textarea>
                 
-                <div class="close__border">
-                    <hr>
-                    <div class="section-container update__container closeButton">
-                        <button type="button" class="form-btn" id="close-btn">Close FAQ Detail</button>
-                    </div>
-                </div>
             </div>
-        </div>
-
-        <div>
-            <button type="button" class="form-btn" id="close-btn">Add Ticket</button>
         </div>
 
         <footer>
