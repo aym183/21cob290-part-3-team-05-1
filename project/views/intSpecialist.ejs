@@ -24,8 +24,6 @@
                     <a href="/account.html" class="profile__item" id="profile-username">
 
                         <p id="username"><%=loggeduser%></p>
-                        
-                      
                             
                     </a>
                 </div>
@@ -136,6 +134,14 @@
                             <span class="validation_error" id="hardware-id-error"></span>
                             <label for="hardware-type">Hardware ID</label>
                             <input type="text" id="hardware-id" class="edit-field" value="" readonly>
+                            <datalist id="hardware-numbers2">
+
+                                <% for(var i=0; i < hardwareids.length; i++) { %>
+                                    <option><%=hardwareids[i].hardware_id%></option>
+                                
+                                            
+                                <% } %>
+                            </datalist>
                             <label for="hardware-type">Hardware Manufacturer</label>
                             <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
                             <label for="hardware-model">Hardware Model</label>
@@ -144,14 +150,19 @@
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
                             <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>
-                            <datalist id="operating-systems">
-                        
+                            <datalist id="new_operating-systems">
+
+                                <% for(var i=0; i < operating_sys.length; i++) { %>
+                                    <option><%=operating_sys[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="operating-system-error"></span>
                             <label for="software">Software</label>
                             <input type="text" id="software" class="edit-field" value="" list="software-list" readonly>
                             <datalist id="software-list">
-                          
+                                <% for(var i=0; i < software_vals.length; i++) { %>
+                                    <option><%=software_vals[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="software-error"></span>
                             <label for="description">Problem Description</label>
@@ -163,11 +174,18 @@
                             <label for="problem-type">Problem Type</label>
                             <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
                             <datalist id="problem-types">
-                    
+                                <% for(var i=0; i < probtype_vals.length; i++) { %>
+                                    <option><%=probtype_vals[i].name%></option>                                            
+                                <% } %>
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>
                             <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
+                            <datalist id="handler-names">
+                                <% for(var i=0; i < handler_vals.length; i++) { %>
+                                    <option><%=handler_vals[i].name%></option>                                            
+                                <% } %>
+                            </datalist>
                             <span class="validation_error" id="handler-name-error"></span>
                             <label for="solution" class="closed__field">Solution</label>
                             <textarea type="text" id="solution" class="closed__field no-edit-field" rows="5"></textarea>

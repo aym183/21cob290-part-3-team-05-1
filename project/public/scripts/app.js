@@ -10,11 +10,13 @@ var ready = (callback) => {
 }
 
 var problemTypes = [];
+var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 
 ready(() => { 
     // loadData(); 
     // getProblemTypes();
 });
+
 
 
 function sendTicket(data) {
@@ -452,7 +454,15 @@ ready(() => {
 ready(() => { 
     document.querySelector("#update-btn").addEventListener("click", (e) => {
         
-        
+    
+        console.log(document.getElementById("new-operating-systems"));
+
+        var x = document.getElementById("new-operating-systems");
+        var i;
+        for (i = 0; i < x.options.length; i++) {
+            console.log(x.options[i].value);
+        }
+
         const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
         const os = document.getElementById("operating-system").value;
@@ -1001,4 +1011,5 @@ ready(() => {
         }   
     });
 });
+
 

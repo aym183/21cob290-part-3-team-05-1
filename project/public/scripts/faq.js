@@ -74,14 +74,13 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
   
   priority = document.getElementById('priority').value;
-  softwareName = document.getElementById('software_name').value;
-  problemType = document.getElementById('problem_type').value;
-  hardwareID = document.getElementById('hardware)id').value;
-  handler = document.getElementById('handler').value;
-  operatingSystem = document.getElementById('os').value;
-  problemDescription = document.getElementById('problem_description').value;
-  
-  console.log(document.getElementById);
+  // softwareName = document.getElementById('software_name').value;
+  // problemType = document.getElementById('problem_type').value;
+  // hardwareID = document.getElementById('hardware)id').value;
+  // handler = document.getElementById('handler').value;
+  // operatingSystem = document.getElementById('os').value;
+  // problemDescription = document.getElementById('problem_description').value;
+
   console.log(priority);
 });
 
