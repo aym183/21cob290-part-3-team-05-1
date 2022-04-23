@@ -69,15 +69,21 @@ app.get('/faq.html', (req, res) =>{
 
     
     
-    con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name  
-    from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
-    where links_to LIKE '2%' OR problem_type.problem_type_id = 2 
+    con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name
+    from ticket 
+    INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
+    INNER JOIN ticket_solution ON ticket_solution.ticket_id=ticket.ticket_id
+    INNER JOIN solution ON ticket_solution.solution_id=solution.solution_id
+    where (links_to LIKE '2%' OR problem_type.problem_type_id = 2) AND (ticket_solution.solution_status='successful')
 
     UNION ALL
 
-    SELECT ticket.problem_description, 'Software' as 'prob_name', problem_type.name 
-    from ticket INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
-    where links_to LIKE '1%' OR problem_type.problem_type_id = 1;`,
+    SELECT ticket.problem_description, 'Software' as 'prob_name', problem_type.name
+    from ticket 
+    INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id
+    INNER JOIN ticket_solution ON ticket_solution.ticket_id=ticket.ticket_id
+    INNER JOIN solution ON ticket_solution.solution_id=solution.solution_id
+    where (links_to LIKE '1%' OR problem_type.problem_type_id = 1) AND (ticket_solution.solution_status='successful');`,
     
     function(err, result, fields) {
         if (err) throw err;
