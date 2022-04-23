@@ -1077,12 +1077,17 @@ app.get('/index.html', (req, res) => {
         
     });
 
+  
 
-    con.query(`SELECT employee.name from employee INNER JOIN handler ON employee_id = user_id
-    UNION 
-    SELECT external_specialist.name from external_specialist INNER JOIN handler on external_specialist_id = user_id;`, function (err, result, fields) {
+    con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    INNER JOIN employee ON handler.user_id = employee.employee_id
+    GROUP BY handler_id
+    UNION
+    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+    INNER JOIN external_specialist on external_specialist_id = handler.user_id
+    GROUP BY ticket.handler_id;`, function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
+        console.log(result);
 
         handlers = result;
         
