@@ -1,3 +1,11 @@
+var priority;
+var softwareName;
+var problemType;
+var hardwareID;
+var handler;
+var operatingSystem;
+var problemDescription;
+
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -57,28 +65,24 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
   console.log("hello");
 });
 
-document.querySelector("#add-ticket-btn").addEventListener("click", (e) => {
+document.querySelector("#submitTicket").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
   console.log("hello");
 });
 
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
-  console.log(document.getElementById("software_name").value);
-  var priority;
-
+  
   priority = document.getElementById('priority').value;
-
-  console.log(priority);
   softwareName = document.getElementById('software_name').value;
   problemType = document.getElementById('problem_type').value;
   hardwareID = document.getElementById('hardware)id').value;
   handler = document.getElementById('handler').value;
   operatingSystem = document.getElementById('os').value;
   problemDescription = document.getElementById('problem_description').value;
-  priority1=document.querySelector("#priority").querySelector.value;
-  console.log(priority1);
-  console.log(docment.getElementById);
+  
+  console.log(document.getElementById);
+  console.log(priority);
 });
 
 
