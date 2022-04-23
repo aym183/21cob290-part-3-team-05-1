@@ -11,6 +11,7 @@ var ready = (callback) => {
 
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
+var priority_list = ["high", "medium", "low"];
 var hardware_list = [];
 var os_list = [];
 var software_list = [];
@@ -469,7 +470,6 @@ ready(() => {
             var j;
             for (j = 0; j < x.options.length; j++) {
                 current_list.push(x.options[j].value);
-                //console.log(x.options[j].value);
         }
             
         }
@@ -496,7 +496,10 @@ ready(() => {
             console.log(false);
         }
 
-        
+
+        if (!priority_list.includes(priority)) {
+            valid_details.push('priority');
+        }
         if (!hardware_list.includes(hardware_id)) {
             valid_details.push('hardware-id');
         }
