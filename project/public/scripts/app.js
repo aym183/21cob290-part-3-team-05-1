@@ -463,25 +463,22 @@ ready(() => {
 
         
         for(let i = 0; i<data_lists.length; i++){
-            console.log(document.getElementById("new-operating-systems"));
+            //console.log(document.getElementById("new-operating-systems"));
             var current_list = span_list[i];
             var x = document.getElementById(data_lists[i]);
             var j;
             for (j = 0; j < x.options.length; j++) {
                 current_list.push(x.options[j].value);
-                console.log(x.options[j].value);
+                //console.log(x.options[j].value);
         }
             
         }
     
         console.log(hardware_list);
-        console.log(os_list);
-        console.log(software_list);
-        console.log(probtype_list);
-        console.log(handler_list);
-
-
-
+        // console.log(os_list);
+        // console.log(software_list);
+        // console.log(probtype_list);
+        // console.log(handler_list);
 
         const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
@@ -492,113 +489,155 @@ ready(() => {
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
 
-        const changed_values = [];
-        const changed_names = [];
+        valid_details = []
+        if(!hardware_list.includes(hardware_id)){
+            console.log(true);
+        }else{
+            console.log(false);
+        }
 
-        if(old_priority != priority){
-            changed_values.push(priority);
-            changed_names.push('priority');
-            old_priority = priority;
-        }
-        if(old_hardwareId != hardware_id){
-            changed_values.push(hardware_id);
-            changed_names.push('hardware');
-            old_hardwareId = hardware_id;
-        }
-        if(!(old_os == null && os == "null") && old_os != os){
-            if(os == ""){
-                changed_values.push("null");
-                changed_names.push('OS');
-            }else{
-                changed_values.push(os);
-                changed_names.push('OS');
-                old_os = os;
-            }
-        }
-        if(old_softwareName != software){
-            changed_values.push(software);
-            changed_names.push('software');
-            old_softwareName = software;
-        }
-        if(old_description != problem_description){
-            changed_values.push(problem_description);
-            changed_names.push('description');
-            old_description = problem_description;
-        }
-        if(old_notes != notes){
-            changed_values.push(notes);
-            changed_names.push('notes');
-            old_notes = notes;
-        }
-        if(old_problemType != problem_type){
-            changed_values.push(problem_type);
-            changed_names.push('problem type');
-            old_problemType = problem_type;
-        }
-        if(old_handlerName != handler_name){
-            changed_values.push(handler_name);
-            changed_names.push('handler');
-            old_handlerName = handler_name;
-        }
-        var today = new Date();
-        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes();
-        var dateTime = date+' '+time;
-
-
-            var today = new Date();
-
-            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-            const ticket_details = {
-                priority: priority,
-                hardware_id: hardware_id,
-                os: os,
-                software: software,
-                problem_description: problem_description,
-                notes: notes,
-                problem_type: problem_type,
-                handler_name: handler_name,
-                last_updated: date,
-                id: document.getElementById('detail-id').innerHTML
-            };
-
-            const changed_details = {
-                id: document.getElementById('detail-id').innerHTML,
-                changed_values: changed_values,
-                changed_names: changed_names,
-                current_dateTime: dateTime,
-                current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
-            };
-            
         
-            updateTicketInfo(ticket_details);
+        if (!hardware_list.includes(hardware_id)) {
+            valid_details.push('hardware-id');
+        }
 
-            socket = io();
-            socket.emit('ticket_update_history',  changed_details);
-           
-            socket.destroy();
-            
-            document.querySelector('#edit-btn').classList.remove('pushed-btn');
-            document.querySelector('#edit-btn').style.color = null;
-            document.querySelector('#edit-btn').style.backgroundColor = null;
 
-            document.querySelectorAll(".ticket__information .edit-field").forEach(field => { 
-                field.style.pointerEvents = "none",
-                field.style.backgroundColor = "rgb(236, 236, 236)",
-                field.setAttribute("readonly", true) 
-                field.style.borderColor = "#ccc";
-            })
-            document.querySelectorAll(".ticket__information label").forEach(label => { 
-                label.style.color = "black";   
-            })
-            document.querySelector(".update__section").style.display = "none";
-            // document.querySelector("#emp-table__container").style.display = "none";
-            
-            if(document.getElementsByClassName("ticket_history_section")[0]){
-                document.getElementById("ticket_history_btn").disabled = false;
+        if (valid_details.length != 0) {
+
+            console.log("I am not null");
+            for (const element of valid_details) {
+                document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
+                document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
+                document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
+            }    
+
+            document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
+
+        } else if(valid_details.length == 0){
+        // if (!hardware_table.some(e => eserial_number == hardware_id)) {
+        //     valid_details.push('hardware-id');
+        // }
+        // if (!os_table.some(e => e.name == os) && os != "" && os !="null") {
+        //     valid_details.push('operating-system');
+        // }
+        // if (!software_table.some(e => e.name == software) && software != "") {
+        //     valid_details.push('software');
+        // }
+        // if (!operator_table.some(e => e.name == operator_name)) {
+        //     valid_details.push('operator-name');
+        // }
+        // if (!problemTypes.some(e => e.name == problem_type)) {
+        //     valid_details.push('problem-type');
+        // }
+
+            const changed_values = [];
+            const changed_names = [];
+
+            if(old_priority != priority){
+                changed_values.push(priority);
+                changed_names.push('priority');
+                old_priority = priority;
             }
-        // }    
+            if(old_hardwareId != hardware_id){
+                changed_values.push(hardware_id);
+                changed_names.push('hardware');
+                old_hardwareId = hardware_id;
+            }
+            if(!(old_os == null && os == "null") && old_os != os){
+                if(os == ""){
+                    changed_values.push("null");
+                    changed_names.push('OS');
+                }else{
+                    changed_values.push(os);
+                    changed_names.push('OS');
+                    old_os = os;
+                }
+            }
+            if(old_softwareName != software){
+                changed_values.push(software);
+                changed_names.push('software');
+                old_softwareName = software;
+            }
+            if(old_description != problem_description){
+                changed_values.push(problem_description);
+                changed_names.push('description');
+                old_description = problem_description;
+            }
+            if(old_notes != notes){
+                changed_values.push(notes);
+                changed_names.push('notes');
+                old_notes = notes;
+            }
+            if(old_problemType != problem_type){
+                changed_values.push(problem_type);
+                changed_names.push('problem type');
+                old_problemType = problem_type;
+            }
+            if(old_handlerName != handler_name){
+                changed_values.push(handler_name);
+                changed_names.push('handler');
+                old_handlerName = handler_name;
+            }
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = today.getHours() + ":" + today.getMinutes();
+            var dateTime = date+' '+time;
+
+
+                var today = new Date();
+
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+                const ticket_details = {
+                    priority: priority,
+                    hardware_id: hardware_id,
+                    os: os,
+                    software: software,
+                    problem_description: problem_description,
+                    notes: notes,
+                    problem_type: problem_type,
+                    handler_name: handler_name,
+                    last_updated: date,
+                    id: document.getElementById('detail-id').innerHTML
+                };
+
+                const changed_details = {
+                    id: document.getElementById('detail-id').innerHTML,
+                    changed_values: changed_values,
+                    changed_names: changed_names,
+                    current_dateTime: dateTime,
+                    current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
+                };
+                
+            
+                updateTicketInfo(ticket_details);
+
+                socket = io();
+                socket.emit('ticket_update_history',  changed_details);
+            
+                socket.destroy();
+                
+                document.querySelector('#edit-btn').classList.remove('pushed-btn');
+                document.querySelector('#edit-btn').style.color = null;
+                document.querySelector('#edit-btn').style.backgroundColor = null;
+
+                document.querySelectorAll(".ticket__information .edit-field").forEach(field => { 
+                    field.style.pointerEvents = "none",
+                    field.style.backgroundColor = "rgb(236, 236, 236)",
+                    field.setAttribute("readonly", true) 
+                    field.style.borderColor = "#ccc";
+                })
+                document.querySelectorAll(".ticket__information label").forEach(label => { 
+                    label.style.color = "black";   
+                })
+                document.querySelector(".update__section").style.display = "none";
+                // document.querySelector("#emp-table__container").style.display = "none";
+                
+                if(document.getElementsByClassName("ticket_history_section")[0]){
+                    document.getElementById("ticket_history_btn").disabled = false;
+                }
+            // }    
+        }
 
     });    
 });
