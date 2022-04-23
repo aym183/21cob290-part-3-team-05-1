@@ -1081,10 +1081,12 @@ app.get('/index.html', (req, res) => {
 
     con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
     INNER JOIN employee ON handler.user_id = employee.employee_id
+    WHERE ticket.status != 'closed'
     GROUP BY handler_id
     UNION
     SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
     INNER JOIN external_specialist on external_specialist_id = handler.user_id
+    WHERE ticket.status != 'closed'
     GROUP BY ticket.handler_id;`, function (err, result, fields) {
         if (err) throw err;
         console.log(result);
