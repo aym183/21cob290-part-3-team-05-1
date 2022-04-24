@@ -23,7 +23,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
         reason.setAttribute("cols", "25");
-        reason.setAttribute("style", "paddingleft: 25px")
+        reason.setAttribute.paddingleft("25");
         
     
     }
