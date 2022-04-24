@@ -1073,18 +1073,18 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 ready(() => {
 
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
-        if (document.querySelector('#solution-area').value == "") {
-            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-            document.querySelector("#submit-btn").style.cursor = "default";
-            document.querySelector("#submit-btn").style.opacity = "0.3";  
-        }
-        else {
-            document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
+        if(data.status == 'submitted' || data.status == 'active') {
+            if (document.querySelector('#solution-area').value == "") {
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";
+                document.querySelector("#submit-btn").style.opacity = "0.3";  
+            }
+            else {
                 document.getElementById("submit-btn").removeAttribute('disabled');
                 document.querySelector("#submit-btn").style.cursor = "pointer";
                 document.querySelector("#submit-btn").style.opacity = "1"; 
-            })
-        }
+            }
+    }
     });
 });
 
