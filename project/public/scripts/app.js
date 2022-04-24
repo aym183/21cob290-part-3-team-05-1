@@ -940,7 +940,7 @@ ready(() => {
         // const data = {
         //     id: ticket_id
         // }
-
+        console.log("AJMAL DROP!!!")
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
 
         console.log(data);
