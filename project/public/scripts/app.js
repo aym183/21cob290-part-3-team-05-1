@@ -1079,10 +1079,12 @@ ready(() => {
             document.querySelector("#submit-btn").style.opacity = "0.3";  
         }
         else {
-            document.getElementById("submit-btn").removeAttribute('disabled');
-            document.querySelector("#submit-btn").style.cursor = "pointer";
-            document.querySelector("#submit-btn").style.opacity = "1"; 
-        }   
+            document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
+                document.getElementById("submit-btn").removeAttribute('disabled');
+                document.querySelector("#submit-btn").style.cursor = "pointer";
+                document.querySelector("#submit-btn").style.opacity = "1"; 
+            })
+        }
     });
 });
 
