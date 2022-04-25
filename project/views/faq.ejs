@@ -189,54 +189,57 @@
             <div>
                 <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
             </div>
-            <div class="AddTicketContainer" style="display: none;">
-                <label for="priority">Priority</label>
-                <input type="text" id="priority" class="edit-field" list="priority" value="" required>
-    
-                <br>
-                
-                <label for="software_name">Software Name</label>  
-                <input type="text" id="software_name" class="edit-field" list="software_name" value="">
+            <form >
+           <!--method="post" action="/..." class="form__content"-->
+                <div class="AddTicketContainer" style="display: none;">
+                    <label for="priority">Priority</label>
+                    <input type="text" id="priority" class="edit-field" list="priority" value="" required>
         
-                <br>
-               
-                <label for="problem_type">Problem Type</label>
-                <input type="text" id="problem_type" class="edit-field" list="problem-types" value="">  
-                <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
-
-                </datalist>
-                
-                <br>
-
-                <label for="hardware_id">Hardware ID</label>  
-                <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="">
+                    <br>
+                    
+                    <label for="software_name">Software Name</label>  
+                    <input type="text" id="software_name" class="edit-field" list="software_name" value="" required>
             
-                <br>
-
-                <label for="software_name">Handler Name</label>  
-                <input type="text" id="handler" class="edit-field" list="handler" value="">
-
-                <br>
-
-                <label for="operating_system">Operating System </label>  
-                <input type="text" id="os" class="edit-field" list="os" value="">
-
-                <br>
+                    <br>
                 
-                <label for="problem_description">Problem Description</label>
-                <textarea type="text" id="problem_description" class="no-edit-field" rows="5" value=""></textarea>
-                
-                <!-- <br>
-                <button type="submit" class="submitTicket">Submit Ticket</button> -->
+                    <label for="problem_type">Problem Type</label>
+                    <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
+                    <datalist id="problem-types">
+                    <!-- <?php
+                    $problems = get_problem_types(true, false);
+                    foreach ($problems as $problem) {
+                        echo "<option value=\"" . $problem['name'] . "\">";
+                    }
+                    ?> -->
 
-                <div>
-                <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
+                    </datalist>
+                    
+                    <br>
+
+                    <label for="hardware_id">Hardware ID</label>  
+                    <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="" required>
+                
+                    <br>
+
+                    <label for="software_name">Handler Name</label>  
+                    <input type="text" id="handler" class="edit-field" list="handler" value="" required>
+
+                    <br>
+
+                    <label for="operating_system">Operating System </label>  
+                    <input type="text" id="os" class="edit-field" list="os" value="" required>
+
+                    <br>
+                    
+                    <label for="problem_description">Problem Description</label>
+                    <input type="text" id="problem_description" class="edit-field" value="" required>
+                    
+                    <!-- <br>
+                    <button type="submit" class="submitTicket">Submit Ticket</button> -->
+
+                    <div>
+                    <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
+                    </div>
                 </div>
             </div>
         </div>
