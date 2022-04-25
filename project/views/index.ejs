@@ -203,7 +203,7 @@
                             <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" readonly>
                             <datalist id="handler-names">
                                 <% for(var i=0; i < handler_vals.length; i++) { %>
-                                    <option value = <%=handler_vals[i].name%> Tickets><%=handler_vals[i].tickets%></option>                                            
+                                    <option value = <%=handler_vals[i].name%> Tickets>Handling <%=handler_vals[i].tickets%> Tickets</option>                                            
                                 <% } %>
                             </datalist>
                             <span class="validation_error" id="handler-name-error"></span>
