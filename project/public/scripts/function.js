@@ -17,8 +17,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     if (btnName == "drop") {
         var reason = popup.appendChild(document.createElement('textarea'));
         reason.className = "reason-area";
-        reason.setAttribute("style", "margins:30px");
-        reason.setAttribute("placeholder", " Type Reaso...");
+        reason.setAttribute("placeholder", "Type Reaso...");
         reason.setAttribute("type", "text");
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
