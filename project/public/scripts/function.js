@@ -59,7 +59,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             changeStatus(data);
             // window.location.href = "index.html";
         } else if (btnName == "logout") {
-            window.location.href = "login.html";
+            logout();
             
         } else if (btnName == "drop") {
             const data = {
@@ -154,6 +154,11 @@ function ext_Update_History(data){
 function submitTicket(data){
     const socket = io();
     socket.emit("Submit-Ticket", data);
+}
+
+function logout(){
+    console.log("clicked");
+    window.location.href = '/logout';
 }
 
 // CODE FOR CHARACTER COUNTERS IN TICKET DETAILS

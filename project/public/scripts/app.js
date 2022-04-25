@@ -968,9 +968,9 @@ logout_btn && logout_btn.addEventListener("click", (e) => {
     //     id: ticket_id
     // }
 
-    popupCreator("drop", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
+    popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
 
-    console.log(data);
+    console.log("created");
 
 });
 
