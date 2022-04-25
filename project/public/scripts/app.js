@@ -491,13 +491,15 @@ ready(() => {
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
 
+        console.log(old_handlerName);
+        console.log(handler_name);
+
         valid_details = []
         if(!hardware_list.includes(hardware_id)){
             console.log(true);
         }else{
             console.log(false);
         }
-
 
         if (!priority_list.includes(priority)) {
             valid_details.push('priority');

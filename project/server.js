@@ -1163,7 +1163,9 @@ app.get('/index.html', (req, res) => {
         handlers = result;
 
         for(let i = 0; i<handlers.length; i++){
-            handler_list.push("Handling " +  handlers[i].tickets + " Tickets");
+
+            
+            // handler_list.push("Handling " +  handlers[i].tickets + " Tickets");
         }
         console.log(handler_list);
         
@@ -1302,7 +1304,8 @@ app.get('/index.html', (req, res) => {
                 SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
                 WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
-    
+                console.log("Update");
+                console.log(result);
         
                 if (err) throw err;
             });   
