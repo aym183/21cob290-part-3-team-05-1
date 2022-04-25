@@ -93,7 +93,7 @@ INSERT INTO `internal_specialist` VALUES
 (2010 , 2010 );
 
 INSERT INTO `external_specialist` VALUES
-(1011, 'Oscar Thompson'),
+(1011, 'Oscar_Thompson'),
 (1022, "Steph Curry");
 
 

@@ -40,6 +40,7 @@ var operating_system;
 var software_datalist;
 var prob_type_vals;
 var handlers;
+var handler_list = [];
 
 app.use (session ({
     secret: "secret",
@@ -1147,7 +1148,7 @@ app.get('/index.html', (req, res) => {
 
   
 
-    con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
     INNER JOIN employee ON handler.user_id = employee.employee_id
     WHERE ticket.status != 'closed'
     GROUP BY handler_id
@@ -1160,6 +1161,11 @@ app.get('/index.html', (req, res) => {
         console.log(result);
 
         handlers = result;
+
+        for(let i = 0; i<handlers.length; i++){
+            handler_list.push("Handling " +  handlers[i].tickets + " Tickets");
+        }
+        console.log(handler_list);
         
     });
    
@@ -1185,7 +1191,7 @@ app.get('/index.html', (req, res) => {
             operating_sys: operating_system,
             software_vals: software_datalist,
             probtype_vals: prob_type_vals,
-            handler_vals: handlers        
+            handler_vals: handlers   
         })
     });
     
