@@ -109,7 +109,8 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             };
         
             submitTicket(data);
-        }
+
+        } 
         document.querySelector(".overlay").remove();
         
     });

@@ -954,6 +954,29 @@ ready(() => {
 
 });
 
+//Logout button
+ready(() => { 
+
+        
+    // console.log(document.getElementById("#detail-status").innerHTML);
+var logout_btn = document.querySelector("#logout-btn");
+logout_btn && logout_btn.addEventListener("click", (e) => {
+    socket = io();
+    // var ticket_id = document.getElementById(`detail-id`).innerHTML;
+
+    // const data = {
+    //     id: ticket_id
+    // }
+
+    popupCreator("drop", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
+
+    console.log(data);
+
+});
+
+
+
+});
 
 
 
