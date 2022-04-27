@@ -351,18 +351,29 @@ ready(() => {
             document.querySelector(".closeForm__section").style.display = "none";
         }
         else {
-            var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
-                 c[i].style.display = 'none';
+            // var c = document.querySelectorAll('.closed__field');
+            // for (var i = 0; i < c.length; i++) {
+            //      c[i].style.display = 'none';
+            // }
+            
+            if(document.title == "Home Page"){
+
+                document.querySelector(".closeForm__section").style.display = "block";
+                document.querySelector("#dropSolution-btn").style.display = "none";
+                document.querySelector("#close-btn").setAttribute('disabled','disabled');
+                document.querySelector("#close-btn").style.opacity = "0.3";
+
             }
+            else{
+
+                document.querySelector("#submit-btn").style.opacity = "0.3";
+                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+                document.querySelector("#submit-btn").style.cursor = "default";      
+
+            }
+                  
             
             
-            document.querySelector(".closeForm__section").style.display = "block";
-            document.querySelector("#dropSolution-btn").style.display = "none";
-            document.querySelector("#close-btn").setAttribute('disabled','disabled');
-            document.querySelector("#close-btn").style.opacity = "0.3";
-            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-            document.querySelector("#submit-btn").style.cursor = "default";
             
             
 
