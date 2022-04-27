@@ -192,50 +192,112 @@
             <form >
             <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
+                    <label for="status">Status</label>
+                    <div>
+                        <input type="text" id="status" class="edit-field" value="" required>
+                    </div>
+
+                    <br>
+
                     <label for="priority">Priority</label>
-                    <input type="text" id="priority" class="edit-field" list="priority" value="" required>
-        
+                    <div>
+                        <input type="text" id="priority" class="edit-field" list="priority" value="" required>
+                    </div>
+
                     <br>
                     
                     <label for="problem_description">Problem Description</label>
-                    <input type="text" id="problem_description" class="edit-field" value="" required>
-                    
+                    <div>
+                        <input type="text" id="problem_description" class="edit-field" value="" required>
+                    </div>
+
                     <br>
 
-                    <label for="software_name">Handler Name</label>  
-                    <input type="text" id="handler" class="edit-field" list="handler" value="" required>
+                    <label for="notes">Notes</label>
+                    <div>
+                        <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
+                        <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                    </div>
+
+                    <br>
+                    
+                    <label for="creationDate">Creation Date</label>
+                    <div>
+                        <input type="date" id="creationDate" class="edit-field" value="">
+                    </div>
+
+                    <br>
+
+                    <label for="lastUpdated">Last Updated</label>
+                    <div>
+                        <input type="text" id="lastUpdated" class="edit-field" value="" readonly>
+                        <script>
+                        function getDate(){
+                            var todaydate = new Date();
+                            var day = todaydate.getDate();
+                            var month = todaydate.getMonth() + 1;
+                            var year = todaydate.getFullYear();
+                            var datestring = day + "/" + month + "/" + year;
+                            document.getElementById("lastUpdated").value = datestring;
+                           } 
+                         getDate(); 
+                         </script>
+                    </div>
+
+                    <br>
+
+                    <label for="software_name">Handler Name</label>
+                    <div>
+                        <input type="text" id="handler" class="edit-field" list="handler" value="" required>
+                    </div>
 
                     <br>
 
                     <label for="operating_system">Operating System </label>  
-                    <input type="text" id="os" class="edit-field" list="os" value="" required>
+                    <div>
+                        <input type="text" id="os" class="edit-field" list="os" value="" required>
+                    </div>
 
                     <br>
 
                     <label for="hardware_id">Hardware ID</label>  
-                    <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="" required>
+                    <div>
+                        <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="" required>
+                    </div>
 
                     <br>
 
                     <label for="software_name">Software Name</label>  
-                    <input type="text" id="software_name" class="edit-field" list="software_name" value="" required>
-            
+                    <div>
+                        <input type="text" id="software_name" class="edit-field" list="software_name" value="" required>
+                    </div>
+
                     <br>
                 
                     <label for="problem_type">Problem Type</label>
-                    <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
-                    <datalist id="problem-types">
-                    <!-- <?php
-                    $problems = get_problem_types(true, false);
-                    foreach ($problems as $problem) {
-                        echo "<option value=\"" . $problem['name'] . "\">";
-                    }
-                    ?> -->
-
-                    </datalist>
-            
                     <div>
-                    <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
+                        <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
+                        <datalist id="problem-types">
+                        <!-- <?php
+                        $problems = get_problem_types(true, false);
+                        foreach ($problems as $problem) {
+                            echo "<option value=\"" . $problem['name'] . "\">";
+                        }
+                        ?> -->
+                        </datalist>
+                    </div>
+
+                    <br>
+
+                    <label for="no_of_drops">Number of Drops</label>
+                    <div>
+                        <input type="text" id="no_of_drops" class="no-edit-field" value="0" readonly>
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
                     </div>
 
                 </div>

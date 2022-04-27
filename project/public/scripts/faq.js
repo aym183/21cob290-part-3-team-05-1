@@ -1,3 +1,4 @@
+var status1;
 var priority;
 var softwareName;
 var problemType;
@@ -5,6 +6,10 @@ var hardwareID;
 var handler;
 var operatingSystem;
 var problemDescription;
+var notes;
+var creationDate;
+var lastUpdated;
+var no_of_drops;
 
 function addRowHandlers() {
     var table = document.getElementById("table-info");
@@ -73,6 +78,9 @@ document.querySelector("#submitTicket").addEventListener("click", (e) => {
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
 
+  status1 = document.getElementById('status').value;//="";
+  console.log(status1);
+
   priority = document.getElementById('priority').value;//="";
   console.log(priority);
 
@@ -93,5 +101,17 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   problemDescription = document.getElementById('problem_description').value;//="";
   console.log(problemDescription);
+
+  notes = document.getElementById('notes').value;//="";
+  console.log(notes);
+
+  creationDate = document.getElementById('creationDate').value;//="";
+  console.log(creationDate);
+
+  lastUpdated = document.getElementById('lastUpdated').value;//="";
+  console.log(lastUpdated);
+
+  no_of_drops = document.getElementById('no_of_drops').value;//="";
+  console.log(no_of_drops);
 });
 

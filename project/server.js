@@ -130,6 +130,42 @@ app.get('/faq.html', (req, res) =>{
         });
         })
     //con.end();
+
+    io.on('connection',  (socket) => {
+        console.log('connected')
+    
+        socket.on("add_ticket", (msg) => {
+           
+    
+            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
+                if (err) throw err;
+                problem_type_id = result[0].problem_type_id;
+                
+                con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
+                    if (err) throw err;
+                    software_id = result[0].software_id;
+                    
+                    con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
+                    UNION
+                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
+                        if (err) throw err;
+                        handler_id = result[0].user_id;
+                        
+                        con.query(`INSERT INTO ticket 
+                        (priority, problem_description, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                        values(?, ?, ?, ?, ?, ?, ?)`
+                        [msg.priority, msg.problem_description, handler_id, msg.os, parseInt(msg.hardware_id), software_id, problem_type_id, parseInt(msg.id)], function (err, result, fields) {
+                            console.log("Add");
+                            console.log(result);
+                
+                            if (err) throw err;
+                        });
+                    });
+                });
+            });
+        });
+    })
+
 } else {
     res.redirect('/login.html');
 }});
