@@ -1101,10 +1101,6 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 
 ready(() => {
 
-    const data = {
-        id: e.target.closest("tr").children[1].textContent,
-        status: e.target.closest("tr").children[0].textContent
-    }
     console.log("hi");
     console.log(data.status);
 
