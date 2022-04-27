@@ -95,4 +95,3 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log(problemDescription);
 });
 
-
