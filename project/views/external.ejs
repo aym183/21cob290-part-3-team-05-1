@@ -90,6 +90,7 @@
                     <tr>
                         <th>Status</th>
                         <th>ID</th>
+                        <th>Priority</th>
                         <th>Problem Type</th>
                         <!-- <th>Name</th> -->
                         <th>Last Updated</th>
@@ -103,6 +104,7 @@
                         <tr>
                             <td class=<%=newdropdownVals[i].status%>><span class="t-status"><%=newdropdownVals[i].status%></span></td>
                             <td><%=newdropdownVals[i].ticket_id%></td>
+                            <td><%=newdropdownVals[i].priority%></td>
                             <td id='lastUpdated'><%=newdropdownVals[i].name%></td>
                             <td><%=newdropdownVals[i].last_updated%></td></tr>
                     <% } %>

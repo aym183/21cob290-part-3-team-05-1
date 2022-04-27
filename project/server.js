@@ -695,7 +695,7 @@ app.get('/external.html', (req, res) => {
 
         //query connection for external specialist and display home page for external specialist
         
-        con.query(`SELECT ticket_id, status, problem_type.name, last_updated  FROM ticket 
+        con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed")
     ORDER BY CASE WHEN status = 'submitted' THEN 1
