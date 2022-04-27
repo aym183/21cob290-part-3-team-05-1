@@ -1099,6 +1099,12 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 });
 
 ready(() => {
+
+    const data = {
+        id: e.target.closest("tr").children[1].textContent,
+        status: e.target.closest("tr").children[0].textContent
+    }
+
     console.log(data.status);
     if(data.status == 'submitted' || data.status == 'active') {
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
