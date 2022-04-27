@@ -1106,27 +1106,22 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 
 ready(() => {
 
-    const data = {
-        id: e.target.closest("tr").children[1].textContent,
-        status: e.target.closest("tr").children[0].textContent
-    }
     console.log("hi");
-    console.log(data.status);
 
-    if(data.status == 'active' || data.status == 'submitted') {
+
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
-            if (document.querySelector('#solution-area').value == "") {
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector("#submit-btn").style.opacity = "0.3";  
-            }
-            else {
-                document.getElementById("submit-btn").removeAttribute('disabled');
-                document.querySelector("#submit-btn").style.cursor = "pointer";
-                document.querySelector("#submit-btn").style.opacity = "1"; 
-            }
+        if (document.querySelector('#solution-area').value == "") {
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            document.querySelector("#submit-btn").style.opacity = "0.3";  
+        }
+        else {
+            document.getElementById("submit-btn").removeAttribute('disabled');
+            document.querySelector("#submit-btn").style.cursor = "pointer";
+            document.querySelector("#submit-btn").style.opacity = "1"; 
+        }
     });
-}
+
 });
 
 
