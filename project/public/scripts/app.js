@@ -986,6 +986,11 @@ ready(() => {
 
 document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
     var container = document.getElementsByClassName("ticket_history_container")[0];
+    var container = document.getElementsByClassName("ticket_history_container")[0];
+
+    var old_err_msg = document.getElementById("err_ticket_history");
+    var past_edits_container = document.createElement('div');
+    past_edits_container.setAttribute("id","past_edits_container");
     if (container.style.display === "none") {
         
 
@@ -1004,11 +1009,7 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
             console.log(data);
             
             var info = data;
-            var container = document.getElementsByClassName("ticket_history_container")[0];
-
-            var old_err_msg = document.getElementById("err_ticket_history");
-            var past_edits_container = document.createElement('div');
-            past_edits_container.setAttribute("id","past_edits_container");
+            
             if(info.length == 0){
                 
                 if(!old_err_msg){
@@ -1020,6 +1021,7 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
                 }
 
             }else{
+                console.log(info.length);
                 
                 if(old_err_msg){
                     old_err_msg.remove();
@@ -1077,7 +1079,10 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
                     edit_container.appendChild(edit_main_container);
                     past_edits_container.appendChild(edit_container);
                     container.appendChild(past_edits_container);
+
+                    
                 }
+            
                 
 
 
