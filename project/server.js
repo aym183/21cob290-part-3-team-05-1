@@ -498,7 +498,7 @@ app.get('/intspecialist.html', (req, res) => {
             else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
 
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
-                solution.solution_description from ticket
+                solution.solution_description as solution from ticket
                 INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
                 INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
                 INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id

@@ -51,7 +51,7 @@ var old_handlerName;
  */
 function showTicketInfo(data) {   
     
-
+        console.log(document.getElementById('solution-area').innerHTML);
         old_priority = data.priority;
         old_hardwareId = data.hardware_id;
         old_os = data.operating_system;
@@ -61,7 +61,7 @@ function showTicketInfo(data) {
         old_problemType = data.name;
         old_handlerName = data.Handler;
 
-     
+        
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
         document.getElementById('priority').setAttribute("value", data.priority);
