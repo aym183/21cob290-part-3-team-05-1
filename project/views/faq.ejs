@@ -242,60 +242,60 @@
                     </div>
                 </div>
             </div>
-        </div>
         
-        <div class="mainSection__container" id="ticket-info">
-            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
-            <div class="header__container" id="info-headers">
-                <div class="header__wrapper">
-                    <div class="header-wrapper">
-                        <div class="info-item">
-                            <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
-                        </div>   
-                    </div>
-                    <div class="information__title">
-                        <h2>FAQ Answer</h2>
-                    </div> 
-
-                </div>
-            </div>
-            <div class="faq_answer" style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
-            display: flex; flex-direction: column; padding: 20px 20px;">
-                <!-- <div>
-                    <button class="info-edit-btn" id="edit-btn">Edit</button>
-                    </datalist>
-                </div> -->
-
-                <span class="validation_error" id="software-error"></span>
-                <label for="description">FAQ Description</label>
-                <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
-                <div id='remaining_chars'>300 characters remaining</div>
+            <div class="mainSection__container" id="ticket-info">
+                <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
+                <div class="header__container" id="info-headers">
+                    <div class="header__wrapper">
+                        <div class="header-wrapper">
+                            <div class="info-item">
+                                <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            </div>   
+                        </div>
+                        <div class="information__title">
+                            <h2>FAQ Answer</h2>
+                        </div> 
     
-                <br>
-                
-                <label for="notes">Notes</label>  
-                <textarea type="text" id="notes" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
-                <div id='notes_remaining_chars'>1000 characters remaining</div>
+                    </div>
+                </div>
+                <div class="faq_answer" style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
+                display: flex; flex-direction: column; padding: 20px 20px;">
+                    <!-- <div>
+                        <button class="info-edit-btn" id="edit-btn">Edit</button>
+                        </datalist>
+                    </div> -->
+    
+                    <span class="validation_error" id="software-error"></span>
+                    <label for="description">FAQ Description</label>
+                    <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
+                    <div id='remaining_chars'>300 characters remaining</div>
         
-                <br>
-               
-                <label for="problem-type">Problem Type</label>
-                <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
-                <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
-
-                </datalist>
-                
-                <br>
+                    <br>
+                    
+                    <label for="notes">Notes</label>  
+                    <textarea type="text" id="notes" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
+                    <div id='notes_remaining_chars'>1000 characters remaining</div>
             
-                <label for="solution" class="solution">Solution</label>
-                <textarea type="text" id="solutionBox" class="no-edit-field" rows="5" value="" readonly></textarea>
+                    <br>
+                   
+                    <label for="problem-type">Problem Type</label>
+                    <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
+                    <datalist id="problem-types">
+                    <!-- <?php
+                    $problems = get_problem_types(true, false);
+                    foreach ($problems as $problem) {
+                        echo "<option value=\"" . $problem['name'] . "\">";
+                    }
+                    ?> -->
+    
+                    </datalist>
+                    
+                    <br>
                 
+                    <label for="solution" class="solution">Solution</label>
+                    <textarea type="text" id="solutionBox" class="no-edit-field" rows="5" value="" readonly></textarea>
+                    
+                </div>
             </div>
         </div>
 
