@@ -1104,9 +1104,10 @@ ready(() => {
         id: e.target.closest("tr").children[1].textContent,
         status: e.target.closest("tr").children[0].textContent
     }
-
+    console.log("hi");
     console.log(data.status);
-    if(data.status == 'submitted' || data.status == 'active') {
+
+    if(data.status == 'active' || data.status == 'submitted') {
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
             if (document.querySelector('#solution-area').value == "") {
                 document.querySelector("#submit-btn").setAttribute('disabled','disabled');
