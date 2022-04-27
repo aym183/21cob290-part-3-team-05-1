@@ -512,6 +512,7 @@ app.get('/intspecialist.html', (req, res) => {
                 console.log(err);
                 if (err) throw err;
 
+                console.log("show bitch");
                 console.log(result);
                 io.send('message', result);
 

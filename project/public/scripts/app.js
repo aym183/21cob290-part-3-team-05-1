@@ -49,9 +49,9 @@ var old_handlerName;
  * Fetches and displays ticket info on operator home page
  * @param {object} data containing ticket ID and status
  */
-function showTicketInfo(data) {   
-    
-        console.log(document.getElementById('solution-area').innerText);
+function showTicketInfo(data) {  
+
+
         old_priority = data.priority;
         old_hardwareId = data.hardware_id;
         old_os = data.operating_system;
