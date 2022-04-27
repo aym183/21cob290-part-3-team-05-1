@@ -144,11 +144,11 @@ CREATE TABLE IF NOT EXISTS skillset (
 CREATE TABLE IF NOT EXISTS history_log (
     log_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     ticket_id MEDIUMINT UNSIGNED,
-    handler_id MEDIUMINT UNSIGNED NOT NULL,
+    user_id MEDIUMINT UNSIGNED NOT NULL,
     edited_item ENUM( 'priority', 'hardware','OS', 'software', 'description','notes','problem type', 'handler', 'solution', 'dropped') NOT NULL,
     new_value VARCHAR(1000) NOT NULL,
     date_time DATETIME,
     PRIMARY KEY (log_id),
     FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
-    FOREIGN KEY (handler_id) REFERENCES handler(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

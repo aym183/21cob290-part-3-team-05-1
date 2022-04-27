@@ -165,6 +165,6 @@ INSERT INTO `dropped`  VALUES
 (4, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
 
 
-INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
 VALUES (1, 2002, 'priority', 'high', '2022-04-13 03:08:00'),
 (1, 2002, 'hardware', '1', '2022-04-13 03:09:00');

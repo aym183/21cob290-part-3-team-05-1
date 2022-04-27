@@ -1363,16 +1363,17 @@ app.get('/index.html', (req, res) => {
         
                 socket.on("ticket_update_history", (msg) => {
                     console.log(msg);
+                    console.log("Ticket update history");
 
                     con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
                     if (err) throw err;
                     console.log(result[0].user_id);
-                    haxndler_id = result[0].user_id;
-                    console.log(handler_id);
-
+                    handler_id = result[0].user_id;
+                    
                     for (let i = 0; i < msg.changed_names.length; i++) {
 
-                        con.query(`INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+                        console.log(handler_id);
+                        con.query(`INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
                         VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
                 
                         if (err) throw err;
