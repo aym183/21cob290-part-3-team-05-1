@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS analyst (
 );
 
 CREATE TABLE IF NOT EXISTS ticket (
-    ticket_id MEDIUMINT UNSIGNED,
+    ticket_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     employee_id MEDIUMINT UNSIGNED NOT NULL,
     status ENUM('active', 'dropped', 'submitted', 'closed', 'unsuccessful') NOT NULL,
     priority ENUM('medium', 'low', 'high') NOT NULL,

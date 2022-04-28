@@ -26,15 +26,6 @@ ready(() => {
 });
 
 
-
-function sendTicket(data) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "../../server.js");
-    xhttp.setRequestHeader("Content-type", 'application/json');
-    xhttp.send(data);
-}
-
-
 //Used in Update button function
 var old_priority;
 var old_hardwareId;
@@ -60,7 +51,6 @@ function showTicketInfo(data) {
         old_notes = data.notes;
         old_problemType = data.name;
         old_handlerName = data.Handler;
-
         
         document.getElementById('detail-status').innerHTML =  data.status;
         document.getElementById('detail-id').innerHTML = data.ticket_id;
@@ -194,9 +184,16 @@ function Disablebtn(data) {
  * Updates ticket information in database
  * @param {object} data containing ticket information to be updated
  */
-function updateTicketInfo(data) {
+function updateTicketInfo(data, status) {
     const socket = io()
-    socket.emit('update_message',  data);
+    
+    if(status == "handler"){
+
+        console.log(data.id);
+        socket.emit('dropped_update', data.id);
+    } 
+    const socket2 = io()
+    socket2.emit('update_message',  data);
     
     // socket.on('message', function(data, json) {
     //     showTicketInfo(json[0]); 
@@ -628,7 +625,8 @@ ready(() => {
                         problem_type: problem_type,
                         handler_name: handler_name,
                         last_updated: date,
-                        id: document.getElementById('detail-id').innerHTML
+                        id: document.getElementById('detail-id').innerHTML,
+                        status: document.getElementById('detail-status').innerHTML
                     };
 
                     const changed_details = {
@@ -641,7 +639,19 @@ ready(() => {
                     
                     console.log(document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML);
                 
-                    updateTicketInfo(ticket_details);
+                    console.log(changed_names.includes("handler"));
+                    console.log(ticket_details.status);
+                    
+                    if(changed_names.includes("handler") && ticket_details.status == "dropped"){
+
+                        updateTicketInfo(ticket_details, "handler");
+
+                    } else{
+
+                        updateTicketInfo(ticket_details, "none");
+
+                    }
+                    
                     console.log("I am updating");
 
                     socket = io();

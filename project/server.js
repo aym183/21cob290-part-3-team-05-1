@@ -1371,8 +1371,29 @@ app.get('/index.html', (req, res) => {
         });
     });
         });
+
+    
+
         })
 
+
+        io.on('connection', (socket) => {
+            socket.on("dropped_update", (msg) => {
+                console.log("I AM DROPPING UPDATE");
+
+                
+                //hstory log and also unsolvable status
+                con.query(`UPDATE ticket SET status = "active" where ticket_id = ?`, [msg], function (err, result, fields) {
+                
+        
+                if (err) throw err;
+                socket.disconnect(0);
+    
+            });   
+    
+    
+            });
+        });
 
         io.on('connection',  (socket) => {
             console.log('connected')
