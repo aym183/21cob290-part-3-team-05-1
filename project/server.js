@@ -152,9 +152,9 @@ app.get('/faq.html', (req, res) =>{
                         handler_id = result[0].user_id;
                         
                         con.query(`INSERT INTO ticket 
-                        (priority, problem_description, handler_id, operating_system, hardware_id, software_id, problem_type_id)
-                        values(?, ?, ?, ?, ?, ?, ?)`
-                        [msg.priority, msg.problem_description, handler_id, msg.os, parseInt(msg.hardware_id), software_id, problem_type_id, parseInt(msg.id)], function (err, result, fields) {
+                        (status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                        values(?, ?, ?, ?, ?, ?, ?, ?, ?)`
+                        [msg.status, msg.priority, msg.problem_description, msg.notes, handler_id, msg.os, parseInt(msg.hardware_id), software_id, problem_type_id], function (err, result, fields) {
                             console.log("Add");
                             console.log(result);
                 
@@ -164,7 +164,7 @@ app.get('/faq.html', (req, res) =>{
                 });
             });
         });
-    })
+    });
 
 } else {
     res.redirect('/login.html');

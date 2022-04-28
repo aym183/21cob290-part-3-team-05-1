@@ -36,6 +36,17 @@ function showSolutionInfo(data) {
     // document.getElementById('solutionBox').value = data.solution_description;
 }
 
+function addTicket(data1) {
+  console.log(data1);
+
+  document.getElementById('status').value=data1.status1;
+  //console.log(status1);
+  //const socket = io()
+  socket.emit('add_ticket',  data1);
+  //socket.destroy();
+}
+
+
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
     
@@ -67,16 +78,27 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
-  console.log("hello");
+  // console.log("hello");
 });
 
 document.querySelector("#submitTicket").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
-  console.log("hello");
+  // console.log("hello");
 });
+
 
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
+
+  const socket=io();
+
+  socket.emit('add_ticket',  data1);
+
+  socket.on('add_ticket', function(data1, json) {
+    console.log("testing this out");
+    addTicket(data1);
+    console.log("adding ticket");
+  });
 
   status1 = document.getElementById('status').value;//="";
   console.log(status1);
@@ -105,13 +127,13 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   notes = document.getElementById('notes').value;//="";
   console.log(notes);
 
-  creationDate = document.getElementById('creationDate').value;//="";
-  console.log(creationDate);
+  // creationDate = document.getElementById('creationDate').value;//="";
+  // console.log(creationDate);
 
-  lastUpdated = document.getElementById('lastUpdated').value;//="";
-  console.log(lastUpdated);
+  // lastUpdated = document.getElementById('lastUpdated').value;//="";
+  // console.log(lastUpdated);
 
-  no_of_drops = document.getElementById('no_of_drops').value;//="";
-  console.log(no_of_drops);
+  // no_of_drops = document.getElementById('no_of_drops').value;//="";
+  // console.log(no_of_drops);
+  
 });
-

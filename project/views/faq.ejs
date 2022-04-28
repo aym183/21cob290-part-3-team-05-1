@@ -18,62 +18,6 @@
                     <div class="topNavbar__logo">
                         <a href="index.html" id="navbar__logo">Deskspace</a>
                     </div>    
-                    <div class="topNavbar__search" id="search-div">
-                        <div class="search__container">
-                            <form>
-                                <button class = "searchButtons" id="filter-btn"><i class="fas fa-sliders-h"></i></button>
-                                <input class="searchInput" type="text" placeholder="Search Resolution">
-                                <button class="searchButtons" type="button" id="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        
-                        <!-- Search Filters -->
-                        <div class="dropdownFilters">
-                            <p class= "filter-tag">Status</p>
-        
-                            <select id ="filter-status" name="status" class="filter-status">
-                                <option value="all">All</option>
-                                <option value="closed">Closed</option>
-                                <option value="active">Active</option>
-                                <option value="submitted">Submitted</option>
-                                <option value="dropped">Dropped</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                            <p class= "filter-tag">Ticket ID</p>
-                            <input type="text" class="filter-search" id ="filter-id">
-                            <p class= "filter-tag">Problem Type</p>
-                            <input type="text" class="filter-search" id ="filter-type">
-                            <p class= "filter-tag">Caller Name</p>
-                            <input type="text" class="filter-search" id ="filter-cname">
-                            <p class= "filter-tag">Handler Name</p>
-                            <input type="text" class="filter-search" id ="filter-sname">
-                            <p class= "filter-tag filter-date1">Last Updated Range</p>
-                            <div class="input-date1">
-                                <input id = "date1" type="date" data-date-inline-picker="true" name="date-search1" class="filter-search input-date-created" placeholder="Created">
-                                <div class="date__dropdown dropdown1"></div>
-                            </div>
-                            <div class="input-date2">
-                                <input id = "date2" type="date" data-date-inline-picker="true" name="date-search2" class="filter-search input-date-closed" placeholder="Closed">
-                                <div class="date__dropdown dropdown2"></div>
-                            </div>
-                            <select id ="filter-custom" name="custom" class="filter-status">
-                                <option value="employee_id">Employee ID</option>
-                                <option value="operator_id">Operator ID</option>
-                                <option value="handler_id">Handler ID</option>
-                                <option value="operating_system">OS</option>
-                                <option value="number_of_drops">No. of Drops ></option>
-                                <option value="softw_name">Software</option>
-                                <option value="hardw_name">Hardware</option>
-                            </select>
-                            <input type="text" class="filter-search" id ="filter-custom-value">
-                            <div id="none-found" style="display:none;">
-                                No Results Found
-                            </div>
-                            <div class="dropdown-button-wrapper">
-                                <button class="dropdown-btn">Search</button>
-                            </div>
-                        </div>        
-                    </div>
                 </div>
 
                 <div class="profile__container">
@@ -150,37 +94,6 @@
                         <!-- <option><%= dropdownVals[i] %></option> -->
                      <% } %>
                         </tr>
-                <!-- <?php
-                    $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
-                    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-                    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-                    INNER JOIN (SELECT user_id, employee.name FROM handler
-                                INNER JOIN employee ON handler.user_id = employee.employee_id
-                                UNION
-                                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                                WHEN status = 'submitted' THEN 2
-                                WHEN status = 'pending' THEN 3
-                                WHEN status = 'unsuccessful' THEN 4
-                                WHEN status = 'active' THEN 5
-                                ELSE 6 END
-                    LIMIT 0, 50";
-
-                    $result = mysqli_query($conn, $sql) or die("Bad Query: $sql");
-
-                    while ($row = mysqli_fetch_array($result)){
-                        
-                        echo'<tr>';
-                        echo '<td class="'.$row[1].'"><span class="t-status">'.$row[1].'</span></td>';
-                        echo '<td>'.$row[0].'</td>';
-                        echo '<td>'.$row[3].'</td>';
-                        echo '<td>'.$row[4].'</td>';
-                        echo '<td>'.$row[2].'</td>';
-                        echo '<td>'.$row[5].'</td>';
-                        echo'</tr>';
-                    }
-
-                ?> -->
                 </tbody>
             </table>
 
@@ -189,24 +102,24 @@
             <div>
                 <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
             </div>
-            <form >
+            <div>
             <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
-                    <label for="status">Status</label>
+                    <label class="required" for="status">Status</label>
                     <div>
                         <input type="text" id="status" class="edit-field" value="" required>
                     </div>
 
                     <br>
 
-                    <label for="priority">Priority</label>
+                    <label class="required" for="priority">Priority</label>
                     <div>
                         <input type="text" id="priority" class="edit-field" list="priority" value="" required>
                     </div>
 
                     <br>
                     
-                    <label for="problem_description">Problem Description</label>
+                    <label class="required" for="problem_description">Problem Description</label>
                     <div>
                         <input type="text" id="problem_description" class="edit-field" value="" required>
                     </div>
@@ -221,7 +134,7 @@
 
                     <br>
                     
-                    <label for="creationDate">Creation Date</label>
+                    <!-- <label for="creationDate">Creation Date</label>
                     <div>
                         <input type="date" id="creationDate" class="edit-field" value="">
                     </div>
@@ -244,7 +157,7 @@
                          </script>
                     </div>
 
-                    <br>
+                    <br> -->
 
                     <label for="software_name">Handler Name</label>
                     <div>
@@ -274,7 +187,7 @@
 
                     <br>
                 
-                    <label for="problem_type">Problem Type</label>
+                    <label class="required" for="problem_type">Problem Type</label>
                     <div>
                         <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
                         <datalist id="problem-types">
@@ -289,12 +202,12 @@
 
                     <br>
 
-                    <label for="no_of_drops">Number of Drops</label>
+                    <!-- <label for="no_of_drops">Number of Drops</label>
                     <div>
                         <input type="text" id="no_of_drops" class="no-edit-field" value="0" readonly>
                     </div>
 
-                    <br>
+                    <br> -->
 
                     <div>
                         <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
@@ -321,12 +234,8 @@
                         <h2>FAQ Answer</h2>
                     </div> 
                 </div>
-                <div class="faq_answer" style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
-                display: flex; flex-direction: column; padding: 20px 20px;">
-                    <!-- <div>
-                        <button class="info-edit-btn" id="edit-btn">Edit</button>
-                        </datalist>
-                    </div> -->
+                <div class="faq_answer"> <!--style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
+                display: flex; flex-direction: column; padding: 20px 20px;"> -->
     
                     <span class="validation_error" id="software-error"></span>
                     <label for="description">FAQ Description</label>
