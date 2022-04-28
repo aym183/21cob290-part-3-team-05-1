@@ -1,6 +1,6 @@
 // const { response } = require("express");
 
-const { resolveInclude } = require("ejs");
+// const { resolveInclude } = require("ejs");
 
 function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     
@@ -175,6 +175,7 @@ const notes_max_chars = 1000;
 edit_button && edit_button.addEventListener('click', () => {
 
     const remaining = max_chars - text_area.value.length;
+    
     remaining_chars.textContent = remaining + ' characters remaining';
 
     const notes_remaining = notes_max_chars - notes_text_area.value.length;
