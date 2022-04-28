@@ -86,7 +86,6 @@ document.querySelector("#submitTicket").addEventListener("click", (e) => {
   // console.log("hello");
 });
 
-
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
 
