@@ -11,6 +11,7 @@ var creationDate;
 var lastUpdated;
 var no_of_drops;
 
+
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -36,13 +37,13 @@ function showSolutionInfo(data) {
     // document.getElementById('solutionBox').value = data.solution_description;
 }
 
-function addTicket(data1) {
-  console.log(data1);
+function addTicket(data) {
+  console.log(data);
 
-  document.getElementById('status').value=data1.status1;
+  document.getElementById('status').value=data.status1;
   //console.log(status1);
   //const socket = io()
-  socket.emit('add_ticket',  data1);
+  socket.emit('add_ticket',  data);
   //socket.destroy();
 }
 
@@ -91,11 +92,11 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   const socket=io();
 
-  socket.emit('add_ticket',  data1);
+  socket.emit('add_ticket',  data);
 
-  socket.on('add_ticket', function(data1, json) {
+  socket.on('add_ticket', function(data, json) {
     console.log("testing this out");
-    addTicket(data1);
+    addTicket(data);
     console.log("adding ticket");
   });
 
