@@ -11,6 +11,7 @@ const io = new Server(server);
 let alert = require('alert'); 
 const con = require('./public/scripts/dbconfig');
 
+require('events').EventEmitter.defaultMaxListeners = 15;
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -1257,6 +1258,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
             }
@@ -1278,6 +1280,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
 
@@ -1302,6 +1305,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
 
@@ -1320,14 +1324,18 @@ app.get('/index.html', (req, res) => {
         socket.on("update_message", (msg) => {
            
 
+            console.log("I AM IN UPDATE");
+
             con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
                 if (err) throw err;
                 problem_type_id = result[0].problem_type_id;
-                
+
+                console.log(problem_type_id);
 
                  con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
                 if (err) throw err;
                 software_id = result[0].software_id;
+                console.log(software_id);
                 
            
             con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
@@ -1335,6 +1343,7 @@ app.get('/index.html', (req, res) => {
                     SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
                 if (err) throw err;
                 handler_id = result[0].user_id;
+                console.log(handler_id);
 
 
             con.query(`UPDATE ticket 
@@ -1342,9 +1351,10 @@ app.get('/index.html', (req, res) => {
                 WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
                 console.log("Update");
-                console.log(result);
+                console.log(msg);
         
                 if (err) throw err;
+                socket.disconnect(0);
             });   
 
             });

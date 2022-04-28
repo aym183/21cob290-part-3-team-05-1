@@ -197,7 +197,7 @@ function Disablebtn(data) {
 function updateTicketInfo(data) {
     const socket = io()
     socket.emit('update_message',  data);
-    socket.destroy();
+    
     // socket.on('message', function(data, json) {
     //     showTicketInfo(json[0]); 
     // });
