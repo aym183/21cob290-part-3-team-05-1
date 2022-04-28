@@ -138,28 +138,37 @@ app.get('/faq.html', (req, res) =>{
         socket.on("add_ticket", (msg) => {
            
     
-            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
+            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.prob_type],function (err, result, fields) {
                 if (err) throw err;
                 problem_type_id = result[0].problem_type_id;
+                console.log(problem_type_id);
                 
-                con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
+                con.query(`SELECT software_id from software where name = ?;`,[msg.soft_name],function (err, result, fields) {
                     if (err) throw err;
                     software_id = result[0].software_id;
+                    console.log(software_id);
                     
                     con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
                     UNION
-                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
+                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.h_name,msg.h_name],function (err, result, fields) {
                         if (err) throw err;
                         handler_id = result[0].user_id;
-                        
-                        con.query(`INSERT INTO ticket 
-                        (status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
-                        values(?, ?, ?, ?, ?, ?, ?, ?, ?)`
-                        [msg.status, msg.priority, msg.problem_description, msg.notes, handler_id, msg.os, parseInt(msg.hardware_id), software_id, problem_type_id], function (err, result, fields) {
-                            console.log("Add");
-                            console.log(result);
-                
+                        console.log(handler_id);
+
+                        con.query(`SELECT employee_id from employee where name = ?;`,[msg.employee_name],function (err, result, fields) {
                             if (err) throw err;
+                            employee_id = result[0].employee_id;
+                            console.log(employee_id);
+                        
+                            con.query(`INSERT INTO ticket
+                            (status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [msg.employee_name, msg.statuss, msg.priorityy, msg.prob_desc, msg.notes, msg.h_name, msg.os, parseInt(msg.hardID), msg.soft_name, msg.prob_type], function (err, result, fields) {
+                                console.log("Add");
+                                console.log(result);
+                    
+                                if (err) throw err;
+                            });
                         });
                     });
                 });

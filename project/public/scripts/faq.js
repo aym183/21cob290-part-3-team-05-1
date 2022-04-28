@@ -1,15 +1,15 @@
-var status1;
-var priority;
-var softwareName;
-var problemType;
-var hardwareID;
-var handler;
-var operatingSystem;
-var problemDescription;
-var notes;
-var creationDate;
-var lastUpdated;
-var no_of_drops;
+// var status1;
+// var priority;
+// var softwareName;
+// var problemType;
+// var hardwareID;
+// var handler;
+// var operatingSystem;
+// var problemDescription;
+// var notes;
+// var creationDate;
+// var lastUpdated;
+// var no_of_drops;
 
 
 function addRowHandlers() {
@@ -35,16 +35,6 @@ function showSolutionInfo(data) {
     document.getElementById('problem-type').value =  data.problem_type_id;
 
     // document.getElementById('solutionBox').value = data.solution_description;
-}
-
-function addTicket(data) {
-  console.log(data);
-
-  document.getElementById('status').value=data.status1;
-  //console.log(status1);
-  //const socket = io()
-  socket.emit('add_ticket',  data);
-  //socket.destroy();
 }
 
 
@@ -90,41 +80,46 @@ document.querySelector("#submitTicket").addEventListener("click", (e) => {
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
   console.log("ladi");
 
-  const socket=io();
+  socket = io();
 
-  socket.emit('add_ticket',  data);
+  // const socket=io();
 
-  socket.on('add_ticket', function(data, json) {
-    console.log("testing this out");
-    addTicket(data);
-    console.log("adding ticket");
-  });
+  // socket.emit('add_ticket',  data);
 
-  status1 = document.getElementById('status').value;//="";
+  // socket.on('add_ticket', function(data, json) {
+  //   console.log("testing this out");
+  //   addTicket(data);
+  //   console.log("adding ticket");
+  // });
+
+  var employee_name1 = document.getElementById('employee_name').value;//="";
+  console.log(employee_name1);
+
+  var status1 = document.getElementById('status').value;//="";
   console.log(status1);
 
-  priority = document.getElementById('priority').value;//="";
+  var priority = document.getElementById('priority').value;//="";
   console.log(priority);
 
-  softwareName = document.getElementById('software_name').value;//="";
+  var softwareName = document.getElementById('software_name').value;//="";
   console.log(softwareName);
 
-  problemType = document.getElementById('problem_type').value;//="";
+  var problemType = document.getElementById('problem_type').value;//="";
   console.log(problemType);
 
-  hardwareID = document.getElementById('hardware_id').value;//="";
+  var hardwareID = document.getElementById('hardware_id').value;//="";
   console.log(hardwareID);
 
-  handler = document.getElementById('handler').value;//="";
+  var handler = document.getElementById('handler').value;//="";
   console.log(handler);
 
-  operatingSystem = document.getElementById('os').value;//="";
+  var operatingSystem = document.getElementById('os').value;//="";
   console.log(operatingSystem);
 
-  problemDescription = document.getElementById('problem_description').value;//="";
+  var problemDescription = document.getElementById('problem_description').value;//="";
   console.log(problemDescription);
 
-  notes = document.getElementById('notes').value;//="";
+  var notes = document.getElementById('notes').value;//="";
   console.log(notes);
 
   // creationDate = document.getElementById('creationDate').value;//="";
@@ -135,5 +130,20 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   // no_of_drops = document.getElementById('no_of_drops').value;//="";
   // console.log(no_of_drops);
-  
+  const data = {
+    employee_name: employee_name1,
+    statuss: status1,
+    priorityy: priority,
+    soft_name: softwareName,
+    hardID: hardwareID,
+    h_name: handler,
+    prob_type: problemType,
+    prob_desc: problemDescription,
+    os: operatingSystem,
+    notess: notes
+  }
+  //console.log(handler_name);
+  console.log(data);
+  console.log(data.statuss); 
+  socket.emit("add_ticket", data);
 });
