@@ -6,8 +6,14 @@ var os_list = [];
 var software_list = [];
 var probtype_list = [];
 var handler_list = [];
+const employee_name = "";
 
 
+function showEmployeeName() { 
+  
+  document.getElementById('employee_name').value=sessionStorage.getItem("employee_name");
+  
+}
 
 function addRowHandlers() {
     var table = document.getElementById("table-info");
@@ -46,13 +52,6 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
     socket.emit('solution_details',  data);
 
-    // after data is recieved, calling function to show solution info
-    // socket.on('solution_details', function(data, json) {
-    //     console.log('hello2');
-    //     console.log(json)
-    //     showSolutionInfo(json[0]); 
-    // });
-
     socket.on('solution_details', function(data, json) {
       console.log('hello2');
       console.log(data);
@@ -61,11 +60,6 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
     });
 
 });
-
-function showEmployeeName(data) {   
-  console.log(data);
-  document.getElementById('employee_name').value=data.name;
-}
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
@@ -81,9 +75,13 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
     }
     socket.emit('employeeName',  data);
   socket.on('employeeName', function(data, json) {
-    console.log(data);
-    console.log(json);
-    showEmployeeName(data); 
+    
+    if (localStorage.getItem("employee_name") === null) {
+      sessionStorage.setItem("employee_name", data.name);
+    }
+    
+    showEmployeeName(); 
+
     socket.destroy();
   });
 });
