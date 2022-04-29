@@ -132,6 +132,26 @@ app.get('/faq.html', (req, res) =>{
         });
         })
     //con.end();
+    io.on('connection',  (socket) => {
+        console.log('connected')
+        socket.on("employeeName", (msg) => {
+            // console.log(parseInt(msg.problem_description));
+
+            con.query(`SELECT name from employee 
+            INNER JOIN users ON users.user_id  = employee.employee_id 
+            WHERE users.username = ? `,
+            [session_username],function(err, result, fields) {
+            console.log(err);
+            if (err) throw err;
+
+            console.log('TESTING');
+            console.log(result[0]);
+            socket.emit('employeeName', result[0]);
+            // io.send('employeeName', result);
+            })
+        });
+        })
+    //con.end();
 
     io.on('connection',  (socket) => {
         console.log('connected')
@@ -156,7 +176,7 @@ app.get('/faq.html', (req, res) =>{
                         handler_id = result[0].user_id;
                         console.log(handler_id);
 
-                        con.query(`SELECT employee_id from employee INNER JOIN users ON users.user_id  = employee.employee_id WHERE users.username = ?;`,[msg.employee_Uname],function (err, result, fields) {
+                        con.query(`SELECT employee_id from employee INNER JOIN users ON users.user_id  = employee.employee_id WHERE users.username = ?;`,[session_username],function (err, result, fields) {
                             if (err) throw err;
                             employee_id = result[0].employee_id;
                             console.log(employee_id);
@@ -165,8 +185,10 @@ app.get('/faq.html', (req, res) =>{
                             (employee_id, status, priority, problem_description, notes, creation_date, last_updated, handler_id, operating_system, hardware_id, software_id, problem_type_id)
                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                             [employee_id, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.date, msg.date, handler_id, msg.os, parseInt(msg.hardID), software_id, problem_type_id], function (err, result, fields) {
+
                                 console.log("Add");
                                 console.log(result);
+                                socket.disconnect(0);
                     
                                 if (err) throw err;
                             });

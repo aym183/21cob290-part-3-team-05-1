@@ -110,9 +110,9 @@
             <div>
             <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
-                    <label class="required" for="employee_name">Employee Username</label>
+                    <label class="required" for="employee_name">Employee Name</label>
                     <div>
-                        <input type="text" id="employee_Uname" class="edit-field" value="">
+                        <input type="text" id="employee_name" class="no-edit-field" value="" readonly>
                     </div>
 
                     <br>
@@ -133,7 +133,8 @@
                     
                     <label class="required" for="problem_description">Problem Description</label>
                     <div>
-                        <input type="text" id="problem_description" class="edit-field" value="" required>
+                        <textarea type="text" id="problem_description" maxlength="1000" class="edit-field" rows="5" style="width: 100%;" required></textarea>
+                        <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
                     </div>
 
                     <br>

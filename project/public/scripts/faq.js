@@ -1,17 +1,3 @@
-// var status1;
-// var priority;
-// var softwareName;
-// var problemType;
-// var hardwareID;
-// var handler;
-// var operatingSystem;
-// var problemDescription;
-// var notes;
-// var creationDate;
-// var lastUpdated;
-// var no_of_drops;
-
-
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -36,7 +22,6 @@ function showSolutionInfo(data) {
 
     // document.getElementById('solutionBox').value = data.solution_description;
 }
-
 
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
@@ -66,17 +51,36 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
 });
 
+function showEmployeeName(data) {   
+  console.log(data);
+  document.getElementById('employee_name').value=data.name;
+}
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
   document.querySelector("#add-btn").style.display="none";
   document.querySelector("#cancel-btn").style.display="block";
   // console.log("hello");
+
+  const socket=io();
+    
+    const data = {
+      //session_username,
+      employee_name: 'yo'
+    }
+    socket.emit('employeeName',  data);
+  socket.on('employeeName', function(data, json) {
+    console.log(data);
+    console.log(json);
+    showEmployeeName(data); 
+    socket.destroy();
+  });
 });
 
 document.querySelector("#submitTicket").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
   document.querySelector("#add-btn").style.display="block";
+  document.querySelector("#cancel-btn").style.display="none";
   // console.log("hello");
 });
 
@@ -95,8 +99,8 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   //   console.log("adding ticket");
   // });
 
-  var employee_Uname1 = document.getElementById('employee_Uname').value;//="";
-  console.log(employee_Uname1);
+  var employee_name = document.getElementById('employee_name').value;//="";
+  console.log(employee_name);
 
   var status1 = document.getElementById('status').value;//="";
   console.log(status1);
@@ -125,20 +129,12 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   var notes = document.getElementById('add_notes').value;//="";
   console.log(notes);
 
-  // creationDate = document.getElementById('creationDate').value;//="";
-  // console.log(creationDate);
-
-  // lastUpdated = document.getElementById('lastUpdated').value;//="";
-  // console.log(lastUpdated);
-
-  // no_of_drops = document.getElementById('no_of_drops').value;//="";
-  // console.log(no_of_drops);
 
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       
   const data = {
-    employee_Uname: employee_Uname1,
+    employee_name: employee_name,
     statuss: status1,
     priorityy: priority,
     soft_name: softwareName,
@@ -157,8 +153,8 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   //popupCreator("Ticket Submitted");
 
-  var employee_Uname1 = document.getElementById('employee_Uname').value="";
-  console.log(employee_Uname1);
+  var employee_name = document.getElementById('employee_name').value="";
+  console.log(employee_name);
 
   var status1 = document.getElementById('status').value="active";
   console.log(status1);
@@ -194,8 +190,8 @@ document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.querySelector("#add-btn").style.display="block";
   document.querySelector("#cancel-btn").style.display="none";
 
-  var employee_Uname1 = document.getElementById('employee_Uname').value="";
-  console.log(employee_Uname1);
+  var employee_name = document.getElementById('employee_name').value="";
+  console.log(employee_name);
 
   var status1 = document.getElementById('status').value="active";
   console.log(status1);
