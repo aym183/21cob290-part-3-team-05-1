@@ -1144,7 +1144,7 @@ app.get('/index.html', (req, res) => {
     WHERE ticket.employee_id = ?
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
-                WHEN status = 'pending' THEN 3
+                WHEN status = 'unsuccessful' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
     [session_id],function (err, result, fields) {
@@ -1404,7 +1404,6 @@ app.get('/index.html', (req, res) => {
                 ticket_status = msg.new_status
                 console.log(msg);
                 console.log(ticket_status); 
-                if(ticket_status == 'closed'){
 
                     con.query(`UPDATE ticket
                     SET status = ?, closing_date = ?, closing_time = ? where ticket_id = ?;`,[msg.new_status, msg.date, msg.time, parseInt(msg.id)],function(err, result, fields) {
@@ -1419,7 +1418,7 @@ app.get('/index.html', (req, res) => {
 
                         });
                     }
-                    else if(ticket_status == 'unsuccessful'){
+                    else if(ticket_status == 'submitted'){
                         con.query(`UPDATE ticket_solution
                         SET solution_status = 'unsuccessful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
                 
@@ -1431,7 +1430,6 @@ app.get('/index.html', (req, res) => {
 
                 });
 
-                }
                 
                 
             });
