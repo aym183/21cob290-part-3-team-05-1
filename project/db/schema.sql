@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     last_updated DATE NOT NULL,
     handler_id MEDIUMINT UNSIGNED,
     operating_system VARCHAR(50),
-    hardware_id MEDIUMINT UNSIGNED, /* Hardware id bit */
+    hardware_id MEDIUMINT UNSIGNED, 
     software_id MEDIUMINT UNSIGNED,
     problem_type_id MEDIUMINT UNSIGNED NOT NULL,
     number_of_drops MEDIUMINT UNSIGNED DEFAULT 0 NOT NULL,
