@@ -181,8 +181,7 @@ app.get('/faq.html', (req, res) =>{
                             employee_id = result[0].employee_id;
                             console.log(employee_id);
                         
-                            con.query(`INSERT INTO ticket
-                            (employee_id, status, priority, problem_description, notes, creation_date, last_updated, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                            con.query(`INSERT INTO ticket (employee_id, status, priority, problem_description, notes, creation_date, last_updated, handler_id, operating_system, hardware_id, software_id, problem_type_id)
                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                             [employee_id, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.date, msg.date, handler_id, msg.os, parseInt(msg.hardID), software_id, problem_type_id], function (err, result, fields) {
 
