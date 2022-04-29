@@ -1,15 +1,12 @@
-// var status1;
-// var priority;
-// var softwareName;
-// var problemType;
-// var hardwareID;
-// var handler;
-// var operatingSystem;
-// var problemDescription;
-// var notes;
-// var creationDate;
-// var lastUpdated;
-// var no_of_drops;
+var problemTypes = [];
+var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
+var priority_list = ["high", "medium", "low"];
+var hardware_list = [];
+var os_list = [];
+var software_list = [];
+var probtype_list = [];
+var handler_list = [];
+
 
 
 function addRowHandlers() {
