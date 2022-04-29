@@ -9,6 +9,7 @@ var ready = (callback) => {
     else document.addEventListener("DOMContentLoaded", callback);
 }
 
+
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
@@ -20,12 +21,6 @@ var handler_list = [];
 
 var span_list = [hardware_list, os_list, software_list, probtype_list, handler_list];
 
-ready(() => { 
-    // loadData(); 
-    // getProblemTypes();
-});
-
-
 //Used in Update button function
 var old_priority;
 var old_hardwareId;
@@ -35,6 +30,22 @@ var old_description;
 var old_notes;
 var old_problemType;
 var old_handlerName;
+
+
+function convertDate(){
+
+    const element = document.getElementById("ticket-body");
+    const nodes = element.getElementsByTagName("tr");
+
+    for(let i = 0; i<nodes.length; i++){
+        var iteration = element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML;
+        console.log(iteration);
+        var date = new Date(iteration).toLocaleDateString();
+        element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML= date;
+        console.log(date);   
+    }
+}
+
 
 /**
  * Fetches and displays ticket info on operator home page
@@ -976,6 +987,11 @@ ready(() => {
     });
 
 });
+
+ready(() => { 
+    convertDate();
+});
+
 
 
 

@@ -1,7 +1,3 @@
-// const { response } = require("express");
-
-// const { resolveInclude } = require("ejs");
-
 function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     
     const popup = document.createElement('div');
