@@ -86,12 +86,10 @@
                 <tbody class="ticket-body op-ticket-body">
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
-                            <!--<td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td> -->
                             <td><%=dropdownVals[i].problem_description%></td>
                             <td><%=dropdownVals[i].prob_name%></td>
                             <td><%=dropdownVals[i].name%></td>
                                         
-                        <!-- <option><%= dropdownVals[i] %></option> -->
                      <% } %>
                         </tr>
                 </tbody>
@@ -128,6 +126,12 @@
                     <div>
                         <input type="text" id="priority" class="edit-field" list="priority" value="" required>
                     </div>
+                    <datalist id="priority-list">
+                        <option>high</option>
+                        <option>medium</option>
+                        <option>low</option>
+                    </datalist>
+                    <span class="validation_error" id="priority-error"></span>
 
                     <br>
                     
@@ -146,31 +150,6 @@
                     </div>
 
                     <br>
-                    
-                    <!-- <label for="creationDate">Creation Date</label>
-                    <div>
-                        <input type="date" id="creationDate" class="edit-field" value="">
-                    </div>
-
-                    <br>
-
-                    <label for="lastUpdated">Last Updated</label>
-                    <div>
-                        <input type="text" id="lastUpdated" class="edit-field" value="" readonly>
-                        <script>
-                        function getDate(){
-                            var todaydate = new Date();
-                            var day = todaydate.getDate();
-                            var month = todaydate.getMonth() + 1;
-                            var year = todaydate.getFullYear();
-                            var datestring = day + "/" + month + "/" + year;
-                            document.getElementById("lastUpdated").value = datestring;
-                           } 
-                         getDate(); 
-                         </script>
-                    </div>
-
-                    <br> -->
 
                     <label for="software_name">Handler Name</label>
                     <div>
@@ -190,6 +169,7 @@
                     <div>
                         <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="" required>
                     </div>
+                    
 
                     <br>
 
@@ -204,23 +184,11 @@
                     <div>
                         <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
                         <datalist id="problem-types">
-                        <!-- <?php
-                        $problems = get_problem_types(true, false);
-                        foreach ($problems as $problem) {
-                            echo "<option value=\"" . $problem['name'] . "\">";
-                        }
-                        ?> -->
+            
                         </datalist>
                     </div>
 
                     <br>
-
-                    <!-- <label for="no_of_drops">Number of Drops</label>
-                    <div>
-                        <input type="text" id="no_of_drops" class="no-edit-field" value="0" readonly>
-                    </div>
-
-                    <br> -->
 
                     <div>
                         <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Submit Ticket</button>

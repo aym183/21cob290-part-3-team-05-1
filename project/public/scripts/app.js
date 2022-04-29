@@ -716,166 +716,6 @@ ready(() => {
 
 });
 
-
-// // Input Fields Events
-// ready(() => { 
-//     const callerbtn = document.querySelector("#caller-btn");
-//     callerbtn && callerbtn.addEventListener("click", (e) => {
-//         const caller_btn = document.querySelector("#caller-btn");
-
-//         if (!caller_btn.classList.contains('pushed-btn')) {
-//             caller_btn.classList.add('pushed-btn');
-//             document.querySelector('#caller-btn').style.color = 'var(--buttonTextColor)';
-//             document.querySelector('#caller-btn').style.backgroundColor = 'var(--buttonHover)';
-
-//             document.querySelector('#emp-table__container').style.display = 'block';
-//             document.querySelector('.emp-search__container').style.display = 'flex';
-//             document.querySelector('#emp-details__table th:nth-child(3)').style.borderRadius = '0px';
-//             const emp_name = document.querySelector("#caller-search").value;
-            
-//             ticketDetailTable('emp_name' ,emp_name); 
-//         }
-//         else {
-//             caller_btn.classList.remove('pushed-btn');
-//             document.querySelector('#caller-btn').style.color = null;
-//             document.querySelector('#caller-btn').style.backgroundColor = null;
-
-//             document.querySelector('#emp-table__container').style.display = 'none';
-//             document.querySelector('.emp-search__container').style.display = 'none';
-
-//         }         
-//     });
-
-//     document.querySelector("#handler-name").addEventListener("click", (e) => {
-//         document.querySelector('.emp-search__container').style.display = 'none';
-//         document.querySelector('#emp-table__container').style.display = 'block';
-//         document.querySelector('#emp-details__table th:nth-child(3)').style.borderRadius = '0 0px 10px 0';
-        
-//         const handler_name =  document.querySelector("#handler-name").value;
-
-//         ticketDetailTable('handler_name', handler_name);         
-//     });
-   
-//     var emp_details_section = document.querySelector("#emp-details__table tbody");
-//     emp_details_section && emp_details_section.addEventListener("click", (e) => {
-//         if (document.querySelector(".switch_table").style.display == "table-cell") {
-//             const employee_name = e.target.closest("tr").children[0].textContent;
-//             const employee_id = e.target.closest("tr").children[1].textContent;
-//             const employee_phone = e.target.closest("tr").children[4].textContent;
-//             document.querySelector("#caller-name").value = employee_name;
-//             document.querySelector("#caller-id").value = employee_id;
-//             document.querySelector("#caller-phone").value = employee_phone;
-//             document.querySelector("#caller-search").value = "";
-//             const ticket_details = {
-//                 id: document.getElementById('detail-id').innerHTML, 
-//                 caller_id: employee_id
-//             };
-//             const jsonString = JSON.stringify(ticket_details)
-//             updateTicketInfo(jsonString);
-//         } else if (document.querySelector(".switch_table").style.display == "none") {
-//             const handler_name = e.target.closest("tr").children[0].textContent;
-//             document.querySelector("#handler-name").value = handler_name;
-//         }
-        
-//         document.querySelector('#emp-table__container').style.display = 'none';
-//         document.querySelector('#caller-btn').classList.remove('pushed-btn');
-//         document.querySelector('#caller-btn').style.color = null;
-//         document.querySelector('#caller-btn').style.backgroundColor = null;
-//     });
-    
-//     const callersearch = document.querySelector("#caller-search");
-//     callersearch && callersearch.addEventListener("input", (e) => {
-//         var emp_name = document.querySelector("#caller-search").value;
-    
-//         ticketDetailTable('emp_name' ,emp_name);
-        
-//     });
-
-//     document.querySelector("#handler-name").addEventListener("input", (e) => {
-//         var handler_name =  document.querySelector("#handler-name").value;
-        
-//         ticketDetailTable('handler_name', handler_name);
-        
-//     });
-    
-//     document.querySelectorAll(".ticket__information .edit-field").forEach(field => { 
-//         field.addEventListener("keydown", (e) => {
-//             if (e.target.style.borderColor == 'rgb(255, 0, 51)') {
-//                 const id_name = e.target.getAttribute('id');
-//                 document.querySelector(`label[for='${id_name}']`).style.color = 'black';
-//                 document.querySelector('#'+id_name).style.borderColor = 'black';
-//                 document.querySelector(`#${id_name}-error`).innerHTML = '';
-//             }
-//         });
-//     });
-    
-// });
-
-// Manages employee and handler tables for input fields in ticket details page
-// function ticketDetailTable(table_type, input) {
-    
-//     document.querySelector('#emp-details__table tbody').innerHTML = "";
-
-//     var detail_type;
-//     var data_type;
-
-//     var details_table = document.querySelector("#emp-details__table tbody");
-
-//     if (table_type == 'emp_name') {
-//         document.querySelector("#emp-table__container").style.gridRow = 2;
-//         document.querySelectorAll(".switch_table").forEach(field => { 
-//             field.style.display = 'table-cell';       
-//         })
-//         detail_type = 'name';
-//         data_type = emp_table;
-
-//         for (const element of data_type) {
-//             if (element[detail_type].includes(input) || element['employee_id'].includes(input)) {
-//                 var row = details_table.insertRow(0);
-//                 var cell1 = row.insertCell(0);
-//                 var cell2 = row.insertCell(1);
-//                 var cell3 = row.insertCell(2);
-//                 cell1.innerHTML = element['name'];
-//                 cell2.innerHTML = element['employee_id'];
-//                 cell3.innerHTML = element['job'];
-//                 if (table_type == 'emp_name' || table_type == 'emp_id') {
-//                     var cell4 = row.insertCell(3);
-//                     var cell5 = row.insertCell(4); 
-//                     cell4.innerHTML = element['department'];
-//                     cell5.innerHTML = element['telephone'];  
-//                 }
-    
-//             }
-//         }
-//     } else if (table_type == 'handler_name') {
-//         document.querySelector("#emp-table__container").style.gridRow = 20;
-//         document.querySelectorAll(".switch_table").forEach(field => { 
-//             field.style.display = 'none';       
-//         })
-//         detail_type = 'name';
-//         data_type = handler_table;
-
-//         for (const element of data_type) {
-//             if (element[detail_type].includes(input)) {
-//                 var row = details_table.insertRow(0);
-//                 var cell1 = row.insertCell(0);
-//                 var cell2 = row.insertCell(1);
-//                 var cell3 = row.insertCell(2);
-//                 cell1.innerHTML = element['name'];
-//                 cell2.innerHTML = element['employee_id'];
-//                 cell3.innerHTML = element['job'];
-//                 if (table_type == 'emp_name' || table_type == 'emp_id') {
-//                     var cell4 = row.insertCell(3);
-//                     var cell5 = row.insertCell(4); 
-//                     cell4.innerHTML = element['department'];
-//                     cell5.innerHTML = element['telephone'];  
-//                 }
-    
-//             }
-//         }
-//     }
-// }
-
 ready(() => { 
     document.querySelector("#editSolution-btn").addEventListener("click", (e) => {
         const edit_btn = document.querySelector("#editSolution-btn");
@@ -1008,9 +848,8 @@ logout_btn && logout_btn.addEventListener("click", (e) => {
 ready(() => { 
 
 document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
+    const socket2 = io();
     var container = document.getElementsByClassName("ticket_history_container")[0];
-    var container = document.getElementsByClassName("ticket_history_container")[0];
-
     var old_err_msg = document.getElementById("err_ticket_history");
     var past_edits_container = document.createElement('div');
     past_edits_container.setAttribute("id","past_edits_container");
@@ -1022,7 +861,6 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
         const ticketId_Obj = {
             ticketId: ticket_Id
         };
-        const socket2 = io();
      
         var response;
         
@@ -1105,9 +943,6 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 
                     
                 }
-            
-                
-
 
                 container.style.display = "block";
                 document.getElementById("ticket_history_btn").innerHTML="Hide Past Edit(s)";

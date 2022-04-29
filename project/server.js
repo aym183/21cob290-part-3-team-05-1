@@ -874,8 +874,13 @@ app.get('/external.html', (req, res) => {
                         console.log(new_no_drops);
                         console.log(result);
 
-                        con.query(`UPDATE ticket
-                        SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
+                        if(new_no_drops == 5){
+                            console.log("UNSOLVABLE");
+                        }
+                        else{
+
+                            con.query(`UPDATE ticket
+                            SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
                             if (err) throw err;
         
                             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
@@ -884,6 +889,9 @@ app.get('/external.html', (req, res) => {
                                 if (err) throw err;
                             });
                         })
+                        }
+
+                        
                     });
                 })
         
@@ -897,10 +905,8 @@ app.get('/external.html', (req, res) => {
                 console.log(msg.id);
                 console.log(msg);
                 console.log("I AM HERE")
-
-        
                     con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
-                                values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                                values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names, msg.changed_values, msg.current_dateTime], function (err, result, fields){
                     
                                     if (err) throw err;
                                 });

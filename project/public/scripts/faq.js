@@ -1,3 +1,14 @@
+var problemTypes = [];
+var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
+var priority_list = ["high", "medium", "low"];
+var hardware_list = [];
+var os_list = [];
+var software_list = [];
+var probtype_list = [];
+var handler_list = [];
+
+
+
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
