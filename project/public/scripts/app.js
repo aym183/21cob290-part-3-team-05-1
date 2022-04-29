@@ -43,6 +43,7 @@ var old_handlerName;
 function showTicketInfo(data) {  
 
 
+    console.log(data);
         old_priority = data.priority;
         old_hardwareId = data.hardware_id;
         old_os = data.operating_system;
@@ -70,6 +71,7 @@ function showTicketInfo(data) {
 // data.solution_status == 'submitted' || 
         if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
+            console.log(pending_solution);
             document.getElementById('solution-area').value = pending_solution;
             
         } else if (data.status == 'closed') {
