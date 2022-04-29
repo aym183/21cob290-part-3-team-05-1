@@ -692,9 +692,9 @@ ready(() => {
     drop_btn && drop_btn.addEventListener("click", (e) => {
 
         document.getElementById('solution-area').value = "";
-        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-        document.querySelector("#submit-btn").style.cursor = "default";
-        document.querySelector(".closeButton").style.opacity = "0.3";
+        document.querySelector("#close-btn").setAttribute('disabled','disabled');
+        document.querySelector("#close-btn").style.cursor = "default";
+        document.querySelector("#close-btn").style.opacity = "0.3";
 
         document.querySelector('.solution-status').innerText = "Solution Discarded";
         document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
