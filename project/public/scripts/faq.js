@@ -32,7 +32,7 @@ function showSolutionInfo(data) {
     document.getElementById('solutionBox').value =  data.solution_description;
     document.getElementById('description').value =  data.problem_description;
     document.getElementById('notes').value =  data.notes;
-    document.getElementById('problem-type').value =  data.problem_type_id;
+    document.getElementById('problem-type').value =  data.name;
 
     // document.getElementById('solutionBox').value = data.solution_description;
 }
@@ -92,8 +92,8 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   //   console.log("adding ticket");
   // });
 
-  var employee_name1 = document.getElementById('employee_name').value;//="";
-  console.log(employee_name1);
+  var employee_Uname1 = document.getElementById('employee_Uname').value;//="";
+  console.log(employee_Uname1);
 
   var status1 = document.getElementById('status').value;//="";
   console.log(status1);
@@ -119,7 +119,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   var problemDescription = document.getElementById('problem_description').value;//="";
   console.log(problemDescription);
 
-  var notes = document.getElementById('notes').value;//="";
+  var notes = document.getElementById('add_notes').value;//="";
   console.log(notes);
 
   // creationDate = document.getElementById('creationDate').value;//="";
@@ -131,7 +131,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   // no_of_drops = document.getElementById('no_of_drops').value;//="";
   // console.log(no_of_drops);
   const data = {
-    employee_name: employee_name1,
+    employee_Uname: employee_Uname1,
     statuss: status1,
     priorityy: priority,
     soft_name: softwareName,

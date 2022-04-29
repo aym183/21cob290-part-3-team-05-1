@@ -113,11 +113,12 @@ app.get('/faq.html', (req, res) =>{
         socket.on("solution_details", (msg) => {
             // console.log(parseInt(msg.problem_description));
 
-            con.query(`SELECT ticket.problem_description, ticket.notes, ticket.problem_type_id, solution.solution_description 
+            con.query(`SELECT ticket.problem_description, ticket.notes, problem_type.name, solution.solution_description 
             FROM solution 
             INNER JOIN ticket_solution ON solution.solution_id = ticket_solution.solution_id 
             INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id 
-            WHERE ticket.problem_description = ? 
+            INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id
+            WHERE ticket.problem_description = ?
             AND ticket_solution.solution_status = 'successful';`,
             [msg.problem_description],function(err, result, fields) {
             console.log(err);
@@ -155,15 +156,15 @@ app.get('/faq.html', (req, res) =>{
                         handler_id = result[0].user_id;
                         console.log(handler_id);
 
-                        con.query(`SELECT employee_id from employee where name = ?;`,[msg.employee_name],function (err, result, fields) {
+                        con.query(`SELECT user_id from users INNER JOIN employee ON employee.employee_id  = users.user_id WHERE users.username = ?;`,[msg.employee_Uname],function (err, result, fields) {
                             if (err) throw err;
                             employee_id = result[0].employee_id;
                             console.log(employee_id);
                         
                             con.query(`INSERT INTO ticket
-                            (status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                            (employee_id, status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                            [msg.employee_name, msg.statuss, msg.priorityy, msg.prob_desc, msg.notes, msg.h_name, msg.os, parseInt(msg.hardID), msg.soft_name, msg.prob_type], function (err, result, fields) {
+                            [msg.employee_Uname, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.h_name, msg.os, parseInt(msg.hardID), msg.soft_name, msg.prob_type], function (err, result, fields) {
                                 console.log("Add");
                                 console.log(result);
                     
