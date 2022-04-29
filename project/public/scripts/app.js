@@ -803,11 +803,6 @@ ready(() => {
     var drop_btn = document.querySelector("#drop-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
-        // var ticket_id = document.getElementById(`detail-id`).innerHTML;
-
-        // const data = {
-        //     id: ticket_id
-        // }
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
 
         console.log(data);
