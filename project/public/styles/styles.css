@@ -1600,3 +1600,7 @@ footer {
     flex-direction: column; 
     padding: 20px 20px;
 }
+
+#cancel-btn {
+    float: right;
+}

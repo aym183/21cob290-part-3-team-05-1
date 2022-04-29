@@ -156,15 +156,15 @@ app.get('/faq.html', (req, res) =>{
                         handler_id = result[0].user_id;
                         console.log(handler_id);
 
-                        con.query(`SELECT user_id from users INNER JOIN employee ON employee.employee_id  = users.user_id WHERE users.username = ?;`,[msg.employee_Uname],function (err, result, fields) {
+                        con.query(`SELECT employee_id from employee INNER JOIN users ON users.user_id  = employee.employee_id WHERE users.username = ?;`,[msg.employee_Uname],function (err, result, fields) {
                             if (err) throw err;
                             employee_id = result[0].employee_id;
                             console.log(employee_id);
                         
                             con.query(`INSERT INTO ticket
-                            (employee_id, status, priority, problem_description, notes, handler_id, operating_system, hardware_id, software_id, problem_type_id)
-                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-                            [msg.employee_Uname, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.h_name, msg.os, parseInt(msg.hardID), msg.soft_name, msg.prob_type], function (err, result, fields) {
+                            (employee_id, status, priority, problem_description, notes, creation_date, last_updated, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [employee_id, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.date, msg.date, handler_id, msg.os, parseInt(msg.hardID), software_id, problem_type_id], function (err, result, fields) {
                                 console.log("Add");
                                 console.log(result);
                     

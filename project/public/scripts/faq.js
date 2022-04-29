@@ -69,11 +69,14 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
+  document.querySelector("#add-btn").style.display="none";
+  document.querySelector("#cancel-btn").style.display="block";
   // console.log("hello");
 });
 
 document.querySelector("#submitTicket").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
+  document.querySelector("#add-btn").style.display="block";
   // console.log("hello");
 });
 
@@ -130,6 +133,10 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   // no_of_drops = document.getElementById('no_of_drops').value;//="";
   // console.log(no_of_drops);
+
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      
   const data = {
     employee_Uname: employee_Uname1,
     statuss: status1,
@@ -140,10 +147,81 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
     prob_type: problemType,
     prob_desc: problemDescription,
     os: operatingSystem,
-    notess: notes
+    notess: notes,
+    date: date
   }
   //console.log(handler_name);
   console.log(data);
   console.log(data.statuss); 
   socket.emit("add_ticket", data);
+
+  //popupCreator("Ticket Submitted");
+
+  var employee_Uname1 = document.getElementById('employee_Uname').value="";
+  console.log(employee_Uname1);
+
+  var status1 = document.getElementById('status').value="active";
+  console.log(status1);
+
+  var priority = document.getElementById('priority').value="";
+  console.log(priority);
+
+  var softwareName = document.getElementById('software_name').value="";
+  console.log(softwareName);
+
+  var problemType = document.getElementById('problem_type').value="";
+  console.log(problemType);
+
+  var hardwareID = document.getElementById('hardware_id').value="";
+  console.log(hardwareID);
+
+  var handler = document.getElementById('handler').value="";
+  console.log(handler);
+
+  var operatingSystem = document.getElementById('os').value="";
+  console.log(operatingSystem);
+
+  var problemDescription = document.getElementById('problem_description').value="";
+  console.log(problemDescription);
+
+  var notes = document.getElementById('add_notes').value="";
+  console.log(notes);
+});
+
+
+document.querySelector("#cancel-btn").addEventListener("click", (e) => {
+  document.querySelector(".AddTicketContainer").style.display="none";
+  document.querySelector("#add-btn").style.display="block";
+  document.querySelector("#cancel-btn").style.display="none";
+
+  var employee_Uname1 = document.getElementById('employee_Uname').value="";
+  console.log(employee_Uname1);
+
+  var status1 = document.getElementById('status').value="active";
+  console.log(status1);
+
+  var priority = document.getElementById('priority').value="";
+  console.log(priority);
+
+  var softwareName = document.getElementById('software_name').value="";
+  console.log(softwareName);
+
+  var problemType = document.getElementById('problem_type').value="";
+  console.log(problemType);
+
+  var hardwareID = document.getElementById('hardware_id').value="";
+  console.log(hardwareID);
+
+  var handler = document.getElementById('handler').value="";
+  console.log(handler);
+
+  var operatingSystem = document.getElementById('os').value="";
+  console.log(operatingSystem);
+
+  var problemDescription = document.getElementById('problem_description').value="";
+  console.log(problemDescription);
+
+  var notes = document.getElementById('add_notes').value="";
+  console.log(notes);
+
 });
