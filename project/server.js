@@ -1161,7 +1161,7 @@ app.get('/index.html', (req, res) => {
     
     // Query for ticket information
 
-    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
+    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     INNER JOIN employee ON ticket.employee_id = employee.employee_id
     INNER JOIN (SELECT user_id, employee.name FROM handler
