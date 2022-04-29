@@ -406,7 +406,7 @@ FROM ticket`,function (err, result, fields) {
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin && session_job == "Specialist") {
         // console.log("internal scpecialist")
-        console.log("internal scpecialist")
+        console.log("internal specialist")
     // res.writeHead(200, {'content-type':'text/html'})
     
     // Query for ticket information

@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS software (
     PRIMARY KEY (software_id)
 );
 
-CREATE TABLE IF NOT EXISTS problem_type (
+CREATE TABLE IF NOT EXISTS problem_type (u
     problem_type_id MEDIUMINT UNSIGNED NOT NULL UNIQUE,
     name      VARCHAR(150) NOT NULL UNIQUE,
     links_to VARCHAR(300),
