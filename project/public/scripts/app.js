@@ -18,6 +18,7 @@ var os_list = [];
 var software_list = [];
 var probtype_list = [];
 var handler_list = [];
+var temp_error = [];
 
 var span_list = [hardware_list, os_list, software_list, probtype_list, handler_list];
 
@@ -549,26 +550,17 @@ ready(() => {
                 document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
                 document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
                 document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
+                temp_error.push(element);
+
             }    
 
             document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
 
         } else if(valid_details.length == 0){
-        // if (!hardware_table.some(e => eserial_number == hardware_id)) {
-        //     valid_details.push('hardware-id');
-        // }
-        // if (!os_table.some(e => e.name == os) && os != "" && os !="null") {
-        //     valid_details.push('operating-system');
-        // }
-        // if (!software_table.some(e => e.name == software) && software != "") {
-        //     valid_details.push('software');
-        // }
-        // if (!operator_table.some(e => e.name == operator_name)) {
-        //     valid_details.push('operator-name');
-        // }
-        // if (!problemTypes.some(e => e.name == problem_type)) {
-        //     valid_details.push('problem-type');
-        // }
+
+        
+            document.querySelector(`#${temp_error}-error`).style.display = 'none';
+    
 
                 const changed_values = [];
                 const changed_names = [];
@@ -832,11 +824,7 @@ ready(() => {
 var logout_btn = document.querySelector("#logout-btn");
 logout_btn && logout_btn.addEventListener("click", (e) => {
     socket = io();
-    // var ticket_id = document.getElementById(`detail-id`).innerHTML;
-
-    // const data = {
-    //     id: ticket_id
-    // }
+   
 
     popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
 
