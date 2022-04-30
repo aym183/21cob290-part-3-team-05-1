@@ -123,22 +123,24 @@
 
                     <br>
 
+                <div>
                     <label class="required" for="priority">Priority</label>
-                    <div>
-                        <input type="text" id="priority" class="edit-field" list="priority-list" value="" required>
-                    </div>
+                 
+                    <input type="text" id="priority" class="edit-field" list="priority-list" value="" required>
+
                     <datalist id="priority-list">
                         <option>high</option>
                         <option>medium</option>
                         <option>low</option>
                     </datalist>
-                    <span class="validation_error" id="priority-error"></span>
+                    <span class="faq_validation_error" id="priority-error"></span>
 
+                </div>
                     <br>
                     
                     <label for="description">Problem Description</label>
                     <div>
-                    <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
                     <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
                     </div>
                     <br>
@@ -149,36 +151,42 @@
                     </div>
                     <br>
 
+                <div>
                     <label for="handler-name">Handler Name</label>
-                    <div>
+                    
                         <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
-                    </div>
+                    
                     <datalist id="handler-names">
                         <% for(var i=0; i < handler_vals.length; i++) { %>
                             <option value = <%=handler_vals[i].name%> Tickets>Handling <%=handler_vals[i].tickets%> Tickets</option>                                            
                         <% } %>
                     </datalist>
-
+                    <span class="faq_validation_error" id="handler-name-error"></span>
+                </div>
                     <br>
 
+                <div>
                     <label for="operating-system">Operating System </label>  
-                    <div>
+               
                         <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" required>
-                    </div>
+                    
                     <datalist id="new-operating-systems">
 
                         <% for(var i=0; i < operating_sys.length; i++) { %>
                             <option><%=operating_sys[i].name%></option>                                            
                         <% } %>
                     </datalist>
-                    <span class="validation_error" id="operating-system-error"></span>
+                    <span class="faq_validation_error" id="operating-system-error"></span>
+
+                </div>
 
                     <br>
 
+                <div>
                     <label for="hardware-id">Hardware ID</label>  
-                    <div>
+                    
                         <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers2" value="" required>
-                    </div>
+                    
                     <datalist id="hardware-numbers2">
 
                         <% for(var i=0; i < hardwareids.length; i++) { %>
@@ -187,32 +195,36 @@
                                     
                         <% } %>
                     </datalist>
-                    <span class="validation_error" id="hardware-id-error"></span>
-                    
+                    <span class="faq_validation_error" id="hardware-id-error"></span>
+                </div>
 
                     <br>
 
-                    <label for="software">Software Name</label>  
                     <div>
+                    <label for="software">Software Name</label>  
+                 
                         <input type="text" id="software" class="edit-field" list="software-list" value="" required>
-                    </div>
+              
                     <datalist id="software-list">
                         <% for(var i=0; i < software_vals.length; i++) { %>
                             <option><%=software_vals[i].name%></option>                                            
                         <% } %>
                     </datalist>
-                    <span class="validation_error" id="software-error"></span>
+                    <span class="faq_validation_error" id="software-error"></span>
+                    </div>
+
                     <br>
                 
-                    <label class="required" for="problem-type">Problem Type</label>
                     <div>
+                    <label class="required" for="problem-type">Problem Type</label>
+                  
                         <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" required>  
                         <datalist id="problem-types">
                             <% for(var i=0; i < probtype_vals.length; i++) { %>
                                 <option><%=probtype_vals[i].name%></option>                                            
                             <% } %>
                         </datalist>
-                        <span class="validation_error" id="problem-type-error"></span>
+                        <span class="faq_validation_error" id="problem-type-error"></span>
                     </div>
 
                     <br>
@@ -262,15 +274,6 @@
                
                 <label for="problem-type">Problem Type</label>
                 <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
-                <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
-
-                </datalist>
                 
                 <br>
             
@@ -284,18 +287,6 @@
             <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
-
-    <!-- <script src="scripts/app.js">
-        $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function(e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-        
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        });
-    </script> -->
 
     <script src="/scripts/faq.js"></script>
     <script src="/scripts/function.js"></script>

@@ -1348,6 +1348,13 @@ footer {
     top: 20px;
 }
 
+.faq_validation_error {
+    color: rgb(255,0,51);
+    grid-column: 3;
+    font-size: 12px;
+    top: 20px;
+}
+
 .info-edit-btn {
     cursor: pointer;
     border: 1px solid #ccc;

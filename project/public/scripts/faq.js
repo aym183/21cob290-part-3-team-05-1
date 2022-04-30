@@ -64,7 +64,12 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 });
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
-  console.log("I here");
+
+  document.getElementById("employee_name").style.backgroundColor="rgb(236, 236, 236)";
+  document.getElementById("employee_name").disabled=true;
+  document.getElementById("status").disabled=true;
+  document.getElementById("status").style.backgroundColor="rgb(236, 236, 236)";
+
   document.querySelector(".AddTicketContainer").style.display="block";
   document.querySelector("#add-btn").style.display="none";
   document.querySelector("#cancel-btn").style.display="block";
@@ -109,7 +114,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const hardware_id = document.getElementById("hardware-id").value;
   const os = document.getElementById("operating-system").value;
   const software = document.getElementById("software").value;
-  const problem_description = document.getElementById("description").value;
+  const problem_description = document.getElementById("problem_description").value;
   const notes = document.getElementById("notes").value;
   const problem_type = document.getElementById("problem-type").value;
   const handler_name = document.getElementById("handler-name").value;
@@ -163,14 +168,11 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       
       for (const element of errors) {
   
+          document.querySelector('#'+element).style.borderColor = '#ccc';
+          document.querySelector(`label[for='${element}']`).style.color = 'rgb(0, 0, 0)';
           document.querySelector(`#${element}-error`).style.display = 'none';
       }
-  
 
-      var problemDescription = document.getElementById('problem_description').value;//="";
-      console.log(problemDescription);
-  
-      
 
       var status1 = document.getElementById('status').value;//="";
       console.log(status1);
@@ -208,9 +210,10 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       document.getElementById('hardware-id').value="";
       document.getElementById('handler-name').value="";
       document.getElementById('operating-system').value="";
-      document.getElementById('description').value="";
+      document.getElementById('problem_description').value="";
       document.getElementById('notes').value="";
 
+    
       document.querySelector(".AddTicketContainer").style.display="none";
       document.querySelector("#add-btn").style.display="block";
       document.querySelector("#cancel-btn").style.display="none";
@@ -234,7 +237,7 @@ document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.getElementById('hardware-id').value="";
   document.getElementById('handler-name').value="";
   document.getElementById('operating-system').value="";
-  document.getElementById('description').value="";
+  document.getElementById('problem_description').value="";
   document.getElementById('notes').value="";
   
 
