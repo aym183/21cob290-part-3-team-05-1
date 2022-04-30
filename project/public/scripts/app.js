@@ -13,6 +13,7 @@ var ready = (callback) => {
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
+var errors = ['priority', 'hardware-id', 'operating-system', 'software', 'problem-type', 'handler-name']; 
 var hardware_list = [];
 var os_list = [];
 var software_list = [];
@@ -557,10 +558,11 @@ ready(() => {
             document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
 
         } else if(valid_details.length == 0){
-
+            
+            for (const element of errors) {
         
-            document.querySelector(`#${temp_error}-error`).style.display = 'none';
-    
+                document.querySelector(`#${element}-error`).style.display = 'none';
+            }
 
                 const changed_values = [];
                 const changed_names = [];
