@@ -89,13 +89,6 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
   });
 });
 
-document.querySelector("#submitTicket").addEventListener("click", (e) => {
-  document.querySelector(".AddTicketContainer").style.display="none";
-  document.querySelector("#add-btn").style.display="block";
-  document.querySelector("#cancel-btn").style.display="none";
-  // console.log("hello");
-});
-
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
     console.log("ladi");
 
@@ -112,12 +105,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       
   }
 
-  console.log(hardware_list);
-  // console.log(os_list);
-  // console.log(software_list);
-  // console.log(probtype_list);
-  // console.log(handler_list);
-
   const priority = document.getElementById("priority").value;
   const hardware_id = document.getElementById("hardware-id").value;
   const os = document.getElementById("operating-system").value;
@@ -126,15 +113,14 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const notes = document.getElementById("notes").value;
   const problem_type = document.getElementById("problem-type").value;
   const handler_name = document.getElementById("handler-name").value;
-
-
   var employee_name = document.getElementById('employee_name').value;//="";
 
   
-
-
+  
+  // console.log(hardware_list);
   valid_details = []
-  if(!hardware_list.includes(hardwareID)){
+
+  if(!hardware_list.includes(hardware_id)){
       console.log(true);
   }else{
       console.log(false);
@@ -225,6 +211,9 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       document.getElementById('description').value="";
       document.getElementById('notes').value="";
 
+      document.querySelector(".AddTicketContainer").style.display="none";
+      document.querySelector("#add-btn").style.display="block";
+      document.querySelector("#cancel-btn").style.display="none";
   }
 
 
