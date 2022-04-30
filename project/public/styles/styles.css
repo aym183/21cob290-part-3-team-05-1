@@ -1603,4 +1603,9 @@ footer {
 
 #cancel-btn {
     float: right;
+
+}
+
+.logo-ds {
+    position: fixed; left: 40%; height: 12%; width: 18%; padding-top: 15px; padding-bottom: 15px;
 }
