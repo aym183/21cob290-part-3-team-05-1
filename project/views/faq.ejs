@@ -109,7 +109,7 @@
             <div>
             <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
-                    <label class="required" for="employee_name">Employee Name</label>
+                    <label for="employee_name" required>Employee Name</label>
                     <div>
                         <input type="text" id="employee_name" class="no-edit-field" value="" readonly>
                     </div>
@@ -138,7 +138,7 @@
                 </div>
                     <br>
                     
-                    <label for="description">Problem Description</label>
+                    <label class="required" for="description">Problem Description</label>
                     <div>
                     <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
                     <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
@@ -152,7 +152,7 @@
                     <br>
 
                 <div>
-                    <label for="handler-name">Handler Name</label>
+                    <label class="required" for="handler-name">Handler Name</label>
                     
                         <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
                     
