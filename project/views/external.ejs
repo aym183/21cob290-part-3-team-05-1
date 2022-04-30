@@ -98,15 +98,15 @@
                     </tr>
                 </thead>
 
-                <tbody class="ticket-body employee-ticket-body">
+                <tbody class="ticket-body employee-ticket-body" id="ticket-body">
                     
                     <% for(var i=0; i < newdropdownVals.length; i++) { %>
                         <tr>
                             <td class=<%=newdropdownVals[i].status%>><span class="t-status"><%=newdropdownVals[i].status%></span></td>
                             <td><%=newdropdownVals[i].ticket_id%></td>
                             <td><%=newdropdownVals[i].priority%></td>
-                            <td id='lastUpdated'><%=newdropdownVals[i].name%></td>
-                            <td><%=newdropdownVals[i].last_updated%></td></tr>
+                            <td><%=newdropdownVals[i].name%></td>
+                            <td id = 'lastUpdated' class= 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
                     <% } %>
                    
                 </tbody>

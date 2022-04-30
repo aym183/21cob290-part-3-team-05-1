@@ -76,14 +76,14 @@
                     </tr>
                 </thead>
 
-                <tbody class="ticket-body employee-ticket-body">
+                <tbody class="ticket-body employee-ticket-body" id="ticket-body">
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
                             <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
                             <td><%=dropdownVals[i].ticket_id%></td>
                             <td><%=dropdownVals[i].priority%></td>
                             <td><%=newdropdownVals[i].name%></td>
-                            <td id = 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
+                            <td id = 'lastUpdated' class= 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
                             <td><%=dropdownVals[i].name%></td>
                                         
                      <% } %>
@@ -259,17 +259,7 @@
             <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
-    <script src="scripts/app.js">
-        $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function(e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-        
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        });
-    </script>
+    <script src="scripts/app.js"></script>
     <script src="/scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     

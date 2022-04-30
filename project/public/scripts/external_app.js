@@ -49,6 +49,21 @@ var old_notes;
 var old_problemType;
 var old_handlerName;
 
+function convertDate(){
+
+    const element = document.getElementById("ticket-body");
+    const nodes = element.getElementsByTagName("tr");
+
+    for(let i = 0; i<nodes.length; i++){
+        var iteration = element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML;
+        console.log(iteration);
+        var date = new Date(iteration).toLocaleDateString();
+        element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML= date;
+        console.log(date);   
+    }
+}
+
+
 /**
  * Fetches and displays ticket info on operator home page
  * @param {object} data containing ticket ID and status
@@ -693,4 +708,8 @@ ready(() => {
             document.querySelector("#submit-btn").style.opacity = "1"; 
         }   
     });
+});
+
+ready(() => { 
+    convertDate();
 });
