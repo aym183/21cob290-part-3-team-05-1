@@ -192,7 +192,7 @@
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>
-                            <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
+                            <input list="handler-names" type="text" id="handler-name" class="no-edit-field" value="" readonly>
                             <datalist id="handler-names">
                                 <% for(var i=0; i < handler_vals.length; i++) { %>
                                     <option><%=handler_vals[i].name%></option>                                            

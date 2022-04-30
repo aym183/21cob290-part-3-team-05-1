@@ -124,7 +124,7 @@
 
                     <label class="required" for="priority">Priority</label>
                     <div>
-                        <input type="text" id="priority" class="edit-field" list="priority" value="" required>
+                        <input type="text" id="priority" class="edit-field" list="priority-list" value="" required>
                     </div>
                     <datalist id="priority-list">
                         <option>high</option>
@@ -150,39 +150,68 @@
 
                     <label for="software_name">Handler Name</label>
                     <div>
-                        <input type="text" id="handler" class="edit-field" list="handler" value="" required>
+                        <input type="text" id="handler" class="edit-field" list="handler-names" value="" required>
                     </div>
+                    <datalist id="handler-names">
+                        <% for(var i=0; i < handler_vals.length; i++) { %>
+                            <option value = <%=handler_vals[i].name%> Tickets>Handling <%=handler_vals[i].tickets%> Tickets</option>                                            
+                        <% } %>
+                    </datalist>
 
                     <br>
 
                     <label for="operating_system">Operating System </label>  
                     <div>
-                        <input type="text" id="os" class="edit-field" list="os" value="" required>
+                        <input type="text" id="os" class="edit-field" list="new-operating-systems" value="" required>
                     </div>
+                    <datalist id="new-operating-systems">
+
+                        <% for(var i=0; i < operating_sys.length; i++) { %>
+                            <option><%=operating_sys[i].name%></option>                                            
+                        <% } %>
+                    </datalist>
+                    <span class="validation_error" id="operating-system-error"></span>
 
                     <br>
 
                     <label for="hardware_id">Hardware ID</label>  
                     <div>
-                        <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="" required>
+                        <input type="text" id="hardware_id" class="edit-field" list="hardware-numbers2" value="" required>
                     </div>
+                    <datalist id="hardware-numbers2">
+
+                        <% for(var i=0; i < hardwareids.length; i++) { %>
+                            <option><%=hardwareids[i].hardware_id%></option>
+                        
+                                    
+                        <% } %>
+                    </datalist>
+                    <span class="validation_error" id="hardware-id-error"></span>
                     
 
                     <br>
 
                     <label for="software_name">Software Name</label>  
                     <div>
-                        <input type="text" id="software_name" class="edit-field" list="software_name" value="" required>
+                        <input type="text" id="software_name" class="edit-field" list="software-list" value="" required>
                     </div>
-
+                    <datalist id="software-list">
+                        <% for(var i=0; i < software_vals.length; i++) { %>
+                            <option><%=software_vals[i].name%></option>                                            
+                        <% } %>
+                    </datalist>
+                    <span class="validation_error" id="software-error"></span>
                     <br>
                 
                     <label class="required" for="problem_type">Problem Type</label>
                     <div>
                         <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
                         <datalist id="problem-types">
-            
+                            <% for(var i=0; i < probtype_vals.length; i++) { %>
+                                <option><%=probtype_vals[i].name%></option>                                            
+                            <% } %>
                         </datalist>
+                        <span class="validation_error" id="problem-type-error"></span>
                     </div>
 
                     <br>

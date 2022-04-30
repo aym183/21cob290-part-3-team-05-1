@@ -69,7 +69,62 @@ app.get('/faq.html', (req, res) =>{
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
-    
+    con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        hardware_id = result;
+        console.log("HARDWARE");
+        console.log(hardware_id);
+
+      
+    });
+
+    con.query(`SELECT name from operating_system;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        operating_system = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from software;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        software_datalist = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from problem_type;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        prob_type_vals = result;
+        
+    });
+
+  
+
+    con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    INNER JOIN employee ON handler.user_id = employee.employee_id
+    WHERE ticket.status != 'closed'
+    GROUP BY handler_id
+    UNION
+    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+    INNER JOIN external_specialist on external_specialist_id = handler.user_id
+    WHERE ticket.status != 'closed'
+    GROUP BY ticket.handler_id;`, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        handlers = result;
+        
+    });
     
     con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name
     from ticket 
@@ -94,15 +149,14 @@ app.get('/faq.html', (req, res) =>{
         if (result.length>0) {
             res.render('faq', {
                 dropdownVals: result,
-                loggeduser: session_username
-               
-                // ticket_details: result
-    
+                loggeduser: session_username,
+                hardwareids: hardware_id,
+                operating_sys: operating_system,
+                software_vals: software_datalist,
+                probtype_vals: prob_type_vals,
+                handler_vals: handlers       
             });
-            //     dropdownVals: query_output,
-            //     newdropdownVals: query,
-            //     // problem_resolution: result
-            // })
+           
         }
         
     });
