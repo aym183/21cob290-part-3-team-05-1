@@ -250,7 +250,7 @@ input[type="datetime-local"], input[type="email"] {
     text-decoration: none;
     color: var(--secondaryColor);
     font-size: 2rem;
-    padding: 20px 0px 0px 50px;
+    padding: 22px 0px 0px 40px;
 }
 
 .profile__container {
@@ -663,7 +663,7 @@ tbody tr:hover {
 .details__container {
     display: flex;
     justify-content: center;
-    padding: 10px 0 100px 0;
+    padding: 10px 0 50px 0;
 }
 .details__table {
     border: none;
@@ -689,7 +689,7 @@ tbody tr:hover {
 .ticket__information {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: repeat(0, minmax(0, 1fr)) 2fr 2fr repeat(6, minmax(0, 1fr));
     column-gap: 15px;
     row-gap: 40px;
@@ -1263,6 +1263,7 @@ footer {
     border-radius: 20px;
     padding: 5px;
     font-size: 10 px;
+    width: 50%;
     color: var(--buttonHover);
     background-color: var(--droppedColor);
     border: 1px solid var(--droppedColor);
@@ -1282,6 +1283,7 @@ footer {
     margin-top: 20px;
     border: 1px solid black;
     font-size: 16px;
+    padding: 8px;
 }
 
 #emp-table__container {
@@ -1346,10 +1348,18 @@ footer {
     top: 20px;
 }
 
+.faq_validation_error {
+    color: rgb(255,0,51);
+    grid-column: 3;
+    font-size: 12px;
+    top: 20px;
+}
+
 .info-edit-btn {
     cursor: pointer;
     border: 1px solid #ccc;
     border-bottom-width: 2px;
+    width: 50%;
     padding: 5px;
     outline: none;
     border-radius: 5px;
@@ -1568,16 +1578,43 @@ footer {
 }
 
 .AddTicketContainer {
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */ 
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 16px; /* Bottom margin */
-    resize: vertical;/* Allow the user to vertically resize the textarea (not horizontally) */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-right: 50px;
+
+    width: 100%; 
+    padding: 12px;  
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical;
 
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
+}
+
+.required:after {
+    content:" *";
+    color: red;
+}
+
+.faq_answer {
+    background-color: var(--secondaryColor); 
+    box-shadow: 0 0 6px;
+    display: flex; 
+    flex-direction: column; 
+    padding: 20px 20px;
+}
+
+#cancel-btn {
+    float: right;
+
+}
+
+.logo-ds {
+    position: fixed; left: 40%; height: 12%; width: 18%; padding-top: 15px; padding-bottom: 15px;
 }

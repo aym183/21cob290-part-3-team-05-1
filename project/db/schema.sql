@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS software (
     PRIMARY KEY (software_id)
 );
 
-CREATE TABLE IF NOT EXISTS problem_type (
+CREATE TABLE IF NOT EXISTS problem_type (u
     problem_type_id MEDIUMINT UNSIGNED NOT NULL UNIQUE,
     name      VARCHAR(150) NOT NULL UNIQUE,
     links_to VARCHAR(300),
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS analyst (
 );
 
 CREATE TABLE IF NOT EXISTS ticket (
-    ticket_id MEDIUMINT UNSIGNED,
+    ticket_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     employee_id MEDIUMINT UNSIGNED NOT NULL,
     status ENUM('active', 'dropped', 'submitted', 'closed', 'unsuccessful') NOT NULL,
     priority ENUM('medium', 'low', 'high') NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     last_updated DATE NOT NULL,
     handler_id MEDIUMINT UNSIGNED,
     operating_system VARCHAR(50),
-    hardware_id MEDIUMINT UNSIGNED, /* Hardware id bit */
+    hardware_id MEDIUMINT UNSIGNED, 
     software_id MEDIUMINT UNSIGNED,
     problem_type_id MEDIUMINT UNSIGNED NOT NULL,
     number_of_drops MEDIUMINT UNSIGNED DEFAULT 0 NOT NULL,
@@ -144,11 +144,11 @@ CREATE TABLE IF NOT EXISTS skillset (
 CREATE TABLE IF NOT EXISTS history_log (
     log_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     ticket_id MEDIUMINT UNSIGNED,
-    handler_id MEDIUMINT UNSIGNED NOT NULL,
+    user_id MEDIUMINT UNSIGNED NOT NULL,
     edited_item ENUM( 'priority', 'hardware','OS', 'software', 'description','notes','problem type', 'handler', 'solution', 'dropped') NOT NULL,
     new_value VARCHAR(1000) NOT NULL,
     date_time DATETIME,
     PRIMARY KEY (log_id),
     FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id),
-    FOREIGN KEY (handler_id) REFERENCES handler(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

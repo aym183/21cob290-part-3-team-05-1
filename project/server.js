@@ -11,6 +11,7 @@ const io = new Server(server);
 let alert = require('alert'); 
 const con = require('./public/scripts/dbconfig');
 
+require('events').EventEmitter.defaultMaxListeners = 15;
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -40,6 +41,7 @@ var operating_system;
 var software_datalist;
 var prob_type_vals;
 var handlers;
+var handler_list = [];
 
 app.use (session ({
     secret: "secret",
@@ -67,7 +69,62 @@ app.get('/faq.html', (req, res) =>{
     // res.sendFile(path.join(__dirname +  '/faq.html'));
     // res.render('login.html')
 
-    
+    con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        hardware_id = result;
+        console.log("HARDWARE");
+        console.log(hardware_id);
+
+      
+    });
+
+    con.query(`SELECT name from operating_system;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        operating_system = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from software;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        software_datalist = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from problem_type;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        prob_type_vals = result;
+        
+    });
+
+  
+
+    con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    INNER JOIN employee ON handler.user_id = employee.employee_id
+    WHERE ticket.status != 'closed'
+    GROUP BY handler_id
+    UNION
+    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+    INNER JOIN external_specialist on external_specialist_id = handler.user_id
+    WHERE ticket.status != 'closed'
+    GROUP BY ticket.handler_id;`, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        handlers = result;
+        
+    });
     
     con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name
     from ticket 
@@ -92,15 +149,14 @@ app.get('/faq.html', (req, res) =>{
         if (result.length>0) {
             res.render('faq', {
                 dropdownVals: result,
-                loggeduser: session_username
-               
-                // ticket_details: result
-    
+                loggeduser: session_username,
+                hardwareids: hardware_id,
+                operating_sys: operating_system,
+                software_vals: software_datalist,
+                probtype_vals: prob_type_vals,
+                handler_vals: handlers       
             });
-            //     dropdownVals: query_output,
-            //     newdropdownVals: query,
-            //     // problem_resolution: result
-            // })
+           
         }
         
     });
@@ -111,11 +167,12 @@ app.get('/faq.html', (req, res) =>{
         socket.on("solution_details", (msg) => {
             // console.log(parseInt(msg.problem_description));
 
-            con.query(`SELECT ticket.problem_description, ticket.notes, ticket.problem_type_id, solution.solution_description 
+            con.query(`SELECT ticket.problem_description, ticket.notes, problem_type.name, solution.solution_description 
             FROM solution 
             INNER JOIN ticket_solution ON solution.solution_id = ticket_solution.solution_id 
             INNER JOIN ticket ON ticket_solution.ticket_id = ticket.ticket_id 
-            WHERE ticket.problem_description = ? 
+            INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id
+            WHERE ticket.problem_description = ?
             AND ticket_solution.solution_status = 'successful';`,
             [msg.problem_description],function(err, result, fields) {
             console.log(err);
@@ -129,6 +186,72 @@ app.get('/faq.html', (req, res) =>{
         });
         })
     //con.end();
+    io.on('connection',  (socket) => {
+        console.log('connected')
+        socket.on("employeeName", (msg) => {
+            // console.log(parseInt(msg.problem_description));
+
+            con.query(`SELECT name from employee 
+            INNER JOIN users ON users.user_id  = employee.employee_id 
+            WHERE users.username = ? `,
+            [session_username],function(err, result, fields) {
+            console.log(err);
+            if (err) throw err;
+
+            console.log('TESTING');
+            console.log(result[0]);
+            socket.emit('employeeName', result[0]);
+            // io.send('employeeName', result);
+            })
+        });
+        })
+    //con.end();
+
+    io.on('connection',  (socket) => {
+        console.log('connected')
+    
+        socket.on("add_ticket", (msg) => {
+           
+    
+            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.prob_type],function (err, result, fields) {
+                if (err) throw err;
+                problem_type_id = result[0].problem_type_id;
+                console.log(problem_type_id);
+                
+                con.query(`SELECT software_id from software where name = ?;`,[msg.soft_name],function (err, result, fields) {
+                    if (err) throw err;
+                    software_id = result[0].software_id;
+                    console.log(software_id);
+                    
+                    con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
+                    UNION
+                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.h_name,msg.h_name],function (err, result, fields) {
+                        if (err) throw err;
+                        handler_id = result[0].user_id;
+                        console.log(handler_id);
+
+                        con.query(`SELECT employee_id from employee INNER JOIN users ON users.user_id  = employee.employee_id WHERE users.username = ?;`,[session_username],function (err, result, fields) {
+                            if (err) throw err;
+                            employee_id = result[0].employee_id;
+                            console.log(employee_id);
+                        
+                            con.query(`INSERT INTO ticket (employee_id, status, priority, problem_description, notes, creation_date, last_updated, handler_id, operating_system, hardware_id, software_id, problem_type_id)
+                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                            [employee_id, msg.statuss, msg.priorityy, msg.prob_desc, msg.notess, msg.date, msg.date, handler_id, msg.os, parseInt(msg.hardID), software_id, problem_type_id], function (err, result, fields) {
+
+                                console.log("Add");
+                                console.log(result);
+                                socket.disconnect(0);
+                    
+                                if (err) throw err;
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
 } else {
     res.redirect('/login.html');
 }});
@@ -332,17 +455,15 @@ FROM ticket`,function (err, result, fields) {
 }});
 
 
-
-
 app.get('/intspecialist.html', (req, res) => {  
     if(req.session.loggedin && session_job == "Specialist") {
         // console.log("internal scpecialist")
-        console.log("internal scpecialist")
+        console.log("internal specialist")
     // res.writeHead(200, {'content-type':'text/html'})
     
     // Query for ticket information
 
-    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
+    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     INNER JOIN employee ON ticket.employee_id = employee.employee_id
     INNER JOIN (SELECT user_id, employee.name FROM handler
@@ -362,6 +483,63 @@ app.get('/intspecialist.html', (req, res) => {
 
       
     });
+
+    con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        hardware_id = result;
+        console.log("HARDWARE");
+        console.log(hardware_id);
+
+      
+    });
+
+    con.query(`SELECT name from operating_system;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        operating_system = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from software;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        software_datalist = result;
+        
+
+      
+    });
+
+    con.query(`SELECT name from problem_type;`, function (err, result, fields) {
+        if (err) throw err;
+        // console.log(result);
+
+        prob_type_vals = result;
+        
+    });
+
+  
+
+    con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    INNER JOIN employee ON handler.user_id = employee.employee_id
+    WHERE ticket.status != 'closed'
+    GROUP BY handler_id
+    UNION
+    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+    INNER JOIN external_specialist on external_specialist_id = handler.user_id
+    WHERE ticket.status != 'closed'
+    GROUP BY ticket.handler_id;`, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        handlers = result;
+        
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -379,7 +557,12 @@ app.get('/intspecialist.html', (req, res) => {
         res.render('intSpecialist', {
             dropdownVals: query_output,
             newdropdownVals: query,
-            loggeduser: session_username
+            loggeduser: session_username,
+            hardwareids: hardware_id,
+            operating_sys: operating_system,
+            software_vals: software_datalist,
+            probtype_vals: prob_type_vals,
+            handler_vals: handlers        
         })
        
     });
@@ -388,6 +571,7 @@ app.get('/intspecialist.html', (req, res) => {
         console.log('connected')
         socket.on("message", (msg) => {
             console.log(parseInt(msg.id));
+            console.log(msg.status);
             if(msg.status == 'closed'){
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
                 solution.solution_description from ticket
@@ -410,7 +594,7 @@ app.get('/intspecialist.html', (req, res) => {
                 });
             }
 
-            else if(msg.status == 'active' || msg.status != 'dropped'){
+            else if(msg.status == 'active' || msg.status == 'unsuccessful'){
 
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
                 from ticket
@@ -432,8 +616,9 @@ app.get('/intspecialist.html', (req, res) => {
 
             }
 
-            else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
+            else if(msg.status == 'submitted'){
 
+                
                 con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
                 solution.solution_description from ticket
                 INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
@@ -442,13 +627,13 @@ app.get('/intspecialist.html', (req, res) => {
                 INNER JOIN software on ticket.software_id = software.software_id 
                 INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
                 INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                INNER JOIN employee ON handler.user_id = employee.employee_id)
+                h ON ticket.handler_id = h.user_id
                 WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
                 console.log(err);
                 if (err) throw err;
 
+                
                 console.log(result);
                 io.send('message', result);
 
@@ -580,24 +765,24 @@ app.get('/intspecialist.html', (req, res) => {
 
 })
 
-io.on('connection', (socket) => {
-    console.log('connected')
+// io.on('connection', (socket) => {
+//     console.log('connected')
     
 
-    // FOR DROPPED
-    socket.on('update_history', (msg) => {
-            console.log("COME HERE");
+//     // FOR DROPPED
+//     socket.on('update_history', (msg) => {
+//             console.log("COME HERE");
    
-            con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
-                        values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[0], msg.changed_values[0], msg.current_dateTime], function (err, result, fields){
+//             con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+//                         values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[0], msg.changed_values[0], msg.current_dateTime], function (err, result, fields){
             
-                            if (err) throw err;
-                        });
+//                             if (err) throw err;
+//                         });
 
         
-    })
+//     })
 
-});
+// });
 
 io.on('connection', (socket) => {
     socket.on('ticket_update_history', (msg) => {
@@ -606,7 +791,7 @@ io.on('connection', (socket) => {
         console.log("I AM HERE")
 
             for (let i = 0; i < msg.changed_names.length; i++) {
-                con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
                             values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
                 
                                 if (err) throw err;
@@ -631,7 +816,7 @@ app.get('/external.html', (req, res) => {
 
         //query connection for external specialist and display home page for external specialist
         
-        con.query(`SELECT ticket_id, status, problem_type.name, last_updated  FROM ticket 
+        con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed")
     ORDER BY CASE WHEN status = 'submitted' THEN 1
@@ -740,8 +925,13 @@ app.get('/external.html', (req, res) => {
                         console.log(new_no_drops);
                         console.log(result);
 
-                        con.query(`UPDATE ticket
-                        SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
+                        if(new_no_drops == 5){
+                            console.log("UNSOLVABLE");
+                        }
+                        else{
+
+                            con.query(`UPDATE ticket
+                            SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
                             if (err) throw err;
         
                             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
@@ -750,6 +940,9 @@ app.get('/external.html', (req, res) => {
                                 if (err) throw err;
                             });
                         })
+                        }
+
+                        
                     });
                 })
         
@@ -763,10 +956,8 @@ app.get('/external.html', (req, res) => {
                 console.log(msg.id);
                 console.log(msg);
                 console.log("I AM HERE")
-
-        
-                    con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
-                                values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
+                    con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
+                                values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names, msg.changed_values, msg.current_dateTime], function (err, result, fields){
                     
                                     if (err) throw err;
                                 });
@@ -785,7 +976,7 @@ app.get('/external.html', (req, res) => {
                 console.log("I AM HERE")
 
                     for (let i = 0; i < msg.changed_names.length; i++) {
-                        con.query(`INSERT into history_log (ticket_id, handler_id, edited_item, new_value, date_time)
+                        con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
                                     values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
                         
                                         if (err) throw err;
@@ -1022,7 +1213,7 @@ app.get('/index.html', (req, res) => {
     
     // Query for ticket information
 
-    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, h.name  FROM ticket 
+    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     INNER JOIN employee ON ticket.employee_id = employee.employee_id
     INNER JOIN (SELECT user_id, employee.name FROM handler
@@ -1032,7 +1223,7 @@ app.get('/index.html', (req, res) => {
     WHERE ticket.employee_id = ?
     ORDER BY CASE WHEN status = 'dropped' THEN 1
                 WHEN status = 'submitted' THEN 2
-                WHEN status = 'pending' THEN 3
+                WHEN status = 'unsuccessful' THEN 3
                 WHEN status = 'active' THEN 4
                 ELSE 5 END`, 
     [session_id],function (err, result, fields) {
@@ -1083,9 +1274,7 @@ app.get('/index.html', (req, res) => {
         
     });
 
-  
-
-    con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+    con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
     INNER JOIN employee ON handler.user_id = employee.employee_id
     WHERE ticket.status != 'closed'
     GROUP BY handler_id
@@ -1098,6 +1287,13 @@ app.get('/index.html', (req, res) => {
         console.log(result);
 
         handlers = result;
+
+        for(let i = 0; i<handlers.length; i++){
+
+            
+            // handler_list.push("Handling " +  handlers[i].tickets + " Tickets");
+        }
+        console.log(handler_list);
         
     });
    
@@ -1123,7 +1319,7 @@ app.get('/index.html', (req, res) => {
             operating_sys: operating_system,
             software_vals: software_datalist,
             probtype_vals: prob_type_vals,
-            handler_vals: handlers        
+            handler_vals: handlers   
         })
     });
     
@@ -1150,6 +1346,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
             }
@@ -1171,6 +1368,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
 
@@ -1178,8 +1376,8 @@ app.get('/index.html', (req, res) => {
 
             else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
 
-                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
-                solution.solution_description from ticket
+                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, solution.solution_description, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
+                from ticket
                 INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
                 INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
                 INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
@@ -1195,6 +1393,7 @@ app.get('/index.html', (req, res) => {
 
                 console.log(result);
                 io.send('message', result);
+                socket.disconnect(0);
 
                 });
 
@@ -1213,14 +1412,18 @@ app.get('/index.html', (req, res) => {
         socket.on("update_message", (msg) => {
            
 
+            console.log("I AM IN UPDATE");
+
             con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
                 if (err) throw err;
                 problem_type_id = result[0].problem_type_id;
-                
+
+                console.log(problem_type_id);
 
                  con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
                 if (err) throw err;
                 software_id = result[0].software_id;
+                console.log(software_id);
                 
            
             con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
@@ -1228,15 +1431,18 @@ app.get('/index.html', (req, res) => {
                     SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
                 if (err) throw err;
                 handler_id = result[0].user_id;
+                console.log(handler_id);
 
 
             con.query(`UPDATE ticket 
                 SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
                 WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                 
-    
+                console.log("Update");
+                console.log(msg);
         
                 if (err) throw err;
+                socket.disconnect(0);
             });   
 
             });
@@ -1244,8 +1450,29 @@ app.get('/index.html', (req, res) => {
         });
     });
         });
+
+    
+
         })
 
+
+        io.on('connection', (socket) => {
+            socket.on("dropped_update", (msg) => {
+                console.log("I AM DROPPING UPDATE");
+
+                
+                //hstory log and also unsolvable status
+                con.query(`UPDATE ticket SET status = "active" where ticket_id = ?`, [msg], function (err, result, fields) {
+                
+        
+                if (err) throw err;
+                socket.disconnect(0);
+    
+            });   
+    
+    
+            });
+        });
 
         io.on('connection',  (socket) => {
             console.log('connected')
@@ -1254,7 +1481,6 @@ app.get('/index.html', (req, res) => {
                 ticket_status = msg.new_status
                 console.log(msg);
                 console.log(ticket_status); 
-                if(ticket_status == 'closed'){
 
                     con.query(`UPDATE ticket
                     SET status = ?, closing_date = ?, closing_time = ? where ticket_id = ?;`,[msg.new_status, msg.date, msg.time, parseInt(msg.id)],function(err, result, fields) {
@@ -1269,7 +1495,7 @@ app.get('/index.html', (req, res) => {
 
                         });
                     }
-                    else if(ticket_status == 'unsuccessful'){
+                    else if(ticket_status == 'submitted'){
                         con.query(`UPDATE ticket_solution
                         SET solution_status = 'unsuccessful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
                 
@@ -1281,7 +1507,6 @@ app.get('/index.html', (req, res) => {
 
                 });
 
-                }
                 
                 
             });
@@ -1292,16 +1517,17 @@ app.get('/index.html', (req, res) => {
         
                 socket.on("ticket_update_history", (msg) => {
                     console.log(msg);
+                    console.log("Ticket update history");
 
                     con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
                     if (err) throw err;
                     console.log(result[0].user_id);
-                    haxndler_id = result[0].user_id;
-                    console.log(handler_id);
-
+                    handler_id = result[0].user_id;
+                    
                     for (let i = 0; i < msg.changed_names.length; i++) {
 
-                        con.query(`INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+                        console.log(handler_id);
+                        con.query(`INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
                         VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
                 
                         if (err) throw err;
@@ -1322,13 +1548,14 @@ app.get('/index.html', (req, res) => {
                     console.log(msg);
 
                     con.query(`SELECT h.name, h.user_id, edited_item, new_value, date_time FROM history_log
-                    INNER JOIN (SELECT user_id, employee.name FROM handler
-                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    INNER JOIN (SELECT user_id, employee.name FROM users
+                    INNER JOIN employee ON users.user_id = employee.employee_id
                     UNION
                     SELECT external_specialist_id AS user_id, name FROM external_specialist) h 
-                    ON history_log.handler_id = h.user_id
+                    ON history_log.user_id = h.user_id
                     WHERE ticket_id = ?`,[msg.ticketId],function (err, result, fields) {
                     if (err) throw err;
+                    console.log("I AM HISTORY");
                     console.log(result);
                     socket.emit('display_history', result)
                     // io.send('display_history', result);

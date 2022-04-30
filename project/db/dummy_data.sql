@@ -1,19 +1,19 @@
 INSERT INTO `employee` (`employee_id`, `name`, `job`, `department`, `telephone`) VALUES
-(2001 , 'Marie Kelle' ,'Specialist'  ,'Legal' ,'+44 5283 803529' ),
-(2002 , 'Bern Duck' ,'Specialist' ,'Hardware' ,'+44 3452 345924' ),
-(2003 , 'Dionis Scriviner' , 'Analyst' , 'Marketing'  , '+44 1115 701834'),
-(2004 , 'Abby Haskell', 'Developer' ,'Business Development' ,'+44 4081 804861'),
-(2005 , 'Joshua Sells' ,'Call Centre Employee' ,'Sales' ,'+44 2835 283467'),
-(2006 , 'Cathrin Knowller', 'Specialist' ,'Creative'  ,'+44 2048 284870' ),
-(2007 , 'Audrey Barker' , 'Analyst' ,'Technical '  ,'+44 0923 956322'),
-(2008 ,'Billy Marsden  '  ,'Support'  ,'Sales' ,'+44 2935 828593' ),
-(2009 , 'Ryan Jenson' ,'Specialist' , 'Mobile ',  '+44 9324 945921'),
-(2010 , 'Edwin Smith' ,'Specialist ','OS' ,'+44 1328 502231' ),
-(2011 ,'Darcie Bueller', 'Admin' ,'Operations','+44 0990 355442' ),
-(2012 ,'Rob Davidson' , 'Designer'  ,'Creative' ,'+44 9235 183503'),
-(2013 , 'Holly Livingstone' , 'Reports'  ,'Accounting'  ,'+44 9123 868942' ),
-(2014 ,'Will Taha' ,'Clerk' , 'Customer Relations ' , '+44 1273 503022' ),
-(2015, 'Ali Hannaford', 'Supervisor' , 'Technical' , '+44 2385 858534' );
+(2001 , 'Marie_Kelle' ,'Specialist'  ,'Legal' ,'+44 5283 803529' ),
+(2002 , 'Bern_Duck' ,'Specialist' ,'Hardware' ,'+44 3452 345924' ),
+(2003 , 'Dionis_Scriviner' , 'Analyst' , 'Marketing'  , '+44 1115 701834'),
+(2004 , 'Abby_Haskell', 'Developer' ,'Business Development' ,'+44 4081 804861'),
+(2005 , 'Joshua_Sells' ,'Call Centre Employee' ,'Sales' ,'+44 2835 283467'),
+(2006 , 'Cathrin_Knowller', 'Specialist' ,'Creative'  ,'+44 2048 284870' ),
+(2007 , 'Audrey_Barker' , 'Analyst' ,'Technical '  ,'+44 0923 956322'),
+(2008 ,'Billy_Marsden  '  ,'Support'  ,'Sales' ,'+44 2935 828593' ),
+(2009 , 'Ryan_Jenson' ,'Specialist' , 'Mobile ',  '+44 9324 945921'),
+(2010 , 'Edwin_Smith' ,'Specialist ','OS' ,'+44 1328 502231' ),
+(2011 ,'Darcie_Bueller', 'Admin' ,'Operations','+44 0990 355442' ),
+(2012 ,'Rob_Davidson' , 'Designer'  ,'Creative' ,'+44 9235 183503'),
+(2013 , 'Holly_Livingstone' , 'Reports'  ,'Accounting'  ,'+44 9123 868942' ),
+(2014 ,'Will_Taha' ,'Clerk' , 'Customer Relations ' , '+44 1273 503022' ),
+(2015, 'Ali_Hannaford', 'Supervisor' , 'Technical' , '+44 2385 858534' );
 
 
 INSERT INTO `users` VALUES
@@ -93,8 +93,8 @@ INSERT INTO `internal_specialist` VALUES
 (2010 , 2010 );
 
 INSERT INTO `external_specialist` VALUES
-(1011, 'Oscar Thompson'),
-(1022, "Steph Curry");
+(1011, 'Oscar_Thompson'),
+(1022, "Steph_Curry");
 
 
 INSERT INTO `analyst` VALUES
@@ -165,6 +165,6 @@ INSERT INTO `dropped`  VALUES
 (4, 'Solution is not in my area of expertise', '2022-03-02', '15:25:03', 2, 2001);
 
 
-INSERT INTO history_log(ticket_id, handler_id, edited_item, new_value, date_time)
+INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
 VALUES (1, 2002, 'priority', 'high', '2022-04-13 03:08:00'),
 (1, 2002, 'hardware', '1', '2022-04-13 03:09:00');

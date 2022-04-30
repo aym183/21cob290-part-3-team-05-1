@@ -16,7 +16,9 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <a href="intSpecialist.html" id="navbar__logo">TEAM-05</a>
+                        <a href="intspecialist.html">
+                            <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0" 
+                            id="navbar__logo" style="height: 60px;"></a>
                     </div>    
                 </div>
 
@@ -69,19 +71,21 @@
                     <tr>
                         <th>Status</th> 
                         <th>ID</th> 
+                        <th>Priority</th> 
                         <th>Problem Type</th>     
                         <th>Last Updated</th> 
                         <th>Name</th>
                     </tr>
                 </thead>
 
-                <tbody class="ticket-body employee-ticket-body">
+                <tbody class="ticket-body employee-ticket-body" id="ticket-body">
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
                             <td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td>
                             <td><%=dropdownVals[i].ticket_id%></td>
+                            <td><%=dropdownVals[i].priority%></td>
                             <td><%=newdropdownVals[i].name%></td>
-                            <td id = 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
+                            <td id = 'lastUpdated' class= 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
                             <td><%=dropdownVals[i].name%></td>
                                         
                      <% } %>
@@ -125,15 +129,20 @@
                             </tbody>
                         </table> 
                         </div>
+                        <button type="button" class="drop-btn" id="drop-btn" style="transform: translateX(50%);">Drop Ticket</button><br>            
+                        <button class="info-edit-btn" id="edit-btn" style="transform: translateX(50%);">Edit</button><br><br>
                         <div class="ticket__information">       
-                            <button type="button" class="drop-btn" id="drop-btn">Drop Ticket</button>                     
-                            <button class="info-edit-btn" id="edit-btn">Edit</button>
 
-                            <label for="Priority">Priority</label>
-                            <input type="text" id="priority" class="edit-field" value="" readonly>
-                            <span class="validation_error" id="hardware-id-error"></span>
-                            <label for="hardware-type">Hardware ID</label>
-                            <input type="text" id="hardware-id" class="edit-field" value="" readonly>
+                            <label for="priority">Priority</label>
+                            <input list="priority-list" type="text" id="priority" class="edit-field" value="" readonly>
+                            <datalist id="priority-list">
+                                <option>high</option>
+                                <option>medium</option>
+                                <option>low</option>
+                            </datalist>
+                            <span class="validation_error" id="priority-error"></span>
+                            <label for="hardware-id">Hardware ID</label>
+                            <input list="hardware-numbers2" type="text" id="hardware-id" class="edit-field" value="" readonly>
                             <datalist id="hardware-numbers2">
 
                                 <% for(var i=0; i < hardwareids.length; i++) { %>
@@ -142,6 +151,7 @@
                                             
                                 <% } %>
                             </datalist>
+                            <span class="validation_error" id="hardware-id-error"></span>
                             <label for="hardware-type">Hardware Manufacturer</label>
                             <input type="text" id="hardware-type" class="no-edit-field" value="" readonly>
                             <label for="hardware-model">Hardware Model</label>
@@ -149,8 +159,8 @@
                             <label for="hardware-make">Hardware Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
-                            <input type="text" id="operating-system" class="edit-field" list="operating-systems" value="" readonly>
-                            <datalist id="new_operating-systems">
+                            <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" readonly>
+                            <datalist id="new-operating-systems">
 
                                 <% for(var i=0; i < operating_sys.length; i++) { %>
                                     <option><%=operating_sys[i].name%></option>                                            
@@ -166,11 +176,15 @@
                             </datalist>
                             <span class="validation_error" id="software-error"></span>
                             <label for="description">Problem Description</label>
-                            <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5"></textarea> 
-                            <div id = 'remaining_chars' >300 characters remaining</div>
+                            <div>
+                            <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                            <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
+                            </div>
                             <label for="notes">Notes</label>
-                            <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5"></textarea>
-                            <div id = 'notes_remaining_chars' >1000 characters remaining</div>
+                            <div>
+                            <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
+                            <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                            </div>
                             <label for="problem-type">Problem Type</label>
                             <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
                             <datalist id="problem-types">
@@ -180,7 +194,7 @@
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
                             <label for="handler-name">Handler Name</label>
-                            <input type="text" id="handler-name" class="no-edit-field" value="" readonly>
+                            <input list="handler-names" type="text" id="handler-name" class="no-edit-field" value="" readonly>
                             <datalist id="handler-names">
                                 <% for(var i=0; i < handler_vals.length; i++) { %>
                                     <option><%=handler_vals[i].name%></option>                                            
@@ -244,20 +258,10 @@
             </div>
         </div>
         <footer>
-            <p class="center">&#169; 2022 AHS</p>
+            <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
-    <script src="scripts/app.js">
-        $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function(e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-        
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        });
-    </script>
+    <script src="scripts/app.js"></script>
     <script src="/scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     

@@ -1,7 +1,3 @@
-// const { response } = require("express");
-
-const { resolveInclude } = require("ejs");
-
 function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     
     const popup = document.createElement('div');
@@ -17,8 +13,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     if (btnName == "drop") {
         var reason = popup.appendChild(document.createElement('textarea'));
         reason.className = "reason-area";
-        reason.setAttribute("style", "margins:30px");
-        reason.setAttribute("placeholder", " Type Reaso...");
+        reason.setAttribute("placeholder", "Type Reason...");
         reason.setAttribute("type", "text");
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
@@ -60,7 +55,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             changeStatus(data);
             // window.location.href = "index.html";
         } else if (btnName == "logout") {
-            window.location.href = "login.html";
+            logout();
             
         } else if (btnName == "drop") {
             const data = {
@@ -91,11 +86,6 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             
             updateHistory(ticket_details);
             document.querySelector(".overlay").remove();          
-            //     window.location.href = "external.html";
-            // }else{
-                
-            //     window.location.href = "intSpecialist.html";
-            // }
             
         } else if (btnName == "submitSolution") { /* Submit solution value */
             
@@ -110,7 +100,8 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             };
         
             submitTicket(data);
-        }
+
+        } 
         document.querySelector(".overlay").remove();
         
     });
@@ -146,14 +137,15 @@ function updateHistory(data, type){
     
 }
 
-function ext_Update_History(data){
-    const socket = io();
-    socket.emit("ext_history", data);
-}
 
 function submitTicket(data){
     const socket = io();
     socket.emit("Submit-Ticket", data);
+}
+
+function logout(){
+    console.log("clicked");
+    window.location.href = '/logout';
 }
 
 // CODE FOR CHARACTER COUNTERS IN TICKET DETAILS
@@ -174,6 +166,7 @@ const notes_max_chars = 1000;
 edit_button && edit_button.addEventListener('click', () => {
 
     const remaining = max_chars - text_area.value.length;
+    
     remaining_chars.textContent = remaining + ' characters remaining';
 
     const notes_remaining = notes_max_chars - notes_text_area.value.length;

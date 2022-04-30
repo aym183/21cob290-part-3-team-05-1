@@ -16,68 +16,13 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <a href="index.html" id="navbar__logo">Deskspace</a>
+                        <a href="intspecialist.html">
+                            <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0" id="navbar__logo" style="height: 60px;"></a>
                     </div>    
-                    <div class="topNavbar__search" id="search-div">
-                        <div class="search__container">
-                            <form>
-                                <button class = "searchButtons" id="filter-btn"><i class="fas fa-sliders-h"></i></button>
-                                <input class="searchInput" type="text" placeholder="Search Resolution">
-                                <button class="searchButtons" type="button" id="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        
-                        <!-- Search Filters -->
-                        <div class="dropdownFilters">
-                            <p class= "filter-tag">Status</p>
-        
-                            <select id ="filter-status" name="status" class="filter-status">
-                                <option value="all">All</option>
-                                <option value="closed">Closed</option>
-                                <option value="active">Active</option>
-                                <option value="submitted">Submitted</option>
-                                <option value="dropped">Dropped</option>
-                                <option value="pending">Pending</option>
-                            </select>
-                            <p class= "filter-tag">Ticket ID</p>
-                            <input type="text" class="filter-search" id ="filter-id">
-                            <p class= "filter-tag">Problem Type</p>
-                            <input type="text" class="filter-search" id ="filter-type">
-                            <p class= "filter-tag">Caller Name</p>
-                            <input type="text" class="filter-search" id ="filter-cname">
-                            <p class= "filter-tag">Handler Name</p>
-                            <input type="text" class="filter-search" id ="filter-sname">
-                            <p class= "filter-tag filter-date1">Last Updated Range</p>
-                            <div class="input-date1">
-                                <input id = "date1" type="date" data-date-inline-picker="true" name="date-search1" class="filter-search input-date-created" placeholder="Created">
-                                <div class="date__dropdown dropdown1"></div>
-                            </div>
-                            <div class="input-date2">
-                                <input id = "date2" type="date" data-date-inline-picker="true" name="date-search2" class="filter-search input-date-closed" placeholder="Closed">
-                                <div class="date__dropdown dropdown2"></div>
-                            </div>
-                            <select id ="filter-custom" name="custom" class="filter-status">
-                                <option value="employee_id">Employee ID</option>
-                                <option value="operator_id">Operator ID</option>
-                                <option value="handler_id">Handler ID</option>
-                                <option value="operating_system">OS</option>
-                                <option value="number_of_drops">No. of Drops ></option>
-                                <option value="softw_name">Software</option>
-                                <option value="hardw_name">Hardware</option>
-                            </select>
-                            <input type="text" class="filter-search" id ="filter-custom-value">
-                            <div id="none-found" style="display:none;">
-                                No Results Found
-                            </div>
-                            <div class="dropdown-button-wrapper">
-                                <button class="dropdown-btn">Search</button>
-                            </div>
-                        </div>        
-                    </div>
                 </div>
 
                 <div class="profile__container">
-                    <a href="employee_account.html" class="profile__item" id="profile-username">
+                    <a href="account.html" class="profile__item" id="profile-username">
                         
                         <p id="username"><%=loggeduser%></p>
                         <!--This is James part
@@ -142,45 +87,12 @@
                 <tbody class="ticket-body op-ticket-body">
                     <% for(var i=0; i < dropdownVals.length; i++) { %>
                         <tr>
-                            <!--<td class=<%=dropdownVals[i].status%>><span class="t-status"><%=dropdownVals[i].status%></span></td> -->
                             <td><%=dropdownVals[i].problem_description%></td>
                             <td><%=dropdownVals[i].prob_name%></td>
                             <td><%=dropdownVals[i].name%></td>
                                         
-                        <!-- <option><%= dropdownVals[i] %></option> -->
                      <% } %>
                         </tr>
-                <!-- <?php
-                    $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
-                    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-                    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-                    INNER JOIN (SELECT user_id, employee.name FROM handler
-                                INNER JOIN employee ON handler.user_id = employee.employee_id
-                                UNION
-                                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                                WHEN status = 'submitted' THEN 2
-                                WHEN status = 'pending' THEN 3
-                                WHEN status = 'unsuccessful' THEN 4
-                                WHEN status = 'active' THEN 5
-                                ELSE 6 END
-                    LIMIT 0, 50";
-
-                    $result = mysqli_query($conn, $sql) or die("Bad Query: $sql");
-
-                    while ($row = mysqli_fetch_array($result)){
-                        
-                        echo'<tr>';
-                        echo '<td class="'.$row[1].'"><span class="t-status">'.$row[1].'</span></td>';
-                        echo '<td>'.$row[0].'</td>';
-                        echo '<td>'.$row[3].'</td>';
-                        echo '<td>'.$row[4].'</td>';
-                        echo '<td>'.$row[2].'</td>';
-                        echo '<td>'.$row[5].'</td>';
-                        echo'</tr>';
-                    }
-
-                ?> -->
                 </tbody>
             </table>
 
@@ -189,104 +101,179 @@
             <div>
                 <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
             </div>
-            <div class="AddTicketContainer" style="display: none;">
-                <label for="priority">Priority</label>
-                <input type="text" id="priority" class="edit-field" list="priority" value="" required>
-    
-                <br>
-                
-                <label for="software_name">Software Name</label>  
-                <input type="text" id="software_name" class="edit-field" list="software_name" value="">
-        
-                <br>
-               
-                <label for="problem_type">Problem Type</label>
-                <input type="text" id="problem_type" class="edit-field" list="problem-types" value="">  
-                <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
 
-                </datalist>
-                
-                <br>
+            <div>
+                <button type="button" class="form-btn" id="cancel-btn" style="color:black; background-color: #afb5f7; display: none;">Cancel Ticket</button>
+            </div>
 
-                <label for="hardware_id">Hardware ID</label>  
-                <input type="text" id="hardware_id" class="edit-field" list="hardware_name" value="">
-            
-                <br>
+            <div>
+            <!--method="post" action="/..." class="form__content"-->
+                <div class="AddTicketContainer" style="display: none;">
+                    <label class="required" for="employee_name">Employee Name</label>
+                    <div>
+                        <input type="text" id="employee_name" class="no-edit-field" value="" readonly>
+                    </div>
 
-                <label for="software_name">Handler Name</label>  
-                <input type="text" id="handler" class="edit-field" list="handler" value="">
+                    <br>
 
-                <br>
+                    <label for="status">Status</label>
+                    <div>
+                        <input type="text" id="status" class="edit-field" value="active" readonly>
+                    </div>
 
-                <label for="operating_system">Operating System </label>  
-                <input type="text" id="os" class="edit-field" list="os" value="">
-
-                <br>
-                
-                <label for="problem_description">Problem Description</label>
-                <textarea type="text" id="problem_description" class="no-edit-field" rows="5" value=""></textarea>
-                
-                <!-- <br>
-                <button type="submit" class="submitTicket">Submit Ticket</button> -->
+                    <br>
 
                 <div>
-                <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Finish Adding Ticket</button>
+                    <label class="required" for="priority">Priority</label>
+                 
+                    <input type="text" id="priority" class="edit-field" list="priority-list" value="" required>
+
+                    <datalist id="priority-list">
+                        <option>high</option>
+                        <option>medium</option>
+                        <option>low</option>
+                    </datalist>
+                    <span class="faq_validation_error" id="priority-error"></span>
+
+                </div>
+                    <br>
+                    
+                    <label for="description">Problem Description</label>
+                    <div>
+                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                    <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
+                    </div>
+                    <br>
+                    <label for="notes">Notes</label>
+                    <div>
+                    <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
+                    <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                    </div>
+                    <br>
+
+                <div>
+                    <label for="handler-name">Handler Name</label>
+                    
+                        <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
+                    
+                    <datalist id="handler-names">
+                        <% for(var i=0; i < handler_vals.length; i++) { %>
+                            <option value = <%=handler_vals[i].name%> Tickets>Handling <%=handler_vals[i].tickets%> Tickets</option>                                            
+                        <% } %>
+                    </datalist>
+                    <span class="faq_validation_error" id="handler-name-error"></span>
+                </div>
+                    <br>
+
+                <div>
+                    <label for="operating-system">Operating System </label>  
+               
+                        <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" required>
+                    
+                    <datalist id="new-operating-systems">
+
+                        <% for(var i=0; i < operating_sys.length; i++) { %>
+                            <option><%=operating_sys[i].name%></option>                                            
+                        <% } %>
+                    </datalist>
+                    <span class="faq_validation_error" id="operating-system-error"></span>
+
+                </div>
+
+                    <br>
+
+                <div>
+                    <label for="hardware-id">Hardware ID</label>  
+                    
+                        <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers2" value="" required>
+                    
+                    <datalist id="hardware-numbers2">
+
+                        <% for(var i=0; i < hardwareids.length; i++) { %>
+                            <option><%=hardwareids[i].hardware_id%></option>
+                        
+                                    
+                        <% } %>
+                    </datalist>
+                    <span class="faq_validation_error" id="hardware-id-error"></span>
+                </div>
+
+                    <br>
+
+                    <div>
+                    <label for="software">Software Name</label>  
+                 
+                        <input type="text" id="software" class="edit-field" list="software-list" value="" required>
+              
+                    <datalist id="software-list">
+                        <% for(var i=0; i < software_vals.length; i++) { %>
+                            <option><%=software_vals[i].name%></option>                                            
+                        <% } %>
+                    </datalist>
+                    <span class="faq_validation_error" id="software-error"></span>
+                    </div>
+
+                    <br>
+                
+                    <div>
+                    <label class="required" for="problem-type">Problem Type</label>
+                  
+                        <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" required>  
+                        <datalist id="problem-types">
+                            <% for(var i=0; i < probtype_vals.length; i++) { %>
+                                <option><%=probtype_vals[i].name%></option>                                            
+                            <% } %>
+                        </datalist>
+                        <span class="faq_validation_error" id="problem-type-error"></span>
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <button type="submit" class="submitTicket" id="submitTicket" style="color:black; background-color: #afb5f7;">Submit Ticket</button>
+                    </div>
+
                 </div>
             </div>
-        </div>
         
+        </div>
+
         <div class="mainSection__container" id="ticket-info">
             <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
             <div class="header__container" id="info-headers">
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="faq.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
                         </div>   
                     </div>
-                    <div class="information__title">
+                    <!-- <div class="information__title">
                         <h2>FAQ Answer</h2>
-                    </div> 
+                    </div>  -->
 
                 </div>
+                <div class="information__title">
+                    <h2>FAQ Answer</h2>
+                </div> 
             </div>
-            <div class="faq_answer" style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
-            display: flex; flex-direction: column; padding: 20px 20px;">
-                <!-- <div>
-                    <button class="info-edit-btn" id="edit-btn">Edit</button>
-                    </datalist>
-                </div> -->
+            <div class="faq_answer"> <!--style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
+            display: flex; flex-direction: column; padding: 20px 20px;"> -->
 
                 <span class="validation_error" id="software-error"></span>
                 <label for="description">FAQ Description</label>
                 <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
-                <div id='remaining_chars'>300 characters remaining</div>
+                <!-- <div id='remaining_chars'>300 characters remaining</div> -->
     
                 <br>
                 
                 <label for="notes">Notes</label>  
                 <textarea type="text" id="notes" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
-                <div id='notes_remaining_chars'>1000 characters remaining</div>
+                <!-- <div id='notes_remaining_chars'>1000 characters remaining</div> -->
         
                 <br>
                
                 <label for="problem-type">Problem Type</label>
                 <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
-                <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
-
-                </datalist>
                 
                 <br>
             
@@ -297,23 +284,12 @@
         </div>
 
         <footer>
-            <p class="center">&#169; 2022 AHS</p>
+            <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
 
-    <!-- <script src="scripts/app.js">
-        $(document).ready(function () {
-            $(document.body).on("click", "#navbar__logo", function(e) {
-                e.preventDefault();
-                $("#ticketList-container").css("display", "flex")
-        
-                $("#ticket-info").css("display", "none")
-                $("#info-headers").css("display", "none")
-            });
-        });
-    </script> -->
-
     <script src="/scripts/faq.js"></script>
+    <script src="/scripts/function.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
