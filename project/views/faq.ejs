@@ -148,9 +148,9 @@
                     </div>
                     <br>
 
-                    <label for="software_name">Handler Name</label>
+                    <label for="handler-name">Handler Name</label>
                     <div>
-                        <input type="text" id="handler" class="edit-field" list="handler-names" value="" required>
+                        <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
                     </div>
                     <datalist id="handler-names">
                         <% for(var i=0; i < handler_vals.length; i++) { %>
@@ -160,9 +160,9 @@
 
                     <br>
 
-                    <label for="operating_system">Operating System </label>  
+                    <label for="operating-system">Operating System </label>  
                     <div>
-                        <input type="text" id="os" class="edit-field" list="new-operating-systems" value="" required>
+                        <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" required>
                     </div>
                     <datalist id="new-operating-systems">
 
@@ -191,9 +191,9 @@
 
                     <br>
 
-                    <label for="software_name">Software Name</label>  
+                    <label for="software">Software Name</label>  
                     <div>
-                        <input type="text" id="software_name" class="edit-field" list="software-list" value="" required>
+                        <input type="text" id="software" class="edit-field" list="software-list" value="" required>
                     </div>
                     <datalist id="software-list">
                         <% for(var i=0; i < software_vals.length; i++) { %>
@@ -203,9 +203,9 @@
                     <span class="validation_error" id="software-error"></span>
                     <br>
                 
-                    <label class="required" for="problem_type">Problem Type</label>
+                    <label class="required" for="problem-type">Problem Type</label>
                     <div>
-                        <input type="text" id="problem_type" class="edit-field" list="problem-types" value="" required>  
+                        <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" required>  
                         <datalist id="problem-types">
                             <% for(var i=0; i < probtype_vals.length; i++) { %>
                                 <option><%=probtype_vals[i].name%></option>                                            
