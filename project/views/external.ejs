@@ -106,7 +106,7 @@
                             <td><%=newdropdownVals[i].ticket_id%></td>
                             <td><%=newdropdownVals[i].priority%></td>
                             <td><%=newdropdownVals[i].name%></td>
-                            <td id = 'lastUpdated' class= 'lastUpdated'><%=dropdownVals[i].last_updated%></td>
+                            <td id = 'lastUpdated' class= 'lastUpdated'><%=newdropdownVals[i].last_updated%></td>
                     <% } %>
                    
                 </tbody>
@@ -173,11 +173,15 @@
                             </datalist>
                             <span class="validation_error" id="software-error"></span>
                             <label for="description">Problem Description</label>
-                            <textarea type="text" id="description" maxlength="300" class="edit-field" rows="5"></textarea>
-                            <div id='remaining_chars'>300 characters remaining</div>
+                            <div>
+                            <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                            <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
+                            </div>
                             <label for="notes">Notes</label>
-                            <textarea type="text" id="notes" maxlength="1000" class="edit-field" rows="5"></textarea>
-                            <div id='notes_remaining_chars'>1000 characters remaining</div>
+                            <div>
+                            <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
+                            <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                            </div>
                             <label for="problem-type">Problem Type</label>
                             <input type="text" id="problem-type" class="no-edit-field" list="problem-types" value="" readonly>
                             <span class="validation_error" id="problem-type-error"></span>

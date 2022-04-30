@@ -135,20 +135,17 @@
 
                     <br>
                     
-                    <label class="required" for="problem_description">Problem Description</label>
+                    <label for="description">Problem Description</label>
                     <div>
-                        <textarea type="text" id="problem_description" maxlength="1000" class="edit-field" rows="5" style="width: 100%;" required></textarea>
-                        <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                    <textarea type="text" id="description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                    <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
                     </div>
-
                     <br>
-
                     <label for="notes">Notes</label>
                     <div>
-                        <textarea type="text" id="add_notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
-                        <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
+                    <textarea type="text" id="notes" maxlength = "1000" class="edit-field" rows="5" style="width: 100%;"></textarea>
+                    <div id = 'notes_remaining_chars' style="text-align: right;">1000 characters remaining</div>
                     </div>
-
                     <br>
 
                     <label for="software_name">Handler Name</label>
@@ -271,6 +268,7 @@
     </script> -->
 
     <script src="/scripts/faq.js"></script>
+    <script src="/scripts/function.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
