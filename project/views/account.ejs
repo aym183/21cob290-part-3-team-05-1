@@ -21,7 +21,19 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
-                        <a id="navbar__logo" style="height: 56px;">Deskspace</a>
+                        <% if (u_job == "Analyst") { %>
+                            <a href="analyst.html" id="navbar__logo" style="height: 56px;">
+                                <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0"></a>
+                        <%} else if (u_job == "External Specialist") { %>
+                            <a href="external.html" id="navbar__logo" style="height: 56px;">
+                                <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0"></a>
+                        <%} else if (u_job == "Specialist") { %>
+                            <a href="intspecialist.html">
+                                <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0" id="navbar__logo" style="height: 60px;"></a>
+                        <%} else { %>        
+                            <a href="index.html" id="navbar__logo" style="height: 56px;">
+                                <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0"></a>
+                        <% } %>
                     </div>    
                 </div>
             </div>
@@ -83,12 +95,12 @@
                     <div class="row mt-5 align-items-center center">
                         <div class="col">
                             <div class="row align-items-center">
-                                    <h2 class="mb-1" style="position: absolute; width: 100%;"><%=u_name%></h4><br><br>
+                                    <h1 class="mb-1" style="position: absolute; width: 100%;"><%=u_name%></h1><br><br>
                             </div>
                                 <div class="col mt-2">
-                                    <p class="small mb-0 text-muted"><%=u_job%></p>
-                                    <p class="small mb-0 text-muted"><%=u_dept%></p>
-                                    <p class="small mb-0 text-muted"><%=u_phone%></p>
+                                    <h5 class="mb-0 text-muted"><%=u_job%></h4>
+                                    <h5 class="mb-0 text-muted"><%=u_dept%></h4>
+                                    <h5 class="mb-0 text-muted"><%=u_phone%></h4>
                                 </div>
                         </div>
                     </div>
