@@ -250,7 +250,7 @@ input[type="datetime-local"], input[type="email"] {
     text-decoration: none;
     color: var(--secondaryColor);
     font-size: 2rem;
-    padding: 20px 0px 0px 50px;
+    padding: 22px 0px 0px 40px;
 }
 
 .profile__container {
@@ -1610,8 +1610,4 @@ footer {
 
 .logo-ds {
     position: fixed; left: 40%; height: 12%; width: 18%; padding-top: 15px; padding-bottom: 15px;
-}
-
-.view-edit-buttons {
-    width: 50%;
 }
