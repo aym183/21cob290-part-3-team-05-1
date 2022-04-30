@@ -1,11 +1,13 @@
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
+var errors = ['priority', 'hardware-id', 'operating-system', 'software', 'problem-type', 'handler-name']; 
 var hardware_list = [];
 var os_list = [];
 var software_list = [];
 var probtype_list = [];
 var handler_list = [];
+var temp_error = [];
 const employee_name = "";
 
 
@@ -62,10 +64,11 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 });
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
+  console.log("I here");
   document.querySelector(".AddTicketContainer").style.display="block";
   document.querySelector("#add-btn").style.display="none";
   document.querySelector("#cancel-btn").style.display="block";
-  // console.log("hello");
+  
 
   const socket=io();
     
@@ -94,103 +97,164 @@ document.querySelector("#submitTicket").addEventListener("click", (e) => {
 });
 
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
-  console.log("ladi");
+    console.log("ladi");
 
-  socket = io();
+    socket = io();
 
-  // const socket=io();
+    for(let i = 0; i<data_lists.length; i++){
+      //console.log(document.getElementById("new-operating-systems"));
+      var current_list = span_list[i];
+      var x = document.getElementById(data_lists[i]);
+      var j;
+      for (j = 0; j < x.options.length; j++) {
+          current_list.push(x.options[j].value);
+  }
+      
+  }
 
-  // socket.emit('add_ticket',  data);
+  console.log(hardware_list);
+  // console.log(os_list);
+  // console.log(software_list);
+  // console.log(probtype_list);
+  // console.log(handler_list);
 
-  // socket.on('add_ticket', function(data, json) {
-  //   console.log("testing this out");
-  //   addTicket(data);
-  //   console.log("adding ticket");
-  // });
+  const priority = document.getElementById("priority").value;
+  const hardwareID = document.getElementById("hardware-id").value;
+  const operatingSystem = document.getElementById("os").value;
+  const softwareName = document.getElementById("software_name").value;
+  // const problem_description = document.getElementById("description").value;
+  // const notes = document.getElementById("notes").value;
+  const problem_type = document.getElementById("problem-type").value;
+  const handler_name = document.getElementById("handler-name").value;
 
   var employee_name = document.getElementById('employee_name').value;//="";
-  console.log(employee_name);
+      console.log(employee_name);
+  
+    
 
-  var status1 = document.getElementById('status').value;//="";
-  console.log(status1);
-
-  var priority = document.getElementById('priority').value;//="";
-  console.log(priority);
-
-  var softwareName = document.getElementById('software_name').value;//="";
-  console.log(softwareName);
-
-  var problemType = document.getElementById('problem_type').value;//="";
-  console.log(problemType);
-
-  var hardwareID = document.getElementById('hardware_id').value;//="";
-  console.log(hardwareID);
-
-  var handler = document.getElementById('handler').value;//="";
-  console.log(handler);
-
-  var operatingSystem = document.getElementById('os').value;//="";
-  console.log(operatingSystem);
-
-  var problemDescription = document.getElementById('problem_description').value;//="";
-  console.log(problemDescription);
-
-  var notes = document.getElementById('add_notes').value;//="";
-  console.log(notes);
+      var problemType = document.getElementById('problem_type').value;//="";
+      console.log(problemType);
+  
+      var handler = document.getElementById('handler').value;//="";
+      console.log(handler);
+  
 
 
-  var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      
-  const data = {
-    employee_name: employee_name,
-    statuss: status1,
-    priorityy: priority,
-    soft_name: softwareName,
-    hardID: hardwareID,
-    h_name: handler,
-    prob_type: problemType,
-    prob_desc: problemDescription,
-    os: operatingSystem,
-    notess: notes,
-    date: date
+  valid_details = []
+  if(!hardware_list.includes(hardwareID)){
+      console.log(true);
+  }else{
+      console.log(false);
   }
-  //console.log(handler_name);
-  console.log(data);
-  console.log(data.statuss); 
-  socket.emit("add_ticket", data);
 
-  //popupCreator("Ticket Submitted");
+  if (!priority_list.includes(priority)) {
+      valid_details.push('priority');
+  }
+  if (!hardware_list.includes(hardwareID)) {
+      valid_details.push('hardware-id');
+  }
+  if (!os_list.includes(operatingSystem)) {
+      valid_details.push('operating-system');
+  }
+  if (!software_list.includes(softwareName)) {
+      valid_details.push('software');
+  }
+  if (!probtype_list.includes(problem_type)) {
+      valid_details.push('problem-type');
+  }
+  if (!handler_list.includes(handler_name)) {
+      valid_details.push('handler-name');
+  }
 
-  var employee_name = document.getElementById('employee_name').value="";
-  console.log(employee_name);
 
-  var status1 = document.getElementById('status').value="active";
-  console.log(status1);
+  if (valid_details.length != 0) {
 
-  var priority = document.getElementById('priority').value="";
-  console.log(priority);
+      console.log("I am not null");
+      for (const element of valid_details) {
+          document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
+          document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
+          document.querySelector(`#${element}-error`).innerHTML = 'Invalid Field';
+          temp_error.push(element);
 
-  var softwareName = document.getElementById('software_name').value="";
-  console.log(softwareName);
+      }    
 
-  var problemType = document.getElementById('problem_type').value="";
-  console.log(problemType);
+      document.querySelector('#'+valid_details[0]).scrollIntoView({behaviour: "smooth", block: "center"});
 
-  var hardwareID = document.getElementById('hardware_id').value="";
-  console.log(hardwareID);
+  } else if(valid_details.length == 0){
+      
+      for (const element of errors) {
+  
+          document.querySelector(`#${element}-error`).style.display = 'none';
+      }
+  
 
-  var handler = document.getElementById('handler').value="";
-  console.log(handler);
+      var problemDescription = document.getElementById('problem_description').value;//="";
+      console.log(problemDescription);
+  
+      var notes = document.getElementById('add_notes').value;//="";
+      console.log(notes);
 
-  var operatingSystem = document.getElementById('os').value="";
-  console.log(operatingSystem);
+      var status1 = document.getElementById('status').value;//="";
+      console.log(status1);
 
-  var problemDescription = document.getElementById('problem_description').value="";
-  console.log(problemDescription);
 
-  var notes = document.getElementById('add_notes').value="";
-  console.log(notes);
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+          
+      const data = {
+        employee_name: employee_name,
+        statuss: status1,
+        priorityy: priority,
+        soft_name: softwareName,
+        hardID: hardwareID,
+        h_name: handler_name,
+        prob_type: problem_type,
+        prob_desc: problemDescription,
+        os: operatingSystem,
+        notess: notes,
+        date: date
+      }
+      //console.log(handler_name);
+      console.log(data);
+      console.log(data.statuss); 
+      socket.emit("add_ticket", data);
+  
+      //popupCreator("Ticket Submitted");
+  
+      var employee_name = document.getElementById('employee_name').value="";
+      console.log(employee_name);
+  
+      var status1 = document.getElementById('status').value="active";
+      console.log(status1);
+  
+      var priority = document.getElementById('priority').value="";
+      console.log(priority);
+  
+      var softwareName = document.getElementById('software_name').value="";
+      console.log(softwareName);
+  
+      var problemType = document.getElementById('problem_type').value="";
+      console.log(problemType);
+  
+      var hardwareID = document.getElementById('hardware_id').value="";
+      console.log(hardwareID);
+  
+      var handler = document.getElementById('handler').value="";
+      console.log(handler);
+  
+      var operatingSystem = document.getElementById('os').value="";
+      console.log(operatingSystem);
+  
+      var problemDescription = document.getElementById('problem_description').value="";
+      console.log(problemDescription);
+  
+      var notes = document.getElementById('add_notes').value="";
+      console.log(notes);
+      // }    
+  }
+
+
+    
 });
 
 
