@@ -663,7 +663,7 @@ tbody tr:hover {
 .details__container {
     display: flex;
     justify-content: center;
-    padding: 10px 0 100px 0;
+    padding: 10px 0 50px 0;
 }
 .details__table {
     border: none;
@@ -689,7 +689,7 @@ tbody tr:hover {
 .ticket__information {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: repeat(0, minmax(0, 1fr)) 2fr 2fr repeat(6, minmax(0, 1fr));
     column-gap: 15px;
     row-gap: 40px;
@@ -1263,6 +1263,7 @@ footer {
     border-radius: 20px;
     padding: 5px;
     font-size: 10 px;
+    width: 50%;
     color: var(--buttonHover);
     background-color: var(--droppedColor);
     border: 1px solid var(--droppedColor);
@@ -1351,6 +1352,7 @@ footer {
     cursor: pointer;
     border: 1px solid #ccc;
     border-bottom-width: 2px;
+    width: 50%;
     padding: 5px;
     outline: none;
     border-radius: 5px;
@@ -1608,4 +1610,8 @@ footer {
 
 .logo-ds {
     position: fixed; left: 40%; height: 12%; width: 18%; padding-top: 15px; padding-bottom: 15px;
+}
+
+.view-edit-buttons {
+    width: 50%;
 }
