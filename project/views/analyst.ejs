@@ -207,7 +207,7 @@
 
 
                         <h1 style="font-size: 0px; opacity: 0;">
-                            <% for(var i=0; i < dat4.length; i++) { %>
+                            <% for(var i=2; i < dat4.length; i++) { %>
 
                                 <%=dat5.push(dat4[i].count)%>
                                     <%=dat6.push(dat4[i].status)%>
@@ -223,7 +223,7 @@
                             new Chart(document.getElementById("pie-chart"), {
                                 type: 'pie',
                                 data: {
-                                    labels: ["Active", "", "Dropped", "","Submitted","", "Closed", "", "Unsuccessful"], //need to get query to get lables so order can be changed (swap submitted and closed)
+                                    labels: ["Active", "Dropped","","Submitted", "Closed","Unsuccessful"], //need to get query to get lables so order can be changed (swap submitted and closed)
                                     datasets: [{
                                         label: "Number of Tickets",
                                         backgroundColor: ["#3e95cd", "#FFFFFF ", "#3cba9f", "#FFFFFF", "#ff6384", "#FFFFFF", "#36a2eb", "#FFFFFF", "#cc65fe", "#FFFFFF", '#ffce56'],
