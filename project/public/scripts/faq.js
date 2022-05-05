@@ -1,3 +1,4 @@
+// variable declaration
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
@@ -10,13 +11,14 @@ var handler_list = [];
 var temp_error = [];
 const employee_name = "";
 
-
+// this shows current employee logged in
 function showEmployeeName() { 
   
   document.getElementById('employee_name').value=sessionStorage.getItem("employee_name");
   
 }
 
+// this displays successful tickets
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -32,6 +34,7 @@ function addRowHandlers() {
     }
 }
 
+// this displays some information about each successful ticket
 function showSolutionInfo(data) {   
     console.log(data);
     document.getElementById('solutionBox').value =  data.solution_description;
