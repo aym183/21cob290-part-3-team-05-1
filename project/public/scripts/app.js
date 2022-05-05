@@ -238,7 +238,7 @@ ready(() => {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
         }
-// Creation of socket
+
         console.log(data);
         socket.emit('message',  data);
 
@@ -283,28 +283,16 @@ ready(() => {
             }
 
         }
-        // else if (status=="pending") {
+        else if(status == "unsolvable"){
 
-        //     var c = document.querySelectorAll('.closed__field');
-        //     for (var i = 0; i < c.length; i++) {
-        //          c[i].style.display = 'none';
-        //     }
-        //     if (document.querySelector(".checkmark") !== null) {
-        //         document.querySelector(".closeForm__section").style.display = "block";
-        //         document.querySelector('.checkmark').classList.remove('unchecked');
-        //         document.querySelector('.checkmark').classList.add('checked');
-        //         document.querySelector("#submit-btn").removeAttribute('disabled');
-        //         document.querySelector("#submit-btn").style.cursor = "pointer";
-        //         document.querySelector(".closeButton").style.opacity = "1";
-        //     }
-            
-        //     document.querySelector('.solution-status').innerText = "Solution Submitted";
-        //     document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+            var c = document.querySelectorAll('.closed__field');
+            for (var i = 0; i < c.length; i++) {
+                 c[i].style.display = 'block';
+            }
 
-        //     if (document.querySelector(".discard-solution") !== null) {
-        //         document.querySelector(".discard-solution").style.display = "block";
-        //     }
-        // }
+            document.querySelector(".closeForm__section").style.display = "none";
+
+        }
         else if (status=="unsuccessful") {
             var c = document.querySelectorAll('.closed__field');
             for (var i = 0; i < c.length; i++) {

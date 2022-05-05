@@ -439,6 +439,9 @@ h5 {
 .closed .t-status {
     background-color: var(--greyText);
 }
+.unsolvable .t-status {
+    background-color: black;
+}
 
 /* INFORMATION HEADER SECTION (display: none) */
 
