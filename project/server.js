@@ -818,7 +818,7 @@ app.get('/external.html', (req, res) => {
         
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed")
+    WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")
     ORDER BY CASE WHEN status = 'submitted' THEN 1
                 WHEN status = 'unsuccessful' THEN 2
                 WHEN status = 'active' THEN 3
@@ -927,7 +927,16 @@ app.get('/external.html', (req, res) => {
                         console.log(result);
 
                         if(new_no_drops == 5){
-                            console.log("UNSOLVABLE");
+                            con.query(`UPDATE ticket
+                            SET status = 'unsolvable', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
+                            if (err) throw err;
+        
+                            con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
+                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields){
+                
+                                if (err) throw err;
+                            });
+                        })
                         }
                         else{
 
