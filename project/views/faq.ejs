@@ -25,11 +25,7 @@
                     <a href="account.html" class="profile__item" id="profile-username">
                         
                         <p id="username"><%=loggeduser%></p>
-                        <!--This is James part
-                        -->
-                        <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
+
                     </a>
                 </div>
             </div>
@@ -107,7 +103,6 @@
             </div>
 
             <div>
-            <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
                     <label for="employee_name" required>Employee Name</label>
                     <div>
@@ -239,7 +234,7 @@
         </div>
 
         <div class="mainSection__container" id="ticket-info">
-            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
+            <!-- FAQ INFORMATION HEADER SECTION (display: none)  -->
             <div class="header__container" id="info-headers">
                 <div class="header__wrapper">
                     <div class="header-wrapper">
@@ -247,29 +242,22 @@
                             <a href="faq.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
                         </div>   
                     </div>
-                    <!-- <div class="information__title">
-                        <h2>FAQ Answer</h2>
-                    </div>  -->
-
                 </div>
                 <div class="information__title">
                     <h2>FAQ Answer</h2>
                 </div> 
             </div>
-            <div class="faq_answer"> <!--style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
-            display: flex; flex-direction: column; padding: 20px 20px;"> -->
-
+            <!-- FAQ Details Section -->
+            <div class="faq_answer"> 
                 <span class="validation_error" id="software-error"></span>
                 <label for="description">FAQ Description</label>
                 <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
-                <!-- <div id='remaining_chars'>300 characters remaining</div> -->
     
                 <br>
                 
                 <label for="notes_new">Notes</label>  
                 <textarea type="text" id="notes_new" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
-                <!-- <div id='notes_remaining_chars'>1000 characters remaining</div> -->
-        
+      
                 <br>
                
                 <label for="problem_type">Problem Type</label>
