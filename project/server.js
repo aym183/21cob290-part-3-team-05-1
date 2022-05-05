@@ -859,6 +859,7 @@ app.get('/external.html', (req, res) => {
     
                     });
                 }
+
                 else if(msg.status == "submitted"){
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
@@ -1334,6 +1335,25 @@ app.get('/index.html', (req, res) => {
                 INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
                 INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
                 INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                INNER JOIN  software on ticket.software_id = software.software_id 
+                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                INNER JOIN (SELECT user_id, employee.name FROM handler
+                INNER JOIN employee ON handler.user_id = employee.employee_id
+                UNION
+                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                console.log(err);
+                if (err) throw err;
+
+                console.log(result);
+                io.send('message', result);
+                socket.disconnect(0);
+
+                });
+            }
+            else if(msg.status == 'unsolvable'){
+                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name from ticket
+                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
                 INNER JOIN  software on ticket.software_id = software.software_id 
                 INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
                 INNER JOIN (SELECT user_id, employee.name FROM handler

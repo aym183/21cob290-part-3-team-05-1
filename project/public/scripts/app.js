@@ -286,10 +286,14 @@ ready(() => {
         else if(status == "unsolvable"){
 
             var c = document.querySelectorAll('.closed__field');
-            for (var i = 0; i < c.length; i++) {
+            for (var i = 0; i < c.length-4; i++) {
                  c[i].style.display = 'block';
             }
 
+
+            document.querySelector("#edit-btn").style.display = "none";
+            document.querySelector("#handler-name").style.display = "none";
+            document.querySelector("#handler-remove").style.display = "none";
             document.querySelector(".closeForm__section").style.display = "none";
 
         }
@@ -351,11 +355,7 @@ ready(() => {
             document.querySelector(".closeForm__section").style.display = "none";
         }
         else {
-            // var c = document.querySelectorAll('.closed__field');
-            // for (var i = 0; i < c.length; i++) {
-            //      c[i].style.display = 'none';
-            // }
-            
+        
             if(document.title == "Home Page"){
 
                 document.querySelector(".closeForm__section").style.display = "block";
