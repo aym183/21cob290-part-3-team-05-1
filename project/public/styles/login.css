@@ -1,36 +1,22 @@
-.centered {
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -100px;
-}
 
 .form__border {
   width: 425px; 
   height: 300px; 
-  position: fixed;
-  top: 23.5%;
-  left: 42.6%;
-  margin-top: -50px;
-  margin-left: -100px;
   background-color: #c2ddf0;
   box-shadow: 0px 1px 2px 4px rgba(0,0,0,0.25);
 }
 
 .form__content {
   width: 400px; 
-  height: 300px; 
-  position: fixed;
-  left: 43.5%;
-  margin-left: -100px;
+  height: 330px; 
 }
 
-.main__section {
-    display: grid;
+#main__section {
+    display: flex;
+    justify-content: center;
     overflow: auto;
     flex-grow: 1;
-    align-items: stretch;
+    align-items: center;
     background-color: #322c8d;
 }
 
@@ -57,5 +43,5 @@
 }
 
 .error {
-  position: absolute; width: 100%; text-align: center; color: red; padding-top: 2px;
+  text-align: center; color: red; padding-top: 2px;
 }

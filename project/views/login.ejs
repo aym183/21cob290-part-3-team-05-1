@@ -29,13 +29,13 @@
         </div>
     </div>
 
-    <div class="main__section">
-    <div id="border-container" class="form__border rounded">
-        <span class="border border-dark rounded-sm form__border">
+    <div id="main__section">
+    <div id="border-container" class="form__border rounded" style="margin-bottom: 10%;">
+        <span>
         <div class="d-flex justify-content-center align-items-center centered" id="loginForm-container">
         <div> 
             <div class="form-login">
-                <form method="post" action="/auth" class="form__content">
+                <form method="post" action="/auth" class="form__content mt-3">
                     <h3 style="text-align: center">Welcome</h3>
                     <div class="form-group">
                         <div class="form-outline">
@@ -58,20 +58,20 @@
                     align-items: center;">
                     <button type="submit" id="submitBtn" class="btn btn-info center mt-3 btn-block btn-rounded">LOGIN</button>
                     </div>
+                    <% if (locals.err) { %>
+                        <p class="error mt-4">Incorrect username/password. Please try again.</p>
+                    <% } %> 
                 </form>   
             </div>
         </div>   
     </span>
     </div>
     </div>
-    <% if (locals.err) { %>
-        <p class="error">Incorrect username/password. Please try again.</p>
-    <% } %> 
-        <footer>
-            <p class="center" style="position: absolute; top: 92.5%; width: 100%;">&#169; 2022 Team 5</p>
-        </footer>
-
+    
     </div>
+    <footer>
+        <p class="center" style="position: absolute; top: 92.5%; width: 100%;">&#169; 2022 Team 5</p>
+    </footer>
 </body>
 <!--
 <body>
