@@ -10,7 +10,7 @@
     <title>Your Account</title>
 
     <style>
-        #account-div {
+        #a_card {
             animation: fadeInAnimation ease 0.8s;
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
@@ -102,6 +102,17 @@
             </div>
         </div>
 
+    <div id="a_card" style="margin-top: 25px;">
+            <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="John" style="width:50%;">
+            <br>
+            <h3 class="mt-2"><b><%=u_name%></b></h3>
+            <p class="a_title"><%=u_job%></p>
+            <p><%=u_dept%></p>
+            <p><%=u_phone%></p>
+            <p><a id="logout-btn">Log Out</a></p>
+          </div>
+    </div>
+<!--
     <div class="container" id="account-div">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8 mx-auto">
@@ -130,6 +141,7 @@
             </div>
         </div>
     </div>
+-->
     </div>
     <footer style="position: absolute; bottom: 0; width: 100%;">
         <p class="center" style="position: absolute; top: 35%; width: 100%;">&#169; 2022 Team 5</p>
