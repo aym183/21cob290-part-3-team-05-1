@@ -18,13 +18,10 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
         reason.setAttribute("cols", "25");
-        
-    
     }
 
     const buttons = popup.appendChild(document.createElement('div'));
     buttons.className="popup-btns-container";
-
     const btn1 = buttons.appendChild(document.createElement('button'));
     btn1.className = "form-btn cancel-btn";
     btn1.textContent = button1;
@@ -49,11 +46,9 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 id: document.getElementById('detail-id').innerHTML,
                 date: date,
                 time: time
-
             };
-            // const jsonString = JSON.stringify(data);
+
             changeStatus(data);
-            // window.location.href = "index.html";
         } else if (btnName == "logout") {
             logout();
             
@@ -66,7 +61,6 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 current_dateTime: time,
                 current_date: date
             };
-            // const jsonString = JSON.stringify(data);
             dropStatus(data);
             
             //-----This will update ticket history log
@@ -98,37 +92,27 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 id: ticket_id,
                 h_name: handler_name
             };
-        
             submitTicket(data);
-
         } 
         document.querySelector(".overlay").remove();
         
     });
 
-    
-    //<input id="caller-name" type="text" class="field" autocomplete="off" required="required"></input>
-    
     /* Create the overlay. */
     var overlay = document.createElement('div');
     overlay.className = 'overlay';
     overlay.appendChild(popup);
-            
-    /* Add the overlay. */
     document.body.appendChild(overlay);
-
 }
 
 function changeStatus(data){
     const socket = io();
     socket.emit('close_ticket', data);
-    console.log(data);
 }
 
 function dropStatus(data){
     const socket = io();
     socket.emit('drop_ticket', data);
-    console.log(data);
 }
 
 function updateHistory(data, type){
@@ -137,14 +121,12 @@ function updateHistory(data, type){
     
 }
 
-
 function submitTicket(data){
     const socket = io();
     socket.emit("Submit-Ticket", data);
 }
 
 function logout(){
-    console.log("clicked");
     window.location.href = '/logout';
 }
 

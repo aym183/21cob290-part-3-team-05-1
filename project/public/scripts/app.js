@@ -388,10 +388,8 @@ ready(() => {
 // Update Button clicked
 ready(() => { 
     document.querySelector("#update-btn").addEventListener("click", (e) => {
-
         
         for(let i = 0; i<data_lists.length; i++){
-            
             var current_list = span_list[i];
             var x = document.getElementById(data_lists[i]);
             var j;
