@@ -79,7 +79,6 @@ function showTicketInfo(data) {
 
         if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
-            console.log(pending_solution);
             document.getElementById('solution-area').value = pending_solution;
             
         } else if (data.status == 'closed') {
@@ -226,20 +225,19 @@ ready(() => {
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-            if (document.querySelector(".checkmark") !== null) {
-                document.querySelector('.checkmark').classList.remove('checked');
-                document.querySelector('.checkmark').classList.add('unchecked');
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector(".closeButton").style.opacity = "0.3";
-            }
             
+            if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
                 document.querySelector(".solutionArea__section").style.display = "block";
                 document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                 document.querySelector("#submit-btn").style.cursor = "default";
                 document.querySelector("#submit-btn").style.opacity = "0.3";
                 document.querySelector('.solution-status').innerText = "Solution Submitted";
                 document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+            }
+            else{
+                document.querySelector('.solution-status').innerText = "Solution Submitted";
+                document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
+            }
 
             if (document.querySelector(".discard-solution") !== null) {
                 document.querySelector(".discard-solution").style.display = "block";
@@ -328,25 +326,27 @@ ready(() => {
         } 
     });
 
-    document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
-        // Solution edit button styling on click
-        if (document.querySelector("#spec-editSolution-btn").innerHTML == "edit") {
-            
-            document.querySelector("#solution-area").style.backgroundColor = "white";
-            document.querySelector(".solutionArea__section").style.backgroundColor = "white";
-            document.querySelector("#solution-area").style.pointerEvents = "all";
-            document.querySelector("#spec-editSolution-btn").innerHTML = "Update";
+    if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
+        document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
+            // Solution edit button styling on click
+            if (document.querySelector("#spec-editSolution-btn").innerHTML == "edit") {
+                
+                document.querySelector("#solution-area").style.backgroundColor = "white";
+                document.querySelector(".solutionArea__section").style.backgroundColor = "white";
+                document.querySelector("#solution-area").style.pointerEvents = "all";
+                document.querySelector("#spec-editSolution-btn").innerHTML = "Update";
 
-        }
-        // Solution update button styling on click
-        else if (document.querySelector("#spec-editSolution-btn").innerHTML == "Update") {
+            }
+            // Solution update button styling on click
+            else if (document.querySelector("#spec-editSolution-btn").innerHTML == "Update") {
 
-            document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
-            document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
-            document.querySelector("#solution-area").style.pointerEvents = "none";
-            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";            
-        }   
-    });
+                document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
+                document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
+                document.querySelector("#solution-area").style.pointerEvents = "none";
+                document.querySelector("#spec-editSolution-btn").innerHTML = "edit";            
+            }   
+        });
+    }
 });
 
 // EDIT BUTTON ----------------
@@ -380,13 +380,8 @@ ready(() => {
             document.querySelectorAll(".ticket__information label").forEach(label => { 
                 label.style.color = "black";   
             })
-            document.querySelector(".update__section").style.display = "none";
-            document.querySelector("#emp-table__container").style.display = "none";
-            
-            
+            document.querySelector(".update__section").style.display = "none";     
         }
-
-
     });    
 });
 
@@ -402,7 +397,7 @@ ready(() => {
             var j;
             for (j = 0; j < x.options.length; j++) {
                 current_list.push(x.options[j].value);
-        }
+            }
         }
     
         const priority = document.getElementById("priority").value;
@@ -597,63 +592,61 @@ ready(() => {
 });
 
 ready(() => { 
-    document.querySelector("#editSolution-btn").addEventListener("click", (e) => {
-        const edit_btn = document.querySelector("#editSolution-btn");
 
-        if (!edit_btn.classList.contains('pushed-btn')) {
-            edit_btn.classList.add('pushed-btn');
-            document.querySelector('#editSolution-btn').style.color = 'var(--buttonTextColor)';
-            document.querySelector('#editSolution-btn').style.backgroundColor = 'var(--buttonHover)';
+    if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
+
+        document.querySelector("#editSolution-btn").addEventListener("click", (e) => {
+            const edit_btn = document.querySelector("#editSolution-btn");
+
+            if (!edit_btn.classList.contains('pushed-btn')) {
+                edit_btn.classList.add('pushed-btn');
+                document.querySelector('#editSolution-btn').style.color = 'var(--buttonTextColor)';
+                document.querySelector('#editSolution-btn').style.backgroundColor = 'var(--buttonHover)';
+                    
+                document.querySelectorAll("#solution-area").forEach(field => { 
+                    field.style.pointerEvents = "all",
+                    field.style.backgroundColor = "white",
+                    field.style.borderColor = 'black';
+                    field.removeAttribute("readonly")    
+                    })
                 
-            document.querySelectorAll("#solution-area").forEach(field => { 
-                field.style.pointerEvents = "all",
-                field.style.backgroundColor = "white",
-                field.style.borderColor = 'black';
-                field.removeAttribute("readonly")    
-                })
-            
-                document.querySelector(".solutionArea__section").style.backgroundColor = "white";
-        } else {
-            edit_btn.classList.remove('pushed-btn');
-            document.querySelector('#editSolution-btn').style.color = null;
-            document.querySelector('#editSolution-btn').style.backgroundColor = null;
-            document.querySelectorAll(".solution-area").forEach(field => { 
-                field.style.pointerEvents = "none",
-                field.style.backgroundColor = "rgb(236, 236, 236)",
-                field.setAttribute("readonly", true) 
-                field.style.borderColor = "#ccc";
-            })            
-        }
-    });    
+                    document.querySelector(".solutionArea__section").style.backgroundColor = "white";
+            } else {
+                edit_btn.classList.remove('pushed-btn');
+                document.querySelector('#editSolution-btn').style.color = null;
+                document.querySelector('#editSolution-btn').style.backgroundColor = null;
+                document.querySelectorAll(".solution-area").forEach(field => { 
+                    field.style.pointerEvents = "none",
+                    field.style.backgroundColor = "rgb(236, 236, 236)",
+                    field.setAttribute("readonly", true) 
+                    field.style.borderColor = "#ccc";
+                })            
+            }
+        });    
+    }
 });
 
 //Ticket Submission
 ready(() => { 
 
-    const refreshPage = () => {
-        location.reload();
-      }
+    if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
+        document.querySelector("#submit-btn").addEventListener("click", (e) => {
+            socket = io();
+            var submit_solution =  document.getElementById("solution-area").value;   
+            var ticket_status = document.getElementById('detail-status').innerHTML;
+            var ticket_id = document.getElementById('detail-id').innerHTML;
+            var handler_name =document.getElementById('handler-name').value;
+            const data = {
+                solution: submit_solution,
+                status: ticket_status,
+                id: ticket_id,
+                h_name: handler_name
+            }
 
-    document.querySelector("#submit-btn").addEventListener("click", (e) => {
-        socket = io();
-    // submit_btn && submit_btn.addEventListener("click", (e) => {
-        var submit_solution =  document.getElementById("solution-area").value;   
-        var ticket_status = document.getElementById('detail-status').innerHTML;
-        var ticket_id = document.getElementById('detail-id').innerHTML;
-        var handler_name =document.getElementById('handler-name').value;
-        const data = {
-            solution: submit_solution,
-            status: ticket_status,
-            id: ticket_id,
-            h_name: handler_name
-        }
-
-        socket.emit("Submit-Ticket", data);
-        popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");
-    });
-    
-
-
+            socket.emit("Submit-Ticket", data);
+            popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");
+        });
+    }    
 });
 
 
@@ -673,7 +666,6 @@ ready(() => {
     var logout_btn = document.querySelector("#logout-btn");
     logout_btn && logout_btn.addEventListener("click", (e) => {
         socket = io();
-
         popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
 
 });
