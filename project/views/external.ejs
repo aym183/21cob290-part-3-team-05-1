@@ -73,17 +73,6 @@
             <div class="table-detail__section">
                 <div class="table-title__container">
                     <h5 class="table-title">Tickets</h5>
-                    <span class="total-tickets">
-                        <!-- <?php
-                        $sql = "SELECT * FROM ticket";
-                        if ($result=mysqli_query($conn, $sql)) {
-                            $rowcount=mysqli_num_rows($result);
-                            echo 'Total '. $rowcount. ' (50 per page)'; 
-                        } else {
-                            echo 'Total 0 (50 per page)';
-                        }
-                    ?> -->
-                    </span>
                 </div>
             </div>
             <table class="ticket__table op-ticket-table" id="table-info">
@@ -93,9 +82,7 @@
                         <th>ID</th>
                         <th>Priority</th>
                         <th>Problem Type</th>
-                        <!-- <th>Name</th> -->
                         <th>Last Updated</th>
-                        <!-- <th>Handler</th> -->
                     </tr>
                 </thead>
 
@@ -163,8 +150,7 @@
                             <label for="hardware-make">Equipment Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
-                            <input type="text" id="operating-system" class="no-edit-field" list="operating-systems" value=""
-                                readonly>
+                            <input type="text" id="operating-system" class="no-edit-field" list="operating-systems" value="" readonly>
         
                             <span class="validation_error" id="operating-system-error"></span>
                             <label for="software">Software</label>
