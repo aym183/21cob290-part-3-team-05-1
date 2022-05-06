@@ -41,10 +41,8 @@ function convertDate(){
 
     for(let i = 0; i<nodes.length; i++){
         var iteration = element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML;
-        console.log(iteration);
         var date = new Date(iteration).toLocaleDateString();
         element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML= date;
-        console.log(date);   
     }
 }
 
@@ -55,8 +53,6 @@ function convertDate(){
  */
 function showTicketInfo(data) {  
 
-
-    console.log(data);
         old_priority = data.priority;
         old_hardwareId = data.hardware_id;
         old_os = data.operating_system;
@@ -81,7 +77,6 @@ function showTicketInfo(data) {
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
 
-// data.solution_status == 'submitted' || 
         if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
             console.log(pending_solution);
@@ -95,10 +90,7 @@ function showTicketInfo(data) {
         } else {
             document.getElementById('solution-area').value = ""; 
         }
-        // } else if (data.status == 'unsuccessful') {
-        //     const unsuc_solution = info['solution_description'];
-        // } 
-
+    
         var op_body = document.querySelector(".op-ticket-body");
         op_body && op_body.querySelectorAll("tr").forEach(row => { 
             row.addEventListener("click", (e) => {
@@ -125,10 +117,6 @@ function showTicketInfo(data) {
                     document.querySelector("#submit-btn").style.opacity = "0.3";
                     document.querySelector('.solution-status').innerText = "Solution Submitted";
                     document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
-                    // document.querySelector('.solution-status').innerText = "Solution Submitted";
-                    // document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";
-        
-                    // document.querySelector(".discard-solution").style.display = "block";
         
                 }
                 else if (status=="unsuccessful") {
@@ -141,15 +129,12 @@ function showTicketInfo(data) {
                     }
                     if (document.querySelector(".checkmark") !== null) {
                         document.querySelector(".closeForm__section").style.display = "block";
-                        // document.querySelector('.checkmark').classList.remove('checked');
-                        // document.querySelector('.checkmark').classList.add('unchecked');x                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                         document.querySelector("#submit-btn").style.cursor = "default";
                         document.querySelector(".closeButton").style.opacity = "0.3";
                     }
                     
                     document.querySelector('.solution-status').innerText = "Solution Dropped";
                     document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
-        
                     document.querySelector(".discard-solution").style.display = "none";
                     
                 }
@@ -161,8 +146,7 @@ function showTicketInfo(data) {
         
                     document.querySelector(".closeForm__section").style.display = "none";
                     document.querySelector("#solution").style.display = "block";
-                   
-
+                
                 }
                 else {
                     var c = document.querySelectorAll('.closed__field');
@@ -179,20 +163,14 @@ function showTicketInfo(data) {
                     }
                     
                     document.querySelector('.solution-status').innerText = "";
-        
                     document.querySelector(".discard-solution").style.display = "none";
-                }
-
-                
+                }                
             }); 
-        })  
-
-   
+        })     
 }
 
 function Disablebtn(data) {
-    const socket = io()
-    
+    const socket = io() 
 }
 
 /**
@@ -203,16 +181,10 @@ function updateTicketInfo(data, status) {
     const socket = io()
     
     if(status == "handler"){
-
-        console.log(data.id);
         socket.emit('dropped_update', data.id);
     } 
     const socket2 = io()
     socket2.emit('update_message',  data);
-    
-    // socket.on('message', function(data, json) {
-    //     showTicketInfo(json[0]); 
-    // });
 }
 
 ready(() => { 
@@ -220,14 +192,12 @@ ready(() => {
     close_btn && close_btn.addEventListener("click", (e) => {
         popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm", "");         
     });
-    // refreshPage;
 });
 
 
 // Table row (Ticket) Clicked
 ready(() => { 
     const socket = io()
-    // const socket = io('ws//localhost:5005')
     document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
         document.querySelector("#ticket-info").style.display = "flex";
         document.querySelector("#info-headers").style.display = "block";
@@ -238,22 +208,15 @@ ready(() => {
             id: e.target.closest("tr").children[1].textContent,
             status: e.target.closest("tr").children[0].textContent
         }
-
-        console.log(data);
         socket.emit('message',  data);
 
         // after data is recieved, calling function to show ticket info
         socket.on('message', function(data, json) {
-            console.log(json);
-        
             showTicketInfo(json[0]); 
             socket.destroy();
           });
         
-        
-        // console.log(data);
         const jsonString = JSON.stringify(data)
-
         var status = data.status;
      
         
@@ -290,7 +253,6 @@ ready(() => {
                  c[i].style.display = 'block';
             }
 
-
             document.querySelector("#edit-btn").style.display = "none";
             document.querySelector("#handler-name").style.display = "none";
             document.querySelector("#handler-remove").style.display = "none";
@@ -309,14 +271,6 @@ ready(() => {
             document.querySelector("#close-btn").style.opacity = "0.3";
             document.querySelector("#submit-btn").setAttribute('disabled','disabled');
             document.querySelector("#submit-btn").style.cursor = "default";
-
-                // document.querySelector(".closeForm__section").style.display = "block";
-                // document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                // document.querySelector("#closeButton").setAttribute('disabled','disabled');
-                // document.querySelector("#submit-btn").style.cursor = "default";
-                // document.querySelector(".closeButton").style.opacity = "0.3";
-            
-            
             document.querySelector('.solution-status').innerText = "";
 
             if (document.querySelector(".discard-solution") !== null) {
@@ -328,19 +282,14 @@ ready(() => {
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-           
-            
+        
             document.querySelector(".closeForm__section").style.display = "block";
             document.querySelector("#dropSolution-btn").style.display = "none";
             document.querySelector("#close-btn").setAttribute('disabled','disabled');
             document.querySelector("#close-btn").style.opacity = "0.3";
             document.querySelector("#submit-btn").setAttribute('disabled','disabled');
             document.querySelector("#submit-btn").style.cursor = "default";
-            
-            
-            //document.querySelector('.solution-status').innerText = "Solution Dropped";
-            //sdocument.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
-
+           
             if (document.querySelector(".discard-solution") !== null) {
                 document.querySelector(".discard-solution").style.display = "none";
             }
@@ -371,32 +320,12 @@ ready(() => {
                 document.querySelector("#submit-btn").style.cursor = "default";      
 
             }
-                  
-            
-            
-            
-            
-
-            
             document.querySelector('.solution-status').innerText = "";
 
             if (document.querySelector(".discard-solution") !== null) {
                 document.querySelector(".discard-solution").style.display = "none";
             }
         } 
-
-        // if (document.querySelector(".discard-solution") !== null) {
-        //     for (const element of operator_table) {
-        //         if (element['name'].includes(e.target.closest("tr").children[5].textContent)) {
-        //             document.querySelector(".discard-solution").style.display = "none";
-        //             document.querySelector(".previous-solution").style.display = "block";
-        //             break;
-    
-        //         } else {
-        //             document.querySelector(".previous-solution").style.display = "none";
-        //         }
-        //     }
-        // }
     });
 
     document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
@@ -415,16 +344,9 @@ ready(() => {
             document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
             document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
             document.querySelector("#solution-area").style.pointerEvents = "none";
-            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";
-            // document.querySelector("#submit-btn").setAttribute('enabled','enabled');
-            // document.querySelector("#submit-btn").style.cursor = "default";
-            // document.querySelector("#submit-btn").style.opacity = "1";
-            
+            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";            
         }   
-    }); 
-
-
-  
+    });
 });
 
 // EDIT BUTTON ----------------
@@ -435,10 +357,7 @@ ready(() => {
         if (!edit_btn.classList.contains('pushed-btn')) {
             edit_btn.classList.add('pushed-btn');
             document.querySelector('#edit-btn').style.color = 'var(--buttonTextColor)';
-            document.querySelector('#edit-btn').style.backgroundColor = 'var(--buttonHover)';
-
-            
-                
+            document.querySelector('#edit-btn').style.backgroundColor = 'var(--buttonHover)';  
             document.querySelectorAll(".ticket__information .edit-field").forEach(field => { 
                 field.style.pointerEvents = "all",
                 field.style.backgroundColor = "white",
@@ -463,7 +382,7 @@ ready(() => {
             })
             document.querySelector(".update__section").style.display = "none";
             document.querySelector("#emp-table__container").style.display = "none";
-            //enable ticket history button once not in edit mode
+            
             
         }
 
@@ -477,22 +396,15 @@ ready(() => {
 
         
         for(let i = 0; i<data_lists.length; i++){
-            //console.log(document.getElementById("new-operating-systems"));
+            
             var current_list = span_list[i];
             var x = document.getElementById(data_lists[i]);
             var j;
             for (j = 0; j < x.options.length; j++) {
                 current_list.push(x.options[j].value);
         }
-            
         }
     
-        console.log(hardware_list);
-        // console.log(os_list);
-        // console.log(software_list);
-        // console.log(probtype_list);
-        // console.log(handler_list);
-
         const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
         const os = document.getElementById("operating-system").value;
@@ -501,9 +413,6 @@ ready(() => {
         const notes = document.getElementById("notes").value;
         const problem_type = document.getElementById("problem-type").value;
         const handler_name = document.getElementById("handler-name").value;
-
-        console.log(old_handlerName);
-        console.log(handler_name);
 
         valid_details = []
         if(!hardware_list.includes(hardware_id)){
@@ -534,7 +443,6 @@ ready(() => {
 
         if (valid_details.length != 0) {
 
-            console.log("I am not null");
             for (const element of valid_details) {
                 document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
                 document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
@@ -604,11 +512,8 @@ ready(() => {
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
                 var time = today.getHours() + ":" + today.getMinutes();
                 var dateTime = date+' '+time;
-
-
-                    var today = new Date();
-
-                    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
                     const ticket_details = {
                         priority: priority,
@@ -632,11 +537,6 @@ ready(() => {
                         current_handler_uname: document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML
                     };
                     
-                    console.log(document.getElementById("profile-username").getElementsByTagName("p")[0].innerHTML);
-                
-                    console.log(changed_names.includes("handler"));
-                    console.log(ticket_details.status);
-                    
                     if(changed_names.includes("handler") && ticket_details.status == "dropped"){
 
                         updateTicketInfo(ticket_details, "handler");
@@ -647,12 +547,8 @@ ready(() => {
 
                     }
                     
-                    console.log("I am updating");
-
                     socket = io();
                     socket.emit('ticket_update_history',  changed_details);
-                
-                    
                     document.querySelector('#edit-btn').classList.remove('pushed-btn');
                     document.querySelector('#edit-btn').style.color = null;
                     document.querySelector('#edit-btn').style.backgroundColor = null;
@@ -666,13 +562,10 @@ ready(() => {
                     document.querySelectorAll(".ticket__information label").forEach(label => { 
                         label.style.color = "black";   
                     })
-                    document.querySelector(".update__section").style.display = "none";
-                    // document.querySelector("#emp-table__container").style.display = "none";
-                    
+                    document.querySelector(".update__section").style.display = "none";                    
                     if(document.getElementsByClassName("ticket_history_section")[0]){
                         document.getElementById("ticket_history_btn").disabled = false;
                     }
-            // }    
         }
 
     });    
@@ -688,10 +581,8 @@ ready(() => {
         document.querySelector("#close-btn").setAttribute('disabled','disabled');
         document.querySelector("#close-btn").style.cursor = "default";
         document.querySelector("#close-btn").style.opacity = "0.3";
-
         document.querySelector('.solution-status').innerText = "Solution Discarded";
         document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
-
         document.querySelector(".discard-solution").style.display = "none";
 
         const data = {
@@ -703,10 +594,6 @@ ready(() => {
         changeStatus(data);
     }); 
 
-
-    // Previous Fixes button on close form
-    
-
 });
 
 ready(() => { 
@@ -717,8 +604,6 @@ ready(() => {
             edit_btn.classList.add('pushed-btn');
             document.querySelector('#editSolution-btn').style.color = 'var(--buttonTextColor)';
             document.querySelector('#editSolution-btn').style.backgroundColor = 'var(--buttonHover)';
-
-            
                 
             document.querySelectorAll("#solution-area").forEach(field => { 
                 field.style.pointerEvents = "all",
@@ -728,28 +613,17 @@ ready(() => {
                 })
             
                 document.querySelector(".solutionArea__section").style.backgroundColor = "white";
-            // document.querySelector(".update__section").style.display = "block";
         } else {
             edit_btn.classList.remove('pushed-btn');
             document.querySelector('#editSolution-btn').style.color = null;
             document.querySelector('#editSolution-btn').style.backgroundColor = null;
-
             document.querySelectorAll(".solution-area").forEach(field => { 
                 field.style.pointerEvents = "none",
                 field.style.backgroundColor = "rgb(236, 236, 236)",
                 field.setAttribute("readonly", true) 
                 field.style.borderColor = "#ccc";
-            })
-            // document.querySelectorAll(".ticket__information label").forEach(label => { 
-            //     label.style.color = "black";   
-            // })
-            // document.querySelector(".update__section").style.display = "none";
-            // document.querySelector("#emp-table__container").style.display = "none";
-            //enable ticket history button once not in edit mode
-            
+            })            
         }
-
-
     });    
 });
 
@@ -761,7 +635,6 @@ ready(() => {
       }
 
     document.querySelector("#submit-btn").addEventListener("click", (e) => {
-        console.log("Solution");
         socket = io();
     // submit_btn && submit_btn.addEventListener("click", (e) => {
         var submit_solution =  document.getElementById("solution-area").value;   
@@ -774,13 +647,9 @@ ready(() => {
             id: ticket_id,
             h_name: handler_name
         }
-        //console.log(handler_name);
-        console.log(data);
-        console.log(submit_solution); 
-        socket.emit("Submit-Ticket", data);
 
+        socket.emit("Submit-Ticket", data);
         popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");
-        console.log(ticket_status);
     });
     
 
@@ -791,42 +660,24 @@ ready(() => {
 //Dropping of tickets
 ready(() => { 
 
-        
-        // console.log(document.getElementById("#detail-status").innerHTML);
     var drop_btn = document.querySelector("#drop-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
-
-        console.log(data);
-
     });
-
-
-
 });
 
 //Logout button
 ready(() => { 
 
-        
-    // console.log(document.getElementById("#detail-status").innerHTML);
-var logout_btn = document.querySelector("#logout-btn");
-logout_btn && logout_btn.addEventListener("click", (e) => {
-    socket = io();
-   
+    var logout_btn = document.querySelector("#logout-btn");
+    logout_btn && logout_btn.addEventListener("click", (e) => {
+        socket = io();
 
-    popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
-
-    console.log("created");
+        popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
 
 });
-
-
-
 });
-
-
 
 // History log button
 ready(() => { 
@@ -849,10 +700,8 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
         var response;
         
         socket2.emit('display_history',  ticketId_Obj);
-
         socket2.on('display_history', function(data, json) {
-            console.log(data);
-            
+
             var info = data;
             
             if(info.length == 0){
@@ -866,13 +715,11 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
                 }
 
             }else{
-                console.log(info.length);
                 
                 if(old_err_msg){
                     old_err_msg.remove();
                 }
             
-                
                 //each increment in loop goes through displaying a single edit
                 for(let i = 0; i < info.length; i++){
                     var edit_container = document.createElement('div');
@@ -923,14 +770,12 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
                     edit_container.appendChild(edit_leftside_section);
                     edit_container.appendChild(edit_main_container);
                     past_edits_container.appendChild(edit_container);
-                    container.appendChild(past_edits_container);
-
-                    
+                    container.appendChild(past_edits_container);                    
                 }
 
                 container.style.display = "block";
                 document.getElementById("ticket_history_btn").innerHTML="Hide Past Edit(s)";
-                
+              
             }
         });
 
@@ -947,9 +792,6 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
 });
 
 ready(() => {
-
-    console.log("hi");
-
 
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
         if (document.querySelector('#solution-area').value == "") {
