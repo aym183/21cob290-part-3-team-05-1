@@ -1754,7 +1754,7 @@ footer {
 
   #a_card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    width: 80%;
     margin: auto;
     padding-top: 2%;
     text-align: center;
@@ -1764,6 +1764,11 @@ footer {
   #a_title {
     color: grey;
     font-size: 18px;
+  }
+
+  #active {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-decoration: underline;
   }
   
   #logout-btn {
