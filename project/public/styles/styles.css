@@ -587,6 +587,19 @@ h1 {
     display: block;
 }
 
+#ticketList-container {
+    animation: fadeInAnimation ease 0.8s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .ticket__table {
     border-collapse:collapse;
@@ -654,6 +667,20 @@ tbody tr:hover {
 
 #ticket-info {
     display: none;
+}
+
+#ticket-info {
+    animation: fadeInAnimation ease 0.8s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .information__title {
