@@ -109,6 +109,9 @@
             <i class="a_title"><%=u_job%></i><br>
             <i><%=u_dept%></i><br>
             <i><%=u_phone%></i><br>
+            <% if (u_job !== "Anaylst") { %>
+            <b>You have <%=u_tickets%> active tickets</b>
+            <% } %>    
             <p><a id="logout-btn">Log Out</a></p>
           </div>
     </div>
