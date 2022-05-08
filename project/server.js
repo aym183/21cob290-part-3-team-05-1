@@ -641,20 +641,20 @@ io.on('connection', (socket) => {
 }
 });
 
-
+/* GET Operation for External Specialist page */
 app.get('/external.html', (req, res) => {
-    if (req.session.loggedin && session_job == "External Specialist") {
 
-        console.log(session_id);
+    /* Validation to check whether the logged in user is an external specialst */
+    if (req.session.loggedin && session_job == "External Specialist") {
 
         con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")`
         ,[session_id], function (err, result, fields) {
             if (err) throw err;
     
             session_tickets = (JSON.stringify(result)).substring(21, 22);
-            console.log(session_tickets + " tickets");
         });
        
+        /* Displaying all ticket details on external spec dashboard */
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
         WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")
@@ -675,6 +675,7 @@ app.get('/external.html', (req, res) => {
         io.on('connection', (socket) => {
             socket.on("message", (msg) => {
 
+                /* Fetching particular ticket details for active and unsuccessful statuses */
                 if(msg.status == "active" || msg.status == "unsuccessful"){
                     con.query(`SELECT ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler from ticket
                     INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
@@ -692,6 +693,7 @@ app.get('/external.html', (req, res) => {
                     });
                 }
 
+                /* Fetching particular ticket details for submitted status tickets */
                 else if(msg.status == "submitted"){
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
@@ -711,17 +713,16 @@ app.get('/external.html', (req, res) => {
                     io.send('message', result);
 
                     });
-
                 }
                 else{
                     ;
                 }
-
             })
         })
 
         io.on('connection',  (socket) => {
     
+            /* Socket operations for updating external specialist tickets */
             socket.on("update_message", (msg) => {
     
                 con.query(`UPDATE ticket 
@@ -735,6 +736,7 @@ app.get('/external.html', (req, res) => {
 
             io.on('connection', (socket) => {                
         
+                /* Socket operations for conducting dropping of ticket [updating ticket and updating dropped table in db] */
                 socket.on('drop_ticket', (msg) => {
 
                     con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields){
@@ -776,19 +778,18 @@ app.get('/external.html', (req, res) => {
 
         io.on('connection', (socket) => {
             
-            // FOR DROPPED
+            /* Socket operations for updating history log when ticket is dropped */
             socket.on('update_history', (msg) => {
                     con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
                                 values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names, msg.changed_values, msg.current_dateTime], function (err, result, fields){
-                    
-                                    if (err) throw err;
-                                });
+                        if (err) throw err;
+                    });
             })
         });
 
         io.on('connection', (socket) => {
         
-            // FOR TICKET
+            /* Socket operations for updating ticket details in history log */
             socket.on('ticket_update_history', (msg) => {
                     for (let i = 0; i < msg.changed_names.length; i++) {
                         con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
@@ -951,7 +952,6 @@ app.get('/logout', (req, res) =>{
 }});
 
 app.get('/account.html', (req, res) =>{
-    console.log(session_tickets);
     const con = require('./public/scripts/dbconfig');
     if (req.session.loggedin) {
         con.query('SELECT user_id FROM users WHERE username = ?', [req.session.username], function(error, results, fields) {
