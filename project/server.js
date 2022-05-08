@@ -795,13 +795,14 @@ app.get('/external.html', (req, res) => {
                         con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
                                     values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields){
                                         if (err) throw err;
-                                    });
-                                }  
+                        });
+                    }  
             })
         });
 
             io.on('connection', (socket) => {
         
+                /* Socket operations for handling submission of solutions */
                 socket.on("Submit-Ticket", (msg) => {
                     con.query(`SELECT * from ticket_solution WHERE solution_status = 'pending' and ticket_id = ?`,[msg.id] ,function (err, result, fields) {
                         if (err) throw err;
@@ -840,26 +841,14 @@ app.get('/external.html', (req, res) => {
                         
                                     
                                 });
-
+                            });                                
                             });
-                        
-                                
-                            });
-
-                            
-
                         });
-
-
-                
                     });
                         }
-                    });
-        
-                    
+                    }); 
                 })
         })
-
 } else {
     res.redirect('/login.html');
 }});
@@ -875,10 +864,6 @@ app.all('/auth', urlencodedParser, (req, res) =>{
                 req.session.username = user_in;
                 session_username = user_in;
                 req.session.save();
-                
-				// res.send("Success! You are logged in as ", + req.session.username);
-                // res.redirect('/home');
-
                 con.query('SELECT user_id FROM users WHERE username = ?', [user_in], function(error, results, fields) {
                     if (error) throw error;
 
@@ -997,293 +982,290 @@ app.post('/changepass', (req, res) => {
 });
 
 app.get('/index.html', (req, res) => {  
+    /* Error checking if user who has logged in is an employee */
     if (req.session.loggedin && session_job == "Employee") {
-    // Query for ticket information
-
-    con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
-    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-    INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-    WHERE ticket.employee_id = ?
-    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                WHEN status = 'submitted' THEN 2
-                WHEN status = 'unsuccessful' THEN 3
-                WHEN status = 'active' THEN 4
-                ELSE 5 END`, 
-    [session_id],function (err, result, fields) {
-        if (err) throw err;
-        query_output = result;
-
-      
-    });
-
-    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.employee_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")`,[session_id],
-        function (err, result, fields) {
-            if (err) throw err;
-    
-            session_tickets = (JSON.stringify(result)).substring(21, 22);
-        });
-
-    con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
-        if (err) throw err;
-        hardware_id = result;
-    });
-
-    con.query(`SELECT name from operating_system;`, function (err, result, fields) {
-        if (err) throw err;
-        operating_system = result;
-    });
-
-    con.query(`SELECT name from software;`, function (err, result, fields) {
-        if (err) throw err;
-        software_datalist = result;
-    });
-
-    con.query(`SELECT name from problem_type;`, function (err, result, fields) {
-        if (err) throw err;
-        prob_type_vals = result;
-    });
-
-    con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
-    INNER JOIN employee ON handler.user_id = employee.employee_id
-    WHERE ticket.status != 'closed'
-    GROUP BY handler_id
-    UNION
-    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
-    INNER JOIN external_specialist on external_specialist_id = handler.user_id
-    WHERE ticket.status != 'closed'
-    GROUP BY ticket.handler_id;`, function (err, result, fields) {
-        if (err) throw err;
-        handlers = result;
-    });
    
-    // Query to display home page info
-    con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
-    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.employee_id = ?
-    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                WHEN status = 'submitted' THEN 2
-                WHEN status = 'pending' THEN 3
-                WHEN status = 'active' THEN 4
-                ELSE 5 END`, 
-    [session_id],function (err, result, fields) {
-        if (err) throw err;
-        query = result
-        res.render('index', {
-            dropdownVals: query_output,
-            newdropdownVals: query,
-            loggeduser: session_username,
-            hardwareids: hardware_id,
-            operating_sys: operating_system,
-            software_vals: software_datalist,
-            probtype_vals: prob_type_vals,
-            handler_vals: handlers   
-        })
-    });
-    
-    // condition that executed on calling of socket
-    io.on('connection',  (socket) => {
-        socket.on("message", (msg) => {
-            if(msg.status == 'closed'){
-                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
-                solution.solution_description from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
-                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
-                INNER JOIN  software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
-                if (err) throw err;
-                io.send('message', result);
-                socket.disconnect(0);
-
-                });
-            }
-            else if(msg.status == 'unsolvable'){
-                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN  software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
-                if (err) throw err;
-                io.send('message', result);
-                socket.disconnect(0);
-
-                });
-            }
-
-            else if(msg.status == 'active' || msg.status == 'dropped'){
-
-                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
-                from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN  software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
-                if (err) throw err;
-                io.send('message', result);
-                socket.disconnect(0);
-
-                });
-
-            }
-
-            else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
-
-                con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, solution.solution_description, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
-                from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
-                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
-                INNER JOIN software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
-                if (err) throw err;
-                io.send('message', result);
-                socket.disconnect(0);
-
-                });
-            }
-                })
-        })
-
-
-        // updating of ticket
-    io.on('connection',  (socket) => {
-
-        socket.on("update_message", (msg) => {
-           
-
-            con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
-                if (err) throw err;
-                problem_type_id = result[0].problem_type_id;
-
-                 con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
-                if (err) throw err;
-                software_id = result[0].software_id;
-           
-            con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
+        /* Displaying employees their created summarised created tickets */
+        con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
+        INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
+        INNER JOIN employee ON ticket.employee_id = employee.employee_id
+        INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
                     UNION
-                    SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
-                if (err) throw err;
-                handler_id = result[0].user_id;
-
-            con.query(`UPDATE ticket 
-                SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
-                WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
-                
-                if (err) throw err;
-                socket.disconnect(0);
-            });   
-            });
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+        WHERE ticket.employee_id = ?
+        ORDER BY CASE WHEN status = 'dropped' THEN 1
+                    WHEN status = 'submitted' THEN 2
+                    WHEN status = 'unsuccessful' THEN 3
+                    WHEN status = 'active' THEN 4
+                    ELSE 5 END`, 
+        [session_id],function (err, result, fields) {
+            if (err) throw err;
+            query_output = result;
         });
-    });
-        });
-        })
 
-        io.on('connection', (socket) => {
-            socket.on("dropped_update", (msg) => {
-                //hstory log and also unsolvable status
-                con.query(`UPDATE ticket SET status = "active" where ticket_id = ?`, [msg], function (err, result, fields) {
+
+        con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.employee_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")`,[session_id],
+            function (err, result, fields) {
+                if (err) throw err;
         
-                if (err) throw err;
-                socket.disconnect(0);
-    
-            });   
+                session_tickets = (JSON.stringify(result)).substring(21, 22);
             });
+
+        /* Getting all hardware id's for datalist */
+        con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
+            if (err) throw err;
+            hardware_id = result;
         });
+
+        /* Getting all operating systems for datalist */
+        con.query(`SELECT name from operating_system;`, function (err, result, fields) {
+            if (err) throw err;
+            operating_system = result;
+        });
+
+        /* Getting all software names for datalist */
+        con.query(`SELECT name from software;`, function (err, result, fields) {
+            if (err) throw err;
+            software_datalist = result;
+        });
+
+        /* Getting all problem types for datalist */
+        con.query(`SELECT name from problem_type;`, function (err, result, fields) {
+            if (err) throw err;
+            prob_type_vals = result;
+        });
+
+        /* Getting all handler names for datalist */
+        con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
+        INNER JOIN employee ON handler.user_id = employee.employee_id
+        WHERE ticket.status != 'closed'
+        GROUP BY handler_id
+        UNION
+        SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+        INNER JOIN external_specialist on external_specialist_id = handler.user_id
+        WHERE ticket.status != 'closed'
+        GROUP BY ticket.handler_id;`, function (err, result, fields) {
+            if (err) throw err;
+            handlers = result;
+        });
+    
+        // Query to display tickets
+        con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
+        INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
+        WHERE ticket.employee_id = ?
+        ORDER BY CASE WHEN status = 'dropped' THEN 1
+                    WHEN status = 'submitted' THEN 2
+                    WHEN status = 'pending' THEN 3
+                    WHEN status = 'active' THEN 4
+                    ELSE 5 END`, 
+        [session_id],function (err, result, fields) {
+            if (err) throw err;
+            query = result
+            res.render('index', {
+                dropdownVals: query_output,
+                newdropdownVals: query,
+                loggeduser: session_username,
+                hardwareids: hardware_id,
+                operating_sys: operating_system,
+                software_vals: software_datalist,
+                probtype_vals: prob_type_vals,
+                handler_vals: handlers   
+            })
+        });
+        
+        io.on('connection',  (socket) => {
+            socket.on("message", (msg) => {
+                /* Socket operations to get ticket details for closed status */
+                if(msg.status == 'closed'){
+                    con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
+                    solution.solution_description from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                    INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                    INNER JOIN  software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                    if (err) throw err;
+                    io.send('message', result);
+                    socket.disconnect(0);
+
+                    });
+                }
+                /* Socket operations to get ticket details for unsolvable status */
+                else if(msg.status == 'unsolvable'){
+                    con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN  software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                    if (err) throw err;
+                    io.send('message', result);
+                    socket.disconnect(0);
+
+                    });
+                }
+
+                /* Socket operations to get ticket details for active or dropped statuses */
+                else if(msg.status == 'active' || msg.status == 'dropped'){
+
+                    con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
+                    from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN  software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                    if (err) throw err;
+                    io.send('message', result);
+                    socket.disconnect(0);
+
+                    });
+
+                }
+
+                /* Socket operations to get ticket details for submitted or unsuccessful statuses */
+                else if(msg.status == 'submitted' || msg.status == 'unsuccessful'){
+
+                    con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, solution.solution_description, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
+                    from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                    INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                    INNER JOIN software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`,[parseInt(msg.id)],function(err, result, fields) {
+                    if (err) throw err;
+                    io.send('message', result);
+                    socket.disconnect(0);
+
+                    });
+                }
+                    })
+            })
 
         io.on('connection',  (socket) => {
-            socket.on("close_ticket", (msg) => {
-                ticket_status = msg.new_status
 
-                    con.query(`UPDATE ticket
-                    SET status = ?, closing_date = ?, closing_time = ? where ticket_id = ?;`,[msg.new_status, msg.date, msg.time, parseInt(msg.id)],function(err, result, fields) {
-         
+            /* Socket operations to update ticket when employee changes */
+            socket.on("update_message", (msg) => {
+                con.query(`SELECT problem_type_id from problem_type where name = ?;`,[msg.problem_type],function (err, result, fields) {
                     if (err) throw err;
+                    problem_type_id = result[0].problem_type_id;
+
+                    con.query(`SELECT software_id from software where name = ?;`,[msg.software],function (err, result, fields) {
+                    if (err) throw err;
+                    software_id = result[0].software_id;
+            
+                con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
+                        UNION
+                        SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`,[msg.handler_name,msg.handler_name],function (err, result, fields) {
+                    if (err) throw err;
+                    handler_id = result[0].user_id;
+
+                con.query(`UPDATE ticket 
+                    SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
+                    WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated ,handler_id ,parseInt(msg.id)], function (err, result, fields) {
                     
-                    if(ticket_status == 'closed'){
-                        con.query(`UPDATE ticket_solution
-                        SET solution_status = 'successful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
-                
-                        if (err) throw err;
-
-                        });
-                    }
-                    else if(ticket_status == 'submitted'){
-                        con.query(`UPDATE ticket_solution
-                        SET solution_status = 'unsuccessful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
-                
-                        if (err) throw err;
-
-                        });
-                    }
-
-
+                    if (err) throw err;
+                    socket.disconnect(0);
+                });   
                 });
-
-                
-                
+            });
+        });
             });
             })
 
-            io.on('connection',  (socket) => {
-        
-                socket.on("ticket_update_history", (msg) => {
-                
-                    con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
+            io.on('connection', (socket) => {
+                socket.on("dropped_update", (msg) => {
+                    //hstory log and also unsolvable status
+                    con.query(`UPDATE ticket SET status = "active" where ticket_id = ?`, [msg], function (err, result, fields) {
+            
                     if (err) throw err;
-                    handler_id = result[0].user_id;
-                    
-                    for (let i = 0; i < msg.changed_names.length; i++) {
-                        con.query(`INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
-                        VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
-                
-                        if (err) throw err;
-
-                        });           
-                    }
+                    socket.disconnect(0);
+        
+                });   
                 });
-                }); 
+            });
+
+            io.on('connection',  (socket) => {
+                /* Socket operations to conduct status change for closing of tickets and changing to submitted status */
+                socket.on("close_ticket", (msg) => {
+                    ticket_status = msg.new_status
+
+                        con.query(`UPDATE ticket
+                        SET status = ?, closing_date = ?, closing_time = ? where ticket_id = ?;`,[msg.new_status, msg.date, msg.time, parseInt(msg.id)],function(err, result, fields) {
+            
+                        if (err) throw err;
+                        
+                        if(ticket_status == 'closed'){
+                            con.query(`UPDATE ticket_solution
+                            SET solution_status = 'successful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
+                            if (err) throw err;
+                            });
+                        }
+                        else if(ticket_status == 'submitted'){
+                            con.query(`UPDATE ticket_solution
+                            SET solution_status = 'unsuccessful' where ticket_id = ? and solution_status = 'pending';`,[parseInt(msg.id)],function(err, result, fields) {
+                            if (err) throw err;
+                            });
+                        }
+                    });  
+                });
                 })
 
-            io.on('connection',  (socket) => {
-                socket.on("display_history", (msg) => {
-                
-                    con.query(`SELECT h.name, h.user_id, edited_item, new_value, date_time FROM history_log
-                    INNER JOIN (SELECT user_id, employee.name FROM users
-                    INNER JOIN employee ON users.user_id = employee.employee_id
-                    UNION
-                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h 
-                    ON history_log.user_id = h.user_id
-                    WHERE ticket_id = ?`,[msg.ticketId],function (err, result, fields) {
-                    if (err) throw err;
-                    socket.emit('display_history', result)
-                
-                });
+                io.on('connection',  (socket) => {
+            
+                    /* Socket operations to update history log */
+                    socket.on("ticket_update_history", (msg) => {
+                    
+                        con.query(`SELECT user_id from users where username = ?`,[msg.current_handler_uname],function (err, result, fields) {
+                        if (err) throw err;
+                        handler_id = result[0].user_id;
+                        
+                        for (let i = 0; i < msg.changed_names.length; i++) {
+                            con.query(`INSERT INTO history_log(ticket_id, user_id, edited_item, new_value, date_time)
+                            VALUES(?, ?, ?, ?, ?);`,[parseInt(msg.id), handler_id, msg.changed_names[i], msg.changed_values[i], msg.current_dateTime],function(err, result, fields) {
+                                if (err) throw err;
+                            });           
+                        }
+                    });
+                    }); 
+                    })
 
-                });
-            })
-    
+                io.on('connection',  (socket) => {
+                    /* Socket operations to display history log for a particular ticket */
+                    socket.on("display_history", (msg) => {
+                    
+                        con.query(`SELECT h.name, h.user_id, edited_item, new_value, date_time FROM history_log
+                        INNER JOIN (SELECT user_id, employee.name FROM users
+                        INNER JOIN employee ON users.user_id = employee.employee_id
+                        UNION
+                        SELECT external_specialist_id AS user_id, name FROM external_specialist) h 
+                        ON history_log.user_id = h.user_id
+                        WHERE ticket_id = ?`,[msg.ticketId],function (err, result, fields) {
+                        if (err) throw err;
+                        socket.emit('display_history', result)
+                    
+                    });
+
+                    });
+                })
+        
 } else {
     res.redirect('/login.html');
 }});
