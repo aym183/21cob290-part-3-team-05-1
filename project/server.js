@@ -712,8 +712,6 @@ app.get('/external.html', (req, res) => {
            
                     if (err) throw err;
                 });   
-    
-              
             });
             });
 
