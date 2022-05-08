@@ -1,4 +1,13 @@
-function popupCreator(btnName, msg1, msg2, button1, button2, element) {
+/**
+ * Creates popup for specified operations and handles them
+ * @param {string} btnName name that identifies what type of popuup to create
+ * @param {string} msg1 Contains message to be displayed to user
+ * @param {string} msg2 Contains second optional message to be displayed to user
+ * @param {string} button1 Contains text to be displayed on failure event
+ * @param {string} button2 Contains text to be displayed on success event
+ */
+
+function popupCreator(btnName, msg1, msg2, button1, button2) {
     
     const popup = document.createElement('div');
     popup.className = 'popup';

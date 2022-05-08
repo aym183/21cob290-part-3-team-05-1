@@ -189,7 +189,7 @@ function updateTicketInfo(data, status) {
 ready(() => { 
     var close_btn = document.querySelector("#close-btn");
     close_btn && close_btn.addEventListener("click", (e) => {
-        popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm", "");         
+        popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm");         
     });
 });
 
@@ -642,7 +642,7 @@ ready(() => {
             }
 
             socket.emit("Submit-Ticket", data);
-            popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");
+            popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm");
         });
     }    
 });
@@ -654,7 +654,7 @@ ready(() => {
     var drop_btn = document.querySelector("#drop-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
-        popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
+        popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm");
     });
 });
 
@@ -664,7 +664,7 @@ ready(() => {
     var logout_btn = document.querySelector("#logout-btn");
     logout_btn && logout_btn.addEventListener("click", (e) => {
         socket = io();
-        popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm", "");
+        popupCreator("logout", "Are you sure you want to logout?", "", "Cancel", "Confirm");
 
 });
 });
