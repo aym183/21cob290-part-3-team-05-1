@@ -27,6 +27,7 @@ var query;
 var session_id;
 var session_username;
 var session_job;
+var session_tickets;
 var ticket_id;
 var submit_solution;
 var handler_id;
@@ -507,6 +508,16 @@ app.get('/intspecialist.html', (req, res) => {
         handlers = result;
         
     });
+
+    // Query to establish active tickets in session
+    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and status != "dropped"`,[session_id],
+    function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        session_tickets = (JSON.stringify(result)).substring(21, 22);
+        
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -783,6 +794,16 @@ app.get('/external.html', (req, res) => {
 
         //query connection for external specialist and display home page for external specialist
         
+    // Query to establish active tickets in session
+    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and status != "dropped"`,[session_id],
+    function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+
+        session_tickets = (JSON.stringify(result)).substring(21, 22);
+        
+    });
+
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
     INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
     WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed")
@@ -1032,33 +1053,42 @@ app.get('/external.html', (req, res) => {
 }});
 
 app.all('/auth', urlencodedParser, (req, res) =>{
+    /*
+    * This function performs the bulk of the login authorisation. The form contained
+    * in the login.ejs page redirects here, which then decrypts and validates the 
+    * user's password before creating a session and redirecting the user to their
+    * respective dashboard.
+    * 
+    * urlEncodedParser is passed to allow page inputs to be read.
+     */
     console.log(req.body);
     let user_in = req.body.username;
-    let pass_in = req.body.password;
+    let pass_in = req.body.password; // pulls user and pass inputs from ejs page
     if (user_in && pass_in) {
+        // SQL query below gets user data and decrypts inupt password simultaneously
         con.query('SELECT * FROM users WHERE username = ? AND AES_DECRYPT(password, SHA2(?, 256)) = ?', [user_in, user_in, pass_in], function(error, results, fields) {
             if (error) throw error;
 			if (results.length > 0) {
+                // If user data found, session variables are initialised and the user's session is saved
                 req.session.loggedin = true;
                 req.session.username = user_in;
                 session_username = user_in;
                 req.session.save();
-                
-				// res.send("Success! You are logged in as ", + req.session.username);
-                // res.redirect('/home');
 
+                // Determines redirect based on user id
                 con.query('SELECT user_id FROM users WHERE username = ?', [user_in], function(error, results, fields) {
                     if (error) throw error;
 
                     if (results.length > 0) {
                         req.session.user_id = results[0].user_id;
-                        req.session.save();
+                        req.session.save(); // Updates session with user id
                         session_id = req.session.user_id;
                         id_val = results[0].user_id;
                         if (id_val < 2000) {
                             session_job = "External Specialist";
                             return res.redirect('/external.html');
                         } else {
+                            // Distinguishes between remaining user types using SQL query
                             con.query('SELECT job FROM employee WHERE employee_id = ?', [id_val], 
                             function(error, results, fields) {
                                 if (error) throw error;
@@ -1086,28 +1116,16 @@ app.all('/auth', urlencodedParser, (req, res) =>{
             });
 	} else {
         error = "Incorrect username/password. Please try again."
-		res.render('login', {err: error});
+		res.render('login', {err: error}); // presence of err variable needed to display error message on client side
 		res.end();
 	}
     });
 }});
 
-app.get('/home', (req, res) => {
-	if (req.session.loggedin) {
-		res.send('Welcome back, ' + req.session.username + '!');
-	} else {
-		res.send('Please login to view this page!');
-	}
-	res.end();
-});
-
-app.get('/changepass.html', (req, res) =>{
-    console.log("change pass")
-    res.sendFile(path.join(__dirname +  '/changepass.html'));
-
-});
-
 app.get('/logout', (req, res) =>{
+    /*
+    * This function destroys the user's session when called and redirects them to the login page.
+     */
     if (req.session.loggedin) {
         req.session.destroy(err => {
           if (err) {
@@ -1125,13 +1143,8 @@ app.get('/account.html', (req, res) =>{
     // res.sendFile(path.join(__dirname +  '/account.html'));
     const con = require('./public/scripts/dbconfig');
     if (req.session.loggedin) {
-        con.query('SELECT user_id FROM users WHERE username = ?', [req.session.username], function(error, results, fields) {
-            if (error) throw error;
-			if (results.length > 0) {
-                console.log(results[0].user_id);
-                id_val = results[0].user_id;
-                var query_output = null;
-                
+                id_val = session_id;
+    
                 if (id_val > 2000 && id_val < 3000) {
                     con.query('SELECT name, job, department, telephone FROM employee WHERE employee_id = ?', [id_val], 
                     function(error, results, fields) {
@@ -1142,7 +1155,8 @@ app.get('/account.html', (req, res) =>{
                             u_name: results[0].name,
                             u_job: results[0].job,
                             u_dept: results[0].department,
-                            u_phone: results[0].telephone
+                            u_phone: results[0].telephone,
+                            u_tickets: session_tickets
                         })   
 
                     })
@@ -1156,17 +1170,17 @@ app.get('/account.html', (req, res) =>{
                             u_name: results[0].name,
                             u_job: "External Specialist",
                             u_dept: "",
-                            u_phone: ""
+                            u_phone: "",
+                            u_tickets: session_tickets
                         })   
 
                  });
                 
 			    }
-        }});
+            } else {
+                res.redirect('/login.html');
+    }});
 
-} else {
-    res.redirect('/login.html');
-}});
 
 app.post('/changepass', (req, res) => {
     console.log(req.body)
@@ -1263,6 +1277,16 @@ app.get('/index.html', (req, res) => {
         console.log(handler_list);
         
     });
+
+    // Query to establish active tickets in session
+    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.employee_id = ? and status != "dropped"`,[session_id],
+        function (err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+    
+            session_tickets = (JSON.stringify(result)).substring(21, 22);
+            
+        });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
