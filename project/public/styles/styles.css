@@ -580,13 +580,26 @@ h1 {
 }
 
 .ticketInformation__container {
-    border-radius: 0px;
+    border-radius: 10px;
 }
 
 .ticketList__container {
     display: block;
 }
 
+#ticketList-container {
+    animation: fadeInAnimation ease 0.8s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .ticket__table {
     border-collapse:collapse;
@@ -654,6 +667,20 @@ tbody tr:hover {
 
 #ticket-info {
     display: none;
+}
+
+#ticket-info {
+    animation: fadeInAnimation ease 0.8s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .information__title {
@@ -1368,7 +1395,7 @@ footer {
     outline: none;
     border-radius: 5px;
     color: black;
-    background-color: transparent;
+    background-color: #B3B3B3;
     grid-column: 1;
 }
 
@@ -1607,11 +1634,24 @@ footer {
 }
 
 .faq_answer {
-    background-color: var(--secondaryColor); 
+    background-color: #FEF5EF; 
     box-shadow: 0 0 6px;
-    display: flex; 
-    flex-direction: column; 
-    padding: 20px 20px;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: repeat(0, minmax(0, 1fr)) 2fr 2fr repeat(6, minmax(0, 1fr));
+    column-gap: 15px;
+    row-gap: 40px;
+    align-items: start;
+    align-content: center;
+    justify-items: stretch;
+    padding: 0px 0 20px 0;
+
+}
+
+.faq_answer label {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif'
 }
 
 #cancel-btn {
@@ -1714,7 +1754,7 @@ footer {
 
   #a_card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    width: 80%;
     margin: auto;
     padding-top: 2%;
     text-align: center;
@@ -1724,6 +1764,11 @@ footer {
   #a_title {
     color: grey;
     font-size: 18px;
+  }
+
+  #active {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-decoration: underline;
   }
   
   #logout-btn {

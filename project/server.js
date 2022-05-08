@@ -27,6 +27,7 @@ var query;
 var session_id;
 var session_username;
 var session_job;
+var session_tickets;
 var ticket_id;
 var submit_solution;
 var handler_id;
@@ -417,6 +418,13 @@ app.get('/intspecialist.html', (req, res) => {
         if (err) throw err;
         handlers = result;
     });
+
+    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and status != "dropped"`,[session_id],
+    function (err, result, fields) {
+        if (err) throw err;
+
+        session_tickets = (JSON.stringify(result)).substring(21, 22);
+    });
    
     // Query to display home page info
     con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
@@ -636,6 +644,16 @@ io.on('connection', (socket) => {
 
 app.get('/external.html', (req, res) => {
     if (req.session.loggedin && session_job == "External Specialist") {
+
+        console.log(session_id);
+
+        con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")`
+        ,[session_id], function (err, result, fields) {
+            if (err) throw err;
+    
+            session_tickets = (JSON.stringify(result)).substring(21, 22);
+            console.log(session_tickets + " tickets");
+        });
        
         con.query(`SELECT ticket_id, status, problem_type.name, last_updated, priority  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -933,6 +951,7 @@ app.get('/logout', (req, res) =>{
 }});
 
 app.get('/account.html', (req, res) =>{
+    console.log(session_tickets);
     const con = require('./public/scripts/dbconfig');
     if (req.session.loggedin) {
         con.query('SELECT user_id FROM users WHERE username = ?', [req.session.username], function(error, results, fields) {
@@ -949,7 +968,8 @@ app.get('/account.html', (req, res) =>{
                             u_name: results[0].name,
                             u_job: results[0].job,
                             u_dept: results[0].department,
-                            u_phone: results[0].telephone
+                            u_phone: results[0].telephone,
+                            u_tickets: session_tickets
                         })   
 
                     })
@@ -961,7 +981,8 @@ app.get('/account.html', (req, res) =>{
                             u_name: results[0].name,
                             u_job: "External Specialist",
                             u_dept: "",
-                            u_phone: ""
+                            u_phone: "",
+                            u_tickets: session_tickets
                         })   
                  });
 			    }
@@ -998,6 +1019,13 @@ app.get('/index.html', (req, res) => {
 
       
     });
+
+    con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.employee_id = ? and (status != "dropped" AND status != "closed" AND status != "unsolvable")`,[session_id],
+        function (err, result, fields) {
+            if (err) throw err;
+    
+            session_tickets = (JSON.stringify(result)).substring(21, 22);
+        });
 
     con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
         if (err) throw err;
