@@ -6,7 +6,6 @@
  * @param {string} button1 Contains text to be displayed on failure event
  * @param {string} button2 Contains text to be displayed on success event
  */
-
 function popupCreator(btnName, msg1, msg2, button1, button2) {
     
     const popup = document.createElement('div');
@@ -19,6 +18,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2) {
     p2.textContent = msg2;
     
 
+    /* Popup specifications for dropping ticket confirmation popup */
     if (btnName == "drop") {
         var reason = popup.appendChild(document.createElement('textarea'));
         reason.className = "reason-area";
@@ -47,6 +47,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2) {
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();      
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
+        /* Popup specifications for closing tickets confirmation popup */
         if (btnName == "close") {
 
             const data = {
@@ -58,9 +59,12 @@ function popupCreator(btnName, msg1, msg2, button1, button2) {
             };
 
             changeStatus(data);
+            
+        /* Action after logout popup confirmation */
         } else if (btnName == "logout") {
             logout();
             
+        /* Action after drop popup confirmation */
         } else if (btnName == "drop") {
             const data = {
                 new_status: 'dropped',
@@ -90,7 +94,8 @@ function popupCreator(btnName, msg1, msg2, button1, button2) {
             updateHistory(ticket_details);
             document.querySelector(".overlay").remove();          
             
-        } else if (btnName == "submitSolution") { /* Submit solution value */
+        /* Action after submitting solution popup confirmation */
+        } else if (btnName == "submitSolution") { 
             
             const ticket_id = document.getElementById('detail-id').innerHTML;
             const handler_name =document.getElementById('handler-name').value;
@@ -114,27 +119,46 @@ function popupCreator(btnName, msg1, msg2, button1, button2) {
     document.body.appendChild(overlay);
 }
 
+
+/**
+ * Function that goes about handling closing of tickets
+ * @param {object} data object containing values required for closing ticket such as status, soln, date and time of closing
+ */
 function changeStatus(data){
     const socket = io();
     socket.emit('close_ticket', data);
 }
 
+/**
+ * Function that goes about dropping of tickets
+ * @param {object} data object containing values required for dropping of the ticket such as reason, ticket id etc
+ */
 function dropStatus(data){
     const socket = io();
     socket.emit('drop_ticket', data);
 }
 
-function updateHistory(data, type){
+/**
+ * Function that goes about updating history log for each ticket
+ * @param {object} data object containing values required for updating history log such as the changed values and changed names
+ */
+function updateHistory(data){
     const socket = io();
-    socket.emit("update_history", data);
-    
+    socket.emit("update_history", data); 
 }
 
+/**
+ * Function that goes about submitting solution 
+ * @param {object} data object containing values required for submitting solution such as solution, handler details etc
+ */
 function submitTicket(data){
     const socket = io();
     socket.emit("Submit-Ticket", data);
 }
 
+/**
+ * Function that goes about conducting logout
+ */
 function logout(){
     window.location.href = '/logout';
 }

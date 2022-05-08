@@ -3,13 +3,10 @@
  * functionality on the operator and specialist home page.
  */
 
-
 var ready = (callback) => {
     if (document.readyState != "loading") callback();
     else document.addEventListener("DOMContentLoaded", callback);
 }
-
-
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
@@ -33,6 +30,9 @@ var old_notes;
 var old_problemType;
 var old_handlerName;
 
+/**
+ * Function that converts date from GMT format to YYYY-MM-DD format
+ */
 
 function convertDate(){
 
@@ -77,6 +77,7 @@ function showTicketInfo(data) {
         document.getElementById('notes').setAttribute("value", data.notes);
         document.getElementById('handler-name').setAttribute("value", data.Handler);
 
+        /* Solution displaying operations for particular ticket status */
         if (data.status == 'submitted') {
             const pending_solution = data.solution_description;
             document.getElementById('solution-area').value = pending_solution;
@@ -101,15 +102,7 @@ function showTicketInfo(data) {
                     for (var i = 0; i < c.length; i++) {
                          c[i].style.display = 'none';
                     }
-                    document.querySelector(".closeForm__section").style.display = "block";
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector('.checkmark').classList.remove('checked');
-                        document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                        document.querySelector("#submit-btn").style.cursor = "default";
-                        document.querySelector(".closeButton").style.opacity = "0.3";
-                    }
-                    
+                    document.querySelector(".closeForm__section").style.display = "block";                    
                     document.querySelector(".solutionArea__section").style.display = "block";
                     document.querySelector("#submit-btn").setAttribute('disabled','disabled');
                     document.querySelector("#submit-btn").style.cursor = "default";
@@ -125,13 +118,7 @@ function showTicketInfo(data) {
                     var c = document.querySelectorAll('.closed__field');
                     for (var i = 0; i < c.length; i++) {
                          c[i].style.display = 'none';
-                    }
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector("#submit-btn").style.cursor = "default";
-                        document.querySelector(".closeButton").style.opacity = "0.3";
-                    }
-                    
+                    }                    
                     document.querySelector('.solution-status').innerText = "Solution Dropped";
                     document.querySelector(".solution-status").style.color = "rgb(179, 5, 5)";
                     document.querySelector(".discard-solution").style.display = "none";
@@ -152,24 +139,11 @@ function showTicketInfo(data) {
                     for (var i = 0; i < c.length; i++) {
                          c[i].style.display = 'none';
                     }
-                    if (document.querySelector(".checkmark") !== null) {
-                        document.querySelector(".closeForm__section").style.display = "block";
-                        document.querySelector('.checkmark').classList.remove('checked');
-                        document.querySelector('.checkmark').classList.add('unchecked');
-                        document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                        document.querySelector("#submit-btn").style.cursor = "default";
-                        document.querySelector(".closeButton").style.opacity = "0.3";
-                    }
-                    
                     document.querySelector('.solution-status').innerText = "";
                     document.querySelector(".discard-solution").style.display = "none";
                 }                
             }); 
         })     
-}
-
-function Disablebtn(data) {
-    const socket = io() 
 }
 
 /**
@@ -194,7 +168,7 @@ ready(() => {
 });
 
 
-// Table row (Ticket) Clicked
+// Handles operations when ticket row has been clicked
 ready(() => { 
     const socket = io()
     document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
@@ -385,7 +359,7 @@ ready(() => {
     });    
 });
 
-// Update Button clicked
+// UPDATE BUTTON CLICKED ---------
 ready(() => { 
     document.querySelector("#update-btn").addEventListener("click", (e) => {
         
@@ -398,6 +372,7 @@ ready(() => {
             }
         }
     
+        /* Error handling on update click to check if all inputs are valid */
         const priority = document.getElementById("priority").value;
         const hardware_id = document.getElementById("hardware-id").value;
         const os = document.getElementById("operating-system").value;
@@ -436,6 +411,7 @@ ready(() => {
 
         if (valid_details.length != 0) {
 
+            /* Displaying error on invalid inputs */
             for (const element of valid_details) {
                 document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
                 document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
@@ -456,6 +432,7 @@ ready(() => {
                 const changed_values = [];
                 const changed_names = [];
 
+                /* Operations for checking which inputs have been changed to update ticket and history log in db */
                 if(old_priority != priority){
                     changed_values.push(priority);
                     changed_names.push('priority');
@@ -508,6 +485,7 @@ ready(() => {
                 var today = new Date();
                 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
+                    /* Ticket details object to update ticket */
                     const ticket_details = {
                         priority: priority,
                         hardware_id: hardware_id,
@@ -522,6 +500,7 @@ ready(() => {
                         status: document.getElementById('detail-status').innerHTML
                     };
 
+                    /* changed details object to update history log */
                     const changed_details = {
                         id: document.getElementById('detail-id').innerHTML,
                         changed_values: changed_values,
@@ -564,9 +543,9 @@ ready(() => {
     });    
 });
 
+// DISCARD SOLUTION BUTTON ---------
 ready(() => { 
 
-    // discard solution button
     var drop_btn = document.querySelector("#dropSolution-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
 
@@ -589,6 +568,7 @@ ready(() => {
 
 });
 
+// EDIT SOLUTION BUTTON -------
 ready(() => { 
 
     if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
@@ -624,7 +604,7 @@ ready(() => {
     }
 });
 
-//Ticket Submission
+// SOLUTION SUBMISSION --------
 ready(() => { 
 
     if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
@@ -648,7 +628,7 @@ ready(() => {
 });
 
 
-//Dropping of tickets
+// DROP TICKET BUTTON ----------
 ready(() => { 
 
     var drop_btn = document.querySelector("#drop-btn");
@@ -658,7 +638,7 @@ ready(() => {
     });
 });
 
-//Logout button
+// LOGOUT BUTTON ---------
 ready(() => { 
 
     var logout_btn = document.querySelector("#logout-btn");
@@ -669,7 +649,7 @@ ready(() => {
 });
 });
 
-// History log button
+// PAST EDITS BUTTON -------
 ready(() => { 
 
 document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
@@ -695,7 +675,6 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
             var info = data;
             
             if(info.length == 0){
-                
                 if(!old_err_msg){
                     const parent = document.getElementsByClassName("ticket_history_section")[0];
                     var error_msg = document.createElement("p");
@@ -703,9 +682,7 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
                     error_msg.setAttribute("id", "err_ticket_history");
                     parent.appendChild(error_msg);
                 }
-
             }else{
-                
                 if(old_err_msg){
                     old_err_msg.remove();
                 }
@@ -774,13 +751,10 @@ document.querySelector("#ticket_history_btn").addEventListener("click", (e) => {
         document.getElementById("past_edits_container").remove();
         container.style.display = "none";
     }
-
+});
 });
 
-
-
-});
-
+// OVERWRITING SUBMITTED SOLUTION ---------
 ready(() => {
 
     document.querySelector("#solution-area").addEventListener('keyup', (e) => {
@@ -795,7 +769,6 @@ ready(() => {
             document.querySelector("#submit-btn").style.opacity = "1"; 
         }
     });
-
 });
 
 ready(() => { 
