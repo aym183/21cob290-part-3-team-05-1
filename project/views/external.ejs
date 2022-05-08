@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- STYLESHEETS USED -->
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
     <title>External Specialist Home Page</title>
 </head>
@@ -28,11 +29,7 @@
 
             <div class="profile__container">
                 <a href="/account.html" class="profile__item" id="profile-username">
-
                     <p id="username"><%=loggeduser%></p>
-                    <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
                 </a>
             </div>
         </div>
@@ -40,7 +37,6 @@
 
     </div>
     <div class="main__section">
-
         <!-- SIDE NAVBAR SECTION -->
         <div class="navbar">
             <div class="navbar__container">
@@ -51,12 +47,6 @@
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>
-                    <!-- <a href="faq.html" class="navbar__item-div">
-                        <li class="navbar__item">
-                            <p><i class="fas fa-plus"></i></p>
-                            <p class="navbar__links">Problem Resolutions</p>
-                        </li>
-                    </a> -->
                     <a href=/account.html class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
@@ -117,6 +107,7 @@
 
                 </div>
             </div>
+            <!-- TICKET DETAILS  -->
             <div class="mainSection__wrapper">
                 <div class="ticketInformation__container" style="background-color: #FEF5EF;">
                     <div class="details__container">
@@ -197,6 +188,7 @@
 
             </div>
 
+            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
                     <p>Submit Form</p>
@@ -239,10 +231,10 @@
             <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
+    <!-- SCRIPTS USED  -->
     <script src="scripts/function.js"></script>
     <script src="scripts/external_app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
   
 </body>
-
 </html>
