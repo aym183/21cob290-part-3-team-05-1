@@ -66,9 +66,6 @@ app.get('/', (req, res) =>{
 
 app.get('/faq.html', (req, res) =>{
     if(req.session.loggedin && session_job == "Employee") {
-    console.log("faq")
-    // res.sendFile(path.join(__dirname +  '/faq.html'));
-    // res.render('login.html')
 
     con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
         if (err) throw err;
@@ -85,8 +82,6 @@ app.get('/faq.html', (req, res) =>{
 
         operating_system = result;
         
-
-      
     });
 
     con.query(`SELECT name from software;`, function (err, result, fields) {
@@ -94,8 +89,6 @@ app.get('/faq.html', (req, res) =>{
 
         software_datalist = result;
         
-
-      
     });
 
     con.query(`SELECT name from problem_type;`, function (err, result, fields) {
@@ -104,8 +97,7 @@ app.get('/faq.html', (req, res) =>{
         prob_type_vals = result;
         
     });
-
-  
+    
 
     con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
     INNER JOIN employee ON handler.user_id = employee.employee_id
