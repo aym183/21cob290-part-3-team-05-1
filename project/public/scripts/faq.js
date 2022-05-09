@@ -191,13 +191,11 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
         notess: notes,
         date: date
       }
-      //console.log(handler_name);
+
       console.log(data);
       console.log(data.statuss); 
       socket.emit("add_ticket", data);
-  
-      //popupCreator("Ticket Submitted");
-  
+
 
       document.getElementById('employee_name').value="";
       document.getElementById('status').value="active";
