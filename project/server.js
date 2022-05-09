@@ -72,7 +72,6 @@ app.get('/faq.html', (req, res) =>{
 
     con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
 
         hardware_id = result;
         console.log("HARDWARE");
@@ -83,7 +82,6 @@ app.get('/faq.html', (req, res) =>{
 
     con.query(`SELECT name from operating_system;`, function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
 
         operating_system = result;
         
@@ -93,7 +91,6 @@ app.get('/faq.html', (req, res) =>{
 
     con.query(`SELECT name from software;`, function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
 
         software_datalist = result;
         
@@ -103,7 +100,6 @@ app.get('/faq.html', (req, res) =>{
 
     con.query(`SELECT name from problem_type;`, function (err, result, fields) {
         if (err) throw err;
-        // console.log(result);
 
         prob_type_vals = result;
         
@@ -166,7 +162,6 @@ app.get('/faq.html', (req, res) =>{
     io.on('connection',  (socket) => {
         console.log('connected')
         socket.on("solution_details", (msg) => {
-            // console.log(parseInt(msg.problem_description));
 
             con.query(`SELECT ticket.problem_description, ticket.notes, problem_type.name, solution.solution_description 
             FROM solution 
@@ -182,15 +177,14 @@ app.get('/faq.html', (req, res) =>{
             console.log('hello HERE');
             console.log(result[0]);
             socket.emit('solution_details', result[0]);
-            // io.send('solution_details', result);
             })
         });
         })
     //con.end();
+
     io.on('connection',  (socket) => {
         console.log('connected')
         socket.on("employeeName", (msg) => {
-            // console.log(parseInt(msg.problem_description));
 
             con.query(`SELECT name from employee 
             INNER JOIN users ON users.user_id  = employee.employee_id 
@@ -202,7 +196,6 @@ app.get('/faq.html', (req, res) =>{
             console.log('TESTING');
             console.log(result[0]);
             socket.emit('employeeName', result[0]);
-            // io.send('employeeName', result);
             })
         });
         })
