@@ -117,9 +117,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const handler_name = document.getElementById("handler-name").value;
   var employee_name = document.getElementById('employee_name').value;//="";
 
-  
-  
-  // console.log(hardware_list);
+
   valid_details = []
 
   if(!hardware_list.includes(hardware_id)){
@@ -192,10 +190,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
         date: date
       }
 
-      console.log(data);
-      console.log(data.statuss); 
       socket.emit("add_ticket", data);
-
 
       document.getElementById('employee_name').value="";
       document.getElementById('status').value="active";
