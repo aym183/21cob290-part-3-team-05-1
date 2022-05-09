@@ -11,14 +11,14 @@ var handler_list = [];
 var temp_error = [];
 const employee_name = "";
 
-// this shows current employee logged in
+//show current employee logged in
 function showEmployeeName() { 
   
   document.getElementById('employee_name').value=sessionStorage.getItem("employee_name");
   
 }
 
-// this displays successful tickets
+//display successful tickets
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -34,17 +34,16 @@ function addRowHandlers() {
     }
 }
 
-// this displays some information about each successful ticket
+//get some information about each successful ticket
 function showSolutionInfo(data) {   
-    console.log(data);
     document.getElementById('solutionBox').value =  data.solution_description;
     document.getElementById('description').value =  data.problem_description;
     document.getElementById('notes_new').value =  data.notes;
     document.getElementById('problem_type').value =  data.name;
 
-    // document.getElementById('solutionBox').value = data.solution_description;
 }
 
+// display the "gotten" information about each successful ticket
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
     
@@ -52,20 +51,15 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
         problem_description: e.target.closest("tr").children[0].textContent
     }
 
-    console.log(data);
-    console.log('hello');
-
     socket.emit('solution_details',  data);
 
     socket.on('solution_details', function(data, json) {
-      console.log('hello2');
-      console.log(data);
-      showSolutionInfo(data);
-      // showTicketInfo(json[0]); 
+      showSolutionInfo(data); 
     });
 
 });
 
+// when add ticket button is clicked, make form and "cancel button" visible and hide "add ticket" button.
 document.querySelector("#add-btn").addEventListener("click", (e) => {
 
   document.getElementById("employee_name").style.backgroundColor="rgb(236, 236, 236)";
@@ -97,8 +91,8 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
   });
 });
 
+// when ticket is submitted, hide buttons and form, update the database
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
-    console.log("ladi");
 
     socket = io();
 
@@ -226,7 +220,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
     
 });
 
-
+// when "cancel button" is clicked, ticket creation is not completed and the form values are reset 
 document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
   document.querySelector("#add-btn").style.display="block";
