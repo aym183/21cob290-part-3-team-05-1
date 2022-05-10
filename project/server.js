@@ -1124,6 +1124,11 @@ app.get('/logout', (req, res) =>{
 }});
 
 app.get('/account.html', (req, res) =>{
+    /*
+    * This function builds the correct account page for the user and displays all relevant information.
+    * It differentiated on user type based on user ID (external specialists have different IDs) and
+    * thus different data to be displayed.
+     */
     console.log("account")
     // res.sendFile(path.join(__dirname +  '/account.html'));
     const con = require('./public/scripts/dbconfig');
@@ -1135,7 +1140,7 @@ app.get('/account.html', (req, res) =>{
                     function(error, results, fields) {
                         if (error) throw error;
                         console.log(results);
-                        
+                        // The below function sends variables to the account.ejs page to populate it
                         res.render('account', {
                             u_name: results[0].name,
                             u_job: results[0].job,
@@ -1165,12 +1170,6 @@ app.get('/account.html', (req, res) =>{
             } else {
                 res.redirect('/login.html');
     }});
-
-
-app.post('/changepass', (req, res) => {
-    console.log(req.body)
-    let newpass_in = req.body.newpass;
-});
 
 app.get('/index.html', (req, res) => {  
     if (req.session.loggedin && session_job == "Employee") {
