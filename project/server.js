@@ -744,6 +744,7 @@ app.get('/external.html', (req, res) => {
                         no_of_drops = result[0].number_of_drops;
                         new_no_drops = parseInt(no_of_drops)+1;
 
+                        /* Changing of ticket status to unsolvable when no of drops = 5 */
                         if(new_no_drops == 5){
                             con.query(`UPDATE ticket
                             SET status = 'unsolvable', number_of_drops = ? WHERE ticket_id = ?`,[new_no_drops, parseInt(msg.id)], function (err, result, fields){
