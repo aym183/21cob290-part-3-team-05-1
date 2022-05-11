@@ -71,7 +71,7 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
 });
 
-
+// when add ticket button is clicked, make form and "cancel button" visible and hide "add ticket" button.
 document.querySelector("#add-btn").addEventListener("click", (e) => {
 
   document.getElementById("employee_name").style.backgroundColor="rgb(236, 236, 236)";
@@ -104,6 +104,7 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
 });
 
 
+// when ticket is submitted, hide buttons and form, update the database
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
     socket = io();
@@ -223,6 +224,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 });
 
 
+// when "cancel button" is clicked, ticket creation is not completed and the form values are reset 
 document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
   document.querySelector("#add-btn").style.display="block";

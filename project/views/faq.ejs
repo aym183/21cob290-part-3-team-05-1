@@ -23,7 +23,8 @@
 
                 <div class="profile__container">
                     <a href="account.html" class="profile__item" id="profile-username">
-                        
+
+                        <!-- get session for logged user and display at the top of the page -->
                         <p id="username"><%=loggeduser%></p>
 
                     </a>
@@ -94,14 +95,17 @@
 
             <br>
 
+            <!-- Create a new ticket  -->
             <div>
                 <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
             </div>
 
+            <!-- Cancel creating a ticket -->
             <div>
                 <button type="button" class="form-btn" id="cancel-btn" style="color:black; background-color: #afb5f7; display: none;">Cancel Ticket</button>
             </div>
 
+            <!-- Ticket creation "form" -->
             <div>
                 <div class="AddTicketContainer" style="display: none;">
                     <label for="employee_name" required>Employee Name</label>
@@ -135,7 +139,7 @@
                     
                     <label class="required" for="description">Problem Description</label>
                     <div>
-                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;" required></textarea> 
                     <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
                     </div>
                     <br>
@@ -147,7 +151,7 @@
                     <br>
 
                 <div>
-                    <label class="required" for="handler-name">Handler Name</label>
+                    <label class="required" class="required" for="handler-name">Handler Name</label>
                     
                         <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
                     
@@ -161,7 +165,7 @@
                     <br>
 
                 <div>
-                    <label for="operating-system">Operating System </label>  
+                    <label class="required" for="operating-system">Operating System </label>  
                
                         <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" required>
                     
@@ -178,7 +182,7 @@
                     <br>
 
                 <div>
-                    <label for="hardware-id">Hardware ID</label>  
+                    <label class="required" for="hardware-id">Hardware ID</label>  
                     
                         <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers2" value="" required>
                     
@@ -196,7 +200,7 @@
                     <br>
 
                     <div>
-                    <label for="software">Software Name</label>  
+                    <label class="required" for="software">Software Name</label>  
                  
                         <input type="text" id="software" class="edit-field" list="software-list" value="" required>
               
