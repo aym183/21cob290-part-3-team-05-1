@@ -510,19 +510,21 @@ h1 {
 /* SIDE NAVBAR SECTION */
 
 .navbar {
-    width: 300px;
-    max-width: 300px;
+    width: 200px;
+    max-width: 200px;
     height: 100%;
     position: sticky;
     top: 0;
+    background: rgba(24, 17, 82, 0.1);
     align-self: flex-start;
 }
 
 .navbar__container {
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: auto;
     width: 100%;
+    background: rgba(24, 17, 82, 0.11);
     margin: 0 auto;
     padding: 0px;
 }
@@ -535,22 +537,25 @@ h1 {
     padding: 80px 0 0 0px;
     position: fixed;
     top: 80px;
+    height: 100%;
+
 }
 
 .navbar__item-div {
     text-decoration: none;
+    
+
 }
 
 .navbar__item-div:hover {
-    border-radius: 0 30px 30px 0;
     background-color: var(--buttonHover);
-    transition-property: border-radius;
+    color: black;
     transition-duration: 0s;
 }
 
 .navbar__item {
     height: 50px;
-    padding: 0 100px 0 30px;
+    padding: 0 97px 0 30px;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -1792,4 +1797,14 @@ footer {
   
   #logout-btn:hover, #a:hover {
     opacity: 0.7;
+  }
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    margin-top: 50px;
+    text-align: center;
+    background-color: #ffffff;}
+  
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
