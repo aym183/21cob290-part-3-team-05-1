@@ -982,6 +982,7 @@ app.post('/changepass', (req, res) => {
     let newpass_in = req.body.newpass;
 });
 
+/* GET Operation for Employee Home Page */
 app.get('/index.html', (req, res) => {  
     /* Error checking if user who has logged in is an employee */
     if (req.session.loggedin && session_job == "Employee") {
