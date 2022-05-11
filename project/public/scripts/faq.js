@@ -22,7 +22,7 @@ function showEmployeeName() {
 }
 
 /**
- * Function that controls displaying the successful tickts as a table
+ * Function that controls displaying the successful tickets as a table
  */
 function addRowHandlers() {
     var table = document.getElementById("table-info");
@@ -40,7 +40,7 @@ function addRowHandlers() {
 }
 
 /**
- * Function that shows the problem solution information
+ * Function that gets the problem solution information
  * @param {object} data object containing some values successful ticket solutions such as problem description, solution, notes, problem type
  */
 function showSolutionInfo(data) {   
@@ -52,7 +52,7 @@ function showSolutionInfo(data) {
 
 }
 
-
+// display the "gotten" information about each successful ticket
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
     
@@ -62,11 +62,14 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
 
     socket.emit('solution_details',  data);
 
+
+    // after data is recieved, calling function to show ticket solution details
     socket.on('solution_details', function(data, json) {
       showSolutionInfo(data);
     });
 
 });
+
 
 document.querySelector("#add-btn").addEventListener("click", (e) => {
 
@@ -177,10 +180,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
           document.querySelector(`#${element}-error`).style.display = 'none';
       }
 
-
-      var status1 = document.getElementById('status').value;//="";
-      console.log(status1);
-
+      var status1 = document.getElementById('status').value;
 
       var today = new Date();
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -199,8 +199,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
         date: date
       }
 
-      console.log(data);
-      console.log(data.statuss); 
       socket.emit("add_ticket", data);
 
       document.getElementById('employee_name').value="";
@@ -219,8 +217,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       document.querySelector("#add-btn").style.display="block";
       document.querySelector("#cancel-btn").style.display="none";
   }
-
-
     
 });
 
@@ -240,6 +236,5 @@ document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.getElementById('operating-system').value="";
   document.getElementById('problem_description').value="";
   document.getElementById('notes').value="";
-  
 
 });
