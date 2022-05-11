@@ -204,6 +204,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
       socket.emit("add_ticket", data);
 
+      // after data is sent to database, form values are reset
       document.getElementById('employee_name').value="";
       document.getElementById('status').value="active";
       document.getElementById('priority').value="";
