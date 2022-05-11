@@ -548,7 +548,7 @@ h1 {
 }
 
 .navbar__item-div:hover {
-    background-color: var(--buttonHover);
+    background-color: rgba(51, 36, 191, 0.4);
     color: black;
     transition-duration: 0s;
 }

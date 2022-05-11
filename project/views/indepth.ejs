@@ -19,7 +19,8 @@
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
                         <a href="analyst.html">
-                            <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0" id="navbar__logo" style="height: 60px;"></a>
+                            <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0"
+                                id="navbar__logo" style="height: 60px;"></a>
                     </div>
                 </div>
             </div>
@@ -75,16 +76,16 @@
                                 labelsData.push(Data[i].name);
                                 datapoints.push(Data[i].count);
                             }
-                            
+
                             const ctx = document.getElementById('myChart').getContext('2d');
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
                                     labels: labelsData,
                                     datasets: [{
-                                        
+
                                         data: datapoints,
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -132,7 +133,7 @@
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart2" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        
+
                         <script>
                             var Data = JSON.parse(`<%- JSON.stringify(dat4) %>`);
                             var labelsData = [];
@@ -141,16 +142,16 @@
                                 labelsData.push(Data[i].name);
                                 datapoints.push(Data[i].count);
                             }
-                            
+
                             const ctxx = document.getElementById('myChart2').getContext('2d');
                             const myChart2 = new Chart(ctxx, {
                                 type: 'bar',
                                 data: {
                                     labels: labelsData,
                                     datasets: [{
-                                       
+
                                         data: datapoints,
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
 
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
@@ -199,7 +200,7 @@
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart13" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        
+
                         <script>
                             var Data = JSON.parse(`<%- JSON.stringify(dat13) %>`);
                             var labelsData = [];
@@ -215,9 +216,9 @@
                                 data: {
                                     labels: labelsData,
                                     datasets: [{
-                                       
+
                                         data: datapoints,
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
 
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
@@ -271,7 +272,7 @@
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart3" width="300" height="300" style="margin: 0 auto;"></canvas>
-                        
+
                         <script>
                             var Data = JSON.parse(`<%- JSON.stringify(dat7) %>`);
                             var labelsData = [];
@@ -280,18 +281,18 @@
                                 labelsData.push(Data[i].name);
                                 datapoints.push(Data[i].count);
                             }
-                            
+
                             const ctxxx = document.getElementById('myChart3').getContext('2d');
                             const myChart3 = new Chart(ctxxx, {
                                 type: 'bar',
                                 data: {
                                     labels: labelsData,
                                     datasets: [{
-                                      
+
                                         data: datapoints,
 
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
-                                        
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
+
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -335,7 +336,7 @@
                         <h2 style="text-align: center; padding-top: 25px;padding-bottom: 25px;">Problem Types</h2>
 
 
-                        
+
 
 
                         <canvas id="pie-chart" width="300" height="300" style="margin: 0 auto;"></canvas>
@@ -352,7 +353,7 @@
                                 data: {
                                     labels: labelsData,
                                     datasets: [{
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
                                         data: datapoints
                                     }]
                                 },
@@ -373,29 +374,41 @@
                     <div class="card">
                         <h2 style="text-align: center; padding-top: 25px;padding-bottom: 25px;">Internal Vs External
                             tickets</h2>
+                        <canvas id="pie-chart2" width="300" height="300" style="margin: 0 auto;"></canvas>
+                        <script>
+                            var Data = JSON.parse(`<%- JSON.stringify(dat16) %>`);
+                            var labelsData = [];
+                            var datapoints = [];
+                            for (var i = 0; i < Data.length; i++) {
+                                datapoints.push(Data[i].internal);
+                                datapoints.push(Data[i].external);
+                            }
+                            new Chart(document.getElementById("pie-chart2"), {
+                                type: 'pie',
+                                data: {
+                                    labels: ["Internal", "External"],
+                                    datasets: [{
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
+                                        data: datapoints
+                                    }]
+                                },
+                                options: {
+
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    }
 
 
-                            <table class="ticket__table op-ticket-table" id="table-info" style=" margin: auto;width: 50%;">
-                                <thead id="headers">
-                                    <tr>
-                                        <th>Internal</th> 
-                                        <th>External</th> 
-                                    </tr>
-                                </thead>
-                
-                                <tbody class="ticket-body employee-ticket-body">
-                                   
-                                        <tr>
-                                            <td>2</td>
-                                            <td>1</td>
-                                                        
-                                     
-                                        </tr>
-                
-                                </tbody>
-                            </table>
+                                }
+                            });</script>
 
-                        
+
+
+
+
+
                         <p class="chartp"></p>
                     </div>
 
