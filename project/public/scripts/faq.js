@@ -41,7 +41,8 @@ function addRowHandlers() {
 
 /**
  * Function that gets the problem solution information
- * @param {object} data object containing some values successful ticket solutions such as problem description, solution, notes, problem type
+ * @param {object} data object containing some values successful ticket solutions... 
+ * ...such as problem description, solution, notes, problem type
  */
 function showSolutionInfo(data) {   
 
@@ -81,7 +82,6 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
   document.querySelector("#add-btn").style.display="none";
   document.querySelector("#cancel-btn").style.display="block";
-  
 
   const socket=io();
     
@@ -96,11 +96,13 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
       sessionStorage.setItem("employee_name", data.name);
     }
     
+    // calling function to show employee name
     showEmployeeName(); 
 
     socket.destroy();
   });
 });
+
 
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
