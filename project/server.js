@@ -226,28 +226,12 @@ app.get('/analyst.html', (req, res) =>{
     con.query('SELECT status, COUNT(*) as count FROM `ticket` GROUP BY status', function(err, result, fields) {
         if (err) throw err;
         query_chart2 = result
-        var out =  [];
-        var out2 =  [];
-        var out3 =  [];
-        var out4 =  [];
-        var out5 = [];
-        var out6 = [];
-        var out7 = [];
-        var out8 = [];
-
         res.render('analyst', {
             dat1: query_chart1,
-            dat2: out,
-            dat3: out2,
             dat4: query_chart2,
-            dat5: out3,
-            dat6: out4,
-            dat7: query_chart3,
-            dat8: out5,
-            dat9: out6,
+            dat7: query_chart3,    
             dat10: query_chart4,
-            dat11: out7,
-            dat12: out8
+        
         }) 
     })
     }}
@@ -325,40 +309,22 @@ app.get('/indepth.html', (req, res) =>{
           WHERE ticket.closing_date IS NULL AND handler.user_id = ticket.handler_id AND employee.employee_id = handler.user_id
           GROUP BY employee.name
           ORDER BY employee.name ASC`,function (err, result, fields) {
-        if (err) throw err;
-        var out =  [];
-        var out2 =  [];
-        var out3 =  [];
-        var out4 =  [];
-        var out5 = [];
-        var out6 = [];
-        var out7 = [];
-        var out8 = [];
-        var out9 = [];
-        var out10 = []; 
-        var out11 = [];
-        var out12 = [];      
+        if (err) throw err;     
         idc1 = result;
         
         res.render('indepth', {
             dat1: idc1,
-            dat2: out,
-            dat3: out2,
+     
             dat4: idc2,
-            dat5: out3,
-            dat6: out4,
+    
             dat7: idc3,
-            dat8: out5,
-            dat9: out6,
+         
             dat10: idc4,
-            dat11: out7,
-            dat12: out8,
+  
             dat13: idc5,
-            dat14: out9,
-            dat15: out10,
+           
             dat16: idc6,
-            dat17: out11,
-            dat18: out12
+         
    
         })     
     })
