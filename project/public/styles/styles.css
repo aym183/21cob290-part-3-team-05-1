@@ -1583,9 +1583,8 @@ footer {
 }
 
 #navbar__item-div:hover {
-    border-radius: 0 30px 30px 0;
-    background-color: var(--buttonHover);
-    transition-property: border-radius;
+    background-color: rgba(51, 36, 191, 0.4);
+    color: black;
     transition-duration: 0s;
 }
 
