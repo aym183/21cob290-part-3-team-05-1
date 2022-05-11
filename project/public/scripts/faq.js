@@ -11,14 +11,19 @@ var handler_list = [];
 var temp_error = [];
 const employee_name = "";
 
-// this shows current employee logged in
+
+/**
+ * Function that shows employee name, the current employee logged in
+ */
 function showEmployeeName() { 
   
   document.getElementById('employee_name').value=sessionStorage.getItem("employee_name");
   
 }
 
-// this displays successful tickets
+/**
+ * Function that controls displaying the successful tickts as a table
+ */
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -34,16 +39,19 @@ function addRowHandlers() {
     }
 }
 
-// this displays some information about each successful ticket
+/**
+ * Function that shows the problem solution information
+ * @param {object} data object containing some values successful ticket solutions such as problem description, solution, notes, problem type
+ */
 function showSolutionInfo(data) {   
-    console.log(data);
+
     document.getElementById('solutionBox').value =  data.solution_description;
     document.getElementById('description').value =  data.problem_description;
     document.getElementById('notes_new').value =  data.notes;
     document.getElementById('problem_type').value =  data.name;
 
-    // document.getElementById('solutionBox').value = data.solution_description;
 }
+
 
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
@@ -52,16 +60,10 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
         problem_description: e.target.closest("tr").children[0].textContent
     }
 
-    console.log(data);
-    console.log('hello');
-
     socket.emit('solution_details',  data);
 
     socket.on('solution_details', function(data, json) {
-      console.log('hello2');
-      console.log(data);
       showSolutionInfo(data);
-      // showTicketInfo(json[0]); 
     });
 
 });
@@ -98,7 +100,6 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
 });
 
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
-    console.log("ladi");
 
     socket = io();
 
@@ -197,13 +198,10 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
         notess: notes,
         date: date
       }
-      //console.log(handler_name);
+
       console.log(data);
       console.log(data.statuss); 
       socket.emit("add_ticket", data);
-  
-      //popupCreator("Ticket Submitted");
-  
 
       document.getElementById('employee_name').value="";
       document.getElementById('status').value="active";
