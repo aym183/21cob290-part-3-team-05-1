@@ -57,11 +57,7 @@
         </div>
 
         <!-- CHART SECTION -->
-
-
-
-
-
+        <!-- CHART 1 - Number of employees per job-->
         <div>
             <h1 style="text-align: center; padding-top: 20px; ">Dashboard</h1>
 
@@ -73,9 +69,10 @@
 
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <canvas id="myChart" width="300" height="300" style="margin: 0 auto;"></canvas>
-                      
+                        <canvas id="myChart" width="300" height="265" style="margin: 0 auto;"></canvas>
+
                         <script>
+                            //parsing JSON data into arrays to be used with chart js
                             var Data = JSON.parse(`<%- JSON.stringify(dat1) %>`);
                             var labelsData = [];
                             var datapoints = [];
@@ -83,8 +80,8 @@
                                 labelsData.push(Data[i].job);
                                 datapoints.push(Data[i].count);
                             }
-                            
-                            
+
+
                             const ctx = document.getElementById('myChart').getContext('2d');
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
@@ -94,7 +91,7 @@
                                         label: 'Number of employees',
                                         data: datapoints,
 
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -135,12 +132,11 @@
                         <p class="chartp"></p>
                     </div>
 
+                    <!-- CHART 2 - Amount of tickets with different priorities -->
+
                     <div class="card">
                         <h2 style="text-align: center;padding-top: 25px;">Priority Data</h2>
                         <div>
-                            <h1 style="font-size: 0px; opacity: 0;">
-                                <%-dat7%>
-                            </h1>
                         </div>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                         <canvas id="myChart3" width="300" height="300" style="margin: 0 auto;"></canvas>
@@ -161,7 +157,7 @@
                                     labels: labelsData,
                                     datasets: [{
                                         data: datapoints,
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
@@ -210,6 +206,8 @@
 
                 </div>
                 <div class="column_analyst">
+                    <!-- CHART 3 - number of tickets of different status -->
+
                     <div class="card">
                         <h2 style="text-align: center; padding-top: 25px;">Ticket Status Data</h2>
 
@@ -231,8 +229,8 @@
                                     labels: labelsData,
                                     datasets: [{
                                         label: "Number of Tickets",
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],
-                                    
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
+
                                         data: datapoints
                                     }]
                                 },
@@ -251,9 +249,11 @@
                         <p class="chartp"></p>
                     </div>
                     <div class="card">
+                        <!-- CHART 4 -->
 
 
-                        <h2 style="text-align: center; padding-top: 25px;">Ticket Solution Data</h2>
+                        <h2 style="text-align: center; padding-top: 25px; padding-bottom:10px;">Ticket Solution Data
+                        </h2>
 
 
 
@@ -276,7 +276,7 @@
                                     datasets: [{
                                         label: 'Number of tickets',
                                         data: datapoints,
-                                        backgroundColor: ["#3e95cd",  "#3cba9f",  "#ff6384",  "#36a2eb",  "#cc65fe",  '#ffce56', "#3e95cd", "#3cba9f",  "#ff6384",  "#36a2eb"],                                       
+                                        backgroundColor: ["#3e95cd", "#3cba9f", "#ff6384", "#36a2eb", "#cc65fe", '#ffce56', "#3e95cd", "#3cba9f", "#ff6384", "#36a2eb"],
                                         borderColor: [
                                             'rgba(255, 99, 132, 1)',
                                             'rgba(54, 162, 235, 1)',
