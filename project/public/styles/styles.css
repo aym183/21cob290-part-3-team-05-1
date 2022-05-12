@@ -516,7 +516,6 @@ h1 {
     max-height: 2000px;
     position: sticky;
     top: 0;
-    background: rgba(24, 17, 82, 0.1);
     align-self: flex-start;
 }
 
@@ -540,6 +539,7 @@ h1 {
     top: 80px;
     height: 100%;
     max-width: 200px;
+    background: rgba(24, 17, 82, 0.11);
 }
 
 .navbar__item-div {
