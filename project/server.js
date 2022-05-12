@@ -327,21 +327,25 @@ app.get('/intspecialist.html', (req, res) => {
                 query_output = result;
             });
             
+        /* Displaying hardware_id in ticket details */
         con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
             if (err) throw err;
             hardware_id = result;
         });
 
+        /* Displaying operating system name in ticket details */
         con.query(`SELECT name from operating_system;`, function (err, result, fields) {
             if (err) throw err;
             operating_system = result;
         });
 
+        /* Displaying software name in ticket details */
         con.query(`SELECT name from software;`, function (err, result, fields) {
             if (err) throw err;
             software_datalist = result;
         });
 
+        /* Displaying problem type in ticket details */
         con.query(`SELECT name from problem_type;`, function (err, result, fields) {
             if (err) throw err;
             prob_type_vals = result;
