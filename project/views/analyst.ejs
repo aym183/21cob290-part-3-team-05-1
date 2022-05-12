@@ -61,10 +61,20 @@
         <div>
             <h1 style="text-align: center; padding-top: 20px; ">Dashboard</h1>
 
+            <table class="ticket__table op-ticket-table" id="table-info" style=" margin-left: auto;margin-right: auto; ">
+                <thead id="headers">
+                    <tr>
+                        <th>Total Employees: <%= totalEmp[0].count %></th> 
+                        <th>Total Number of Tickets: <%= totalTicket[0].count %></th> 
+                        <th>Tickets created this week: <%= weekTicket[0].count %> </th> 
+                    </tr>
+                </thead>
+            </table>
+
             <div class="row_analyst">
                 <div class="column_analyst">
                     <div class="card">
-                        <h2 style="text-align: center; padding-top: 25px;">Number of Employees</h2>
+                        <h2 style="text-align: center; padding-bottom: 25px;">Number of Employees</h2>
                         <p style="font-size: 30px; opacity: 0;">test</p>
 
 
@@ -135,7 +145,7 @@
                     <!-- CHART 2 - Amount of tickets with different priorities -->
 
                     <div class="card">
-                        <h2 style="text-align: center;padding-top: 25px;">Priority Data</h2>
+                        <h2 style="text-align: center;padding-bottom: 25px;">Priority Data</h2>
                         <div>
                         </div>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -209,7 +219,7 @@
                     <!-- CHART 3 - number of tickets of different status -->
 
                     <div class="card">
-                        <h2 style="text-align: center; padding-top: 25px;">Ticket Status Data</h2>
+                        <h2 style="text-align: center; padding-bottom: 25px;">Ticket Status Data</h2>
 
 
                         <canvas id="pie-chart" width="300" height="300" style="margin: 0 auto;"></canvas>
@@ -252,7 +262,7 @@
                         <!-- CHART 4 -->
 
 
-                        <h2 style="text-align: center; padding-top: 25px; padding-bottom:10px;">Ticket Solution Data
+                        <h2 style="text-align: center; padding-bottom: 25px; padding-bottom:10px;">Ticket Solution Data
                         </h2>
 
 

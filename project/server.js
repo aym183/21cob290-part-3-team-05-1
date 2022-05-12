@@ -220,19 +220,40 @@ app.get('/analyst.html', (req, res) => {
             if (err) throw err;
             query_chart4 = result;
         })
+        con.query('SELECT COUNT(ticket_id) as count FROM ticket where creation_date between date_sub(now(),INTERVAL 1 WEEK) and now()', function (err, result, fields) {
+            if (err) throw err;
+            dashData1 = result;
+        })
+        con.query('SELECT COUNT(ticket_id) as count FROM `ticket`', function (err, result, fields) {
+            if (err) throw err;
+            dashData2 = result;
+        })
+        con.query('SELECT COUNT(employee_id) as count FROM `employee`', function (err, result, fields) {
+            if (err) throw err;
+            dashData3 = result;
+        })
         con.query('SELECT status, COUNT(*) as count FROM `ticket` GROUP BY status', function (err, result, fields) {
             if (err) throw err;
             query_chart2 = result
+
+            console.log(dashData1)
+            console.log(dashData2)
+            console.log(dashData3)
+
             res.render('analyst', {
                 dat1: query_chart1,
                 dat4: query_chart2,
                 dat7: query_chart3,
                 dat10: query_chart4,
+                totalEmp: dashData3,
+                weekTicket: dashData1,
+                totalTicket: dashData2
             })
         })
     }
 }
 )
+
 app.get('/indepth.html', (req, res) => {
 
     if (req.session.loggedin) {
