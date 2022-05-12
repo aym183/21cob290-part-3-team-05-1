@@ -303,20 +303,22 @@ app.get('/indepth.html', (req, res) => {
     }
 });
 
-
+/* GET Operation for Internal Specialist page */
 app.get('/intspecialist.html', (req, res) => {
+
+    /* Validation to check whether the logged in user is an internal specialst */
     if (req.session.loggedin && session_job == "Specialist") {
         // Query for ticket information
 
         con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
-    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-    INNER JOIN (SELECT user_id, employee.name FROM handler
+        INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
+        INNER JOIN employee ON ticket.employee_id = employee.employee_id
+        INNER JOIN (SELECT user_id, employee.name FROM handler
                 INNER JOIN employee ON handler.user_id = employee.employee_id
                 UNION
                 SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-    WHERE ticket.handler_id = ? and status != "dropped"
-    ORDER BY CASE WHEN status = 'submitted' THEN 1
+        WHERE ticket.handler_id = ? and status != "dropped"
+        ORDER BY CASE WHEN status = 'submitted' THEN 1
                 WHEN status = 'unsuccessful' THEN 2
                 WHEN status = 'active' THEN 3
                 ELSE 4 END`,
@@ -346,14 +348,14 @@ app.get('/intspecialist.html', (req, res) => {
         });
 
         con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
-    INNER JOIN employee ON handler.user_id = employee.employee_id
-    WHERE ticket.status != 'closed'
-    GROUP BY handler_id
-    UNION
-    SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
-    INNER JOIN external_specialist on external_specialist_id = handler.user_id
-    WHERE ticket.status != 'closed'
-    GROUP BY ticket.handler_id;`, function (err, result, fields) {
+        INNER JOIN employee ON handler.user_id = employee.employee_id
+        WHERE ticket.status != 'closed'
+        GROUP BY handler_id
+        UNION
+        SELECT external_specialist.name, count(ticket_id) from ticket INNER JOIN handler on ticket.handler_id = handler.user_id
+        INNER JOIN external_specialist on external_specialist_id = handler.user_id
+        WHERE ticket.status != 'closed'
+        GROUP BY ticket.handler_id;`, function (err, result, fields) {
             if (err) throw err;
             handlers = result;
         });
@@ -367,12 +369,12 @@ app.get('/intspecialist.html', (req, res) => {
 
         // Query to display home page info
         con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
-    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-    WHERE ticket.handler_id = ? and status != "dropped"
-    ORDER BY CASE WHEN status = 'submitted' THEN 1
-    WHEN status = 'unsuccessful' THEN 2
-    WHEN status = 'active' THEN 3
-    ELSE 4 END`,
+        INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
+        WHERE ticket.handler_id = ? and status != "dropped"
+        ORDER BY CASE WHEN status = 'submitted' THEN 1
+        WHEN status = 'unsuccessful' THEN 2
+        WHEN status = 'active' THEN 3
+        ELSE 4 END`,
             [session_id], function (err, result, fields) {
                 if (err) throw err;
 
@@ -395,17 +397,17 @@ app.get('/intspecialist.html', (req, res) => {
             socket.on("message", (msg) => {
                 if (msg.status == 'closed') {
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
-                solution.solution_description from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
-                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
-                INNER JOIN  software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
+                    solution.solution_description from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                    INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                    INNER JOIN  software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
                         if (err) throw err;
 
                         io.send('message', result);
@@ -416,15 +418,15 @@ app.get('/intspecialist.html', (req, res) => {
                 else if (msg.status == 'active' || msg.status == 'unsuccessful') {
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
-                from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN  software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id
-                UNION
-                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
+                    from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN  software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id
+                    UNION
+                    SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
                         if (err) throw err;
 
                         io.send('message', result);
@@ -437,16 +439,16 @@ app.get('/intspecialist.html', (req, res) => {
 
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
-                solution.solution_description from ticket
-                INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
-                INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
-                INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
-                INNER JOIN software on ticket.software_id = software.software_id 
-                INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
-                INNER JOIN (SELECT user_id, employee.name FROM handler
-                INNER JOIN employee ON handler.user_id = employee.employee_id)
-                h ON ticket.handler_id = h.user_id
-                WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
+                    solution.solution_description from ticket
+                    INNER JOIN hardware ON ticket.hardware_id = hardware.hardware_id
+                    INNER JOIN ticket_solution on ticket.ticket_id = ticket_solution.ticket_id 
+                    INNER JOIN solution ON ticket_solution.solution_id = solution.solution_id
+                    INNER JOIN software on ticket.software_id = software.software_id 
+                    INNER JOIN problem_type on ticket.problem_type_id = problem_type.problem_type_id
+                    INNER JOIN (SELECT user_id, employee.name FROM handler
+                    INNER JOIN employee ON handler.user_id = employee.employee_id)
+                    h ON ticket.handler_id = h.user_id
+                    WHERE ticket.ticket_id = ?;`, [parseInt(msg.id)], function (err, result, fields) {
                         if (err) throw err;
 
                         io.send('message', result);
@@ -471,8 +473,8 @@ app.get('/intspecialist.html', (req, res) => {
 
 
                         con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
-                            UNION
-                            SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`, [msg.handler_name, msg.handler_name], function (err, result, fields) {
+                        UNION
+                        SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`, [msg.handler_name, msg.handler_name], function (err, result, fields) {
                             if (err) throw err;
                             handler_id = result[0].user_id;
 
@@ -495,23 +497,23 @@ app.get('/intspecialist.html', (req, res) => {
             socket.on("Submit-Ticket", (msg) => {
 
                 con.query(`INSERT INTO solution (solution_description)
-            values(?)`, [msg.solution], function (err, result, fields) {
+                values(?)`, [msg.solution], function (err, result, fields) {
                     if (err) throw err;
 
                     con.query(`UPDATE ticket
-            SET status = 'submitted'
-            WHERE ticket_id = ?`, [msg.id], function (err, result, fields) {
+                    SET status = 'submitted'
+                    WHERE ticket_id = ?`, [msg.id], function (err, result, fields) {
                         if (err) throw err;
 
                         con.query(`SELECT solution_id
-            FROM solution
-            WHERE solution_description = ?`, [msg.solution], function (err, result, fields) {
+                        FROM solution
+                        WHERE solution_description = ?`, [msg.solution], function (err, result, fields) {
                             if (err) throw err;
                             solution_id2 = result[0].solution_id
 
 
                             con.query(`INSERT INTO ticket_solution
-            values(?, ?, ?, ?)`, [msg.id, solution_id2, 'pending', session_id], function (err, result, fields) {
+                            values(?, ?, ?, ?)`, [msg.id, solution_id2, 'pending', session_id], function (err, result, fields) {
                                 if (err) throw err;
                             });
                         });
@@ -532,11 +534,11 @@ app.get('/intspecialist.html', (req, res) => {
 
                     if (new_no_drops == 5) {
                         con.query(`UPDATE ticket
-                    SET status = 'unsolvable', number_of_drops = ? WHERE ticket_id = ?`, [new_no_drops, parseInt(msg.id)], function (err, result, fields) {
+                        SET status = 'unsolvable', number_of_drops = ? WHERE ticket_id = ?`, [new_no_drops, parseInt(msg.id)], function (err, result, fields) {
                             if (err) throw err;
 
                             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
-                    values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields) {
+                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields) {
 
                                 if (err) throw err;
                             });
@@ -545,11 +547,11 @@ app.get('/intspecialist.html', (req, res) => {
                     else {
 
                         con.query(`UPDATE ticket
-                    SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`, [new_no_drops, parseInt(msg.id)], function (err, result, fields) {
+                        SET status = 'dropped', number_of_drops = ? WHERE ticket_id = ?`, [new_no_drops, parseInt(msg.id)], function (err, result, fields) {
                             if (err) throw err;
 
                             con.query(`INSERT into dropped (reason, drop_date, drop_time, ticket_id, handler_id)
-                    values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields) {
+                            values(?, ?, ?, ?, ?)`, [msg.reason, msg.current_date, msg.current_dateTime, parseInt(msg.id), parseInt(session_id)], function (err, result, fields) {
 
                                 if (err) throw err;
                             });
@@ -565,7 +567,7 @@ app.get('/intspecialist.html', (req, res) => {
 
                 for (let i = 0; i < msg.changed_names.length; i++) {
                     con.query(`INSERT into history_log (ticket_id, user_id, edited_item, new_value, date_time)
-                            values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields) {
+                    values(?, ?, ?, ?, ?)`, [msg.id, parseInt(session_id), msg.changed_names[i], msg.changed_values[i], msg.current_dateTime], function (err, result, fields) {
 
                         if (err) throw err;
                     });
