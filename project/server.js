@@ -308,8 +308,8 @@ app.get('/intspecialist.html', (req, res) => {
 
     /* Validation to check whether the logged in user is an internal specialst */
     if (req.session.loggedin && session_job == "Specialist") {
-        // Query for ticket information
 
+        /* Displaying all ticket details on external spec dashboard */
         con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
         INNER JOIN employee ON ticket.employee_id = employee.employee_id
@@ -326,7 +326,7 @@ app.get('/intspecialist.html', (req, res) => {
                 if (err) throw err;
                 query_output = result;
             });
-
+            
         con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
             if (err) throw err;
             hardware_id = result;
@@ -367,7 +367,6 @@ app.get('/intspecialist.html', (req, res) => {
                 session_tickets = (JSON.stringify(result)).substring(21, 22);
             });
 
-        // Query to display home page info
         con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
         WHERE ticket.handler_id = ? and status != "dropped"
@@ -390,11 +389,12 @@ app.get('/intspecialist.html', (req, res) => {
                     probtype_vals: prob_type_vals,
                     handler_vals: handlers
                 })
-
             });
-        // ``````condition that executed on calling of socket
+            
         io.on('connection', (socket) => {
             socket.on("message", (msg) => {
+
+                /* Fetching particular ticket details for closed status */
                 if (msg.status == 'closed') {
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, closing_time, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler, ticket_solution.solution_status,
                     solution.solution_description from ticket
@@ -411,10 +411,10 @@ app.get('/intspecialist.html', (req, res) => {
                         if (err) throw err;
 
                         io.send('message', result);
-
                     });
                 }
-
+                
+                /* Fetching particular ticket details for active and unsuccessful statuses */
                 else if (msg.status == 'active' || msg.status == 'unsuccessful') {
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler
@@ -430,13 +430,11 @@ app.get('/intspecialist.html', (req, res) => {
                         if (err) throw err;
 
                         io.send('message', result);
-
                     });
-
                 }
-
+                
+                /* Fetching particular ticket details for submitted status */
                 else if (msg.status == 'submitted') {
-
 
                     con.query(`SELECT ticket.ticket_id, status, priority, operating_system, problem_description, notes, software.name as software, ticket.hardware_id, hardware.manufacturer, hardware.make, hardware.model, problem_type.name,  h.name as Handler,
                     solution.solution_description from ticket
@@ -453,14 +451,13 @@ app.get('/intspecialist.html', (req, res) => {
 
                         io.send('message', result);
                     });
-
                 }
             })
         })
 
-        // updating of ticket
         io.on('connection', (socket) => {
 
+            /* Socket operations for updating internal specialist tickets */
             socket.on("update_message", (msg) => {
 
                 con.query(`SELECT problem_type_id from problem_type where name = ?;`, [msg.problem_type], function (err, result, fields) {
@@ -471,13 +468,11 @@ app.get('/intspecialist.html', (req, res) => {
                         if (err) throw err;
                         software_id = result[0].software_id;
 
-
                         con.query(`SELECT user_id from handler INNER JOIN employee ON employee.employee_id  = handler.user_id WHERE employee.name = ?
                         UNION
                         SELECT external_specialist_id AS user_id FROM external_specialist WHERE name = ?`, [msg.handler_name, msg.handler_name], function (err, result, fields) {
                             if (err) throw err;
                             handler_id = result[0].user_id;
-
 
                             con.query(`UPDATE ticket 
                             SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
@@ -491,9 +486,9 @@ app.get('/intspecialist.html', (req, res) => {
             });
         })
 
-        // Query to update tickets solution upon submission
         io.on('connection', (socket) => {
 
+            /* Socket operations for submitting solution*/
             socket.on("Submit-Ticket", (msg) => {
 
                 con.query(`INSERT INTO solution (solution_description)
@@ -522,9 +517,9 @@ app.get('/intspecialist.html', (req, res) => {
             })
         })
 
-        //Dropping of tickets
         io.on('connection', (socket) => {
 
+            /* Socket operations for conducting dropping of ticket [updating ticket and updating dropped table in db] */
             socket.on('close_ticket', (msg) => {
 
                 con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields) {
@@ -532,6 +527,7 @@ app.get('/intspecialist.html', (req, res) => {
                     no_of_drops = result[0].number_of_drops;
                     new_no_drops = parseInt(no_of_drops) + 1;
 
+                    /* Changing of ticket status to unsolvable when no of drops = 5 */
                     if (new_no_drops == 5) {
                         con.query(`UPDATE ticket
                         SET status = 'unsolvable', number_of_drops = ? WHERE ticket_id = ?`, [new_no_drops, parseInt(msg.id)], function (err, result, fields) {
@@ -563,6 +559,8 @@ app.get('/intspecialist.html', (req, res) => {
 
 
         io.on('connection', (socket) => {
+
+            /* Socket operations for updating ticket details in history log */
             socket.on('ticket_update_history', (msg) => {
 
                 for (let i = 0; i < msg.changed_names.length; i++) {
@@ -575,7 +573,6 @@ app.get('/intspecialist.html', (req, res) => {
             })
 
         });
-
 
     } else {
         res.redirect('/login.html');
@@ -775,7 +772,6 @@ app.get('/external.html', (req, res) => {
                                     con.query(`SELECT * from external_specialist where name = ?`, [msg.h_name], function (err, result, fields) {
                                         if (err) throw err;
                                         ext_spec_id = result[0].external_specialist_id
-
 
                                         con.query(`INSERT INTO ticket_solution
                                 VALUES(?, ?, ?, ?)`, [msg.id, 'pending', ext_spec_id], function (err, result, fields) {
