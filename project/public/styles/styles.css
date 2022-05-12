@@ -4,7 +4,7 @@
     --secondaryColor: rgb(255, 255, 255);
     /* --navbar color options:
      rgb(55, 61, 66) rgb(52, 22, 65) */
-    --navbarColor: #181152;
+    --navbarColor: #1a0e8a;
     --navbarColor2: #322c8d;
     
     --tableBodyColor: rgb(246, 246, 246);
@@ -1179,6 +1179,7 @@ footer {
     flex-shrink: 0;
     justify-content: center;
     height: 80px;
+    opacity: 0.9;
     background-color: var(--navbarColor);
     color: var(--secondaryText);
  }
