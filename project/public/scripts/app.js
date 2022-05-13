@@ -160,14 +160,6 @@ function updateTicketInfo(data, status) {
     socket2.emit('update_message',  data);
 }
 
-ready(() => { 
-    var close_btn = document.querySelector("#close-btn");
-    close_btn && close_btn.addEventListener("click", (e) => {
-        popupCreator("close", "Are you sure you want to close ticket?", "", "Cancel", "Confirm");         
-    });
-});
-
-
 // Handles operations when ticket row has been clicked
 ready(() => { 
     const socket = io()
@@ -200,6 +192,7 @@ ready(() => {
                  c[i].style.display = 'none';
             }
             
+            //Submit button disabled
             if(document.title == "Specialist Home Page" || document.title == "External Specialist Home Page"){
                 document.querySelector(".solutionArea__section").style.display = "block";
                 document.querySelector("#submit-btn").setAttribute('disabled','disabled');
@@ -626,7 +619,6 @@ ready(() => {
         });
     }    
 });
-
 
 // DROP TICKET BUTTON ----------
 ready(() => { 

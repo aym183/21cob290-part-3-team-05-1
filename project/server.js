@@ -547,7 +547,7 @@ app.get('/intspecialist.html', (req, res) => {
         io.on('connection', (socket) => {
 
             /* Socket operations for conducting dropping of ticket [updating ticket and updating dropped table in db] */
-            socket.on('close_ticket', (msg) => {
+            socket.on('drop_ticket', (msg) => {
 
                 con.query("SELECT number_of_drops from ticket where ticket_id = ?", [msg.id], function (err, result, fields) {
                     if (err) throw err;
