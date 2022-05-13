@@ -1698,7 +1698,6 @@ footer {
 }
 
 .faq_answer {
-    background-color: #FEF5EF; 
     box-shadow: 0 0 6px;
     flex-grow: 1;
     display: grid;
@@ -1710,6 +1709,7 @@ footer {
     align-content: center;
     justify-items: stretch;
     padding: 0px 0 20px 0;
+    border-radius: 10px;
 
 }
 

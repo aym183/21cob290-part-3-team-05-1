@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Home Page</title>
 </head>
 <body>
@@ -41,19 +42,16 @@
                 <ul class="navbar__menu">
                     <a href="index.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>   
                     <a href="faq.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-plus"></i></p>
                             <p class="navbar__links">Problem Resolutions</p>
                         </li>
                     </a>           
                     <a href="account.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-user"></i></p>
                             <p class="navbar__links">Account</p>
                         </li>
                     </a>
@@ -243,16 +241,17 @@
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="faq.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="faq.html" id="back-btn"><i class="fa fa-arrow-left"></i></a>
                         </div>   
                     </div>
+                    <div class="information__title">
+                        <h2>FAQ Answer</h2>
+                    </div> 
+
                 </div>
-                <div class="information__title">
-                    <h2>FAQ Answer</h2>
-                </div> 
             </div>
             <!-- FAQ Details Section -->
-            <div class="faq_answer"> 
+            <div class="faq_answer" style="background-color: rgba(24, 17, 82, 0.11);"> 
                 <span class="validation_error" id="software-error"></span>
                 <label for="description">FAQ Description</label>
                 <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
