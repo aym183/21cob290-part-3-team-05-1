@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
     <title>Your Account</title>
 
+    <!-- animation used to fade in div contents on page load -->
     <style>
         #a_card {
             animation: fadeInAnimation ease 0.8s;
@@ -36,6 +37,7 @@
             <div class="topNavbar__container">
                 <div class="topNavbar__item">
                     <div class="topNavbar__logo">
+                        <!-- redirect changes with current user type using embedded js -->
                         <% if (u_job == "Analyst") { %>
                             <a href="analyst.html">
                                 <img src="https://i.ibb.co/RDsbyHN/deskspace-wht.png" alt="deskspace-3-1" border="0" id="navbar__logo" style="height: 60px;"></a>
@@ -58,6 +60,7 @@
     <div class="main__section">
 
         <!-- SIDE NAVBAR SECTION -->
+        <!-- below code creates a "one-size-fits-all" account page - navbar changed with current user type -->
         <div id="account-navbar">
                 <div id="navbar__container">
                 <ul id="navbar__menu">
@@ -98,8 +101,9 @@
         </div>
 
     <div id="a_card" class="card_content" style="margin-top: 25px;">
-            <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="John" style="width:20%;">
+            <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="user" style="width:20%;">
             <br>
+            <!-- uses embedded js passed from server.js queries to display user details -->
             <h3 class="mt-2"><b><%=u_name%></b></h3>
             <i class="a_title"><%=u_job%></i><br>
             <i><%=u_dept%></i><br>
