@@ -1755,7 +1755,6 @@ footer {
 }
 
 .faq_answer {
-    box-shadow: 0 0 6px;
     flex-grow: 1;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -1771,7 +1770,8 @@ footer {
 }
 
 .faq_answer label {
-    text-align: center;
+    text-align: left;
+    padding-left: 10%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif'
 }
 
