@@ -247,10 +247,6 @@ app.get('/analyst.html', (req, res) => {
             if (err) throw err;
             query_chart2 = result
 
-            console.log(dashData1)
-            console.log(dashData2)
-            console.log(dashData3)
-
             res.render('analyst', {
                 dat1: query_chart1,
                 dat4: query_chart2,

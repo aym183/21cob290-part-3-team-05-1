@@ -110,7 +110,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
     socket = io();
 
     for(let i = 0; i<data_lists.length; i++){
-      //console.log(document.getElementById("new-operating-systems"));
       var current_list = span_list[i];
       var x = document.getElementById(data_lists[i]);
       var j;
@@ -128,11 +127,8 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const notes = document.getElementById("notes").value;
   const problem_type = document.getElementById("problem-type").value;
   const handler_name = document.getElementById("handler-name").value;
-  var employee_name = document.getElementById('employee_name').value;//="";
+  var employee_name = document.getElementById('employee_name').value;
 
-  
-  
-  // console.log(hardware_list);
   valid_details = []
 
   if(!hardware_list.includes(hardware_id)){
@@ -163,7 +159,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   if (valid_details.length != 0) {
 
-      console.log("I am not null");
       for (const element of valid_details) {
           document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
           document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
