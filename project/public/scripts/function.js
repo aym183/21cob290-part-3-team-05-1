@@ -1,6 +1,6 @@
 /**
  * Creates popup for specified operations and handles them
- * @param {string} btnName name that identifies what type of popuup to create
+ * @param {string} btnName name that identifies what type of popup to create
  * @param {string} msg1 Contains message to be displayed to user
  * @param {string} msg2 Contains second optional message to be displayed to user
  * @param {string} button1 Contains text to be displayed on failure event
