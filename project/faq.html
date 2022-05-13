@@ -80,11 +80,7 @@
                     <a href="employee_account.html" class="profile__item" id="profile-username">
                         
                         <p id="username">Account</p>
-                        <!--This is James part
-                        -->
-                        <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
+
                     </a>
                 </div>
             </div>
@@ -126,15 +122,6 @@
                 <div class="table-title__container">
                     <h5 class="table-title">Problem Resolutions</h5> 
                     <span class="total-tickets">
-                    <!-- <?php
-                        $sql = "SELECT * FROM ticket";
-                        if ($result=mysqli_query($conn, $sql)) {
-                            $rowcount=mysqli_num_rows($result);
-                            echo 'Total '. $rowcount. ' (50 per page)'; 
-                        } else {
-                            echo 'Total 0 (50 per page)';
-                        }
-                    ?> -->
                     </span>   
                 </div>
             </div>
@@ -148,37 +135,6 @@
                 </thead>
 
                 <tbody class="ticket-body op-ticket-body">
-                <!-- <?php
-                    $sql = "SELECT ticket_id, status, last_updated, problem_type.name, employee.name, h.name FROM ticket 
-                    INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
-                    INNER JOIN employee ON ticket.employee_id = employee.employee_id
-                    INNER JOIN (SELECT user_id, employee.name FROM handler
-                                INNER JOIN employee ON handler.user_id = employee.employee_id
-                                UNION
-                                SELECT external_specialist_id AS user_id, name FROM external_specialist) h ON ticket.handler_id = h.user_id
-                    ORDER BY CASE WHEN status = 'dropped' THEN 1
-                                WHEN status = 'submitted' THEN 2
-                                WHEN status = 'pending' THEN 3
-                                WHEN status = 'unsuccessful' THEN 4
-                                WHEN status = 'active' THEN 5
-                                ELSE 6 END
-                    LIMIT 0, 50";
-
-                    $result = mysqli_query($conn, $sql) or die("Bad Query: $sql");
-
-                    while ($row = mysqli_fetch_array($result)){
-                        
-                        echo'<tr>';
-                        echo '<td class="'.$row[1].'"><span class="t-status">'.$row[1].'</span></td>';
-                        echo '<td>'.$row[0].'</td>';
-                        echo '<td>'.$row[3].'</td>';
-                        echo '<td>'.$row[4].'</td>';
-                        echo '<td>'.$row[2].'</td>';
-                        echo '<td>'.$row[5].'</td>';
-                        echo'</tr>';
-                    }
-
-                ?> -->
                 </tbody>
             </table>
     
@@ -215,12 +171,6 @@
                 <label for="problem-type">Problem Type</label>
                 <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
                 <datalist id="problem-types">
-                <!-- <?php
-                $problems = get_problem_types(true, false);
-                foreach ($problems as $problem) {
-                    echo "<option value=\"" . $problem['name'] . "\">";
-                }
-                ?> -->
 
                 </datalist>
                 <div>

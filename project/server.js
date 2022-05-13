@@ -62,26 +62,31 @@ app.get('/', (req, res) => {
 app.get('/faq.html', (req, res) => {
     if (req.session.loggedin && session_job == "Employee") {
 
+        // query to retrieve hardware id
         con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
             if (err) throw err;
             hardware_id = result;
         });
 
+        // query to retrieve os name
         con.query(`SELECT name from operating_system;`, function (err, result, fields) {
             if (err) throw err;
             operating_system = result;
         });
 
+        // query to retrieve software name
         con.query(`SELECT name from software;`, function (err, result, fields) {
             if (err) throw err;
             software_datalist = result;
         });
 
+        // query to retrieve problem type name
         con.query(`SELECT name from problem_type;`, function (err, result, fields) {
             if (err) throw err;
             prob_type_vals = result;
         });
 
+        // query to retrieve handler id
         con.query(`SELECT employee.name, count(ticket_id) as "tickets" from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
     INNER JOIN employee ON handler.user_id = employee.employee_id
     WHERE ticket.status != 'closed'
@@ -96,6 +101,7 @@ app.get('/faq.html', (req, res) => {
 
         });
 
+        // query to retrieve details of successful tickets
         con.query(`SELECT ticket.problem_description, 'Hardware' as 'prob_name', problem_type.name
     from ticket 
     INNER JOIN problem_type ON problem_type.problem_type_id = ticket.problem_type_id 
@@ -130,6 +136,8 @@ app.get('/faq.html', (req, res) => {
 
             });
 
+            // socket operation for retrieving successful ticket solution details and displaying (emitting) them
+
         io.on('connection', (socket) => {
             socket.on("solution_details", (msg) => {
                 con.query(`SELECT ticket.problem_description, ticket.notes, problem_type.name, solution.solution_description 
@@ -158,8 +166,11 @@ app.get('/faq.html', (req, res) => {
             });
         })
 
+        // socket operations for updating ticket table
         io.on('connection', (socket) => {
             socket.on("add_ticket", (msg) => {
+
+                // QUERIES THAT TAKES USER INPUTS AND STORES IN THE DATABASE AS THE RIGHT VALUE FORMATS
 
                 con.query(`SELECT problem_type_id from problem_type where name = ?;`, [msg.prob_type], function (err, result, fields) {
                     if (err) throw err;
