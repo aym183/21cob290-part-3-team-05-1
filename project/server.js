@@ -330,6 +330,13 @@ app.get('/intspecialist.html', (req, res) => {
     /* Validation to check whether the logged in user is an internal specialst */
     if (req.session.loggedin && session_job == "Specialist") {
 
+        con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and status != "dropped"`, [session_id],
+            function (err, result, fields) {
+                if (err) throw err;
+
+                session_tickets = (JSON.stringify(result)).substring(21, 22);
+            });
+
         /* Displaying all ticket details on external spec dashboard */
         con.query(`SELECT ticket_id, status, last_updated, problem_type.name, priority, h.name  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
@@ -348,30 +355,31 @@ app.get('/intspecialist.html', (req, res) => {
                 query_output = result;
             });
             
-        /* Displaying hardware_id in ticket details */
+        /* Getting all hardware ids for datalist */
         con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
             if (err) throw err;
             hardware_id = result;
         });
 
-        /* Displaying operating system name in ticket details */
+        /* Getting all operating systems for datalist */
         con.query(`SELECT name from operating_system;`, function (err, result, fields) {
             if (err) throw err;
             operating_system = result;
         });
 
-        /* Displaying software name in ticket details */
+        /* Getting all softwares for datalist */
         con.query(`SELECT name from software;`, function (err, result, fields) {
             if (err) throw err;
             software_datalist = result;
         });
 
-        /* Displaying problem type in ticket details */
+        /* Getting all problem types for datalist */
         con.query(`SELECT name from problem_type;`, function (err, result, fields) {
             if (err) throw err;
             prob_type_vals = result;
         });
 
+        /* Getting all handler names for datalist */
         con.query(`SELECT employee.name, count(ticket_id) from ticket INNER JOIN handler ON ticket.handler_id = handler.user_id
         INNER JOIN employee ON handler.user_id = employee.employee_id
         WHERE ticket.status != 'closed'
@@ -385,13 +393,7 @@ app.get('/intspecialist.html', (req, res) => {
             handlers = result;
         });
 
-        con.query(`SELECT COUNT(ticket_id) FROM ticket WHERE ticket.handler_id = ? and status != "dropped"`, [session_id],
-            function (err, result, fields) {
-                if (err) throw err;
-
-                session_tickets = (JSON.stringify(result)).substring(21, 22);
-            });
-
+        /* Query to display tickets */
         con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
         WHERE ticket.handler_id = ? and status != "dropped"
@@ -982,7 +984,7 @@ app.get('/index.html', (req, res) => {
                 session_tickets = (JSON.stringify(result)).substring(21, 22);
             });
 
-        /* Getting all hardware id's for datalist */
+        /* Getting all hardware ids for datalist */
         con.query(`SELECT hardware_id from hardware;`, function (err, result, fields) {
             if (err) throw err;
             hardware_id = result;
@@ -1020,7 +1022,7 @@ app.get('/index.html', (req, res) => {
             handlers = result;
         });
 
-        // Query to display tickets
+        /* Query to display tickets */
         con.query(`SELECT ticket_id, status, problem_type.name  FROM ticket 
         INNER JOIN problem_type ON ticket.problem_type_id = problem_type.problem_type_id 
         WHERE ticket.employee_id = ?
@@ -1148,8 +1150,8 @@ app.get('/index.html', (req, res) => {
                             handler_id = result[0].user_id;
 
                             con.query(`UPDATE ticket 
-                    SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
-                    WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated, handler_id, parseInt(msg.id)], function (err, result, fields) {
+                            SET priority = ?, operating_system = ?, problem_description = ?, notes = ?, hardware_id = ?, software_id = ?, problem_type_id = ?, last_updated =?,  handler_id = ? 
+                            WHERE ticket_id = ?`, [msg.priority, msg.os, msg.problem_description, msg.notes, parseInt(msg.hardware_id), software_id, problem_type_id, msg.last_updated, handler_id, parseInt(msg.id)], function (err, result, fields) {
 
                                 if (err) throw err;
                                 socket.disconnect(0);
