@@ -128,7 +128,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const problem_type = document.getElementById("problem-type").value;
   const handler_name = document.getElementById("handler-name").value;
   var employee_name = document.getElementById('employee_name').value;
-
+  
   valid_details = []
 
   if(!hardware_list.includes(hardware_id)){
