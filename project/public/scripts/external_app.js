@@ -11,12 +11,6 @@ var ready = (callback) => {
 
 var problemTypes = [];
 
-ready(() => { 
-    // loadData(); 
-    // getProblemTypes();
-});
-
-
 function sendTicket(data) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "../../server.js");
@@ -56,10 +50,8 @@ function convertDate(){
 
     for(let i = 0; i<nodes.length; i++){
         var iteration = element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML;
-        console.log(iteration);
         var date = new Date(iteration).toLocaleDateString();
         element.getElementsByTagName("tr")[i].getElementsByTagName("td")[4].innerHTML= date;
-        console.log(date);   
     }
 }
 
@@ -70,8 +62,6 @@ function convertDate(){
  */
 function showTicketInfo(data) {   
     
-
-        console.log(data);
         old_description = data.problem_description;
         old_notes = data.notes;
         document.getElementById('detail-status').innerHTML =  data.status;
@@ -219,26 +209,17 @@ ready(() => {
             status: e.target.closest("tr").children[0].textContent
         }
 // Creation of socket
-        console.log(data);
         socket.emit('message',  data);
 
         // after data is recieved, calling function to show ticket info
         socket.on('message', function(data, json) {
-            console.log(json[0]);
-        
             showTicketInfo(json[0]); 
           });
-        
-        
-        // console.log(data);
         const jsonString = JSON.stringify(data)
-
         var status = data.status;
      
-        
         if (status=="submitted") {
             
-            console.log("HERE");
             document.querySelector(".solutionArea__section").style.display = "block";
             document.querySelector("#submit-btn").setAttribute('disabled','disabled');
             document.querySelector("#submit-btn").style.cursor = "default";
@@ -254,46 +235,21 @@ ready(() => {
                  c[i].style.display = 'none';
             }
             
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                
-            
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
             document.querySelector('.solution-status').innerText = "";
-
-            
         }
         else {
             var c = document.querySelectorAll('.closed__field');
             for (var i = 0; i < c.length; i++) {
                  c[i].style.display = 'none';
             }
-            
-            
-                document.querySelector("#submit-btn").setAttribute('disabled','disabled');
-                document.querySelector("#submit-btn").style.cursor = "default";
-                document.querySelector("#submit-btn").style.opacity = "0.3";
-            
-
-            
+            document.querySelector("#submit-btn").setAttribute('disabled','disabled');
+            document.querySelector("#submit-btn").style.cursor = "default";
+            document.querySelector("#submit-btn").style.opacity = "0.3";
             document.querySelector('.solution-status').innerText = "";
-
-            if (document.querySelector(".discard-solution") !== null) {
-                document.querySelector(".discard-solution").style.display = "none";
-            }
         } 
 
-        if (document.querySelector(".discard-solution") !== null) {
-            for (const element of operator_table) {
-                if (element['name'].includes(e.target.closest("tr").children[5].textContent)) {
-                    document.querySelector(".discard-solution").style.display = "none";
-                    document.querySelector(".previous-solution").style.display = "block";
-                    break;
-    
-                } else {
-                    document.querySelector(".previous-solution").style.display = "none";
-                }
-            }
-        }
     });
 
     document.querySelector("#spec-editSolution-btn").addEventListener("click", (e) => {
@@ -312,15 +268,9 @@ ready(() => {
             document.querySelector("#solution-area").style.backgroundColor = "rgb(236, 236, 236)";
             document.querySelector(".solutionArea__section").style.backgroundColor = "rgb(236, 236, 236)";
             document.querySelector("#solution-area").style.pointerEvents = "none";
-            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";
-            // document.querySelector("#submit-btn").setAttribute('enabled','enabled');
-            // document.querySelector("#submit-btn").style.cursor = "default";
-            // document.querySelector("#submit-btn").style.opacity = "1";
-            
+            document.querySelector("#spec-editSolution-btn").innerHTML = "edit";            
         }   
     }); 
-    
-  
 });
 
 // EDIT BUTTON ----------------
@@ -643,56 +593,23 @@ function ticketDetailTable(table_type, input) {
 
 //Dropping of tickets
 ready(() => { 
-        
-        // console.log(document.getElementById("#detail-status").innerHTML);
     var drop_btn = document.querySelector("#drop-btn");
     drop_btn && drop_btn.addEventListener("click", (e) => {
         socket = io();
-
         popupCreator("drop", "Are you sure you want to drop ticket?", "", "Cancel", "Confirm", "");
-
-
     });
-
 });
-
 
 //Ticket Submission
 ready(() => { 
 
     document.querySelector("#submit-btn").addEventListener("click", (e) => {
-        console.log("Solution");
         socket = io();
         popupCreator("submitSolution", "Are you sure you want to submit ticket?", "", "Cancel", "Confirm", "");       
         document.querySelector(".solution-status").style.color = "rgb(3, 149, 3)";             
         document.querySelector(".solution-status").textContent = "Solution Submitted";
-    
-     
-    // submit_btn && submit_btn.addEventListener("click", (e) => {
-        // var submit_solution =  document.getElementById("solution-area").value;   
-        // var ticket_status = document.getElementById('detail-status').innerHTML;
-        // var ticket_id = document.getElementById('detail-id').innerHTML;
-        // var handler_name =document.getElementById('handler-name').value;
-        // const data = {
-        //     solution: submit_solution,
-        //     status: ticket_status,
-        //     id: ticket_id,
-        //     h_name: handler_name
-        // }
-        //console.log(handler_name);
-        // console.log(data);
-        // console.log(submit_solution); 
-        // socket.emit("Submit-Ticket", data);
-
-        
-        console.log(ticket_status);
     });
-    
-
-
 });
-
-
 
 ready(() => {
 

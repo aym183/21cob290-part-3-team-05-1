@@ -1,3 +1,4 @@
+// variable declaration
 var problemTypes = [];
 var data_lists = ["hardware-numbers2", "new-operating-systems", "software-list", "problem-types", "handler-names"];
 var priority_list = ["high", "medium", "low"];
@@ -11,12 +12,18 @@ var temp_error = [];
 const employee_name = "";
 
 
+/**
+ * Function that shows employee name, the current employee logged in
+ */
 function showEmployeeName() { 
   
   document.getElementById('employee_name').value=sessionStorage.getItem("employee_name");
   
 }
 
+/**
+ * Function that controls displaying the successful tickets as a table
+ */
 function addRowHandlers() {
     var table = document.getElementById("table-info");
     var rows = table.getElementsByTagName("tr");
@@ -32,16 +39,21 @@ function addRowHandlers() {
     }
 }
 
+/**
+ * Function that gets the problem solution information
+ * @param {object} data object containing some values successful ticket solutions... 
+ * ...such as problem description, solution, notes, problem type
+ */
 function showSolutionInfo(data) {   
-    console.log(data);
+
     document.getElementById('solutionBox').value =  data.solution_description;
     document.getElementById('description').value =  data.problem_description;
-    document.getElementById('notes').value =  data.notes;
-    document.getElementById('problem-type').value =  data.name;
+    document.getElementById('notes_new').value =  data.notes;
+    document.getElementById('problem_type').value =  data.name;
 
-    // document.getElementById('solutionBox').value = data.solution_description;
 }
 
+// display the "gotten" information about each successful ticket
 document.querySelector(".ticket__table tbody").addEventListener("click", (e) => {
     const socket=io();
     
@@ -49,20 +61,17 @@ document.querySelector(".ticket__table tbody").addEventListener("click", (e) => 
         problem_description: e.target.closest("tr").children[0].textContent
     }
 
-    console.log(data);
-    console.log('hello');
-
     socket.emit('solution_details',  data);
 
+
+    // after data is recieved, calling function to show ticket solution details
     socket.on('solution_details', function(data, json) {
-      console.log('hello2');
-      console.log(data);
       showSolutionInfo(data);
-      // showTicketInfo(json[0]); 
     });
 
 });
 
+// when add ticket button is clicked, make form and "cancel button" visible and hide "add ticket" button.
 document.querySelector("#add-btn").addEventListener("click", (e) => {
 
   document.getElementById("employee_name").style.backgroundColor="rgb(236, 236, 236)";
@@ -73,7 +82,6 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="block";
   document.querySelector("#add-btn").style.display="none";
   document.querySelector("#cancel-btn").style.display="block";
-  
 
   const socket=io();
     
@@ -88,19 +96,20 @@ document.querySelector("#add-btn").addEventListener("click", (e) => {
       sessionStorage.setItem("employee_name", data.name);
     }
     
+    // calling function to show employee name
     showEmployeeName(); 
 
     socket.destroy();
   });
 });
 
+
+// when ticket is submitted, hide buttons and form, update the database
 document.querySelector(".submitTicket").addEventListener("click", (e) => {
-    console.log("ladi");
 
     socket = io();
 
     for(let i = 0; i<data_lists.length; i++){
-      //console.log(document.getElementById("new-operating-systems"));
       var current_list = span_list[i];
       var x = document.getElementById(data_lists[i]);
       var j;
@@ -118,11 +127,8 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
   const notes = document.getElementById("notes").value;
   const problem_type = document.getElementById("problem-type").value;
   const handler_name = document.getElementById("handler-name").value;
-  var employee_name = document.getElementById('employee_name').value;//="";
+  var employee_name = document.getElementById('employee_name').value;
 
-  
-  
-  // console.log(hardware_list);
   valid_details = []
 
   if(!hardware_list.includes(hardware_id)){
@@ -153,7 +159,6 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
 
   if (valid_details.length != 0) {
 
-      console.log("I am not null");
       for (const element of valid_details) {
           document.querySelector('#'+element).style.borderColor = 'rgb(255,0,51)';
           document.querySelector(`label[for='${element}']`).style.color = 'rgb(255,0,51)';
@@ -173,10 +178,7 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
           document.querySelector(`#${element}-error`).style.display = 'none';
       }
 
-
-      var status1 = document.getElementById('status').value;//="";
-      console.log(status1);
-
+      var status1 = document.getElementById('status').value;
 
       var today = new Date();
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -194,14 +196,10 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
         notess: notes,
         date: date
       }
-      //console.log(handler_name);
-      console.log(data);
-      console.log(data.statuss); 
-      socket.emit("add_ticket", data);
-  
-      //popupCreator("Ticket Submitted");
-  
 
+      socket.emit("add_ticket", data);
+
+      // after data is sent to database, form values are reset
       document.getElementById('employee_name').value="";
       document.getElementById('status').value="active";
       document.getElementById('priority').value="";
@@ -218,12 +216,11 @@ document.querySelector(".submitTicket").addEventListener("click", (e) => {
       document.querySelector("#add-btn").style.display="block";
       document.querySelector("#cancel-btn").style.display="none";
   }
-
-
     
 });
 
 
+// when "cancel button" is clicked, ticket creation is not completed and the form values are reset 
 document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.querySelector(".AddTicketContainer").style.display="none";
   document.querySelector("#add-btn").style.display="block";
@@ -239,6 +236,5 @@ document.querySelector("#cancel-btn").addEventListener("click", (e) => {
   document.getElementById('operating-system').value="";
   document.getElementById('problem_description').value="";
   document.getElementById('notes').value="";
-  
 
 });

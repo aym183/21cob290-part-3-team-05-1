@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- STYLESHEETS USED -->
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
     <title>External Specialist Home Page</title>
 </head>
@@ -28,11 +30,7 @@
 
             <div class="profile__container">
                 <a href="/account.html" class="profile__item" id="profile-username">
-
                     <p id="username"><%=loggeduser%></p>
-                    <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
                 </a>
             </div>
         </div>
@@ -40,7 +38,6 @@
 
     </div>
     <div class="main__section">
-
         <!-- SIDE NAVBAR SECTION -->
         <div class="navbar">
             <div class="navbar__container">
@@ -51,12 +48,6 @@
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>
-                    <!-- <a href="faq.html" class="navbar__item-div">
-                        <li class="navbar__item">
-                            <p><i class="fas fa-plus"></i></p>
-                            <p class="navbar__links">Problem Resolutions</p>
-                        </li>
-                    </a> -->
                     <a href=/account.html class="navbar__item-div">
                         <li class="navbar__item">
                             <p><i class="fas fa-user"></i></p>
@@ -73,17 +64,6 @@
             <div class="table-detail__section">
                 <div class="table-title__container">
                     <h5 class="table-title">Tickets</h5>
-                    <span class="total-tickets">
-                        <!-- <?php
-                        $sql = "SELECT * FROM ticket";
-                        if ($result=mysqli_query($conn, $sql)) {
-                            $rowcount=mysqli_num_rows($result);
-                            echo 'Total '. $rowcount. ' (50 per page)'; 
-                        } else {
-                            echo 'Total 0 (50 per page)';
-                        }
-                    ?> -->
-                    </span>
                 </div>
             </div>
             <table class="ticket__table op-ticket-table" id="table-info">
@@ -93,9 +73,7 @@
                         <th>ID</th>
                         <th>Priority</th>
                         <th>Problem Type</th>
-                        <!-- <th>Name</th> -->
                         <th>Last Updated</th>
-                        <!-- <th>Handler</th> -->
                     </tr>
                 </thead>
 
@@ -121,7 +99,7 @@
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="external.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="external.html" id="back-btn"><i class="fa fa-arrow-left"></i></a>
                         </div>
                     </div>
                     <div class="information__title">
@@ -130,8 +108,9 @@
 
                 </div>
             </div>
+            <!-- TICKET DETAILS  -->
             <div class="mainSection__wrapper">
-                <div class="ticketInformation__container">
+                <div class="ticketInformation__container" style="background-color: rgba(24, 17, 82, 0.11);">
                     <div class="details__container">
                         <table class="details__table">
                             <thead>
@@ -151,6 +130,7 @@
                     <button type="button" class="drop-btn" id="drop-btn" style="transform: translateX(50%);">Drop Ticket</button><br>            
                     <button class="info-edit-btn" id="edit-btn" style="transform: translateX(50%);">Edit</button><br><br>
                     <div class="ticket__information">
+                        
                             <label for="Priority">Priority</label>
                             <input type="text" id="priority" class="no-edit-field" value="" readonly>                    
                             <label for="hardware-id">Hardware ID</label>
@@ -163,8 +143,7 @@
                             <label for="hardware-make">Equipment Make</label>
                             <input type="text" id="hardware-make" class="no-edit-field" value="" readonly>
                             <label for="operating-system">Operating System</label>
-                            <input type="text" id="operating-system" class="no-edit-field" list="operating-systems" value=""
-                                readonly>
+                            <input type="text" id="operating-system" class="no-edit-field" list="operating-systems" value="" readonly>
         
                             <span class="validation_error" id="operating-system-error"></span>
                             <label for="software">Software</label>
@@ -210,6 +189,7 @@
 
             </div>
 
+            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
                     <p>Submit Form</p>
@@ -248,14 +228,14 @@
                 </div>
             </div>
         </div>
-        <footer>
-            <p class="center">&#169; 2022 Team 5</p>
-        </footer>
     </div>
+    <footer>
+        <p class="center">&#169; 2022 Team 5</p>
+    </footer>
+    <!-- SCRIPTS USED  -->
     <script src="scripts/function.js"></script>
     <script src="scripts/external_app.js"></script>
     <script src="/socket.io/socket.io.js"></script>
   
 </body>
-
 </html>

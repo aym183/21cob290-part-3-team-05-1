@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Home Page</title>
 </head>
 <body>
@@ -23,13 +24,10 @@
 
                 <div class="profile__container">
                     <a href="account.html" class="profile__item" id="profile-username">
-                        
+
+                        <!-- get session for logged user and display at the top of the page -->
                         <p id="username"><%=loggeduser%></p>
-                        <!--This is James part
-                        -->
-                        <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
+
                     </a>
                 </div>
             </div>
@@ -44,19 +42,16 @@
                 <ul class="navbar__menu">
                     <a href="index.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>   
                     <a href="faq.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-plus"></i></p>
                             <p class="navbar__links">Problem Resolutions</p>
                         </li>
                     </a>           
                     <a href="account.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-user"></i></p>
                             <p class="navbar__links">Account</p>
                         </li>
                     </a>
@@ -98,18 +93,20 @@
 
             <br>
 
+            <!-- Create a new ticket  -->
             <div>
                 <button type="button" class="form-btn" id="add-btn" style="color:black; background-color: #afb5f7;">Add Ticket</button>
             </div>
 
+            <!-- Cancel creating a ticket -->
             <div>
                 <button type="button" class="form-btn" id="cancel-btn" style="color:black; background-color: #afb5f7; display: none;">Cancel Ticket</button>
             </div>
 
+            <!-- Ticket creation "form" -->
             <div>
-            <!--method="post" action="/..." class="form__content"-->
                 <div class="AddTicketContainer" style="display: none;">
-                    <label class="required" for="employee_name">Employee Name</label>
+                    <label for="employee_name" required>Employee Name</label>
                     <div>
                         <input type="text" id="employee_name" class="no-edit-field" value="" readonly>
                     </div>
@@ -138,9 +135,9 @@
                 </div>
                     <br>
                     
-                    <label for="description">Problem Description</label>
+                    <label class="required" for="description">Problem Description</label>
                     <div>
-                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;"></textarea> 
+                    <textarea type="text" id="problem_description" maxlength = "300" class="edit-field" rows="5" style="width: 100%;" required></textarea> 
                     <div id = 'remaining_chars' style="text-align: right;">300 characters remaining</div>
                     </div>
                     <br>
@@ -152,7 +149,7 @@
                     <br>
 
                 <div>
-                    <label for="handler-name">Handler Name</label>
+                    <label class="required" class="required" for="handler-name">Handler Name</label>
                     
                         <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" required>
                     
@@ -166,7 +163,7 @@
                     <br>
 
                 <div>
-                    <label for="operating-system">Operating System </label>  
+                    <label class="required" for="operating-system">Operating System </label>  
                
                         <input type="text" id="operating-system" class="edit-field" list="new-operating-systems" value="" required>
                     
@@ -183,7 +180,7 @@
                     <br>
 
                 <div>
-                    <label for="hardware-id">Hardware ID</label>  
+                    <label class="required" for="hardware-id">Hardware ID</label>  
                     
                         <input type="text" id="hardware-id" class="edit-field" list="hardware-numbers2" value="" required>
                     
@@ -201,7 +198,7 @@
                     <br>
 
                     <div>
-                    <label for="software">Software Name</label>  
+                    <label class="required" for="software">Software Name</label>  
                  
                         <input type="text" id="software" class="edit-field" list="software-list" value="" required>
               
@@ -239,41 +236,35 @@
         </div>
 
         <div class="mainSection__container" id="ticket-info">
-            <!-- TICKET INFORMATION HEADER SECTION (display: none)  -->
+            <!-- FAQ INFORMATION HEADER SECTION (display: none)  -->
             <div class="header__container" id="info-headers">
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="faq.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="faq.html" id="back-btn"><i class="fa fa-arrow-left"></i></a>
                         </div>   
                     </div>
-                    <!-- <div class="information__title">
+                    <div class="information__title">
                         <h2>FAQ Answer</h2>
-                    </div>  -->
+                    </div> 
 
                 </div>
-                <div class="information__title">
-                    <h2>FAQ Answer</h2>
-                </div> 
             </div>
-            <div class="faq_answer"> <!--style="background-color: var(--secondaryColor); box-shadow: 0 0 6px;
-            display: flex; flex-direction: column; padding: 20px 20px;"> -->
-
+            <!-- FAQ Details Section -->
+            <div class="faq_answer" style="background-color: rgba(24, 17, 82, 0.11);"> 
                 <span class="validation_error" id="software-error"></span>
                 <label for="description">FAQ Description</label>
                 <textarea type="text" id="description" maxlength = "300" class="no-edit-field" rows="5" value="" readonly></textarea> 
-                <!-- <div id='remaining_chars'>300 characters remaining</div> -->
     
                 <br>
                 
-                <label for="notes">Notes</label>  
-                <textarea type="text" id="notes" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
-                <!-- <div id='notes_remaining_chars'>1000 characters remaining</div> -->
-        
+                <label for="notes_new">Notes</label>  
+                <textarea type="text" id="notes_new" maxlength = "1000" class="no-edit-field" rows="5" value="" readonly></textarea>
+      
                 <br>
                
-                <label for="problem-type">Problem Type</label>
-                <input type="text" id="problem-type" class="edit-field" list="problem-types" value="" readonly>  
+                <label for="problem_type">Problem Type</label>
+                <input type="text" id="problem_type" class="edit-field" value="" readonly>  
                 
                 <br>
             

@@ -102,20 +102,20 @@ INSERT INTO `analyst` VALUES
 (2007, 2007);
 
 INSERT INTO `ticket` (`ticket_id`, `employee_id`, `status`, `priority`, `problem_description`, `notes`, `creation_date`, `last_updated`, `handler_id`, `operating_system`, `hardware_id`, `software_id`, `problem_type_id`, `number_of_drops`, `closing_date`, `closing_time`) VALUES
-(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 ,  'Apple iOS 14', 1 ,  2,  2 , 1,  NULL , NULL ),
+(1, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 1011 ,  'Apple iOS 14', 1 ,  2,  2 , 4,  NULL , NULL ),
 (2, 2005, 'dropped','low' , 'Zoom meeting not connecting', 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001, 'Apple Mac OSX 12' ,  4, 8,    5 , 1 ,NULL ,NULL),
-(3, 2008, 'active' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 3, 7,  7, 0 ,'2022-03-03', '01:00:30'),
+(3, 2008, 'unsolvable' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 3, 7,  7, 6 ,NULL, NULL),
 (4, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 'Apple iOS 14' ,  5 , 6,  9, 0 ,'2022-02-24','12:34:00'),
 (5, 2014, 'active' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001,'Apple Mac OSX 12' ,  2,   1 ,   12, 0 ,NULL , NULL    ),
 (6, 2005, 'submitted' , 'high' ,  'Excel not opening' , 'Screen just freezes' , '2022-03-01' ,'2022-03-01', 2001,'Microsoft Windows 10', 2, 2, 10, 0 , NULL , NULL    ),
 (7, 2005, 'active' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 ,  'Apple iOS 15', 1 ,  5 ,  11, 1,  NULL , NULL ),
 (8, 2005, 'dropped','low' , 'Zoom meeting not connecting', 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001, 'Microsoft Windows 11' ,  1, 7 , 8, 1 ,NULL ,NULL),
-(9, 2008, 'active' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 7, 7,  3, 0 ,'2022-03-03', '01:00:30'),
+(9, 2008, 'active' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 7, 7,  3, 0 ,NULL, NULL),
 (10, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 2010, 'Apple Mac OSX 12' ,  7 , 1,  5, 0 ,'2022-02-24','12:34:00'),
 (11, 2014, 'active' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001,'Microsoft Windows 10' ,  2,   23,  9, 0 ,NULL , NULL    ),
 (12, 2005, 'submitted' , 'medium' ,'Computer not working' ,'C stuck on black screen when turning on' , '2022-03-09' , '2022-03-09' , 2002 ,  'Apple iOS 15', 1 ,  6 ,  10, 1,  NULL , NULL ),
 (13, 2005, 'dropped','low' , 'Zoom meeting not connecting', 'Zoom connection unstable' , '2022-03-01', '2022-03-02' ,  2001, 'Apple Mac OSX 12' , 4, 5 ,    12, 1 ,NULL ,NULL),
-(14, 2008, 'submitted' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 3, 8,  1, 0 ,'2022-03-03', '01:00:30'),
+(14, 2008, 'submitted' ,'low', 'Reboot system and replace cartridges', 'Canon Pixma not detecting ink cartridges '  ,'2022-03-01' , '2022-03-03', 1011, 'Microsoft Windows 11' , 3, 8,  1, 0 , NULL, NULL),
 (15, 2008, 'closed','high' , 'Boot OS from an external hard drive or USB' ,'Apple OS refuses to boot' , '2022-02-23', '2022-02-24' , 1022, 'Apple iOS 14' ,  5 ,7,  6, 0 ,'2022-02-24','12:34:00'),
 (16, 2014, 'unsuccessful' ,'medium' ,  'Credentials not working' ,'Department MS Office credentials not working' , '2022-03-01' ,'2022-03-01', 2001,'Apple Mac OSX 12' ,  2,   2 ,  7, 0 ,NULL , NULL    );    
 

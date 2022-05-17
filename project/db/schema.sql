@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS software (
     PRIMARY KEY (software_id)
 );
 
-CREATE TABLE IF NOT EXISTS problem_type (u
+CREATE TABLE IF NOT EXISTS problem_type (
     problem_type_id MEDIUMINT UNSIGNED NOT NULL UNIQUE,
     name      VARCHAR(150) NOT NULL UNIQUE,
     links_to VARCHAR(300),
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS analyst (
 CREATE TABLE IF NOT EXISTS ticket (
     ticket_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     employee_id MEDIUMINT UNSIGNED NOT NULL,
-    status ENUM('active', 'dropped', 'submitted', 'closed', 'unsuccessful') NOT NULL,
+    status ENUM('active', 'dropped', 'submitted', 'closed', 'unsuccessful', 'unsolvable') NOT NULL,
     priority ENUM('medium', 'low', 'high') NOT NULL,
     problem_description VARCHAR(300),
     notes VARCHAR(1000),

@@ -1,4 +1,12 @@
-function popupCreator(btnName, msg1, msg2, button1, button2, element) {
+/**
+ * Creates popup for specified operations and handles them
+ * @param {string} btnName name that identifies what type of popup to create
+ * @param {string} msg1 Contains message to be displayed to user
+ * @param {string} msg2 Contains second optional message to be displayed to user
+ * @param {string} button1 Contains text to be displayed on failure event
+ * @param {string} button2 Contains text to be displayed on success event
+ */
+function popupCreator(btnName, msg1, msg2, button1, button2) {
     
     const popup = document.createElement('div');
     popup.className = 'popup';
@@ -10,6 +18,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
     p2.textContent = msg2;
     
 
+    /* Popup specifications for dropping ticket confirmation popup */
     if (btnName == "drop") {
         var reason = popup.appendChild(document.createElement('textarea'));
         reason.className = "reason-area";
@@ -18,13 +27,10 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
         reason.setAttribute("maxlength", "300");
         reason.setAttribute("rows", "3");
         reason.setAttribute("cols", "25");
-        
-    
     }
 
     const buttons = popup.appendChild(document.createElement('div'));
     buttons.className="popup-btns-container";
-
     const btn1 = buttons.appendChild(document.createElement('button'));
     btn1.className = "form-btn cancel-btn";
     btn1.textContent = button1;
@@ -41,6 +47,7 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
         var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();      
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
+        /* Popup specifications for closing tickets confirmation popup */
         if (btnName == "close") {
 
             const data = {
@@ -49,14 +56,15 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 id: document.getElementById('detail-id').innerHTML,
                 date: date,
                 time: time
-
             };
-            // const jsonString = JSON.stringify(data);
+
             changeStatus(data);
-            // window.location.href = "index.html";
+            
+        /* Action after logout popup confirmation */
         } else if (btnName == "logout") {
             logout();
             
+        /* Action after drop popup confirmation */
         } else if (btnName == "drop") {
             const data = {
                 new_status: 'dropped',
@@ -66,7 +74,6 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 current_dateTime: time,
                 current_date: date
             };
-            // const jsonString = JSON.stringify(data);
             dropStatus(data);
             
             //-----This will update ticket history log
@@ -87,7 +94,8 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
             updateHistory(ticket_details);
             document.querySelector(".overlay").remove();          
             
-        } else if (btnName == "submitSolution") { /* Submit solution value */
+        /* Action after submitting solution popup confirmation */
+        } else if (btnName == "submitSolution") { 
             
             const ticket_id = document.getElementById('detail-id').innerHTML;
             const handler_name =document.getElementById('handler-name').value;
@@ -98,53 +106,60 @@ function popupCreator(btnName, msg1, msg2, button1, button2, element) {
                 id: ticket_id,
                 h_name: handler_name
             };
-        
             submitTicket(data);
-
         } 
         document.querySelector(".overlay").remove();
         
     });
 
-    
-    //<input id="caller-name" type="text" class="field" autocomplete="off" required="required"></input>
-    
     /* Create the overlay. */
     var overlay = document.createElement('div');
     overlay.className = 'overlay';
     overlay.appendChild(popup);
-            
-    /* Add the overlay. */
     document.body.appendChild(overlay);
-
 }
 
+
+/**
+ * Function that goes about handling closing of tickets
+ * @param {object} data object containing values required for closing ticket such as status, soln, date and time of closing
+ */
 function changeStatus(data){
     const socket = io();
     socket.emit('close_ticket', data);
-    console.log(data);
 }
 
+/**
+ * Function that goes about dropping of tickets
+ * @param {object} data object containing values required for dropping of the ticket such as reason, ticket id etc
+ */
 function dropStatus(data){
     const socket = io();
     socket.emit('drop_ticket', data);
-    console.log(data);
 }
 
-function updateHistory(data, type){
+/**
+ * Function that goes about updating history log for each ticket
+ * @param {object} data object containing values required for updating history log such as the changed values and changed names
+ */
+function updateHistory(data){
     const socket = io();
-    socket.emit("update_history", data);
-    
+    socket.emit("update_history", data); 
 }
 
-
+/**
+ * Function that goes about submitting solution 
+ * @param {object} data object containing values required for submitting solution such as solution, handler details etc
+ */
 function submitTicket(data){
     const socket = io();
     socket.emit("Submit-Ticket", data);
 }
 
+/**
+ * Function that goes about conducting logout
+ */
 function logout(){
-    console.log("clicked");
     window.location.href = '/logout';
 }
 

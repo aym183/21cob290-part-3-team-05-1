@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
+    <!-- STYLESHEETS USED  -->
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type = 'text/css' href="/styles/styles.css" />
-
     <title>Home Page</title>
 </head>
 <body>
@@ -27,11 +27,6 @@
                     <a href="/account.html" class="profile__item" id="profile-username">
 
                         <p id="username"><%=loggeduser%></p>
-                        <!--This is James part
-                        -->
-                        <!-- <?php
-                            echo '<p id="username">'. $uname .'</p>'
-                        ?> -->
                     </a>
                 </div>
             </div>
@@ -46,19 +41,16 @@
                 <ul class="navbar__menu">
                     <a href="index.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-home"></i></p>
                             <p class="navbar__links">Home</p>
                         </li>
                     </a>
                     <a href="faq.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-plus"></i></p>
                             <p class="navbar__links">Problem Resolutions</p>
                         </li>
                     </a>           
                     <a href="/account.html" class="navbar__item-div">
                         <li class="navbar__item">
-                            <p><i class="fas fa-user"></i></p>
                             <p class="navbar__links">Account</p>
                         </li>
                     </a>
@@ -114,7 +106,7 @@
                 <div class="header__wrapper">
                     <div class="header-wrapper">
                         <div class="info-item">
-                            <a href="index.html" id="back-btn"><i class="fas fa-arrow-left"></i></a>
+                            <a href="index.html" id="back-btn"><i class="fa fa-arrow-left"></i></a>
                         </div>   
                     </div>
                     <div class="information__title">
@@ -123,8 +115,9 @@
 
                 </div>
             </div>    
+            <!-- TICKET DETAILS -->
             <div class="mainSection__wrapper">
-                    <div class="ticketInformation__container">
+                <div class="ticketInformation__container" style="background-color: rgba(24, 17, 82, 0.11);">
                         <div class="details__container">
                         <table class="details__table">
                             <thead>
@@ -142,10 +135,10 @@
                         
                             </tbody>
                         </table> 
-                        </div>        
-                        <button class="info-edit-btn" id="edit-btn" style="transform: translateX(50%);">Edit</button><br><br>
-                        <div class="ticket__information">                            
-                           
+                        </div>    
+                        <button class="info-edit-btn" id="edit-btn" style="transform: translateX(50%);">Edit</button>    
+                        <div class="ticket__information">  
+                            <label for="spacing"> </label>                          
                             <label for="priority">Priority</label>
                             <input list="priority-list" type="text" id="priority" class="edit-field" value="" readonly>
                             <datalist id="priority-list">
@@ -206,7 +199,7 @@
                                 <% } %>
                             </datalist>
                             <span class="validation_error" id="problem-type-error"></span>
-                            <label for="handler-name">Handler Name</label>
+                            <label for="handler-name" id="handler-remove">Handler Name</label>
                             <input type="text" id="handler-name" class="edit-field" list="handler-names" value="" readonly>
                             <datalist id="handler-names">
                                 <% for(var i=0; i < handler_vals.length; i++) { %>
@@ -232,11 +225,10 @@
                                 <button type="button" class="form-btn" id="update-btn">Update</button>
                             </div>
                         </div>
-                        
                     </div>
-
             </div>    
         
+            <!-- CLOSE FORM SECTION -->
             <div class="closeForm__section">
                 <div class="closeForm__wrapper tile">
                     <p>Close Form</p>
@@ -256,7 +248,7 @@
                         <div class="solutionArea__section">
                             <div class="solutionInput__wrapper">
                                 <textarea name="solution" id="solution-area" maxlength = "500" cols="60" rows="10" placeholder="Type solution..."></textarea>
-                                <!-- Previous Fixes -->
+                               
                                  
                             </div>
 
@@ -275,8 +267,7 @@
             <p class="center">&#169; 2022 Team 5</p>
         </footer>
     </div>
-
-    
+    <!-- SCRIPTS USED  -->    
     <script src="/scripts/app.js"></script>
     <script src="/scripts/function.js"></script>
     <script src="/socket.io/socket.io.js"></script>
