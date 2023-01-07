@@ -8,13 +8,7 @@ See the website:
 
 ## To-dos
 
-
 See the [Part 3](https://trello.com/invite/b/Z0fkeBWg/68b4863a7bf33d2dcad40f90b5d0ae1f/main) kanban board for the to-do list.
-
-## Documentation
-
-- [Requirements  [add link]]
-- Entity Relationship Diagram [add link]
 
 ## Stakeholder communication
 
